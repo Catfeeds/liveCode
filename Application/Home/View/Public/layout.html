@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <block name="title"><title>{$meta_title}｜{:C('WEB_SITE_TITLE')}</title></block>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="author" content="{:C('WEB_SITE_TITLE')}">
+    <meta name="keywords" content="{$meta_keywords}">
+    <meta name="description" content="{$meta_description}">
+    <meta name="generator" content="CoreThink">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="{:C('WEB_SITE_TITLE')}">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="shortcut icon" type="image/x-icon" href="__ROOT__/favicon.ico">
+    <link rel="apple-touch-icon" type="image/x-icon" href="__ROOT__/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="__CUI__/css/cui.min.css">
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/home.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/libs/animate/animate.min.css">
+	    <link rel="stylesheet" type="text/css" href="__CUI__/css/cui.extend.min.css">
+    <block name="style"></block>
+    <!--[if lt IE 9]>
+        <script src="http://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+        <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="__PUBLIC__/libs/jquery/1.x/jquery.min.js"></script>
+     <script type="text/javascript" src="__PUBLIC__/libs/jquery/1.x/jquery.min.js"></script>
+    <link href="__PUBLIC__/libs/bootstrap_table/bootstrap-table.min.css" rel="stylesheet">
+	    <script src="__PUBLIC__/libs/bootstrap_table/bootstrap-table.min.js"></script>
+	    <script src="__PUBLIC__/libs/bootstrap_table/locale/bootstrap-table-zh-CN.min.js"></script>
+	     <script src="__PUBLIC__/libs/layer/layer.js"></script>
+</head>
+
+<body>
+    <div class="clearfix hook hook-page-header">
+        {:hook('PageHeader')} <!-- 文档开始钩子 -->
+    </div>
+
+    <block name="wrap">
+        <div class="clearfix full-wrap">
+            <div class="clearfix full-header">
+                <block name="header">
+                    <block name="top-nav">
+                       
+                    </block>
+
+                    <block name="main-nav">
+                       
+                    </block>
+                </block>
+            </div>
+
+            <div class="clearfix full-container">
+             
+
+                <div id="main" class="main">
+                    <block name="main">这里是内容</block>
+                </div>
+            </div>
+
+            <div class="clearfix full-foooter">
+                <block name="footer">
+                    
+                </block>
+            </div>
+        </div>
+    </block>
+
+   
+
+    <div class="clearfix full-script">
+        <div class="container-fluid">
+            
+            <input type="hidden" id="corethink_home_img" value="__HOME_IMG__">
+            <script type="text/javascript" src="__CUI__/js/cui.min.js"></script>
+            <script type="text/javascript" src="__CUI__/js/cui.extend.min.js"></script>
+            <script type="text/javascript" src="__HOME_JS__/home.js"></script>
+              
+             <script type="text/javascript" src="__PUBLIC__/libs/layer/layer.js"></script>
+            <block name="script"></block>
+            {:C('WEB_SITE_STATISTICS')} <!-- 站点统计代码 -->
+        </div>
+    </div>
+</body>
+</html>

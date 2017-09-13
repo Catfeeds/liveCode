@@ -1,0 +1,145 @@
+<extend name="$_home_public_layout"/>
+
+<block name="style">
+    <link rel="stylesheet" type="text/css" href="__HOME__/user/css/style.css"/>
+</block>
+<block name="script">
+    <script src="__HOME__/user/js/tab.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HOME__/user/js/login.js" type="text/javascript" charset="utf-8"></script>
+</block>
+
+<block name="main">
+	<body>
+		<div class="main">
+			<div class="top">
+				<div class="w1000">
+					<div class="logo left">
+						<a href="#"><img src="img/logo.png"/></a>
+						<a href="#" class="buy_txt">购买</a>
+					</div>
+					<div class="step right">
+						<img src="img/step1.png"/>
+					</div>
+				</div>
+			</div>
+			<div class="mainwarp w1000">
+				<div class="choose_edition">
+					<p class="tit_txt"><span class="tit1">1.请选择版本</span>（一次性开通多年，还可以享受折扣优惠，年限越大，折扣越大。<font style="color: red;">2年9折！3年8折！5年7折！</font>详情请咨询我们在线售前工程师。）</p>
+					<ul class="edition">
+						<li>基础版</li>
+						<li class="edit_on">高级版</li>
+						<li>定制版</li>
+						<input type="hidden"  id="edition" value="1" />
+						<div class="clear"></div>
+					</ul>
+				</div>
+				<div class="choose_edition">
+					<p class="tit1">2.请选择时长</p>
+					<ul class="duration">
+						<li class="edit_on"><span><font class="jine">2000</font>元/年</span><p>1年</p></li>
+						<li><span><font class="jine">1800</font>元/年</span><p>2年</p></li>
+						<li><span><font class="jine">1600</font>元/年</span><p>3年</p></li>
+						<li><span><font class="jine">1600</font>元/年</span><p>4年</p></li>
+						<li><span><font class="jine">1400</font>元/年</span><p>5年</p></li>
+						<input type="hidden"  id="duration" value="0" />
+						<div class="clear"></div>
+					</ul>
+				</div>
+				<div class="now_buy">
+					<span>正在开通&nbsp;</span>  
+					<span class="col1">高级版1年</span>
+					<span>&nbsp;&nbsp;总计：<span class="col2">￥<font>2000</font></span></span>
+					<a href="#" class="buy_btn">现在支付</a>
+				</div>
+				<div class="contrast_tab">
+					<p class="tit1">版本对比表：</p>
+					<table border="1" cellspacing="0" cellpadding="0" class="con_table">
+						<thead>
+							<tr><th>对比项</th><th>基础版</th><th class="bgcolg">高级版</th><th>定制版</th></tr>
+						</thead>
+						<tbody>
+							<tr><td>活码数量</td><td>1个</td><td class="bgcolg">不限制</td><td>不限制</td></tr>
+							<tr><td>内容编辑</td><td>无限制修改</td><td class="bgcolg">无限制修改</td><td>无限制修改</td></tr>
+							<tr><td>扫描量</td><td>不限制扫描量</td><td class="bgcolg">不限制扫描量</td><td>不限制扫描量</td></tr>
+							<tr><td>跳转网址数量</td><td>10个</td><td class="bgcolg">不限制</td><td>不限制</td></tr>
+							<tr><td>风险预警</td><td>无风险页直接跳转</td><td class="bgcolg">无风险页直接跳转</td><td>无风险页直接跳转</td></tr>
+							<tr><td>网址审核</td><td>自动通过审核</td><td class="bgcolg">自动通过审核</td><td>自动通过审核</td></tr>
+							<tr><td>批量上传网址</td><td></td><td class="bgcolg">支持</td><td>支持</td></tr>
+							<tr><td>批量修改网址</td><td></td><td class="bgcolg">支持</td><td>支持</td></tr>
+							<tr><td>批量下载活码图片</td><td></td><td class="bgcolg">支持</td><td>支持</td></tr>
+							<tr><td>特殊类型定制</td><td></td><td class="bgcolg"></td><td>支持</td></tr>
+							<tr><td>独立域名</td><td></td><td class="bgcolg"></td><td>支持</td></tr>
+							<tr><td>独立主机</td><td></td><td class="bgcolg"></td><td>支持</td></tr>
+							<tr><td>跳转类型</td><td>单个网址跳转/多网址随机跳转</td><td class="bgcolg">单个网址跳转/多网址随机跳转</td><td>单个网址跳转/多网址随机跳转</td></tr>
+							<tr><td>统计追踪</td><td>不支持</td><td class="bgcolg">不支持</td><td>不支持</td></tr>
+						</tbody>
+					</table>
+					
+				</div>
+				<div class="clear"></div>
+			</div>
+			<footer class="foot">
+				<div class="foot_txt">
+					<div class="left">
+						<p class="left_t">详细产品信息，请咨询我们的售前工程师</p>
+						<p class="cont_t"><span class="tel"><i></i>热线电话：0551-65567790</span><span class="email"><i></i>邮箱地址：xiazezhong@hfzeqi.com</span></p>
+					</div>
+					<a href="#" class="right_t"><img src="img/qq.png"/></a>
+				</div>
+			</footer>
+			<div class="clear"></div>
+		</div>
+		
+		<!--登录弹出框-->
+		<div class="theme-popover">
+			<span class="close"><img src="img/close.png"/></span>
+			<div class="login">
+				<h2>登录</h2>
+				<form action="{:U('Home/User/login')}" method="post" class="theme-login">
+					<input type="text" placeholder="手机号或邮箱" class="login-inp" name="username" value=""/>
+					<input type="password" placeholder="密码"   class="login-inp" name="password" value=""/>
+					<input type="submit" class="theme-sub ajax-post" target-form="theme-login" value="登 录"/>
+				</form>
+				<a class="forback">忘记密码</a>
+				<p style="height: 15px;"></p>
+				<a href="#" class="fontc free-regist">免费注册</a>
+			</div>
+			<div class="regist" style="display: none;">
+				<h2>注册</h2>
+				<form action="" class="theme-login">
+					<input type="text" placeholder="手机号" class="login-inp" />
+					<input type="text" placeholder="邮箱" class="login-inp" />
+					<div class="inp-box">
+						<input type="text" placeholder="邮箱验证码" class="login-inp" />
+						<input type="button" value="发送" class="inp-btn"/>
+					</div>
+					<input type="password" placeholder="密码（6-20位，必须包含字母和数字）"   class="login-inp"/>
+					<input type="password" placeholder="确认密码"   class="login-inp" />
+					<div class="inp-box">
+						<input type="text" placeholder="图片验证码" class="login-inp" />
+						<a href="javascript:void(0)" class="code-img"><img src="img/yzm.png"></a>
+					</div>
+					<input type="submit" class="theme-sub" value="注 册"/>
+				</form>
+				<a href="#" class="fontc login-now">现在登录</a>
+			</div>
+			<div class="get-back" style="display: none;">
+				<h2>找回密码</h2>
+				<form action="" class="theme-login">
+					<input type="text" placeholder="邮箱" class="login-inp" />
+					<div class="inp-box">
+						<input type="text" placeholder="邮箱验证码" class="login-inp" />
+						<input type="button" value="发送" class="inp-btn"/>
+					</div>
+					<input type="password" placeholder="新密码（8-20位，必须包含字母和数字）"   class="login-inp"/>
+					<input type="password" placeholder="确认密码"   class="login-inp" />
+					<div class="inp-box">
+						<input type="text" placeholder="图片验证码" class="login-inp" />
+						<a href="javascript:void(0)" class="code-img"><img src="img/yzm.png"></a>
+					</div>
+					<input type="submit" class="theme-sub" value="确 定"/>
+				</form>
+			</div>
+		</div>
+		<div class="theme-popover-mask"></div>
+</block>

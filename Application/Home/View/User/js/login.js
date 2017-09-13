@@ -1,0 +1,18 @@
+$(function(){
+	$(".close").click(function(){
+		$(".theme-popover").fadeOut();
+		$(".theme-popover-mask").hide();
+	})
+	$(".forback").click(function(){
+		$(".login,.regist").hide();
+		$(".get-back").fadeIn();
+	})
+	$(".free-regist").click(function(){
+		$(".login,.get-back").hide();
+		$(".regist").fadeIn();
+	})
+	$(".login-now").click(function(){
+		$(".regist,.get-back").hide();
+		$(".login").fadeIn();
+	})
+})

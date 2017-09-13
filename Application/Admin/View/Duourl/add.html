@@ -1,0 +1,255 @@
+<extend name="$_admin_public_layout" />
+<block name="script">
+	
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/libs/huntertime/css/timePicker.css">
+	<script type="text/javascript" src="__PUBLIC__/libs/huntertime/js/jquery-timepicker.js"></script>
+	<script type="text/javascript" src="__CUI__/js/duourl.js"></script>
+</block>
+<block name="main">
+	<style type="text/css">
+    /* Builder样式 */
+    .builder .builder-container .builder-data-empty {
+        margin-bottom: 20px;
+        background-color: #f9f9f9;
+    }
+    .builder .builder-container .builder-data-empty .empty-info {
+        padding: 130px 0;
+        color: #555;
+    }
+    .builder .builder-container .builder-table .table td {
+        max-width: 600px;
+        vertical-align: middle;
+        overflow: hidden;
+    }
+    .builder .builder-container .builder-table .table td img.picture {
+        max-width: 200px;
+        max-height: 40px;
+    }
+    .builder .builder-container .pagination {
+        margin-top: 0px;
+    }
+    .builder.formbuilder-box .form-builder .img-box .remove-picture {
+        color: red;
+        position: absolute;
+        top: 0;
+        right: 2px;
+        background: #fff;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    .builder.formbuilder-box .form-builder .img-box .remove-picture:hover {
+        color: #DD0000;
+        box-shadow: inset 0 1px 1px red, 0 0 8px red;
+    }
+    .builder.formbuilder-box .form-builder .file-box .remove-file {
+        color: red;
+        position: absolute;
+        top: 12px;
+        right: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    .builder.formbuilder-box .form-builder .file-box .remove-file:hover {
+        color: #DD0000;
+        box-shadow: inset 0 1px 1px red, 0 0 8px red;
+    }
+    .builder.formbuilder-box .form-builder .board_list .board {
+        padding: 0px;
+        margin-right: 10px;
+    }
+    @media (min-width: 768px) {
+        .builder.formbuilder-box .form-builder .input,
+        .builder.formbuilder-box .form-builder .select,
+        .builder.formbuilder-box .form-builder .textarea {
+            width: 70%;
+        }
+        .builder.formbuilder-box .form-builder .submit,
+        .builder.formbuilder-box .form-builder .return {
+            min-width: 120px;
+        }
+        .builder.formbuilder-box .form-builder.form-horizontal {
+            padding: 0 15px;
+        }
+        .builder.formbuilder-box .form-builder.form-horizontal .control-label {
+            text-align: left;
+        }
+        .builder.formbuilder-box .form-builder.form-horizontal .left {
+            width: 15%;
+            float: left;
+        }
+        .builder.formbuilder-box .form-builder.form-horizontal .right {
+            width: 85%;
+            float: left;
+        }
+    }
+    @media (min-width: 992px) {
+        .builder.formbuilder-box .form-builder.form-horizontal .left {
+            width: 12%;
+            float: left;
+        }
+        .builder.formbuilder-box .form-builder.form-horizontal .right {
+            width: 88%;
+            float: left;
+        }
+    }
+</style>
+	<div class="builder formbuilder-box panel-body">
+    
+    
+    <div class="builder-container">
+        <div class="row">
+            <div class="col-xs-12">
+                <form action="{:U('add')}" method="post" class="form-horizontal form form-builder">
+                    <div class="col-xs-12">
+	                    <div class="form-group item_title ">
+        <label class="left control-label">添加方式：</label>
+        <div class="right">
+           <label class="radio-inline">
+  <input type="radio" name="addtype" id="addtype1" value="1" checked> 一键导入
+</label>
+<label class="radio-inline">
+  <input type="radio" name="addtype" id="addtype2" value="2"> 手动添加
+</label>
+                    </div>
+    </div>                                                
+                        <div class="form-group item_file " style="display: block;">
+        <label class="left control-label">上传文件：</label>
+        <div class="right row">
+            <div  id="_upload_box_1" class="wu-example">
+                <!--用来存放文件信息-->
+                <div id="_upload_list_1" class="uploader-list col-xs-12">
+                                            <div id="_upload_preview_1" class="hidden">
+                            <ul class="list-group file-box">
+                                <li class="list-group-item file-item" data-id="">
+                                    <i class="fa fa-file"></i> 
+                                    <span></span>
+                                    <i class="fa fa-times-circle pull-right remove-file"></i>
+                                </li>
+                            </ul>
+                        </div>                </div>
+                <div class="btns col-xs-12">
+                    <input type="hidden" id="_upload_input_1" name="file" value="">
+                    <div id="_upload_1">上传文件</div>
+                    <button id="ctlBtn" class="btn btn-default hidden">开始上传</button>
+                    <span class="check-tips text-muted small">上传需要导入的网址文件，格式为一行一个网址，文档格式为txt</span>                </div>
+            </div>
+
+            <script type="text/javascript">
+                $(function(){
+                    var uploader__upload_1 = WebUploader.create({
+                        auto: true,                                                                    // 选完文件后，是否自动上传
+                        duplicate: true,                                                               // 同一文件是否可以重复上传
+                        swf: '__CUI__/swf/uploader.swf',                                                  // swf文件路径
+                         server: '{:U(MODULE_MARK."/Upload/upload", array("dir" => "file"))}',          // 文件接收服务端
+                        pick: '#_upload_1',                                   // 选择文件的按钮
+                        resize: false,                                                                 // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                        //fileNumLimit: 1,                                                             // 验证文件总数量, 超出则不允许加入队列
+                        fileSingleSizeLimit:{:C('UPLOAD_FILE_SIZE')}*1024*1024,  // 验证单个文件大小是否超出限制, 超出则不允许加入队列
+                        // 文件过滤
+                        accept: {
+                            title: 'Files',
+                            extensions: 'doc,docx,xls,xlsx,ppt,pptx,pdf,wps,txt,zip,rar,gz,bz2,7z'
+                        }
+                    });
+
+                    // 文件上传过程中创建进度条实时显示。
+                    uploader__upload_1.on( 'uploadProgress', function( file, percentage ) {
+                        $( '#_upload_preview_1').removeClass('hidden');
+                        var $li = $( '#_upload_preview_1'),
+                            $percent = $li.find('.progress .progress-bar');
+                        // 避免重复创建
+                        if ( !$percent.length ) {
+                            $percent = $('<div class="progress"><div class="progress-bar"></div></div>')
+                                    .appendTo( $li )
+                                    .find('.progress-bar');
+                        }
+                        $percent.css( 'width', percentage * 100 + '%' );
+                    });
+
+                    // 完成上传完了，成功或者失败，先删除进度条。
+                    uploader__upload_1.on( 'uploadComplete', function( file ) {
+                        $( '#_upload_preview_1' ).find('.progress').remove();
+                    });
+
+                    // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+                    uploader__upload_1.on( 'uploadSuccess', function( file , response) {
+                        $( '#_upload_preview_1').addClass('upload-state-done');
+                        if(eval('response').status == 0){
+                            $.alertMessager(response.info);
+                        } else {
+                            $( '#_upload_input_1' ).attr('value', response.id);
+                            $( '#_upload_preview_1 span').text(response.name);
+                        }
+                    });
+
+                    // 文件上传失败，显示上传出错。
+                    uploader__upload_1.on( 'uploadError', function( file ) {
+                        $.alertMessager('error');
+                        var $li = $( '#_upload_preview_1'),
+                            $error = $li.find('div.error');
+                        // 避免重复创建
+                        if ( !$error.length ) {
+                            $error = $('<div class="error"></div>').appendTo( $li );
+                        }
+                        $error.text('上传失败');
+                    });
+
+                    // 删除文件
+                    $(document).on('click', '#_upload_list_1 .remove-file', function() {
+                        $( '#_upload_input_1' ).val('') //删除后覆盖原input的值为空
+                        $( '#_upload_preview_1').addClass('hidden');
+                    });
+                });
+            </script>
+        </div>
+    </div>          
+<script type="text/html" id="sdtjmb">
+	  <div class="form-group item_title tzljmb">
+        <label class="left control-label">跳转网址：</label>
+        <div class="right">
+            <input type="text"  name="title[]" value="" size="100" >
+              跳转时间 <input type="text" class="time-picker" name="tztime[]" value="" readonly size="10">   <input type="button" class="btn btn-danger btn-xs" value="删除" onclick="deletetzmb(this)">	  </div>
+    </div> 
+</script>
+<div class="sdtj" style="display: none;">
+	 <div class="form-group item_title " >
+        <label class="left control-label"> <input class="btn btn-primary" type="button" id="addtzlj" value="增加跳转连接"></label>
+        <div class="right">跳转时间只有选择按时间跳转时才需要输入并有效 </div>   
+    </div>
+	 <div class="form-group item_title " >
+        <label class="left control-label">跳转网址：</label>
+        <div class="right">
+            <input type="text" class="" name="title[]" value="" size="100" >
+               跳转时间 <input type="text" class="time-picker" name="tztime[]" value="" readonly size="10">     </div>
+    </div>   
+       
+</div>
+                                    <div class="form-group item_title ">
+        <label class="left control-label">跳转方式：</label>
+        <div class="right">
+           <label class="radio-inline">
+  <input type="radio" name="tztype"  value="1" checked> 随机跳转
+</label>
+<label class="radio-inline">
+  <input type="radio" name="tztype"  value="2"> 顺序跳转
+</label>
+<label class="radio-inline" id="sjtz" style="display: none;">
+  <input type="radio" name="tztype"  value="3"> 按时间跳转
+</label>
+                    </div>
+    </div>                                                                <div class="form-group"></div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button>
+                            <button class="btn btn-primary submit ajax-post visible-md-inline visible-lg-inline" type="submit" target-form="form-builder">确定</button>
+                            <button class="btn btn-default return visible-md-inline visible-lg-inline" onclick="javascript:history.back(-1);return false;">返回</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    </div>
+    
+</block>
