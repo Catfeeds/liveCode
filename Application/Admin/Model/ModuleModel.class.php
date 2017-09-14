@@ -72,7 +72,7 @@ class ModuleModel extends Model {
      */
     public function getCurrentMenu() {
         $current_url = MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME;
-        $result = M('admin_menu')->where(['url'=>$current_url,'status'=>1])->find();
+        $result = M('admin_menu')->where(['url'=>$current_url])->find();
         return $result;
     }
 
@@ -119,18 +119,16 @@ class ModuleModel extends Model {
      * @return array 父级菜单集合
      * 
      */
-    public function getParentMenu($current_menu ='', $module_name = MODULE_NAME) {
+    public function getParentMenu($current_menu ='') {
         if (!$current_menu) {
             $current_menu = $this->getCurrentMenu();
         }
         if (!$current_menu) {
             return false;
         }
-        halt($current_menu);
-        
-        
-        $admin_menu = $this->getFieldByName($module_name, 'admin_menu');
-        $admin_menu = json_decode($admin_menu, true);
+            // halt($current_menu); 
+
+        $admin_menu = M('admin_menu')->where(['user_type'=>['in',[0,session('user_auth.user_type')]],'user_id'=>['in',[0,session('user_auth.uid')]]])->select();
         $pid   = $current_menu['pid'];
         $temp  = array();
         $result[] = $current_menu;
@@ -145,7 +143,6 @@ class ModuleModel extends Model {
                 break;
             }
         }
-        halt($result);
         return $result;
     }
 

@@ -67,9 +67,12 @@ class PublicController extends CommonController {
      * 
      */
     public function logout() {
-        session('user_auth', null);
-        session('user_auth_sign', null);
-        $this->success('退出成功！', U('login'));
+        $_SESSION['OC_Admin_'] = null;
+        if ($_SESSION['OC_Home_']) {
+            $_SESSION['OC_Home_'] = null;
+            $this->success('退出成功！','/');
+        }
+        $this->success('退出成功！');
     }
 
     /**

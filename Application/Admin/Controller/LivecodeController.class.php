@@ -59,7 +59,7 @@ class LivecodeController extends AdminController {
         					$attr['name']  = 'dcurl';
 	                       $attr['title'] = '新建目录';
 	                       $attr['class'] = 'btn btn-primary';
-	                       $attr['href']  = U('outurl');
+	                       $attr['href']  = U('addMenu');
 	                       $attr2['name']  = 'xzewm';
 	                       $attr2['title'] = '下载二维码';
 	                       $attr2['class'] = 'btn btn-primary';
@@ -90,41 +90,36 @@ class LivecodeController extends AdminController {
                 ->addRightButton('delete')        // 添加删除按钮
                 ->display();
     }
-    public function outurl ()
-    {
-	    	if ( IS_POST )
-	        	{
-		$id=(int)I('id');
-		if ( !$id )
-		{
-			$this->error('请输入需要导出的ID');
-		}
-			     		$rs=$this->obj->find($id);
-	     		if ( !$rs )
-	     		{
-	     			$this->error('没有找到此id的相关信息');
-	     		}
-	$title=get_duourl_titlearr($rs['title']);
-    $str = "跳转网址,活码地址\n";
-    $str = iconv('utf-8','gb2312',$str);
-    foreach( $title as $v)
-    {
-    	$str .= $v.",".$rs['huoma']."\n";
-    }
-   
-    $filename = date('Ymd').'.csv';
-    $this->export_csv($filename,$str);
-	        	}else{
-	    // 使用FormBuilder快速建立表单页面。
+    /**
+     * 新建目录
+    */
+    public function addMenu() {
+        if (IS_POST) {
+            $mod    = M('admin_menu');
+            $data['pid']        = $mod->getFieldByTitle('活码生成','id');
+            $data['user_id']    = session('user_auth.uid');
+            $data['title']      = I('title/s');
+            $data['url']        = 'Admin/Livecode/child/type/'.time();
+            $data['create_time']= time();
+            empty($data['title']) ? $this->error('请输入目录名称') : '';
+            if ($data) {
+                $id = $mod->add($data);
+                if ($id) {
+                    $this->success('新增成功', U('index'));
+                } else {
+                    $this->error('新增失败');
+                }
+            } else {
+                $this->error($mod->getError());
+            }
+        } else {
+            // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('导出网址') //设置页面标题
-                    ->setPostUrl(U('outurl'))    //设置表单提交地址
-                    ->addFormItem('id', 'text', '需要导出的ID')
-                   
-                     ->setAjaxSubmit(false)
+            $builder->setMetaTitle('新建目录') //设置页面标题
+                    ->setPostUrl(U('addMenu'))    //设置表单提交地址
+                    ->addFormItem('title', 'text', '新建目录名称')
                     ->display();
-	        	}
-    
+        }
     }
    public function export_csv($filename,$data) {
     header("Content-type:text/csv");
