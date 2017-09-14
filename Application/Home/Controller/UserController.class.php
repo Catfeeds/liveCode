@@ -18,11 +18,10 @@ class UserController extends CommonController {
      * 
      */
     protected function _initialize() {
-        // halt(C('TOGGLE_WEB_SITE')); 
-        // 系统开关
-        if (!C('TOGGLE_WEB_SITE')) {
-            $this->error('站点已经关闭，请稍后访问~');
-        }
+        // // 系统开关
+        // if (!C('TOGGLE_WEB_SITE')) {
+        //     $this->error('站点已经关闭，请稍后访问~');
+        // }
 
         // 获取所有模块配置的用户导航
         $mod_con['status'] = 1;
