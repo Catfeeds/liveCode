@@ -7,3 +7,6 @@
 /node_modules/
 
 !*.md
+/*.txt
+/*.docx
+/活码系统功能描述文档.xlsx

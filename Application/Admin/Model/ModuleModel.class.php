@@ -70,18 +70,9 @@ class ModuleModel extends Model {
      * 获取模块当前菜单
      * 
      */
-    public function getCurrentMenu($module_name = MODULE_NAME) {
-        $admin_menu = $this->getFieldByName($module_name, 'admin_menu');
-        $admin_menu = json_decode($admin_menu, true);
-        foreach ($admin_menu as $key => $val) {
-            if (isset($val['url'])) {
-                $config_url  = U($val['url']);
-                $current_url = U(MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME);
-                if ($config_url === $current_url) {
-                    $result = $val;
-                }
-            }
-        }
+    public function getCurrentMenu() {
+        $current_url = MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME;
+        $result = M('admin_menu')->where(['url'=>$current_url,'status'=>1])->find();
         return $result;
     }
 
@@ -135,6 +126,9 @@ class ModuleModel extends Model {
         if (!$current_menu) {
             return false;
         }
+        halt($current_menu);
+        
+        
         $admin_menu = $this->getFieldByName($module_name, 'admin_menu');
         $admin_menu = json_decode($admin_menu, true);
         $pid   = $current_menu['pid'];
@@ -151,6 +145,7 @@ class ModuleModel extends Model {
                 break;
             }
         }
+        halt($result);
         return $result;
     }
 
