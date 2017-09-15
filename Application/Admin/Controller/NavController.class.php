@@ -88,8 +88,8 @@ EOF;
      */
     public function add() {
         if (IS_POST) {
-            $nav_object = D('Nav');
-            $data = $nav_object->create();
+            $nav_object = D('Module');
+            $data = $nav_object->validate(false)->create();
             if ($data) {
                 $id = $nav_object->add($data);
                 if ($id) {
@@ -105,15 +105,12 @@ EOF;
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('新增导航')  // 设置页面标题
                     ->setPostUrl(U('add'))     // 设置表单提交地址
-                    ->addFormItem('pid', 'select', '上级导航', '上级导航', select_list_as_tree('Nav', null, '顶级导航'))
-                    ->addFormItem('name', 'text', '导航名称', '名称一般为英文单词')
+                    ->addFormItem('pid', 'select', '上级导航', '上级导航', select_list_as_tree('admin_menu', ['pid'=>['in',[1,4]]], '顶级导航'))
                     ->addFormItem('title', 'text', '导航标题', '导航前台显示标题')
-                    ->addFormItem('type', 'select', '导航类型', '导航类型', D('Nav')->nav_type())
-                    ->addFormItem('url', 'text', '请填写外链URL地址', '支持http://格式或者TP的U函数解析格式', null, 'hidden')
-                    ->addFormItem('module_name', 'select', '模块', '选择的模块需要具有前台页面', select_list_as_tree('Module', null, null, 'name'),'hidden')
-                    ->addFormItem('target', 'radio', '打开方式', '打开方式', array('' => '当前窗口','_blank' => '新窗口打开'))
+                    ->addFormItem('url', 'text', '导航URL', '名称一般为英文单词')
+                    // ->addFormItem('url', 'text', '请填写外链URL地址', '支持http://格式或者TP的U函数解析格式', null, 'hidden')
+                    // ->addFormItem('module_name', 'select', '模块', '选择的模块需要具有前台页面', select_list_as_tree('Module', null, null, 'name'),'hidden')
                     ->addFormItem('icon', 'icon', '图标', '导航图标')
-                    ->addFormItem('sort', 'num', '排序', '用于显示的顺序')
                     ->setExtraHtml($this->extra_html)
                     ->display();
         }

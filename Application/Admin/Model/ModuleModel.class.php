@@ -19,7 +19,9 @@ class ModuleModel extends Model {
      * 数据库表名
      * 
      */
-    protected $tableName = 'admin_module';
+    // protected $tableName = 'admin_module';
+    protected $tableName = 'admin_menu';
+
 
     /**
      * 自动验证规则

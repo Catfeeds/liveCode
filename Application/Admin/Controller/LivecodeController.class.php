@@ -237,7 +237,7 @@ die();
                 $this->error($this->obj->getError());
             }
         } else {
-           $this->meta_title = '添加多网址跳转';
+           $this->meta_title = '新增活码';
                     $this->display();
         }
     }
@@ -283,7 +283,7 @@ die();
                 $this->error($this->obj->getError());
             }
         } else {
-            $this->meta_title = '修改多网址跳转';
+            $this->meta_title = '编辑活码';
             $info = $this->obj->find($id);
             $info['title']=explode('|||',$info['title']);
             $info['tztime']=explode('|||',$info['tztime']);

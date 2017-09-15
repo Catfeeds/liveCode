@@ -11,7 +11,7 @@
  Target Server Version : 100119
  File Encoding         : 65001
 
- Date: 15/09/2017 08:29:21
+ Date: 15/09/2017 09:54:21
 */
 
 SET NAMES utf8mb4;
@@ -207,7 +207,7 @@ CREATE TABLE `fw_admin_menu` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `status` tinyint(3) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of fw_admin_menu
@@ -228,6 +228,8 @@ INSERT INTO `fw_admin_menu` VALUES (14, 6, 0, '用户管理', 2, 'Admin/User/ind
 INSERT INTO `fw_admin_menu` VALUES (15, 7, 0, '添加', 2, 'Admin/Phone/add', '', 0, 0, 1);
 INSERT INTO `fw_admin_menu` VALUES (17, 11, 0, '新建目录', 2, 'Admin/Livecode/addmenu', '', 0, 0, -1);
 INSERT INTO `fw_admin_menu` VALUES (23, 11, 3, '来个目录名称', 2, 'Admin/Livecode/child/type/1505385150', '', 0, 1505385150, 1);
+INSERT INTO `fw_admin_menu` VALUES (26, 11, 0, '新增活码', 2, 'Admin/Livecode/add', '', 0, 1505439535, -1);
+INSERT INTO `fw_admin_menu` VALUES (27, 8, 0, '添加多网址跳转', 2, 'admin/duourl/add', '', 0, 1505439785, 1);
 COMMIT;
 
 -- ----------------------------
