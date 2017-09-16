@@ -15,15 +15,14 @@ use Think\Verify;
  */
 class UserController extends CommonController {
     /**
-     * 初始化方法
+     * 初始化
      * 
      */
     protected function _initialize() {
-        // // 系统开关
-        // if (!C('TOGGLE_WEB_SITE')) {
-        //     $this->error('站点已经关闭，请稍后访问~');
-        // }
-
+        // 系统开关
+        if (!C('TOGGLE_WEB_SITE')) {
+            $this->error('站点已经关闭，请稍后访问~');
+        }
         // 获取所有模块配置的用户导航
         $mod_con['status'] = 1;
         $_user_nav_main = array();
@@ -36,7 +35,6 @@ class UserController extends CommonController {
                 }
             }
         }
-
         // 监听行为扩展
         \Think\Hook::listen('corethink_behavior');
 
@@ -110,6 +108,26 @@ class UserController extends CommonController {
     }
 
     /**
+     * 用户前台注册
+     * 
+     */
+    public function regist() {
+        if (IS_POST) {
+            // 注册验证
+            $mod = D('Home/User');
+            $res = $mod->regist();
+
+            if ($res != false) {
+                $this->success('注册成功', U('Home/User/login'));
+            }
+            $this->error($mod->getError());
+        } else {
+            $this->assign('meta_title', '用户注册');
+            $this->display();
+        }
+    }
+
+    /**
      * 用户找回密码
      * 
      */
@@ -120,23 +138,14 @@ class UserController extends CommonController {
             $password       = I('password/s');
             $rePassword     = I('rePassword/s');
             $picVerify      = I('picVerify/s');
-            // halt($email);
 
             // 修改密码
             $mod = D('Home/User');
             $res = $mod->updatePass($email, $emailVerify,$password,$rePassword,$picVerify);
-            
-            if (!$res) {
-                $this->error($mod->getError());
+            if ($res != false) {
+                $this->success('操作成功', U('Home/User/login'));
             }
-
-            // 设置登录状态
-            $uid = $mod->auto_login($user_info);
-            if ($uid) {
-                $this->success('登录成功！', U('../admin.php/Admin/Index/index'));
-            } else {
-                $this->logout();
-            }
+            $this->error($mod->getError());
         } else {
             $this->assign('meta_title', '找回密码');
             $this->display();

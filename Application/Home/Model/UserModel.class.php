@@ -199,20 +199,15 @@ class UserModel extends Model {
     }
 
     /**
-     * 用户登录
+     * 找回密码
      * 
      */
     public function updatePass($email, $emailVerify,$password,$rePassword,$picVerify) {
-        $email = trim($email);
         if (!preg_match("/^[0-9a-zA-Z]+(?:[_-][a-z0-9-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*.[a-zA-Z]+$/i", $email)) {
-            $this->error = '请输入正确的邮箱！';
-            return false;
+            $this->error = '请输入正确的邮箱！';return false;
         }
         if (empty($emailVerify)) {
             $this->error = '请输入邮箱验证码！';return false;
-        }
-        if (empty($password)) {
-            $this->error = '请输入密码！';return false;
         }
         if (!preg_match("/^(?![^a-zA-Z]+$)(?!\D+$).{8,15}$/", $password)) {
             $this->error = '密码必须为8-20位，且包含字母和数字！';return false;
@@ -231,24 +226,74 @@ class UserModel extends Model {
             $this->error = '邮箱验证码不正确！';return false;
         }
 
-        halt('可以修改');
-
-
-
-
-        $map['status']      = array('eq', 1);
-        $map['user_type']   = array('eq', 2);
-        $user_info = $this->where($map)->find(); //查找用户
+        $user_info = $this->where(['email'=>$email,'user_type'=>2,'status'=>1])->find(); //查找用户
         if (!$user_info) {
-            $this->error = '用户不存在或被禁用！';
+            $this->error = '用户不存在或被禁用！';return false;
         } else {
-            if (user_md5($password) !== $user_info['password']) {
-                $this->error = '密码错误！';
-            } else {
-                return $user_info;
+            $res = $this->where(['id'=>$user_info['id']])->save(['password'=>user_md5($password)]);
+        }
+        return $res;
+    }
+
+    /**
+     * 注册
+     * 
+     */
+    public function regist() {
+        $data['username']       = trim(I('username/s'));
+        $data['mobile']         = trim(I('mobile/s'));
+        $data['email']          = trim(I('email/s'));
+        $emailVerify            = I('emailVerify/s');
+        $password               = trim(I('password/s'));
+        $rePassword             = trim(I('rePassword/s'));
+        $picVerify              = I('picVerify/s');
+
+        if (empty($data['username'])) {
+            $this->error = '请输入用户名！';return false;
+        }
+        if (!preg_match('/^1[34578]{1}\d{9}$/',$data['mobile'])) {
+            $this->error = '请输入正确的手机号！';return false;
+        }
+        if (!preg_match("/^[0-9a-zA-Z]+(?:[_-][a-z0-9-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*.[a-zA-Z]+$/i", $data['email'])) {
+            $this->error = '请输入正确的邮箱！';
+            return false;
+        }
+        if (empty($emailVerify)) {
+            $this->error = '请输入邮箱验证码！';return false;
+        }
+        if (!preg_match("/^(?![^a-zA-Z]+$)(?!\D+$).{8,15}$/", $password)) {
+            $this->error = '密码必须为8-20位，且包含字母和数字！';return false;
+        }
+        if (empty($rePassword)) {
+            $this->error = '请输入确认密码！';return false;
+        }
+        if ($password != $rePassword) {
+            $this->error = '两次输入的密码不一致！';return false;
+        }
+        $verify = new Verify();
+        if (!$verify->check($picVerify, 1)) {
+            $this->error = '图片验证码不正确！';return false;
+        }
+        if ($data['email'] !=session('email.val') || $emailVerify != session("email.key")) {
+            $this->error = '邮箱验证码不正确！';return false;
+        }
+
+        $users = $this->where(['user_type'=>2,'status'=>1])->select();
+        foreach ($users as $v) {
+            if ($v['username']==$data['username']) {
+                $this->error = '用户名已存在！';return false;
+            }elseif ($v['mobile']==$data['mobile']) {
+                $this->error = '手机号已存在！';return false;
+            }elseif ($v['email']==$data['email']) {
+                $this->error = '邮箱已存在！';return false;
             }
         }
-        return false;
+        $data['password']       = user_md5($password);
+        $data['user_type']      = 2;
+        $data['create_time']    = time();
+        $data['status']         = 1;
+        
+        return $this->add($data);
     }
 
 }

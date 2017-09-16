@@ -25,8 +25,8 @@ $(function(){
         }
     });
 })
-function sendEmail(url){
-    var email = $('#email3').val();
+function sendEmail(url,id){
+    var email = $('#'+id).val();
     if (email == '') {
     	$.alertMessager('请输入邮箱!');return;
     }
