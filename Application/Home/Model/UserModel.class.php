@@ -8,6 +8,8 @@
 // +----------------------------------------------------------------------
 namespace Home\Model;
 use Think\Model;
+use Think\Verify;
+
 /**
  * 用户模型
  * 
@@ -46,9 +48,9 @@ class UserModel extends Model {
         array('repassword', 'password', '两次输入的密码不一致', self::EXISTS_VALIDATE, 'confirm', self::MODEL_UPDATE),
 
         //验证邮箱
-        //array('email', 'email', '邮箱格式不正确', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
-       // array('email', '1,32', '邮箱长度为1-32个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
-       // array('email', '', '邮箱被占用', self::EXISTS_VALIDATE, 'unique', self::MODEL_BOTH),
+        array('email', 'email', '邮箱格式不正确', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('email', '1,32', '邮箱长度为1-32个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
+        array('email', '', '邮箱被占用', self::EXISTS_VALIDATE, 'unique', self::MODEL_BOTH),
 
         //验证手机号码
         //array('mobile', '/^1\d{10}$/', '手机号码格式不正确', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
@@ -90,16 +92,18 @@ class UserModel extends Model {
      * 
      */
     public function login($username, $password, $map) {
-        //去除前后空格
         $username = trim($username);
-
         //匹配登录方式
-        if (preg_match("/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/", $username)) {
+        if (preg_match("/^[0-9a-zA-Z]+(?:[_-][a-z0-9-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*.[a-zA-Z]+$/i", $username)) {
             $map['email'] = array('eq', $username);     // 邮箱登陆
         } elseif (preg_match("/^1\d{10}$/", $username)) {
             $map['mobile'] = array('eq', $username);    // 手机号登陆
         }else{
             $this->error = '请输入正确的手机号或邮箱！';
+            return false;
+        }
+        if (empty($password)) {
+            $this->error = '请输入密码！';
             return false;
         }
         $map['status']      = array('eq', 1);
@@ -169,4 +173,82 @@ class UserModel extends Model {
             }
         }
     }
+
+    /**
+     * 获取用户信息(手机号/邮件/用户id)
+     * 
+     */
+    public function getUserInfoByParam($param) {
+        if (preg_match("/^[0-9a-zA-Z]+(?:[_-][a-z0-9-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*.[a-zA-Z]+$/i", $param)) {
+            $map['email'] = array('eq', $param);     // 邮箱
+        } elseif (preg_match("/^1\d{10}$/", $param)) {
+            $map['mobile'] = array('eq', $param);    // 手机号
+        }elseif (is_int($param)) {
+            $map['id'] = array('eq', $param);    // 用户id
+        }else{
+            $this->error = '输入不正确！';
+            return false;
+        }
+        $map['status']      = array('eq', 1);
+        $map['user_type']   = array('eq', 2);
+        $user_info = $this->where($map)->find(); //查找用户
+        if (!$user_info) {
+            $this->error = '用户不存在或被禁用！';return false;
+        }
+        return $user_info;
+    }
+
+    /**
+     * 用户登录
+     * 
+     */
+    public function updatePass($email, $emailVerify,$password,$rePassword,$picVerify) {
+        $email = trim($email);
+        if (!preg_match("/^[0-9a-zA-Z]+(?:[_-][a-z0-9-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*.[a-zA-Z]+$/i", $email)) {
+            $this->error = '请输入正确的邮箱！';
+            return false;
+        }
+        if (empty($emailVerify)) {
+            $this->error = '请输入邮箱验证码！';return false;
+        }
+        if (empty($password)) {
+            $this->error = '请输入密码！';return false;
+        }
+        if (!preg_match("/^(?![^a-zA-Z]+$)(?!\D+$).{8,15}$/", $password)) {
+            $this->error = '密码必须为8-20位，且包含字母和数字！';return false;
+        }
+        if (empty($rePassword)) {
+            $this->error = '请输入确认密码！';return false;
+        }
+        if ($password != $rePassword) {
+            $this->error = '两次输入的密码不一致！';return false;
+        }
+        $verify = new Verify();
+        if (!$verify->check($picVerify, 1)) {
+            $this->error = '图片验证码不正确！';return false;
+        }
+        if ($email !=session('email.val') || $emailVerify != session("email.key")) {
+            $this->error = '邮箱验证码不正确！';return false;
+        }
+
+        halt('可以修改');
+
+
+
+
+        $map['status']      = array('eq', 1);
+        $map['user_type']   = array('eq', 2);
+        $user_info = $this->where($map)->find(); //查找用户
+        if (!$user_info) {
+            $this->error = '用户不存在或被禁用！';
+        } else {
+            if (user_md5($password) !== $user_info['password']) {
+                $this->error = '密码错误！';
+            } else {
+                return $user_info;
+            }
+        }
+        return false;
+    }
+
 }

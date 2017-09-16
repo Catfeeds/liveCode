@@ -46,10 +46,11 @@ class AdminController extends CommonController {
             $module_object = D('Admin/Module');
             $menu_list = $module_object->getAdminMenu();
             $parent_menu_list = $module_object->getParentMenu();
-            // halt($parent_menu_list); 
-
             $this->assign('_menu_list', $menu_list[0]);  // 后台左侧菜单
             $this->assign('_parent_menu_list', $parent_menu_list);  // 后台父级菜单  
+            // halt($menu_list); 
+            // halt($parent_menu_list);
+            
             // $main_menu_list = $module_object->where('status = 1')->field('id,name,title,icon')->order('id asc')->select();
             // $this->assign('_main_menu_list', $main_menu_list);  // 后台主菜单
            
