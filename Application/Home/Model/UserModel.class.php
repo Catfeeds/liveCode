@@ -278,7 +278,7 @@ class UserModel extends Model {
             $this->error = '邮箱验证码不正确！';return false;
         }
 
-        $users = $this->where(['user_type'=>2,'status'=>1])->select();
+        $users = $this->where(['user_type'=>2])->select();
         foreach ($users as $v) {
             if ($v['username']==$data['username']) {
                 $this->error = '用户名已存在！';return false;
