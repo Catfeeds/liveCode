@@ -2,11 +2,75 @@
 <block name="script">
 	
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/libs/huntertime/css/timePicker.css">
+	<link rel="stylesheet" type="text/css" href="__CUI__/css/addCode.css"/>
+	<link rel="stylesheet" type="text/css" href="__CUI__/css/fileinput.css"/>
 	<script type="text/javascript" src="__PUBLIC__/libs/huntertime/js/jquery-timepicker.js"></script>
 	<script type="text/javascript" src="__CUI__/js/duourl.js"></script>
+	<script type="text/javascript" src="__CUI__/js/fileinput.js"></script>
 </block>
 <block name="main">
-	
-    <h1>这里是编辑页面,页面其他代码勿删</h1>
-    
+    <div class="editor-wrap">
+    	<div class="editor_main">
+    		<div class="edit-left">
+				<div class="upload-img">
+			        <form>
+			            <div class="form-group" id="uploadForm" enctype='multipart/form-data'>
+			                <div class="fileinput fileinput-new" data-provides="fileinput"  id="exampleInputUpload">
+			                    <div class="fileinput-new thumbnail" style="width: 400px;height: auto;max-height:240px;">
+			                        <img id='picImg' style="width: 100%;height:100%;" src="http://www.jq22.com/demo/bootstrap-fileinput201708210120/images/noimage.png" alt="" />
+			                    </div>
+			                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 400px; max-height:240px;"></div>
+			                    <div>
+			                        <span class="btn btn-primary btn-file">
+			                            <span class="fileinput-new">上传图片</span>
+			                            <span class="fileinput-exists">上传</span>
+			                            <input type="file" name="pic1" id="picID" accept="image/gif,image/jpeg,image/x-png"/>
+			                        </span>
+			                        <a href="javascript:;" class="btn btn-warning fileinput-exists" data-dismiss="fileinput">删除</a>
+			                    </div>
+			                </div>
+			            </div>
+			        </form>
+				</div>
+				<div class="t-box">
+					<textarea name="" placeholder="这是一个文本框" class="t-area"></textarea>
+				</div>
+    		</div>
+    		<div class="edit-right">
+    			<div class="edit-img">
+    				<img src="https://static.clewm.net/static/images/pro/qrcode-none@2x_162233f.png"/>
+    				<a href="https://static.clewm.net/static/images/pro/qrcode-none@2x_162233f.png" download='二维码' class="btn-sm" id="show-qrcode">下载</a>
+    			</div>
+    			<div class="create-btn">
+    				<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="clear"></div>
+    </div>
+    <script type="text/javascript">
+    	$('#picID').click(function () {
+            var data = new FormData($('#uploadForm')[0]);
+            $.ajax({
+                url: 'url',
+                type: 'POST',
+                data: data,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    console.log(data);
+                    if(data.status){
+                        console.log('upload success');
+                    }else{
+                        console.log(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data.status);
+                }
+            });
+        });
+    </script>
 </block>
