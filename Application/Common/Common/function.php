@@ -365,3 +365,21 @@ if (!function_exists('getallheaders')) {
 function halt($obj) {
     echo '<pre>';var_dump($obj);exit;
 }
+
+/*
+    获取系统配置表数据
+    @param string $name 变量名（varname）
+    return array or null (成功返回array， 失败返回null)
+*/
+function system_config($name){
+    $sysConfig = D('Admin/Config')->field("id, value")->where(['name'=>$name,'status = 1'])->find();
+    return isset($sysConfig) ? $sysConfig : null;
+}
+
+/**
+ * 生成默认订单号
+ */
+function createOrderNo(){
+    return date('Ymd').(round(microtime(true),4)*10000);
+}
+

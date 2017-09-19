@@ -90,13 +90,17 @@ EOF;
         if (IS_POST) {
             $nav_object = D('Module');
             $data = $nav_object->validate(false)->create();
+            if (empty($data['icon'])) {
+                $data['status'] = -1;
+            }
             if ($data) {
                 $id = $nav_object->add($data);
-                if ($id) {
-                    $this->success('新增成功', U('index'));
-                } else {
-                    $this->error('新增失败');
-                }
+                halt('新增成功');
+                // if ($id) {
+                //     $this->success('新增成功', U('index'));
+                // } else {
+                //     $this->error('新增失败');
+                // }
             } else {
                 $this->error($nav_object->getError());
             }
@@ -108,8 +112,6 @@ EOF;
                     ->addFormItem('pid', 'select', '上级导航', '上级导航', select_list_as_tree('admin_menu', ['pid'=>['in',[1,4]]], '顶级导航'))
                     ->addFormItem('title', 'text', '导航标题', '导航前台显示标题')
                     ->addFormItem('url', 'text', '导航URL', '名称一般为英文单词')
-                    // ->addFormItem('url', 'text', '请填写外链URL地址', '支持http://格式或者TP的U函数解析格式', null, 'hidden')
-                    // ->addFormItem('module_name', 'select', '模块', '选择的模块需要具有前台页面', select_list_as_tree('Module', null, null, 'name'),'hidden')
                     ->addFormItem('icon', 'icon', '图标', '导航图标')
                     ->setExtraHtml($this->extra_html)
                     ->display();

@@ -8,21 +8,21 @@
 // +----------------------------------------------------------------------
 namespace Home\Controller;
 use Common\Controller\CommonController;
+use Think\Verify;
 /**
  * 前台用户控制器
  * 
  */
 class UserController extends CommonController {
     /**
-     * 初始化方法
+     * 初始化
      * 
      */
     protected function _initialize() {
-        // // 系统开关
-        // if (!C('TOGGLE_WEB_SITE')) {
-        //     $this->error('站点已经关闭，请稍后访问~');
-        // }
-
+        // 系统开关
+        if (!C('TOGGLE_WEB_SITE')) {
+            $this->error('站点已经关闭，请稍后访问~');
+        }
         // 获取所有模块配置的用户导航
         $mod_con['status'] = 1;
         $_user_nav_main = array();
@@ -35,7 +35,6 @@ class UserController extends CommonController {
                 }
             }
         }
-
         // 监听行为扩展
         \Think\Hook::listen('corethink_behavior');
 
@@ -48,33 +47,6 @@ class UserController extends CommonController {
         $this->assign('_user_login_modal', C('USER_LOGIN_MODAL'));      // 用户登录弹窗
         $this->assign('_home_public_layout', C('HOME_PUBLIC_LAYOUT'));  // 页面公共继承模版
     }
-
-    public function login() {
-        if (IS_POST) {
-            $username = I('username/s');
-            $password = I('password/s');
-            // 验证用户名密码是否正确
-            $user_object = D('Home/User');
-            $user_info = $user_object->login($username, $password);
-            
-            if (!$user_info) {
-                $this->error($user_object->getError());
-            }
-
-            // 设置登录状态
-            $uid = $user_object->auto_login($user_info);
-            if ($uid) {
-                $this->success('登录成功！', U('../admin.php/Admin/Index/index'));
-            } else {
-                $this->logout();
-            }
-        } else {
-            $this->assign('meta_title', '用户登录');
-            $this->display();
-        }
-    }
-
-
 
     /**
      * 用户登录检测
@@ -94,6 +66,116 @@ class UserController extends CommonController {
             } else {
                 redirect(U('User/User/login', null, true, true));
             }
+        }
+    }
+
+    /**
+     * 图片验证码生成，登录 && 注册 && 找回密码
+     * 
+     */
+    public function verify($vid = 1) {
+        $verify = new Verify();
+        $verify->length = 4;
+        $verify->entry($vid);
+    }
+    /**
+     * 用户前台登录
+     * 
+     */
+    public function login() {
+        if (IS_POST) {
+            $username = I('username/s');
+            $password = I('password/s');
+            // 验证用户名密码是否正确
+            $mod = D('Home/User');
+            $user_info = $mod->login($username, $password);
+            if (!$user_info) {
+                $this->error($mod->getError());
+            }
+
+            // 设置登录状态
+            $uid = $mod->auto_login($user_info);
+            if ($uid) {
+                if ($user_info['vipId']==0 || $user_info['expire_time']<time()) {
+                    $this->success('登录成功！', U('Home/Order/buy'));
+                }else{
+                    $this->success('登录成功！', '/admin.php?s=/admin/index/index');
+                }
+            } else {
+                $this->logout();
+            }
+        } else {
+            $this->assign('meta_title', '用户登录');
+            $this->display();
+        }
+    }
+
+    /**
+     * 用户前台注册
+     * 
+     */
+    public function regist() {
+        if (IS_POST) {
+            // 注册验证
+            $mod = D('Home/User');
+            $res = $mod->regist();
+
+            if ($res != false) {
+                $this->success('注册成功', U('Home/User/login'));
+            }
+            $this->error($mod->getError());
+        } else {
+            $this->assign('meta_title', '用户注册');
+            $this->display();
+        }
+    }
+
+    /**
+     * 用户找回密码
+     * 
+     */
+    public function updatePass() {
+        if (IS_POST) {
+            $email          = I('email/s');
+            $emailVerify    = I('emailVerify/s');
+            $password       = I('password/s');
+            $rePassword     = I('rePassword/s');
+            $picVerify      = I('picVerify/s');
+
+            // 修改密码
+            $mod = D('Home/User');
+            $res = $mod->updatePass($email, $emailVerify,$password,$rePassword,$picVerify);
+            if ($res != false) {
+                $this->success('操作成功', U('Home/User/login'));
+            }
+            $this->error($mod->getError());
+        } else {
+            $this->assign('meta_title', '找回密码');
+            $this->display();
+        }
+    }
+
+    /**
+     * 发送验证邮件/绑定邮箱
+     */
+    public function getEmailVerify(){
+        $n = D('Home/Notice');
+        $email = I('post.email/s');
+        //判断邮箱是否已注册
+        $mod = D('Home/User');
+        $mod->getUserInfoByParam($email);
+
+        $code   = rand(0,999999);
+        $status = $n->email($email)->send('updatePassContent',[$code]);
+        if($status){
+            // 绑定的邮箱
+            session('email.val',$email);
+            // 验证码
+            session("email.key", $code);
+            // 发起绑定邮箱的时间;
+            session('email.time',time());
+            $this->success('发送成功！');
+        }else{
         }
     }
 

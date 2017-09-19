@@ -10,16 +10,15 @@ namespace Admin\Controller;
 use Common\Util\Think\Page;
 
 /**
- * 活码生成控制器
+ * 产品活码
  * 
  */
-class LivecodeController extends AdminController {
-	  protected function _initialize() {
-	  parent::_initialize();
-		$this->uid=$this->_user_auth['uid'];
-		$this->obj=D('Livecode');
-		
-	      }
+class ProductController extends AdminController {
+	protected function _initialize() {
+  	    parent::_initialize();
+  		$this->uid=$this->_user_auth['uid'];
+  		$this->obj=D('Livecode');
+	}
     /**
      * 活码生成列表
      * 

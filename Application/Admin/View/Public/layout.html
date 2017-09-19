@@ -106,29 +106,29 @@
                                                     <span class="nav-label">{$_ns_first.title}</span>
                                                     <span class="fa arrow"></span>
                                                 </a>
-                                                <notempty name="_ns_first._child">
-                                                    <ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$fkey}">
-                                                        <volist name="_ns_first._child" id="_ns_second" key="skey">
-                                                            <li <?php if($_parent_menu_list[2]['id'] == $_ns_second['id']) echo 'class="active"'; ?>>
-                                                                <a href="{:U($_ns_second['url'])}" >
-                                                                    <i class="{$_ns_second.icon}"></i>
-                                                                    <span class="nav-label">{$_ns_second.title}</span>
-                                                                </a>
-                                                                <?php if($_ns_second['id'] == 11): ?>
-                                                                    <ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$skey}">
-                                                                        <volist name="_ns_second._child" id="_ns_third" key="skey2">
-                                                                            <li <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?>>
-                                                                                <a href="{:U($_ns_third['url'])}" >
-                                                                                    <span class="nav-label" style="margin-left: 20px;">{$_ns_third.title}</span>
-                                                                                </a>
-                                                                            </li>
-                                                                        </volist>
-                                                                    </ul>
-                                                                <?php endif; ?>
-                                                            </li>
-                                                        </volist>
-                                                    </ul>
-                                                </notempty>
+<notempty name="_ns_first._child">
+    <ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$fkey}">
+        <volist name="_ns_first._child" id="_ns_second" key="skey">
+            <li <?php if($_parent_menu_list[2]['id'] == $_ns_second['id'] && (!$_parent_menu_list[3]['id'] || ($_parent_menu_list[3]['id'] && !$_GET['type']))) echo 'class="active"'; ?>>
+                <a href="{:U($_ns_second['url'])}" >
+                    <i class="{$_ns_second.icon}"></i>
+                    <span class="nav-label">{$_ns_second.title}</span>
+                </a>
+                <?php if($_ns_second['id'] == 11): ?>
+                    <ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$skey}">
+                        <volist name="_ns_second._child" id="_ns_third" key="skey2">
+                            <li <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?>>
+                                <a href="{:U($_ns_third['url'])}" >
+                                    <span class="nav-label" style="margin-left: 20px;">{$_ns_third.title}</span>
+                                </a>
+                            </li>
+                        </volist>
+                    </ul>
+                <?php endif; ?>
+            </li>
+        </volist>
+    </ul>
+</notempty>
                                             </li>
                                         </volist>
                                     </ul>

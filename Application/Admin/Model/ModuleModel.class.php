@@ -73,8 +73,11 @@ class ModuleModel extends Model {
      * 
      */
     public function getCurrentMenu() {
-        $current_url = MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME;
+        $type = isset($_GET['type']) && $_GET['type'] ? '/type/'.$_GET['type']:'';
+        $current_url = MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME.$type;
         $result = M('admin_menu')->where(['url'=>$current_url])->find();
+        // halt($current_url);
+
         return $result;
     }
 
