@@ -376,3 +376,10 @@ function system_config($name){
     return isset($sysConfig) ? $sysConfig : null;
 }
 
+/**
+ * 生成默认订单号
+ */
+function createOrderNo(){
+    return date('Ymd').(round(microtime(true),4)*10000);
+}
+

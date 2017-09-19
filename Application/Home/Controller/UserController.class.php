@@ -89,7 +89,6 @@ class UserController extends CommonController {
             // 验证用户名密码是否正确
             $mod = D('Home/User');
             $user_info = $mod->login($username, $password);
-            
             if (!$user_info) {
                 $this->error($mod->getError());
             }
@@ -97,7 +96,11 @@ class UserController extends CommonController {
             // 设置登录状态
             $uid = $mod->auto_login($user_info);
             if ($uid) {
-                $this->success('登录成功！', U('../admin.php/Admin/Index/index'));
+                if ($user_info['vipId']==0 || $user_info['expire_time']<time()) {
+                    $this->success('登录成功！', U('Home/Order/buy'));
+                }else{
+                    $this->success('登录成功！', '/admin.php?s=/admin/index/index');
+                }
             } else {
                 $this->logout();
             }

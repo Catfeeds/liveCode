@@ -14,45 +14,58 @@ use Common\Util\Think\Page;
  */
 class OrderController extends AdminController {
     /**
-     * 配置列表
-     * @param $tab 配置分组ID
+     * 订单中心
      * 
      */
-    public function index($group = 1) {
-        // 获取所有配置
-        $map['status'] = array('egt', '0');  // 禁用和正常状态
-        $map['group']  = array('eq', $group);
+    public function index($orderStatus = 0) {
+        $map = ['o.status'=>1];
+        if (!$orderStatus) {
+            $map['o.orderStatus'] = ['in',[-1,1]];
+        }else{
+            $map['o.orderStatus'] = $orderStatus;
+        }
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
-        $config_object = D('Config');
-        $data_list = $config_object
-                   ->page($p, C('ADMIN_PAGE_ROWS'))
+        $mod = D('Order');
+        $data_list = $mod->alias('o')->field('o.*,u.username,v.name')
                    ->where($map)
-                   ->order('sort asc,id asc')
+                   ->join('__ADMIN_USER__ u on u.id = o.userId','left')
+                   ->join('__VIP__ v on v.id = o.vipId','left')
+                   ->page($p, C('ADMIN_PAGE_ROWS'))
+                   ->order('create_time desc')
                    ->select();
+        if (!empty($data_list)) {
+            foreach ($data_list as $key => $v) {
+                $data_list[$key]['name']   = $v['name'].'-'.$v['year'].'年';
+                $data_list[$key]['isNew']  = ($v['isNew']==1)?'新开':'续费';
+                $data_list[$key]['orderStatus']  = ($v['orderStatus']==1)?'完成':'<font color="red">待支付</font>';
+                $data_list[$key]['create_time'] = date('Y-m-d H:i:s',$v['create_time']);
+            }
+        }
+
         $page = new Page(
-            $config_object->where($map)->count(),
+            $mod->where($map)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
         // 设置Tab导航数据列表
-        $config_group_list = C('CONFIG_GROUP_LIST');  // 获取配置分组
-        foreach ($config_group_list as $key => $val) {
+        $order_tabs = [0=>'全部订单',-1=>'待支付',1=>'已支付'];  // 获取配置分组
+        foreach ($order_tabs as $key => $val) {
             $tab_list[$key]['title'] = $val;
-            $tab_list[$key]['href']  = U('index', array('group' => $key));
+            $tab_list[$key]['href']  = U('index', array('orderStatus' => $key));
         }
 
         // 使用Builder快速建立列表页面。
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('订单中心')  // 设置页面标题
-                ->setTabNav($tab_list, $group)  // 设置页面Tab导航
-                ->addTableColumn('id', '订单编号')
-                ->addTableColumn('title', '订购时间')
-                ->addTableColumn('title', '套餐名称')
-                ->addTableColumn('sort', '下单用户')
-                ->addTableColumn('sort', '费用(元)')
-                ->addTableColumn('sort', '类型')
-                ->addTableColumn('sort', '状态')
-                ->addTableColumn('sort', '支付信息')
+                ->setTabNav($tab_list, $orderStatus)  // 设置页面Tab导航
+                ->addTableColumn('orderNo', '订单编号')
+                ->addTableColumn('create_time', '订购时间')
+                ->addTableColumn('name', '套餐名称')
+                ->addTableColumn('username', '下单用户')
+                ->addTableColumn('payMoney', '费用(元)')
+                ->addTableColumn('isNew', '类型')
+                ->addTableColumn('orderStatus', '状态')
+                ->addTableColumn('tradeNo', '支付信息')
                 ->setTableDataList($data_list)     // 数据列表
                 ->setTableDataPage($page->show())  // 数据列表分页
                 ->display();

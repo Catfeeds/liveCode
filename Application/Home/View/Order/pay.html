@@ -1,0 +1,92 @@
+<extend name="$_home_public_layout"/>
+
+<block name="style">
+    <link rel="stylesheet" type="text/css" href="__HOME__/user/css/style.css"/>
+</block>
+
+<block name="main">
+	<div class="main">
+		<div class="top">
+			<div class="w1000">
+				<div class="logo left">
+					<a href="#"><img src="__HOME__/user/img/logo.png"/></a>
+					<a href="#" class="buy_txt">购买</a>
+				</div>
+				<div class="step right">
+					<img src="__HOME__/user/img/step2.png"/>
+				</div>
+			</div>
+		</div>
+		<div class="mainwarp w1000">
+			<div class="choose_edition">
+				<p class="tit1">订单详情</p>
+				<table class="order_tab" border="1" cellspacing="0" cellpadding="0">
+					<tr><th>订单编号</th><th>订单金额</th><th>版本</th></tr>
+					<tr><td>{$order['orderNo']}</td><td>￥{$order['payMoney']}</td><td>活码管理系统{$vip}{$order['year']}年</td></tr>
+				</table>
+			</div>
+			<div class="payway">
+				<p class="tit1">请选择支付方式</p>
+				<ul class="payli">
+					<li class="edit_on"><img src="__HOME__/user/img/zfb.png"/></li>
+					<li><img src="__HOME__/user/img/weixin.png"/></li>
+					<li><img src="__HOME__/user/img/line.png"/></li>
+					<div class="clear"></div>
+				</ul>
+			</div>
+			<div class="now_buy">
+				<form action="{:U('Home/Order/pay')}" method="post" class="theme-buy">
+					<span>正在开通&nbsp;</span>  
+					<span class="col1">{$vip}{$order['year']}年</span>
+					<span>&nbsp;&nbsp;总计：<span class="col2">￥<font>{$order['payMoney']}</font></span></span>
+					<input type="hidden" name="orderId" value="{$order['orderId']}">
+					<input type="hidden" id="payType" name="payType" value="0" />
+					<input type="submit" class="buy_btn ajax-post" target-form="theme-buy" value="现在支付"/>
+				</form>
+			</div>
+			<div class="offline" style="display: none;">
+				<p class="offline_t"><span>1</span>汇款至爱活码指定收款账号</p>
+				<ul class="offlineUl">
+					<li>
+						<p class="bank-type"><span class="bank1"></span>招商银行</p>
+						<p>开户名称：夏泽中</p>
+						<p>开户银行：招商银行合肥分行肥西路支行</p>
+						<p>银行卡号：6226 0955 1152 6803</p>
+					</li>
+					<li>
+						<p class="bank-type "><span class="bank2"></span>中国农业银行</p>
+						<p>开户名称：夏泽中</p>
+						<p>开户银行：中国农业银行安徽分行</p>
+						<p>银行卡号：6228 4806 6840 7311 871</p>
+					</li>
+					<li>
+						<p class="bank-type "><span class="bank3"></span>徽商银行</p>
+						<p>开户名称：合肥泽琪信息科技有限公司</p>
+						<p>开户银行：徽商银行合肥稻香楼支行</p>
+						<p>银行卡号：1020 9010 2100 1002 379</p>
+					</li>
+					<div class="clear"></div>
+				</ul>
+				<p class="offline_t"><span>2</span>汇款结果反馈</p>
+				<p class="line_txt">汇款后，请把汇款凭证发送给我们的售前工程师，请与我们QQ客服联系 ，我们会在收到款项后为您开通后台，并教会您怎么使用我们的活码系统。</p>
+				<a href="#" class="consult">QQ咨询</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<footer class="foot">
+			<div class="foot_txt">
+				<div class="left">
+					<p class="left_t">详细产品信息，请咨询我们的售前工程师</p>
+					<p class="cont_t"><span class="tel"><i></i>热线电话：0551-65567790</span><span class="email"><i></i>邮箱地址：xiazezhong@hfzeqi.com</span></p>
+				</div>
+				<a href="#" class="right_t"><img src="__HOME__/user/img/qq.png"/></a>
+			</div>
+		</footer>
+		<div class="clear"></div>
+	</div>
+</block>
+		
+<block name="script">
+	<script src="__HOME__/user/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HOME__/user/js/tab.js" type="text/javascript" charset="utf-8"></script>
+</block>

@@ -17,7 +17,7 @@ class OrderModel extends Model {
      * 数据库表名
      * 
      */
-    protected $tableName = 'order_order';
+    protected $tableName = 'orders';
 
     /**
      * 自动验证规则
