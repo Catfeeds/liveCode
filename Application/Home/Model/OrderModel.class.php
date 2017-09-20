@@ -43,17 +43,18 @@ class OrderModel extends Model {
 
 
     /**
-     * 获取版本号及价格
+     * 获取套餐
      * 
      */
-    public function getVersions() {
-        $versions = M('vip')->alias('v')->join('__VIP_PRICE__ p on v.id=p.vipId','left')->order('v.sort,p.price desc')->select();
-// halt($versions);
-        return $versions;
+    public function getVips() {
+        // $versions = M('vip')->alias('v')->join('__VIP_PRICE__ p on v.id=p.vipId','left')->order('v.sort,p.price desc')->select();
+        $vips = M('vip')->alias('v')->field('v.*')->join('__VIP_PRICE__ p on v.id=p.vipId','left')->where(['price'=>['neq',''],'is_show'=>1])->order('v.sort,p.price desc')->group('v.id')->select();
+// halt($vips);
+        return $vips;
     }
 
     /**
-     * 获取默认的版本号及价格
+     * 获取默认的套餐及价格
      * 
      */
     public function getRecommed() {

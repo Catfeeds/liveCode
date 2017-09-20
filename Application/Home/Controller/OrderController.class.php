@@ -69,7 +69,6 @@ class OrderController extends CommonController {
                 }
                 $mod->year     = $year;
                 $mod->payMoney = $payMoney;
-
                 $result = $mod->add();
                 if (!$result) {
                     $this->error('提交失败');
@@ -79,15 +78,14 @@ class OrderController extends CommonController {
 
         } else {
             $mod = D('Home/Order');
-            // 获取版本号
-            $vips = M('vip')->order('sort')->select();
-            // 获取版本号价格
-            $versions = $mod->getVersions();
-            // halt($vips);
-            
-            // halt($versions);
-            // 获取默认的版本号及价格
+            // 获取套餐
+            $vips = $mod->getVips();
+            // 获取套餐价格
+            $versions = M('vip_price')->select();
+            // 获取默认的套餐及价格
             $recommed = $mod->getRecommed();
+            // halt($vips);
+            // halt($versions);
             // halt($recommed);
             $this->assign([
                 'meta_title'    => '版本购买',
@@ -103,7 +101,7 @@ class OrderController extends CommonController {
      * 用户续费
      * 
      */
-    public function renewal() {
+    public function fee() {
         if (IS_POST) {
             $vip        = I('post.vip/s');
             $year       = I('post.year/d');
@@ -130,15 +128,14 @@ class OrderController extends CommonController {
 
         } else {
             $mod = D('Home/Order');
-            // 获取版本号
-            $vips = M('vip')->order('sort')->select();
-            // 获取版本号价格
-            $versions = $mod->getVersions();
-            // halt($vips);
-            
-            // halt($versions);
-            // 获取默认的版本号及价格
+            // 获取套餐
+            $vips = $mod->getVips();
+            // 获取套餐价格
+            $versions = M('vip_price')->select();
+            // 获取默认的套餐及价格
             $recommed = $mod->getRecommed();
+            // halt($vips);
+            // halt($versions);
             // halt($recommed);
             $this->assign([
                 'meta_title'    => '版本购买',

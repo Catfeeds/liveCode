@@ -26,7 +26,7 @@ class VipController extends AdminController {
         }
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
         $mod = M('Vip');
-        $data_list = $mod->alias('v')->field('p.id,v.name,v.is_recommed,p.price,p.year')
+        $data_list = $mod->alias('v')->field('v.name,v.is_recommed,v.is_show,p.id,p.price,p.year')
                    ->join('__VIP_PRICE__ p ON p.vipId=v.id')
                    ->page($p , C('ADMIN_PAGE_ROWS'))
                    ->where($map)
@@ -48,7 +48,8 @@ class VipController extends AdminController {
                 ->addTableColumn('name', '套餐名称')
                 ->addTableColumn('year', '时长(年)')
                 ->addTableColumn('price', '套餐价格(元)')
-                ->addTableColumn('is_recommed', '是否推荐', 'status')
+                ->addTableColumn('is_recommed', '是否前台推荐', 'status')
+                ->addTableColumn('is_show', '是否前台显示', 'status')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
@@ -81,16 +82,17 @@ class VipController extends AdminController {
             }
             $mod = M('vip');
             $vip = $mod->where(['name'=>$data['name']])->find();
+            //添加到套餐表中
             if (empty($vip)) {
-                $sort = $mod->getField('max(id)');
-                $result = $mod->add(['name'=>$data['name'],'is_recommed'=>$data['is_recommed'],'sort'=>$sort]);
+                $result = $mod->add($data);
             }else{
-                if ($data['is_recommed'] != $vip['is_recommed']) {
-                    $mod->where(['is_recommed'=>1])->save(['is_recommed'=>0]);
-                    $mod->where(['name'=>$data['name']])->save(['is_recommed'=>$data['is_recommed']]);
-                }
                 $result = $vip['id'];
             }
+            //推荐只能有一个
+            if ($data['is_recommed'] == 1) {
+                $mod->where(['is_recommed'=>1,'id'=>['neq',$result]])->save(['is_recommed'=>0]);
+            }
+            //修改套餐价格表
             if ($result) {
                 $res = M('vip_price')->add(['vipId'=>$result,'year'=>(int)$data['year'],'price'=>(float)$data['price']]);
                 if ($res) {
@@ -108,7 +110,19 @@ class VipController extends AdminController {
                     ->addFormItem('name', 'text', '套餐名称', '套餐名称')
                     ->addFormItem('year', 'text', '套餐时长(年)', '套餐时长(年)')
                     ->addFormItem('price', 'text', '套餐价格(元)', '套餐价格(元)')
-                    ->addFormItem('is_recommed', 'radio', '是否为推荐套餐', '是否为推荐套餐', array('0' => '不推荐','1' => '推荐'))
+                    ->addFormItem('sort', 'text', '排序', '用于显示的顺序')
+                    ->addFormItem('is_recommed', 'radio', '是否前台推荐', '是否为推荐套餐', array('0' => '不推荐','1' => '推荐'))
+                    ->addFormItem('is_show', 'radio', '是否前台显示', '是否显示到前台', array('0' => '不显示','1' => '显示'))
+                    ->addFormItem('', 'radio', '<font color="red">套餐明细</font>')
+                    ->addFormItem('livecode_count', 'text', '活码数量(个)', '为空则默认为不限制数量')
+                    ->addFormItem('jump_url_count', 'text', '跳转网址数量(个)', '为空则默认为不限制数量')
+                    ->addFormItem('batch_upload', 'select', '批量上传网址', '批量上传网址', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('batch_edit', 'select', '批量修改网址', '批量修改网址', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('batch_download', 'select', '批量下载活码图片', '批量下载活码图片', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('special_type', 'select', '特殊类型定制', '特殊类型定制', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('single_url', 'select', '独立域名', '独立域名', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('single_host', 'select', '独立主机', '独立主机', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('count_track', 'select', '统计追踪', '统计追踪', ['0'=>'不支持','1'=>'支持'])
                     ->setFormData(array('reg_type' => 'admin'))
                     ->display();
         }
@@ -145,12 +159,12 @@ class VipController extends AdminController {
             }
             if ($result !== false) {
                 $vip_mod = M('vip');
+                $data['id'] = $vip_price['vipId'];
+                $res = $vip_mod->where(['id'=>$vip_price['vipId']])->save($data);
                 $vip = $vip_mod->where(['id'=>$vip_price['vipId']])->find();
-                if ($data['is_recommed'] != $vip['is_recommed']) {
-                    $vip_mod->where(['is_recommed'=>1])->save(['is_recommed'=>0]);
-                    $vip_mod->where(['id'=>$vip_price['vipId']])->save(['is_recommed'=>$data['is_recommed']]);
+                if ($data['is_recommed'] == 1) {
+                    $vip_mod->where(['is_recommed'=>1,'id'=>['neq',$vip_price['vipId']]])->save(['is_recommed'=>0]);
                 }
-                $res = $vip_mod->where(['id'=>$vip_price['vipId']])->save(['name'=>$data['name']]);
                 if ($res !== false) {
                     $this->success('更新成功', U('index'));
                 } else {
@@ -159,7 +173,7 @@ class VipController extends AdminController {
             }
         } else {
             // 获取账号信息
-            $info = M('vip')->alias('v')->field('p.id,v.name,v.is_recommed,p.price,p.year')
+            $info = M('vip')->alias('v')->field('v.*,p.id,p.price,p.year')
                     ->join('__VIP_PRICE__ p ON p.vipId=v.id')
                     ->where(['p.id'=>$id])
                     ->find();
@@ -168,13 +182,26 @@ class VipController extends AdminController {
             $builder->setMetaTitle('编辑套餐') //设置页面标题
                     ->setPostUrl(U('edit'))    //设置表单提交地址
                     ->addFormItem('id', 'hidden', 'ID', 'ID')
-
                     ->addFormItem('name', 'text', '套餐名称', '套餐名称')
                     ->addFormItem('year', 'text', '套餐时长(年)', '套餐时长(年)')
                     ->addFormItem('price', 'text', '套餐价格(元)', '套餐价格(元)')
-                    ->addFormItem('is_recommed', 'radio', '是否为推荐套餐', '是否为推荐套餐', array('0' => '不推荐','1' => '推荐'))
+                    ->addFormItem('sort', 'text', '排序', '用于显示的顺序')
+                    ->addFormItem('is_recommed', 'radio', '是否前台推荐', '是否为推荐套餐', array('0' => '不推荐','1' => '推荐'))
+                     ->addFormItem('is_show', 'radio', '是否前台显示', '是否显示到前台', array('0' => '不显示','1' => '显示'))
+                    ->addFormItem('', 'radio', '<font color="red">套餐明细</font>')
+                    ->addFormItem('livecode_count', 'text', '活码数量(个)', '为空则默认为不限制数量')
+                    ->addFormItem('jump_url_count', 'text', '跳转网址数量(个)', '为空则默认为不限制数量')
+                    ->addFormItem('batch_upload', 'select', '批量上传网址', '批量上传网址', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('batch_edit', 'select', '批量修改网址', '批量修改网址', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('batch_download', 'select', '批量下载活码图片', '批量下载活码图片', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('special_type', 'select', '特殊类型定制', '特殊类型定制', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('single_url', 'select', '独立域名', '独立域名', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('single_host', 'select', '独立主机', '独立主机', ['0'=>'不支持','1'=>'支持'])
+                    ->addFormItem('count_track', 'select', '统计追踪', '统计追踪', ['0'=>'不支持','1'=>'支持'])
                     ->setFormData($info)
                     ->display();
+
+                   
         }
     }
 

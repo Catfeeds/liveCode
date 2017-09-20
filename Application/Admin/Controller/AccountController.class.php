@@ -130,10 +130,10 @@ class AccountController extends AdminController {
         );
 
         // 使用Builder快速建立列表页面。
-        $attr['name']  = 'renewal';
+        $attr['name']  = 'fee';
         $attr['title'] = '续费';
         $attr['class'] = 'label label-success';
-        $attr['href']  = '/index.php?s=/home/order/renewal';
+        $attr['href']  = '/index.php?s=/home/order/fee';
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('续费管理')  // 设置页面标题
                 ->addTableColumn('username', '用户名称')

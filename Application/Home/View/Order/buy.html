@@ -58,23 +58,73 @@
 				<p class="tit1">版本对比表：</p>
 				<table border="1" cellspacing="0" cellpadding="0" class="con_table">
 					<thead>
-						<tr><th>对比项</th><th>基础版</th><th class="bgcolg">高级版</th><th>定制版</th></tr>
+						<tr>
+							<th>对比项</th>
+							<volist name="vips" id="vo">
+								<th <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['name']}</th>
+							</volist>	
+						</tr>
 					</thead>
 					<tbody>
-						<tr><td>活码数量</td><td>1个</td><td class="bgcolg">不限制</td><td>不限制</td></tr>
+						<tr>
+							<td>活码数量</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['livecode_count']|showDiffCount="text",###}</td>
+							</volist>
+						</tr>
 						<tr><td>内容编辑</td><td>无限制修改</td><td class="bgcolg">无限制修改</td><td>无限制修改</td></tr>
 						<tr><td>扫描量</td><td>不限制扫描量</td><td class="bgcolg">不限制扫描量</td><td>不限制扫描量</td></tr>
-						<tr><td>跳转网址数量</td><td>10个</td><td class="bgcolg">不限制</td><td>不限制</td></tr>
+						<tr>
+							<td>跳转网址数量</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['jump_url_count']|showDiffCount="text",###}</td>
+							</volist>
+						</tr>
 						<tr><td>风险预警</td><td>无风险页直接跳转</td><td class="bgcolg">无风险页直接跳转</td><td>无风险页直接跳转</td></tr>
 						<tr><td>网址审核</td><td>自动通过审核</td><td class="bgcolg">自动通过审核</td><td>自动通过审核</td></tr>
-						<tr><td>批量上传网址</td><td></td><td class="bgcolg">支持</td><td>支持</td></tr>
-						<tr><td>批量修改网址</td><td></td><td class="bgcolg">支持</td><td>支持</td></tr>
-						<tr><td>批量下载活码图片</td><td></td><td class="bgcolg">支持</td><td>支持</td></tr>
-						<tr><td>特殊类型定制</td><td></td><td class="bgcolg"></td><td>支持</td></tr>
-						<tr><td>独立域名</td><td></td><td class="bgcolg"></td><td>支持</td></tr>
-						<tr><td>独立主机</td><td></td><td class="bgcolg"></td><td>支持</td></tr>
+						<tr>
+							<td>批量上传网址</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['batch_upload']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>批量修改网址</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['batch_edit']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>批量下载活码图片</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['batch_download']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>特殊类型定制</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['special_type']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>独立域名</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['single_url']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>独立主机</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['single_host']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
 						<tr><td>跳转类型</td><td>单个网址跳转/多网址随机跳转</td><td class="bgcolg">单个网址跳转/多网址随机跳转</td><td>单个网址跳转/多网址随机跳转</td></tr>
-						<tr><td>统计追踪</td><td>不支持</td><td class="bgcolg">不支持</td><td>不支持</td></tr>
+						<tr>
+							<td>统计追踪</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['count_track']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
 					</tbody>
 				</table>
 				

@@ -400,6 +400,26 @@ function payType($payType){
     }
 }
 
+/**
+ * 返回对比表显示数量
+ */
+function showDiffCount($type,$data){
+    if ($type == 'text') {
+        if ($data == 0) {
+            return '不限制';
+        }else{
+            return $data.'个';
+        }
+    }elseif ($type == 'select') {
+        if ($data == 0) {
+            return '';
+        }else{
+            return '支持';
+        }
+    }
+
+}
+
 
 
 
