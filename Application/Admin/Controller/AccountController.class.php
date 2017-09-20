@@ -68,7 +68,7 @@ class AccountController extends AdminController {
                 $data_list[$key]['name']   = $v['name'].'-'.$v['year'].'年';
                 $data_list[$key]['isNew']  = ($v['isNew']==1)?'新开':'续费';
                 $data_list[$key]['orderStatus']  = ($v['orderStatus']==1)?'完成':'<font color="red">待支付</font>';
-                $data_list[$key]['create_time'] = date('Y-m-d H:i:s',$v['create_time']);
+                $data_list[$key]['create_time'] = date('Y-m-d H:i',$v['create_time']);
                 $data_list[$key]['payInfo'] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.payType($v['payType']).'<br>'.$v['tradeNo'];
             }
         }

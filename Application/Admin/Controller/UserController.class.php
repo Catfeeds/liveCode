@@ -32,12 +32,27 @@ class UserController extends AdminController {
                    ->where($map)
                    ->order('id desc')
                    ->select();
+        foreach ($data_list as $k => $v) {
+            $data_list[$k]['expire_time'] = $v['expire_time'] ? date('Y-m-d H:i',$v['expire_time']) :'暂未订购';
+        }
         $page = new Page(
             $user_object->where($map)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
         // 使用Builder快速建立列表页面。
+        $attr['name']  = 'fee';
+        $attr['title'] = '续费';
+        $attr['class'] = 'label label-info';
+        $attr['href']  = U('fee');
+        $attr2['name']  = 'fee';
+        $attr2['title'] = '后台管理';
+        $attr2['class'] = 'label label-info';
+        $attr2['href']  = U('adminManage');
+        $attr3['name']  = 'fee';
+        $attr3['title'] = '域名管理';
+        $attr3['class'] = 'label label-info';
+        $attr3['href']  = U('urlManage');
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('用户列表') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
@@ -48,8 +63,8 @@ class UserController extends AdminController {
                 ->addTableColumn('id', 'UID')
                
                 ->addTableColumn('username', '用户名')
-             
                 ->addTableColumn('create_time', '注册时间', 'time')
+                ->addTableColumn('expire_time', '有效期至')
                 ->addTableColumn('status', '状态', 'status')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
@@ -57,6 +72,10 @@ class UserController extends AdminController {
                 ->addRightButton('edit')          // 添加编辑按钮
                 ->addRightButton('forbid')        // 添加禁用/启用按钮
                 ->addRightButton('delete')        // 添加删除按钮
+                ->addRightButton('self',$attr)        // 添加删除按钮
+                ->addRightButton('self',$attr2)        // 添加删除按钮
+                ->addRightButton('self',$attr3)        // 添加删除按钮
+
                 ->display();
     }
 

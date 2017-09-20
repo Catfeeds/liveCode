@@ -200,7 +200,6 @@ class VipController extends AdminController {
                     ->addFormItem('count_track', 'select', '统计追踪', '统计追踪', ['0'=>'不支持','1'=>'支持'])
                     ->setFormData($info)
                     ->display();
-
                    
         }
     }
