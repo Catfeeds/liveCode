@@ -109,7 +109,7 @@ EOF;
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('新增导航')  // 设置页面标题
                     ->setPostUrl(U('add'))     // 设置表单提交地址
-                    ->addFormItem('pid', 'select', '上级导航', '上级导航', select_list_as_tree('admin_menu', ['pid'=>['in',[1,4]]], '顶级导航'))
+                    ->addFormItem('pid', 'select', '上级导航', '上级导航', select_list_as_tree('admin_menu', '', '顶级导航'))
                     ->addFormItem('title', 'text', '导航标题', '导航前台显示标题')
                     ->addFormItem('url', 'text', '导航URL', '名称一般为英文单词')
                     ->addFormItem('icon', 'icon', '图标', '导航图标')

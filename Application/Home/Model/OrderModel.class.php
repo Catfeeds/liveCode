@@ -25,7 +25,7 @@ class OrderModel extends Model {
      * 
      */
     protected $_validate = array(
-        array('vip', 'require', '版本不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('vip', 'require', '请选择版本', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('year', 'require', '时长不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('money', 'require', '交易金额不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
     );

@@ -69,6 +69,7 @@ class OrderController extends CommonController {
                 }
                 $mod->year     = $year;
                 $mod->payMoney = $payMoney;
+
                 $result = $mod->add();
                 if (!$result) {
                     $this->error('提交失败');
@@ -82,6 +83,60 @@ class OrderController extends CommonController {
             $vips = M('vip')->order('sort')->select();
             // 获取版本号价格
             $versions = $mod->getVersions();
+            // halt($vips);
+            
+            // halt($versions);
+            // 获取默认的版本号及价格
+            $recommed = $mod->getRecommed();
+            // halt($recommed);
+            $this->assign([
+                'meta_title'    => '版本购买',
+                'vips'          => $vips,
+                'versions'      => $versions,
+                'recommed'      => $recommed,
+            ]);
+            $this->display();
+        }
+    }
+
+    /**
+     * 用户续费
+     * 
+     */
+    public function renewal() {
+        if (IS_POST) {
+            $vip        = I('post.vip/s');
+            $year       = I('post.year/d');
+            $payMoney   = I('post.money/f');
+
+            $mod = D('Home/Order');
+            if (!$mod->create()) {
+                $this->error($mod->getError());
+            }else{
+                $mod->userId   = session('user_auth.uid');
+                $mod->vipId    = M('vip')->where(['name'=>$vip])->getField('id');
+                if (!$mod->vipId) {
+                    $this->error('版本不存在');
+                }
+                $mod->year     = $year;
+                $mod->payMoney = $payMoney;
+
+                $result = $mod->add();
+                if (!$result) {
+                    $this->error('提交失败');
+                }
+                $this->success('订单提交成功！', U('Home/Order/pay',['orderId'=>$result]));
+            }
+
+        } else {
+            $mod = D('Home/Order');
+            // 获取版本号
+            $vips = M('vip')->order('sort')->select();
+            // 获取版本号价格
+            $versions = $mod->getVersions();
+            // halt($vips);
+            
+            // halt($versions);
             // 获取默认的版本号及价格
             $recommed = $mod->getRecommed();
             // halt($recommed);

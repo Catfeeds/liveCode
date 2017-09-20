@@ -1,5 +1,6 @@
 
 $(function(){
+	$(".dis_block li:first-child").addClass('edit_on');
 	$(".duration li").each(function(){
 		$(".duration li").click(function(){
 			$(this).addClass("edit_on").siblings('li').removeClass("edit_on");
@@ -11,6 +12,7 @@ $(function(){
 			$(this).addClass("edit_on").siblings('li').removeClass("edit_on");
 			var index=$(this).index();
 			$(".ch_edit .duration").eq(index).addClass('dis_block').show().siblings().removeClass('dis_block').hide();
+			$(".dis_block li:first-child").addClass('edit_on');
 			aihuoma();
 		})
 	})

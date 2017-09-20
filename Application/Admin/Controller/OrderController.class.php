@@ -38,7 +38,7 @@ class OrderController extends AdminController {
                 $data_list[$key]['name']   = $v['name'].'-'.$v['year'].'年';
                 $data_list[$key]['isNew']  = ($v['isNew']==1)?'新开':'续费';
                 $data_list[$key]['orderStatus']  = ($v['orderStatus']==1)?'完成':'<font color="red">待支付</font>';
-                $data_list[$key]['create_time'] = date('Y-m-d H:i:s',$v['create_time']);
+                $data_list[$key]['payInfo'] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.payType($v['payType']).'<br>'.$v['tradeNo'];
             }
         }
 
@@ -59,13 +59,13 @@ class OrderController extends AdminController {
         $builder->setMetaTitle('订单中心')  // 设置页面标题
                 ->setTabNav($tab_list, $orderStatus)  // 设置页面Tab导航
                 ->addTableColumn('orderNo', '订单编号')
-                ->addTableColumn('create_time', '订购时间')
+                ->addTableColumn('pay_time', '订购时间','time')
                 ->addTableColumn('name', '套餐名称')
                 ->addTableColumn('username', '下单用户')
                 ->addTableColumn('payMoney', '费用(元)')
                 ->addTableColumn('isNew', '类型')
                 ->addTableColumn('orderStatus', '状态')
-                ->addTableColumn('tradeNo', '支付信息')
+                ->addTableColumn('payInfo', '支付信息')
                 ->setTableDataList($data_list)     // 数据列表
                 ->setTableDataPage($page->show())  // 数据列表分页
                 ->display();

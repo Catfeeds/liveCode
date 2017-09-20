@@ -383,3 +383,24 @@ function createOrderNo(){
     return date('Ymd').(round(microtime(true),4)*10000);
 }
 
+/**
+ * 返回交易类型
+ */
+function payType($payType){
+    switch ($payType) {
+        case '0':
+            return '支付宝';
+            break;
+        case '1':
+            return '微信';
+            break;
+        default:
+            return '管理员支付';
+            break;
+    }
+}
+
+
+
+
+
