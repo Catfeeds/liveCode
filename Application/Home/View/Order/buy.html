@@ -34,7 +34,7 @@
 						<ul <?php if($vo['is_recommed']){echo 'class="duration dis_block"';}else{echo 'class="duration" style="display: none;" ';} ?>>
 							<volist name="versions" id="vo2">
 								<?php if($vo['id'] == $vo2['vipId']): ?>
-								<li><span><font class="jine">{$vo2['price']}</font>元/年</span><p>{$vo2['year']}年</p></li>
+								<li><span><font class="jine">{$vo2['price']}</font>元/年</span><p><font>{$vo2['year']}</font>年</p></li>
 								<?php endif; ?>
 							</volist>
 							<div class="clear"></div>
