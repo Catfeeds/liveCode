@@ -181,6 +181,8 @@ body {
 	background: #0088CF;
 	margin-left: 15px;
 	font-size: 16px;
+    border: none;
+    outline: none;
 }
 .contrast_tab{
 	width: 100%;
@@ -311,7 +313,7 @@ body {
 }
 .offlineUl li{
 	width: 280px;
-	height: 160px;
+	min-height: 160px;
 	background: #f8f8f8;
 	float: left;
 	margin-right: 10px;
