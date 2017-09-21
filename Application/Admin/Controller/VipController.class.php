@@ -123,7 +123,6 @@ class VipController extends AdminController {
                     ->addFormItem('single_url', 'select', '独立域名', '独立域名', ['0'=>'不支持','1'=>'支持'])
                     ->addFormItem('single_host', 'select', '独立主机', '独立主机', ['0'=>'不支持','1'=>'支持'])
                     ->addFormItem('count_track', 'select', '统计追踪', '统计追踪', ['0'=>'不支持','1'=>'支持'])
-                    ->setFormData(array('reg_type' => 'admin'))
                     ->display();
         }
     }

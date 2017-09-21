@@ -15,37 +15,53 @@ use \Common\Util\Tree;
 class PayconfController extends AdminController {
 
     /**
-     * 新增导航
+     * 支付宝设置
      * 
      */
     public function alipay() {
         if (IS_POST) {
-            $nav_object = D('Module');
-            $data = $nav_object->validate(false)->create();
-            if (empty($data['icon'])) {
-                $data['status'] = -1;
-            }
-            if ($data) {
-                $id = $nav_object->add($data);
-                halt('新增成功');
-                // if ($id) {
-                //     $this->success('新增成功', U('index'));
-                // } else {
-                //     $this->error('新增失败');
-                // }
-            } else {
-                $this->error($nav_object->getError());
-            }
+            // $nav_object = D('Module');
+            // $data = $nav_object->validate(false)->create();
+            // if (empty($data['icon'])) {
+            //     $data['status'] = -1;
+            // }
+            // if ($data) {
+            //     $id = $nav_object->add($data);
+            //     halt('新增成功');
+            // } else {
+            //     $this->error($nav_object->getError());
+            // }
         } else {
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('支付宝')  // 设置页面标题
                     ->setPostUrl(U('add'))     // 设置表单提交地址
-                    ->addFormItem('pid', 'select', '上级导航', '上级导航', select_list_as_tree('admin_menu', '', '顶级导航'))
-                    ->addFormItem('title', 'text', '导航标题', '导航前台显示标题')
-                    ->addFormItem('url', 'text', '导航URL', '名称一般为英文单词')
-                    ->addFormItem('icon', 'icon', '图标', '导航图标')
-                    ->setExtraHtml($this->extra_html)
+                    ->addFormItem('pid', 'text', '收款支付宝账号', '收款支付宝账号')
+                    ->addFormItem('is_recommed', 'radio', '使用纯即时到账接口', '使用纯即时到账接口', array('1' => '是','0' => '否'))
+                    ->addFormItem('title', 'text', '合作者身份(PID)', '合作者身份(PID)')
+                    ->addFormItem('url', 'text', '交易安全验证码(KEY)', '交易安全验证码(KEY)')
+                    ->display();
+        }
+    }
+
+    /**
+     * 微信支付设置
+     * 
+     */
+    public function wechat() {
+        if (IS_POST) {
+            //
+        } else {
+            // 使用FormBuilder快速建立表单页面。
+            $builder = new \Common\Builder\FormBuilder();
+            $builder->setMetaTitle('微信')  // 设置页面标题
+                    ->setPostUrl(U('add'))     // 设置表单提交地址
+                    ->addFormItem('pid', 'text', 'AppID(应用ID)', 'AppID(应用ID)')
+                    ->addFormItem('title', 'text', 'AppSecret(应用秘钥)', 'AppSecret(应用秘钥)')
+                    ->addFormItem('url', 'text', '受理商ID', '受理商ID')
+                    ->addFormItem('title', 'text', '商户支付秘钥', '商户支付秘钥')
+                    ->addFormItem('title', 'text', '微信支付回调URL', '微信支付回调URL')
+                    ->addFormItem('title', 'text', '微信支付说明', '微信支付说明')
                     ->display();
         }
     }
@@ -109,7 +125,6 @@ class PayconfController extends AdminController {
                 ->addTableColumn('userName', '开户名称')
                 ->addTableColumn('bankName', '开户银行')
                 ->addTableColumn('bankAccount', '银行卡号')
-                ->addTableColumn('status', '状态', 'status')
                 ->addTableColumn('right_button', '操作', 'btn')
 
                 ->setTableDataList($data_list)    // 数据列表
