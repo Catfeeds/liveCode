@@ -32,14 +32,13 @@ $(function(){
 	})
 	function aihuoma(){
 		var banben=$(".edition .edit_on").html();
-		var nian=$(".duration.dis_block .edit_on p").html();
-		var nian_num=nian.split('')[0];
+		var nian=$(".duration.dis_block .edit_on p font").html();
 		var edu=$(".duration.dis_block .edit_on .jine").html();
-		var tot=nian_num*edu;
-		$(".col1").html(banben+nian);
+		var tot=nian*edu;
+		$(".col1").html(banben+nian+"年");
 		$(".col2 font").html(tot);
 		$(".vip").val(banben);
-		$(".year").val(nian_num);
+		$(".year").val(nian);
 		$(".money").val(tot);
 	}
 	aihuoma();
