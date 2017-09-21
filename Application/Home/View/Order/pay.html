@@ -47,13 +47,15 @@
 			<div class="offline" style="display: none;">
 				<p class="offline_t"><span>1</span>汇款至爱活码指定收款账号</p>
 				<ul class="offlineUl">
-					<li>
-						<p class="bank-type"><span class="bank1"></span>招商银行</p>
-						<p>开户名称：夏泽中</p>
-						<p>开户银行：招商银行合肥分行肥西路支行</p>
-						<p>银行卡号：6226 0955 1152 6803</p>
-					</li>
-					<li>
+					<volist name="banks" id="vo">
+						<li>
+							<p class="bank-type"><i class="fa fa-credit-card"></i>&nbsp;&nbsp;招商银行</p>
+							<p>开户名称：{$vo.bank}</p>
+							<p>开户银行：{$vo.bankName}</p>
+							<p>银行卡号：{$vo.bankAccount}</p>
+						</li>
+					</volist>
+					<!-- <li>
 						<p class="bank-type "><span class="bank2"></span>中国农业银行</p>
 						<p>开户名称：夏泽中</p>
 						<p>开户银行：中国农业银行安徽分行</p>
@@ -64,7 +66,7 @@
 						<p>开户名称：合肥泽琪信息科技有限公司</p>
 						<p>开户银行：徽商银行合肥稻香楼支行</p>
 						<p>银行卡号：1020 9010 2100 1002 379</p>
-					</li>
+					</li> -->
 					<div class="clear"></div>
 				</ul>
 				<p class="offline_t"><span>2</span>汇款结果反馈</p>

@@ -11,7 +11,7 @@
  Target Server Version : 100119
  File Encoding         : 65001
 
- Date: 20/09/2017 16:41:28
+ Date: 21/09/2017 11:48:59
 */
 
 SET NAMES utf8mb4;
@@ -66,6 +66,30 @@ CREATE TABLE `fw_admin_addon` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `fw_admin_addon` VALUES (2, 'RocketToTop', '小火箭返回顶部', '小火箭返回顶部', '{\"status\":\"1\"}', 'OpenCMF', '1.2.0', 0, 0, 1505875334, 1505875334, 0, 1);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for fw_admin_banks
+-- ----------------------------
+DROP TABLE IF EXISTS `fw_admin_banks`;
+CREATE TABLE `fw_admin_banks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bank` varchar(50) NOT NULL DEFAULT '',
+  `userName` varchar(50) NOT NULL DEFAULT '',
+  `bankName` varchar(255) NOT NULL DEFAULT '',
+  `bankAccount` varchar(30) NOT NULL DEFAULT '',
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `create_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of fw_admin_banks
+-- ----------------------------
+BEGIN;
+INSERT INTO `fw_admin_banks` VALUES (30, '建设银行', '我是开卡人', '发送即可雷锋精神的开发的支行', '4214 6457 4564 3241 242', 1, 1505962166);
+INSERT INTO `fw_admin_banks` VALUES (32, '招商银行', '随便来个', '发酵饲料开发金士顿六块腹肌案例的支行', '6624 3245 3253 4532 433', 1, 1505965401);
+INSERT INTO `fw_admin_banks` VALUES (29, '工商银行', 'newbie', '工商银行合肥分行肥西路支行肥西路支行', '2222 3333 4444 5555', 1, 1505960940);
 COMMIT;
 
 -- ----------------------------
@@ -232,7 +256,7 @@ CREATE TABLE `fw_admin_menu` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `status` tinyint(3) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of fw_admin_menu
@@ -269,9 +293,9 @@ INSERT INTO `fw_admin_menu` VALUES (47, 9, 0, '编辑活码', 2, 'Admin/Product/
 INSERT INTO `fw_admin_menu` VALUES (48, 1, 0, '财务管理', 1, '', 'fa fa-folder-open-o', 0, 1505553794, 1);
 INSERT INTO `fw_admin_menu` VALUES (49, 48, 0, '订单中心', 1, 'Admin/Order/index', 'fa fa-bar-chart-o', 0, 1505553995, 1);
 INSERT INTO `fw_admin_menu` VALUES (50, 1, 0, '支付管理', 1, '', 'fa fa-folder-open-o', 0, 1505553799, 1);
-INSERT INTO `fw_admin_menu` VALUES (51, 50, 0, '支付宝', 1, 'Admin/Ali/index', 'fa fa-credit-card', 0, 1505554606, 1);
-INSERT INTO `fw_admin_menu` VALUES (52, 50, 0, '微信', 1, 'Admin/Wechat/index', 'fa fa-credit-card', 0, 1505554695, 1);
-INSERT INTO `fw_admin_menu` VALUES (53, 50, 0, '汇款账号', 1, 'Admin/Bank/index', 'fa fa-credit-card', 0, 1505554725, 1);
+INSERT INTO `fw_admin_menu` VALUES (51, 50, 0, '支付宝', 1, 'Admin/Payconf/alipay', 'fa fa-credit-card', 0, 1505554606, 1);
+INSERT INTO `fw_admin_menu` VALUES (52, 50, 0, '微信', 1, 'Admin/Payconf/wechat', 'fa fa-credit-card', 0, 1505554695, 1);
+INSERT INTO `fw_admin_menu` VALUES (53, 50, 0, '汇款账号', 1, 'Admin/Payconf/bank', 'fa fa-credit-card', 0, 1505554725, 1);
 INSERT INTO `fw_admin_menu` VALUES (54, 50, 0, '套餐价格', 1, 'Admin/Vip/index', 'fa fa-credit-card', 0, 1505554792, 1);
 INSERT INTO `fw_admin_menu` VALUES (55, 54, 0, '新增套餐', 1, 'Admin/Vip/add', '', 0, 1505805835, -1);
 INSERT INTO `fw_admin_menu` VALUES (56, 54, 0, '编辑套餐', 1, 'Admin/Vip/edit', '', 0, 1505805956, -1);
@@ -280,6 +304,10 @@ INSERT INTO `fw_admin_menu` VALUES (58, 1, 0, '财务管理', 2, '', 'fa fa-fold
 INSERT INTO `fw_admin_menu` VALUES (59, 57, 0, '密码修改', 2, 'Admin/Account/editPass', 'fa fa-list', 0, 1505815020, 1);
 INSERT INTO `fw_admin_menu` VALUES (60, 57, 0, '续费管理', 2, 'Admin/Account/fee', 'fa fa-list', 0, 1505815097, 1);
 INSERT INTO `fw_admin_menu` VALUES (61, 58, 0, '订单中心', 2, 'Admin/Account/order', 'fa fa-list', 0, 1505815175, 1);
+INSERT INTO `fw_admin_menu` VALUES (62, 14, 0, '新增用户', 1, 'Admin/User/add', '', 0, 1505899117, -1);
+INSERT INTO `fw_admin_menu` VALUES (63, 14, 0, '编辑用户', 1, 'Admin/User/edit', '', 0, 1505899659, -1);
+INSERT INTO `fw_admin_menu` VALUES (64, 53, 0, '新增汇款账号', 1, 'Admin/Payconf/add', '', 0, 1505959361, -1);
+INSERT INTO `fw_admin_menu` VALUES (65, 53, 0, '编辑汇款账号', 1, 'Admin/Payconf/edit', '', 0, 1505959443, -1);
 COMMIT;
 
 -- ----------------------------
@@ -343,6 +371,18 @@ INSERT INTO `fw_admin_nav` VALUES (1, 0, 'home', '首页', 'link', '', '', 'fa-a
 INSERT INTO `fw_admin_nav` VALUES (2, 0, 'user', '用户', 'module', 'User', '', 'fa fa-users', 1453102131, 1453102131, 0, 1);
 INSERT INTO `fw_admin_nav` VALUES (3, 0, 'cms', 'CMS', 'module', 'Cms', '', 'fa fa-newspaper-o', 1453102270, 1453102270, 0, 1);
 COMMIT;
+
+-- ----------------------------
+-- Table structure for fw_admin_payments
+-- ----------------------------
+DROP TABLE IF EXISTS `fw_admin_payments`;
+CREATE TABLE `fw_admin_payments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `payCode` varchar(20) DEFAULT NULL,
+  `payName` varchar(50) DEFAULT NULL,
+  `payConfig` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for fw_admin_theme
@@ -425,11 +465,11 @@ CREATE TABLE `fw_admin_user` (
 -- Records of fw_admin_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `fw_admin_user` VALUES (1, 1, '超级管理员', 'admin', '7e6a885b019bfc492d3ff6d209f47ac2', '', '', 0, 0, 0.00, 0, '', 1438651748, 1501578198, 1, 1, 0);
-INSERT INTO `fw_admin_user` VALUES (2, 2, '', 'admin2', '7e6a885b019bfc492d3ff6d209f47ac2', '', '', 0, 0, 0.00, 0, 'admin', 1496210259, 1505108530, 1, 1, 0);
-INSERT INTO `fw_admin_user` VALUES (3, 2, '', 'user1', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@163.com', '18121029523', 0, 0, 0.00, 2130706433, 'admin', 1505117796, 1505545389, 1, 2, 1631944781);
-INSERT INTO `fw_admin_user` VALUES (13, 2, '', '我师父', '9119f83e18b15aaaf90ce87624522cce', '发的发的发', 'fasdfsdf', 0, 0, 0.00, 0, '', 0, 1505812506, 0, 1, 0);
-INSERT INTO `fw_admin_user` VALUES (14, 2, '', '哈哈哈', '3f236576d213b9a818cc5b9ef96610f1', '447936059@qq.com', '13333333333', 0, 0, 0.00, 0, '', 1505548436, 0, 1, 0, 0);
+INSERT INTO `fw_admin_user` VALUES (1, 1, '超级管理员', 'admin', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', 0, 0, 0.00, 0, '', 1438651748, 1501578198, 1, 1, 0);
+INSERT INTO `fw_admin_user` VALUES (2, 2, '', 'admin2', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', 0, 0, 0.00, 0, 'admin', 1496210259, 1505898727, 1, 1, 0);
+INSERT INTO `fw_admin_user` VALUES (3, 2, '', 'user1', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@163.com', '18121029523', 0, 0, 0.00, 2130706433, 'admin', 1505117796, 1505898740, 1, 2, 1631944781);
+INSERT INTO `fw_admin_user` VALUES (13, 2, '', '我师父', 'b7aebc807e9844d9148e5cb32c6ff885', '发的发的发', 'fasdfsdf', 0, 0, 0.00, 0, '', 0, 1505812506, 0, 1, 0);
+INSERT INTO `fw_admin_user` VALUES (14, 2, '', '哈哈哈', 'b7aebc807e9844d9148e5cb32c6ff885', '447936059@qq.com', '13333333333', 0, 0, 0.00, 0, '', 1505548436, 0, 1, 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -525,7 +565,7 @@ CREATE TABLE `fw_orders` (
   PRIMARY KEY (`orderId`),
   KEY `userId` (`userId`),
   KEY `orderStatus` (`orderStatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_orders
@@ -538,6 +578,11 @@ INSERT INTO `fw_orders` VALUES (6, '2017091915057898523251', 3, -1, 3, 2, 1, 0, 
 INSERT INTO `fw_orders` VALUES (7, '2017091915057900821991', 14, 1, 2, 1, 1, 0, 3200.00, NULL, 1505790082, 1505878080, 1);
 INSERT INTO `fw_orders` VALUES (8, '2017091915057900911085', 3, 1, 3, 2, 1, 2, 9600.00, '暂无', 1505790091, 1505798726, 1);
 INSERT INTO `fw_orders` VALUES (15, '2017091915058144990960', 14, 1, 6, 9, 0, 1, 2997.00, '暂无', 1505814499, 1505814505, 1);
+INSERT INTO `fw_orders` VALUES (16, '2017092015059012115478', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505901211, 0, 1);
+INSERT INTO `fw_orders` VALUES (17, '2017092115059577404758', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505957740, 0, 1);
+INSERT INTO `fw_orders` VALUES (18, '2017092115059587624845', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505958762, 0, 1);
+INSERT INTO `fw_orders` VALUES (19, '2017092115059631348383', 14, -1, 3, 2, 1, 0, 9600.00, NULL, 1505963134, 0, 1);
+INSERT INTO `fw_orders` VALUES (20, '2017092115059654793415', 14, -1, 1, 3, 1, 0, 4800.00, NULL, 1505965479, 0, 1);
 COMMIT;
 
 -- ----------------------------
@@ -570,7 +615,7 @@ INSERT INTO `fw_vip` VALUES (1, '基础版', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0)
 INSERT INTO `fw_vip` VALUES (2, '高级版', 0, 1, 112, 11, 5, 1, 1, 1, 1, 1, 1, 1);
 INSERT INTO `fw_vip` VALUES (3, '定制版', 0, 1, 1, 12, 3, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO `fw_vip` VALUES (12, '来个新套餐', 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0);
-INSERT INTO `fw_vip` VALUES (13, 'fdsf', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `fw_vip` VALUES (6, 'fdsf', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO `fw_vip` VALUES (22, 'fdsf浮动', 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 COMMIT;
 

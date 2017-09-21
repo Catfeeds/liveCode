@@ -172,10 +172,13 @@ class OrderController extends CommonController {
                 $this->error('订单不存在');
             }
             $vip = M('vip')->getFieldById($order['vipId'],'name');
+            //汇款账号
+            $banks = M('admin_banks')->where(['status'=>1])->order('create_time desc')->select();
             $this->assign([
                 'meta_title'    => '订单支付',
                 'vip'           => $vip,
                 'order'         => $order,
+                'banks'         => $banks,
             ]);
             $this->display();
         }
