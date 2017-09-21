@@ -34,7 +34,7 @@
 						<ul <?php if($vo['is_recommed']){echo 'class="duration dis_block"';}else{echo 'class="duration" style="display: none;" ';} ?>>
 							<volist name="versions" id="vo2">
 								<?php if($vo['id'] == $vo2['vipId']): ?>
-								<li><span><font class="jine">{$vo2['price']}</font>元/年</span><p><font>{$vo2['year']}</font>年</p></li>
+								<li><span><font class="jine">{$vo2['price']}</font>元/年</span><p>{$vo2['year']}年</p></li>
 								<?php endif; ?>
 							</volist>
 							<div class="clear"></div>
@@ -72,16 +72,16 @@
 								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['livecode_count']|showDiffCount="text",###}</td>
 							</volist>
 						</tr>
-						<tr><td>内容编辑</td><td>无限制修改</td><td class="bgcolg">无限制修改</td><td>无限制修改</td></tr>
-						<tr><td>扫描量</td><td>不限制扫描量</td><td class="bgcolg">不限制扫描量</td><td>不限制扫描量</td></tr>
+						<tr><td>内容编辑</td><td>无限制修改</td><td>无限制修改</td><td class="bgcolg">无限制修改</td><td>无限制修改</td></tr>
+						<tr><td>扫描量</td><td>不限制扫描量</td><td>无限制修改</td><td class="bgcolg">不限制扫描量</td><td>不限制扫描量</td></tr>
 						<tr>
 							<td>跳转网址数量</td>
 							<volist name="vips" id="vo">
 								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['jump_url_count']|showDiffCount="text",###}</td>
 							</volist>
 						</tr>
-						<tr><td>风险预警</td><td>无风险页直接跳转</td><td class="bgcolg">无风险页直接跳转</td><td>无风险页直接跳转</td></tr>
-						<tr><td>网址审核</td><td>自动通过审核</td><td class="bgcolg">自动通过审核</td><td>自动通过审核</td></tr>
+						<tr><td>风险预警</td><td>无风险页直接跳转</td><td>无限制修改</td><td class="bgcolg">无风险页直接跳转</td><td>无风险页直接跳转</td></tr>
+						<tr><td>网址审核</td><td>自动通过审核</td><td>无限制修改</td><td class="bgcolg">自动通过审核</td><td>自动通过审核</td></tr>
 						<tr>
 							<td>批量上传网址</td>
 							<volist name="vips" id="vo">
@@ -118,7 +118,7 @@
 								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['single_host']|showDiffCount="select",###}</td>
 							</volist>
 						</tr>
-						<tr><td>跳转类型</td><td>单个网址跳转/多网址随机跳转</td><td class="bgcolg">单个网址跳转/多网址随机跳转</td><td>单个网址跳转/多网址随机跳转</td></tr>
+						<tr><td>跳转类型</td><td>单个网址跳转/多网址随机跳转</td><td>无限制修改</td><td class="bgcolg">单个网址跳转/多网址随机跳转</td><td>单个网址跳转/多网址随机跳转</td></tr>
 						<tr>
 							<td>统计追踪</td>
 							<volist name="vips" id="vo">
