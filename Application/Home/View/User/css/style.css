@@ -362,7 +362,7 @@ body {
 }
 /*弹出框*/
 .theme-popover-mask {
-    z-index: 9998;
+    z-index: 998;
     position: fixed;
     top: 0;
     left: 0;
@@ -374,7 +374,7 @@ body {
     display: block;
 }
 .theme-popover {
-    z-index: 9999;
+    z-index: 999;
     position: fixed;
     top: 50%;
     left: 50%;
