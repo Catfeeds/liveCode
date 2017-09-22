@@ -157,10 +157,10 @@ class ProductController extends AdminController {
         if (IS_POST) {
             $time = time();
             $mod    = M('admin_menu');
-            $data['pid']        = $mod->getFieldByTitle('活码生成','id');
+            $data['pid']        = $mod->getFieldByTitle('产品活码','id');
             $data['user_id']    = session('user_auth.uid');
             $data['title']      = I('title/s');
-            $data['url']        = 'Admin/Livecode/child/type/'.$time;
+            $data['url']        = 'Admin/Product/child/type/'.$time;
             $data['create_time']= time();
             empty($data['title']) ? $this->error('请输入目录名称') : '';
             if ($data) {
@@ -169,16 +169,16 @@ class ProductController extends AdminController {
                     $data['pid'] = $id;
                     $data['status'] = -1;
                     $data['title'] = '新增活码';
-                    $data['url']        = 'Admin/Livecode/add/type/'.$time;
+                    $data['url']        = 'Admin/Product/add/type/'.$time;
                     $mod->add($data);
                     $data['title'] = '下载二维码';
-                    $data['url']        = 'Admin/Livecode/xzewm/type/'.$time;
+                    $data['url']        = 'Admin/Product/xzewm/type/'.$time;
                     $mod->add($data);
                     $data['title'] = '查看数据统计';
-                    $data['url']        = 'Admin/Livecode/view/type/'.$time;
+                    $data['url']        = 'Admin/Product/view/type/'.$time;
                     $mod->add($data);
                     $data['title'] = '编辑活码';
-                    $data['url']        = 'Admin/Livecode/edit/type/'.$time;
+                    $data['url']        = 'Admin/Product/edit/type/'.$time;
                     $mod->add($data);
                     $this->success('新增成功', U('index'));
                 } else {

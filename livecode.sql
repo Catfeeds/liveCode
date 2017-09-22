@@ -11,7 +11,7 @@
  Target Server Version : 100119
  File Encoding         : 65001
 
- Date: 21/09/2017 11:48:59
+ Date: 22/09/2017 16:01:08
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,7 @@ CREATE TABLE `fw_admin_access` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='后台管理员与用户组对应关系表';
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='后台管理员与用户组对应关系表';
 
 -- ----------------------------
 -- Records of fw_admin_access
@@ -38,6 +38,7 @@ CREATE TABLE `fw_admin_access` (
 BEGIN;
 INSERT INTO `fw_admin_access` VALUES (1, 1, 1, 1438651748, 1438651748, 0, 1);
 INSERT INTO `fw_admin_access` VALUES (3, 2, 1, 1505118943, 1505119057, 0, 1);
+INSERT INTO `fw_admin_access` VALUES (4, 13, 1, 1506048686, 1506048686, 0, 1);
 COMMIT;
 
 -- ----------------------------
@@ -110,7 +111,7 @@ CREATE TABLE `fw_admin_config` (
   `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of fw_admin_config
@@ -137,6 +138,7 @@ INSERT INTO `fw_admin_config` VALUES (29, '邮箱服务器', 'EMAIL_HOST', 'smtp
 INSERT INTO `fw_admin_config` VALUES (30, '邮箱服务器端口', 'EMAIL_PORT', '25', 0, '', '', '', 0, 0, 0, 1);
 INSERT INTO `fw_admin_config` VALUES (31, '邮箱服务器帐号', 'EMAIL_ADDR', 'newbie91521@163.com', 0, '', '', '', 0, 0, 0, 1);
 INSERT INTO `fw_admin_config` VALUES (32, '邮箱服务器密码', 'EMAIL_PASS', 'aopming91', 0, '', '', '', 0, 0, 0, 1);
+INSERT INTO `fw_admin_config` VALUES (33, '来个编辑器标题', '来个编辑器名称', '来个编辑器配置值', 1, 'kindeditor', '来个编辑器配置项', '来个编辑器配置说明', 1505977647, 1505977647, 0, 1);
 COMMIT;
 
 -- ----------------------------
@@ -256,7 +258,7 @@ CREATE TABLE `fw_admin_menu` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `status` tinyint(3) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of fw_admin_menu
@@ -266,18 +268,18 @@ INSERT INTO `fw_admin_menu` VALUES (1, 0, 0, '系统', 0, '', 'fa fa-cog', 0, 15
 INSERT INTO `fw_admin_menu` VALUES (4, 1, 0, '活码管理', 2, '', 'fa fa-folder-open-o', 0, 1505210029, 1);
 INSERT INTO `fw_admin_menu` VALUES (5, 1, 0, '系统功能', 1, '', 'fa fa-folder-open-o', 0, 1505554799, 1);
 INSERT INTO `fw_admin_menu` VALUES (6, 1, 0, '用户管理', 1, '', 'fa fa-folder-open-o', 0, 1505210055, 1);
-INSERT INTO `fw_admin_menu` VALUES (7, 4, 0, '网址跳转', 2, 'Admin/Phone/index', 'fa fa-list', 0, 1505210029, 1);
-INSERT INTO `fw_admin_menu` VALUES (8, 4, 0, '多网址跳转', 2, 'Admin/Duourl/index', 'fa fa-list', 0, 1505210066, 1);
-INSERT INTO `fw_admin_menu` VALUES (9, 4, 0, '产品活码', 2, 'Admin/Product/index', 'fa fa-list', 0, 1505210029, 1);
-INSERT INTO `fw_admin_menu` VALUES (10, 4, 0, '视频活码', 2, 'Admin/Video/index', 'fa fa-list', 0, 1505210029, 1);
+INSERT INTO `fw_admin_menu` VALUES (7, 4, 0, '网址跳转', 2, 'Admin/Phone/index', 'fa fa-list', 0, 1505210129, 1);
+INSERT INTO `fw_admin_menu` VALUES (8, 4, 0, '多网址跳转', 2, 'Admin/Duourl/index', 'fa fa-list', 0, 1505210266, 1);
+INSERT INTO `fw_admin_menu` VALUES (9, 4, 0, '产品活码', 2, 'Admin/Product/index', 'fa fa-list', 0, 1505210122, 1);
+INSERT INTO `fw_admin_menu` VALUES (10, 4, 0, '视频活码', 2, 'Admin/Video/index', 'fa fa-list', 0, 1505210128, 1);
 INSERT INTO `fw_admin_menu` VALUES (11, 4, 0, '活码生成', 2, 'Admin/Livecode/index', 'fa fa-list', 0, 1505210029, 1);
 INSERT INTO `fw_admin_menu` VALUES (13, 5, 0, '系统设置', 1, 'Admin/Config/group', 'fa fa-wrench', 0, 1505210777, 1);
 INSERT INTO `fw_admin_menu` VALUES (14, 6, 0, '会员管理', 1, 'Admin/User/index', 'fa fa-user', 0, 1505210028, 1);
-INSERT INTO `fw_admin_menu` VALUES (15, 7, 0, '添加', 2, 'Admin/Phone/add', '', 0, 0, 1);
+INSERT INTO `fw_admin_menu` VALUES (15, 7, 0, '新增', 2, 'Admin/Phone/add', '', 0, 0, 1);
 INSERT INTO `fw_admin_menu` VALUES (17, 11, 0, '新建目录', 2, 'Admin/Livecode/addmenu', '', 0, 0, -1);
 INSERT INTO `fw_admin_menu` VALUES (42, 38, 3, '编辑活码', 2, 'Admin/Livecode/edit/type/1505457893', '', 0, 1505457893, -1);
 INSERT INTO `fw_admin_menu` VALUES (41, 38, 3, '查看数据统计', 2, 'Admin/Livecode/view/type/1505457893', '', 0, 1505457893, -1);
-INSERT INTO `fw_admin_menu` VALUES (27, 8, 0, '添加多网址跳转', 2, 'admin/duourl/add', '', 0, 1505439785, 1);
+INSERT INTO `fw_admin_menu` VALUES (27, 8, 0, '添加多网址跳转', 2, 'Admin/Duourl/add', '', 0, 1505439785, 1);
 INSERT INTO `fw_admin_menu` VALUES (40, 38, 3, '下载二维码', 2, 'Admin/Livecode/xzewm/type/1505457893', '', 0, 1505457893, -1);
 INSERT INTO `fw_admin_menu` VALUES (39, 38, 3, '新增活码', 2, 'Admin/Livecode/add/type/1505457893', '', 0, 1505457893, -1);
 INSERT INTO `fw_admin_menu` VALUES (38, 11, 3, '新目录一号', 2, 'Admin/Livecode/child/type/1505457893', '', 0, 1505457893, 1);
@@ -308,6 +310,36 @@ INSERT INTO `fw_admin_menu` VALUES (62, 14, 0, '新增用户', 1, 'Admin/User/ad
 INSERT INTO `fw_admin_menu` VALUES (63, 14, 0, '编辑用户', 1, 'Admin/User/edit', '', 0, 1505899659, -1);
 INSERT INTO `fw_admin_menu` VALUES (64, 53, 0, '新增汇款账号', 1, 'Admin/Payconf/add', '', 0, 1505959361, -1);
 INSERT INTO `fw_admin_menu` VALUES (65, 53, 0, '编辑汇款账号', 1, 'Admin/Payconf/edit', '', 0, 1505959443, -1);
+INSERT INTO `fw_admin_menu` VALUES (66, 14, 0, '续费', 1, 'Admin/User/fee', '', 0, 1505976986, -1);
+INSERT INTO `fw_admin_menu` VALUES (67, 11, 3, '第二个', 2, 'Admin/Livecode/child/type/1506064330', '', 0, 1506064330, 1);
+INSERT INTO `fw_admin_menu` VALUES (68, 67, 3, '新增活码', 2, 'Admin/Livecode/add/type/1506064330', '', 0, 1506064330, -1);
+INSERT INTO `fw_admin_menu` VALUES (69, 67, 3, '下载二维码', 2, 'Admin/Livecode/xzewm/type/1506064330', '', 0, 1506064330, -1);
+INSERT INTO `fw_admin_menu` VALUES (70, 67, 3, '查看数据统计', 2, 'Admin/Livecode/view/type/1506064330', '', 0, 1506064330, -1);
+INSERT INTO `fw_admin_menu` VALUES (71, 67, 3, '编辑活码', 2, 'Admin/Livecode/edit/type/1506064330', '', 0, 1506064330, -1);
+INSERT INTO `fw_admin_menu` VALUES (72, 11, 3, '再来个', 2, 'Admin/Livecode/child/type/1506064362', '', 0, 1506064362, 1);
+INSERT INTO `fw_admin_menu` VALUES (73, 72, 3, '新增活码', 2, 'Admin/Livecode/add/type/1506064362', '', 0, 1506064362, -1);
+INSERT INTO `fw_admin_menu` VALUES (74, 72, 3, '下载二维码', 2, 'Admin/Livecode/xzewm/type/1506064362', '', 0, 1506064362, -1);
+INSERT INTO `fw_admin_menu` VALUES (75, 72, 3, '查看数据统计', 2, 'Admin/Livecode/view/type/1506064362', '', 0, 1506064362, -1);
+INSERT INTO `fw_admin_menu` VALUES (76, 72, 3, '编辑活码', 2, 'Admin/Livecode/edit/type/1506064362', '', 0, 1506064362, -1);
+INSERT INTO `fw_admin_menu` VALUES (77, 11, 14, '我是哈哈哈', 2, 'Admin/Livecode/child/type/1506064409', '', 0, 1506064409, 1);
+INSERT INTO `fw_admin_menu` VALUES (78, 77, 14, '新增活码', 2, 'Admin/Livecode/add/type/1506064409', '', 0, 1506064409, -1);
+INSERT INTO `fw_admin_menu` VALUES (79, 77, 14, '下载二维码', 2, 'Admin/Livecode/xzewm/type/1506064409', '', 0, 1506064409, -1);
+INSERT INTO `fw_admin_menu` VALUES (80, 77, 14, '查看数据统计', 2, 'Admin/Livecode/view/type/1506064409', '', 0, 1506064409, -1);
+INSERT INTO `fw_admin_menu` VALUES (81, 77, 14, '编辑活码', 2, 'Admin/Livecode/edit/type/1506064409', '', 0, 1506064409, -1);
+INSERT INTO `fw_admin_menu` VALUES (90, 87, 3, '查看数据统计', 2, 'Admin/Product/view/type/1506065776', '', 0, 1506065776, -1);
+INSERT INTO `fw_admin_menu` VALUES (89, 87, 3, '下载二维码', 2, 'Admin/Product/xzewm/type/1506065776', '', 0, 1506065776, -1);
+INSERT INTO `fw_admin_menu` VALUES (88, 87, 3, '新增活码', 2, 'Admin/Product/add/type/1506065776', '', 0, 1506065776, -1);
+INSERT INTO `fw_admin_menu` VALUES (87, 9, 3, '产品的子目录', 2, 'Admin/Product/child/type/1506065776', '', 0, 1506065776, 1);
+INSERT INTO `fw_admin_menu` VALUES (91, 87, 3, '编辑活码', 2, 'Admin/Product/edit/type/1506065776', '', 0, 1506065776, -1);
+INSERT INTO `fw_admin_menu` VALUES (92, 7, 0, '编辑', 2, 'Admin/Phone/edit', '', 0, 1506066075, -1);
+INSERT INTO `fw_admin_menu` VALUES (93, 8, 0, '编辑', 2, 'Admin/Duourl/edit', '', 0, 1506066156, -1);
+INSERT INTO `fw_admin_menu` VALUES (94, 8, 0, '导出网址', 2, 'Admin/Duourl/outurl', '', 0, 1506066214, -1);
+INSERT INTO `fw_admin_menu` VALUES (95, 8, 0, '下载二维码', 2, 'Admin/Duourl/xzewm', '', 0, 1506066258, -1);
+INSERT INTO `fw_admin_menu` VALUES (96, 8, 0, '批量修改跳转地址', 2, 'Admin/Duourl/edittzwz', '', 0, 1506066291, -1);
+INSERT INTO `fw_admin_menu` VALUES (97, 7, 0, '批量修改跳转地址', 2, 'Admin/Phone/edittzwz', '', 0, 1506066342, -1);
+INSERT INTO `fw_admin_menu` VALUES (98, 7, 0, '导出网址', 2, 'Admin/Phone/outurl', '', 0, 1506066372, -1);
+INSERT INTO `fw_admin_menu` VALUES (99, 7, 0, '下载二维码', 2, 'Admin/Phone/xzewm', '', 0, 1506066390, -1);
+INSERT INTO `fw_admin_menu` VALUES (100, 7, 0, '导入网址', 2, 'Admin/Phone/drurl', '', 0, 1506066411, -1);
 COMMIT;
 
 -- ----------------------------
@@ -425,7 +457,7 @@ CREATE TABLE `fw_admin_upload` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
 
 -- ----------------------------
 -- Records of fw_admin_upload
@@ -433,6 +465,9 @@ CREATE TABLE `fw_admin_upload` (
 BEGIN;
 INSERT INTO `fw_admin_upload` VALUES (25, 1, '新建文本文档.txt', '/Uploads/2017-09/59b628a9337bd.txt', '', 'txt', 62, 'c051ec633060723e7936a0d1f7c706d2', '4a5ee8d84e0f3ad4824bef2521a1b76caa76b4ed', 'Local', 0, 1505110185, 1505110185, 0, 1);
 INSERT INTO `fw_admin_upload` VALUES (26, 3, '1.txt', '/Uploads/2017-09/59b8fedbc3c97.txt', '', 'txt', 16, '49cded5debcf38a6eafc45cec49666cd', 'ec73df76fa785ab5171a473b774a1f4ec91b4760', 'Local', 0, 1505296091, 1505296091, 0, 0);
+INSERT INTO `fw_admin_upload` VALUES (27, 1, '1658.jpg', '/Uploads/2017-09/59c3655c70e7b.jpg', '', 'jpg', 246603, '603a6c4ab966bd05cd445a9b88fb295c', '660dceb308932097043ce61c79b8e3cb057df957', 'Local', 0, 1505977692, 1505977692, 0, 1);
+INSERT INTO `fw_admin_upload` VALUES (28, 1, '7bf22f4a3e712fe1b8be86dfd3cc5073.jpg', '/Uploads/2017-09/59c4865c6a21a.jpg', '', 'jpg', 26508, 'a2cd60a1fdaee22aa52c651263067215', 'e34ba84da1eb56cb65af845119eb2ceaa0f0d464', 'Local', 0, 1506051676, 1506051676, 0, 1);
+INSERT INTO `fw_admin_upload` VALUES (29, 1, 'timg.jpeg', '/Uploads/2017-09/59c4867a40d2d.jpeg', '', 'jpeg', 9238, 'e403418b494a9e1c0adfb675b7a57eca', 'fc65269d5bad9233b2e25999e396f9d2f861a571', 'Local', 0, 1506051706, 1506051706, 0, 1);
 COMMIT;
 
 -- ----------------------------
@@ -442,14 +477,10 @@ DROP TABLE IF EXISTS `fw_admin_user`;
 CREATE TABLE `fw_admin_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'UID',
   `user_type` int(11) NOT NULL DEFAULT '1' COMMENT '用户类型',
-  `nickname` varchar(63) NOT NULL DEFAULT '' COMMENT '昵称',
   `username` varchar(31) NOT NULL DEFAULT '' COMMENT '用户名',
   `password` varchar(63) NOT NULL DEFAULT '' COMMENT '密码',
   `email` varchar(63) NOT NULL DEFAULT '' COMMENT '邮箱',
   `mobile` varchar(11) NOT NULL DEFAULT '' COMMENT '手机号',
-  `avatar` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '头像',
-  `score` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '积分',
-  `money` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '余额',
   `reg_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '注册IP',
   `reg_type` varchar(15) NOT NULL DEFAULT '' COMMENT '注册方式',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
@@ -465,11 +496,11 @@ CREATE TABLE `fw_admin_user` (
 -- Records of fw_admin_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `fw_admin_user` VALUES (1, 1, '超级管理员', 'admin', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', 0, 0, 0.00, 0, '', 1438651748, 1501578198, 1, 1, 0);
-INSERT INTO `fw_admin_user` VALUES (2, 2, '', 'admin2', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', 0, 0, 0.00, 0, 'admin', 1496210259, 1505898727, 1, 1, 0);
-INSERT INTO `fw_admin_user` VALUES (3, 2, '', 'user1', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@163.com', '18121029523', 0, 0, 0.00, 2130706433, 'admin', 1505117796, 1505898740, 1, 2, 1631944781);
-INSERT INTO `fw_admin_user` VALUES (13, 2, '', '我师父', 'b7aebc807e9844d9148e5cb32c6ff885', '发的发的发', 'fasdfsdf', 0, 0, 0.00, 0, '', 0, 1505812506, 0, 1, 0);
-INSERT INTO `fw_admin_user` VALUES (14, 2, '', '哈哈哈', 'b7aebc807e9844d9148e5cb32c6ff885', '447936059@qq.com', '13333333333', 0, 0, 0.00, 0, '', 1505548436, 0, 1, 0, 0);
+INSERT INTO `fw_admin_user` VALUES (1, 1, 'admin', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', 0, '', 1438651748, 1501578198, 1, 0, 0);
+INSERT INTO `fw_admin_user` VALUES (2, 1, 'admin2', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', 0, 'admin', 1496210259, 1505898727, 1, 0, 0);
+INSERT INTO `fw_admin_user` VALUES (3, 2, '哈哈哈1', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@163.com', '18121029523', 2130706433, 'admin', 1505117796, 1505898740, 1, 3, 1569060179);
+INSERT INTO `fw_admin_user` VALUES (13, 2, '我师父', 'b7aebc807e9844d9148e5cb32c6ff885', '发的发的发', 'fasdfsdf', 0, '', 0, 1505812506, 0, 0, 0);
+INSERT INTO `fw_admin_user` VALUES (14, 2, '哈哈哈小号', 'b7aebc807e9844d9148e5cb32c6ff885', '447936059@qq.com', '13333333333', 0, '', 1505548436, 0, 1, 2, 1537587243);
 COMMIT;
 
 -- ----------------------------
@@ -491,13 +522,14 @@ CREATE TABLE `fw_cms_duourl` (
   `tztype` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `status` (`status`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of fw_cms_duourl
 -- ----------------------------
 BEGIN;
 INSERT INTO `fw_cms_duourl` VALUES (2, 'www.livecode1.com|||www.livecode2.com', NULL, 0, 1, 1505110505, 1505887545, 'http://www.livecode.com/index.php/huoma/duo?d=5m5bn5uqx', '5m5bn5uqx', 1, 2, 2);
+INSERT INTO `fw_cms_duourl` VALUES (3, '发生地方撒|||2132131231232', NULL, 0, 1, 1506066598, 1506066598, 'http://www.livecode.com/index.php/huoma/duo?d=4ja0dz6hy', '4ja0dz6hy', 3, 2, 1);
 COMMIT;
 
 -- ----------------------------
@@ -519,7 +551,7 @@ CREATE TABLE `fw_cms_phone` (
   PRIMARY KEY (`id`),
   KEY `status` (`status`) USING BTREE,
   KEY `title` (`title`(333))
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of fw_cms_phone
@@ -527,6 +559,8 @@ CREATE TABLE `fw_cms_phone` (
 BEGIN;
 INSERT INTO `fw_cms_phone` VALUES (1, 'www.livecode.com1', 0, 1, 1505108175, 1505444122, 'http://www.livecode.com/index.php/huoma/?d=jmusvduj3', 'jmusvduj3', 1, 1, 1);
 INSERT INTO `fw_cms_phone` VALUES (2, 'www.livecode.com', 0, 1, 1505110103, 1505110103, 'http://www.livecode.com/index.php/huoma/?d=eooadp6xj', 'eooadp6xj', 1, 1, 1);
+INSERT INTO `fw_cms_phone` VALUES (9, '方式发生地方', 0, 1, 1506066523, 1506066523, 'http://www.livecode.com/index.php/huoma/?d=agece64ij', 'agece64ij', 3, 1, 1);
+INSERT INTO `fw_cms_phone` VALUES (10, '问人发送到发送到发', 0, 1, 1506066571, 1506066571, 'http://www.livecode.com/index.php/huoma/?d=pz3236f0r', 'pz3236f0r', 3, 1, 1);
 INSERT INTO `fw_cms_phone` VALUES (8, '1112', 0, 1, 1505459680, 1505459712, 'http://www.livecode.com/index.php/huoma/?d=9mzwfp2hs', '9mzwfp2hs', 3, 1, 1);
 COMMIT;
 
@@ -565,7 +599,7 @@ CREATE TABLE `fw_orders` (
   PRIMARY KEY (`orderId`),
   KEY `userId` (`userId`),
   KEY `orderStatus` (`orderStatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_orders
@@ -575,14 +609,19 @@ INSERT INTO `fw_orders` VALUES (3, '20170919150578733245', 3, -1, 2, 1, 1, 0, 32
 INSERT INTO `fw_orders` VALUES (4, '2017091915057876713579', 3, -1, 2, 3, 1, 0, 8400.00, NULL, 1505787671, 1505798826, 1);
 INSERT INTO `fw_orders` VALUES (5, '2017091915057877316572', 3, -1, 2, 2, 0, 0, 6000.00, NULL, 1505787731, 0, 1);
 INSERT INTO `fw_orders` VALUES (6, '2017091915057898523251', 3, -1, 3, 2, 1, 0, 9600.00, NULL, 1505789852, 0, 1);
-INSERT INTO `fw_orders` VALUES (7, '2017091915057900821991', 14, 1, 2, 1, 1, 0, 3200.00, NULL, 1505790082, 1505878080, 1);
 INSERT INTO `fw_orders` VALUES (8, '2017091915057900911085', 3, 1, 3, 2, 1, 2, 9600.00, '暂无', 1505790091, 1505798726, 1);
-INSERT INTO `fw_orders` VALUES (15, '2017091915058144990960', 14, 1, 6, 9, 0, 1, 2997.00, '暂无', 1505814499, 1505814505, 1);
 INSERT INTO `fw_orders` VALUES (16, '2017092015059012115478', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505901211, 0, 1);
 INSERT INTO `fw_orders` VALUES (17, '2017092115059577404758', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505957740, 0, 1);
 INSERT INTO `fw_orders` VALUES (18, '2017092115059587624845', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505958762, 0, 1);
 INSERT INTO `fw_orders` VALUES (19, '2017092115059631348383', 14, -1, 3, 2, 1, 0, 9600.00, NULL, 1505963134, 0, 1);
 INSERT INTO `fw_orders` VALUES (20, '2017092115059654793415', 14, -1, 1, 3, 1, 0, 4800.00, NULL, 1505965479, 0, 1);
+INSERT INTO `fw_orders` VALUES (21, '2017092115059846350373', 3, 1, 2, 3, 1, 1, 8400.00, '暂无', 1505984635, 1505984639, 1);
+INSERT INTO `fw_orders` VALUES (22, '2017092115059881792709', 3, 1, 3, 2, 0, 2, 4800.00, NULL, 1505988179, 1505988179, 1);
+INSERT INTO `fw_orders` VALUES (23, '2017092115059886587836', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505988658, 0, 1);
+INSERT INTO `fw_orders` VALUES (24, '2017092215060426153415', 3, -1, 3, 1, 1, 0, 5000.00, NULL, 1506042615, 0, 1);
+INSERT INTO `fw_orders` VALUES (25, '2017092215060426544387', 14, 1, 3, 1, 1, 1, 5000.00, '暂无', 1506042654, 1506042660, 1);
+INSERT INTO `fw_orders` VALUES (26, '2017092215060471086317', 14, 1, 3, 2, 0, 0, 9600.00, '暂无', 1506047108, 1506047114, 1);
+INSERT INTO `fw_orders` VALUES (28, '2017092215060512436693', 14, 1, 2, 1, 0, 2, 3200.00, NULL, 1506051243, 1506051243, 1);
 COMMIT;
 
 -- ----------------------------
@@ -612,8 +651,8 @@ CREATE TABLE `fw_vip` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `fw_vip` VALUES (1, '基础版', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0);
-INSERT INTO `fw_vip` VALUES (2, '高级版', 0, 1, 112, 11, 5, 1, 1, 1, 1, 1, 1, 1);
-INSERT INTO `fw_vip` VALUES (3, '定制版', 0, 1, 1, 12, 3, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `fw_vip` VALUES (2, '高级版', 0, 1, 4, 11, 5, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO `fw_vip` VALUES (3, '定制版', 0, 1, 3, 12, 3, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO `fw_vip` VALUES (12, '来个新套餐', 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0);
 INSERT INTO `fw_vip` VALUES (6, 'fdsf', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO `fw_vip` VALUES (22, 'fdsf浮动', 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0);

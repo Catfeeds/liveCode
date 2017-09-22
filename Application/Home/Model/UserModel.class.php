@@ -77,17 +77,6 @@ class UserModel extends Model {
     );
 
     /**
-     * 用户性别
-     * 
-     */
-    public function user_gender($id){
-        $list[0]  = '保密';
-        $list[1]  = '男';
-        $list[-1] = '女';
-        return $id ? $list[$id] : $list;
-    }
-
-    /**
      * 用户登录
      * 
      */
@@ -130,8 +119,6 @@ class UserModel extends Model {
         $auth = array(
             'uid'      => $user['id'],
             'username' => $user['username'],
-            'nickname' => $user['nickname'],
-            'avatar'   => $user['avatar'],
             'user_type'=> $user['user_type'],
         );         
         session('user_auth', $auth);
@@ -278,7 +265,7 @@ class UserModel extends Model {
             $this->error = '邮箱验证码不正确！';return false;
         }
 
-        $users = $this->where(['user_type'=>2])->select();
+        $users = $this->select();
         foreach ($users as $v) {
             if ($v['username']==$data['username']) {
                 $this->error = '用户名已存在！';return false;

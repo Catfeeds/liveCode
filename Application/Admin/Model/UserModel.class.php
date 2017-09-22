@@ -75,17 +75,6 @@ class UserModel extends Model {
     );
 
     /**
-     * 用户性别
-     * 
-     */
-    public function user_gender($id){
-        $list[0]  = '保密';
-        $list[1]  = '男';
-        $list[-1] = '女';
-        return $id ? $list[$id] : $list;
-    }
-
-    /**
      * 用户登录
      * 
      */
@@ -125,8 +114,6 @@ class UserModel extends Model {
         $auth = array(
             'uid'      => $user['id'],
             'username' => $user['username'],
-            'nickname' => $user['nickname'],
-            'avatar'   => $user['avatar'],
             'user_type'=> $user['user_type'],
         );
         session('user_auth', $auth);
@@ -175,4 +162,6 @@ class UserModel extends Model {
         //     }
         // }
     }
+
+
 }

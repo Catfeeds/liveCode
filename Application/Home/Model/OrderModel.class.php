@@ -47,8 +47,43 @@ class OrderModel extends Model {
      * 
      */
     public function getVips() {
-        // $versions = M('vip')->alias('v')->join('__VIP_PRICE__ p on v.id=p.vipId','left')->order('v.sort,p.price desc')->select();
         $vips = M('vip')->alias('v')->field('v.*')->join('__VIP_PRICE__ p on v.id=p.vipId','left')->where(['price'=>['neq',''],'is_show'=>1])->order('v.sort,p.price desc')->group('v.id')->select();
+// halt($vips);
+        return $vips;
+    }
+
+    /**
+     * 获取续费套餐
+     * 
+     */
+    public function getFeeVips() {
+        //现在所使用的套餐
+        $order = $this->where(['userId'=>session('user_auth.uid'),'orderStatus'=>1,'status'=>1])->order('pay_time desc')->find();
+        if (!$order) {
+            $this->error = '请先在购买后再进行续费操作！';return false;
+        }
+        $vip_mod = M('vip');
+        $vip = $vip_mod->find($order['vipId']);
+        //比现在使用套餐排序更高的套餐
+        $vips = $vip_mod->alias('v')->field('v.*')->join('__VIP_PRICE__ p on v.id=p.vipId','left')->where(['price'=>['neq',''],'is_show'=>1,'sort'=>['gt',$vip['sort']]])->order('v.sort,p.price desc')->group('v.id')->select();
+        if (!$vips) {
+            $this->error = '您目前使用的套餐已经是最高级别！';return false;
+        }
+        //是否有推荐套餐,没有则把第一个设为默认推荐
+        $have_recommed = 0;
+        foreach ($vips as $k => $v) {
+            if ($v['is_recommed'] == 1) {
+                $have_recommed = 1;
+            }
+            if ($v['id'] == $order['vipId']) {
+                $vips[$k]['BuyedYear'] = $order['year'];
+            }
+        }
+        if ($have_recommed == 0) {
+            foreach ($vips as $k => $v) {
+                $vips[0]['is_recommed'] = 1;
+            }
+        }
 // halt($vips);
         return $vips;
     }
@@ -69,11 +104,12 @@ class OrderModel extends Model {
     public function pay($orderId,$payType) {
         $order = $this->where(['orderId'=>$orderId,'userId'=>session('user_auth.uid'),'orderStatus'=>-1,'status'=>1])->find();
         if (!$order) {
-            $this->error = '无效订单！';
-            return false;
+            $this->error = '无效订单！';return false;
         }
+        $user = D('User')->find(session('user_auth.uid'));
+        $isNew = $user['vipId'] ? 0:1;
         $this->startTrans();
-        $result = $this->where(['orderId'=>$orderId,'userId'=>session('user_auth.uid')])->save(['orderStatus'=>1,'tradeNo'=>'暂无','pay_time'=>time(),'payType'=>$payType]);
+        $result = $this->where(['orderId'=>$orderId,'userId'=>session('user_auth.uid')])->save(['orderStatus'=>1,'tradeNo'=>'暂无','pay_time'=>time(),'payType'=>$payType,'isNew'=>$isNew]);
         if($result){
             $expire_time = time()+$order['year']*365*86400;
             $user_action = M('admin_user')->where(['id'=>session('user_auth.uid')])->save(['vipId'=>$order['vipId'],'expire_time'=>$expire_time]);

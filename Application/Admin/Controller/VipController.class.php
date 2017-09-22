@@ -26,7 +26,7 @@ class VipController extends AdminController {
         }
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
         $mod = M('Vip');
-        $data_list = $mod->alias('v')->field('v.name,v.is_recommed,v.is_show,p.id,p.price,p.year')
+        $data_list = $mod->alias('v')->field('v.name,v.is_recommed,v.is_show,v.sort,p.id,p.price,p.year')
                    ->join('__VIP_PRICE__ p ON p.vipId=v.id')
                    ->page($p , C('ADMIN_PAGE_ROWS'))
                    ->where($map)
@@ -50,6 +50,8 @@ class VipController extends AdminController {
                 ->addTableColumn('price', '套餐价格(元)')
                 ->addTableColumn('is_recommed', '是否前台推荐', 'status')
                 ->addTableColumn('is_show', '是否前台显示', 'status')
+                ->addTableColumn('sort', '排序')
+
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
@@ -110,7 +112,7 @@ class VipController extends AdminController {
                     ->addFormItem('name', 'text', '套餐名称', '套餐名称')
                     ->addFormItem('year', 'text', '套餐时长(年)', '套餐时长(年)')
                     ->addFormItem('price', 'text', '套餐价格(元)', '套餐价格(元)')
-                    ->addFormItem('sort', 'text', '排序', '用于显示的顺序')
+                    ->addFormItem('sort', 'text', '排序', '用于显示的顺序,如果套餐级别更高请输入更大的排序值')
                     ->addFormItem('is_recommed', 'radio', '是否前台推荐', '是否为推荐套餐', array('0' => '不推荐','1' => '推荐'))
                     ->addFormItem('is_show', 'radio', '是否前台显示', '是否显示到前台', array('0' => '不显示','1' => '显示'))
                     ->addFormItem('', 'radio', '<font color="red">套餐明细</font>')
