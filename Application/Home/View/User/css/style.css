@@ -442,7 +442,7 @@ body {
 	position: relative;
 }
 .inp-btn{
-	width: 57px;
+	min-width: 57px;
 	height: 34px;
 	color: #666;
 	font-size: 14px;
