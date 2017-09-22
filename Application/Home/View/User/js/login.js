@@ -41,6 +41,8 @@ function sendEmail(url,id){
 	}).done(function(data) {console.log();
 	    if (data.status == 1) {
 	        $('.version').html(data.info);
+//	        var gobackbtn=
+//	        time();
 	        if (data.sn_info) {
 	            $('.sn_info').html(data.sn_info);
 	        }
@@ -49,4 +51,21 @@ function sendEmail(url,id){
 	    }
 	});
 	
+}
+
+
+var wait=60;
+function time(o) {
+    if (wait == 0) {
+        o.removeAttribute("disabled");            
+        o.value="重新发送";
+        wait = 60;
+    } else {
+        o.setAttribute("disabled", true);
+        o.value=wait+"秒后可重发";
+        wait--;
+        setTimeout(function() {
+            time(o)
+        },1000)
+    }
 }
