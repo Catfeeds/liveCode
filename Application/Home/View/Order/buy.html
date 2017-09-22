@@ -72,16 +72,36 @@
 								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['livecode_count']|showDiffCount="text",###}</td>
 							</volist>
 						</tr>
-						<tr><td>内容编辑</td><td>无限制修改</td><td>无限制修改</td><td class="bgcolg">无限制修改</td><td>无限制修改</td></tr>
-						<tr><td>扫描量</td><td>不限制扫描量</td><td>无限制修改</td><td class="bgcolg">不限制扫描量</td><td>不限制扫描量</td></tr>
+						<tr>
+							<td>内容编辑</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>无限制修改</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>扫描量</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>不限制扫描量</td>
+							</volist>
+						</tr>
 						<tr>
 							<td>跳转网址数量</td>
 							<volist name="vips" id="vo">
 								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['jump_url_count']|showDiffCount="text",###}</td>
 							</volist>
 						</tr>
-						<tr><td>风险预警</td><td>无风险页直接跳转</td><td>无限制修改</td><td class="bgcolg">无风险页直接跳转</td><td>无风险页直接跳转</td></tr>
-						<tr><td>网址审核</td><td>自动通过审核</td><td>无限制修改</td><td class="bgcolg">自动通过审核</td><td>自动通过审核</td></tr>
+						<tr>
+							<td>风险预警</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>无风险页直接跳转</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>网址审核</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>自动通过审核</td>
+							</volist>
+						</tr>
 						<tr>
 							<td>批量上传网址</td>
 							<volist name="vips" id="vo">
@@ -118,7 +138,12 @@
 								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['single_host']|showDiffCount="select",###}</td>
 							</volist>
 						</tr>
-						<tr><td>跳转类型</td><td>单个网址跳转/多网址随机跳转</td><td>无限制修改</td><td class="bgcolg">单个网址跳转/多网址随机跳转</td><td>单个网址跳转/多网址随机跳转</td></tr>
+						<tr>
+							<td>跳转类型</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>单个网址跳转/多网址随机跳转</td>
+							</volist>
+						</tr>
 						<tr>
 							<td>统计追踪</td>
 							<volist name="vips" id="vo">

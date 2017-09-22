@@ -167,64 +167,63 @@ title = replace(title, '$ksid', '$endid') ");
 	        	}
     
     }
-public function xzewm ()
-{
-		if ( IS_POST )
-	    	{
-		$ksid=(int)I('ksid');
-		$endid=(int)I('endid');
-		if ( !$ksid )
-		{
-			$this->error('请输入开始ID');
-		}
-		if ( !$endid )
-		{
-			$this->error('请输入结束ID');
-		}
-		 //$where['type']=1;
-		$where['id']  = array('between',array($ksid,$endid));
-		$rs=M('cms_phone')->where($where)->getField('id',true);
-		foreach( $rs as $v  )
-		{
-			$images[]="Uploads/ewm/".$v.".png";
-		}
-		
-	$zip = new \ZipArchive;
-$filename = date('Ymd').'img.zip';
-$zip->open($filename,\ZipArchive::OVERWRITE);
-foreach ($images as $key => $value) {
-    $zip->addFile($value);
-}
+    /**
+     * 下载二维码
+     */
+    public function xzewm (){
+		if ( IS_POST ){
+    		$ksid=(int)I('ksid');
+    		$endid=(int)I('endid');
+    		if ( !$ksid ){
+    			$this->error('请输入开始ID');
+    		}
+    		if ( !$endid ){
+    			$this->error('请输入结束ID');
+    		}
+    		 //$where['type']=1;
+    		$where['id']  = array('between',array($ksid,$endid));
+    		$rs=M('cms_phone')->where($where)->getField('id',true);
+    		foreach( $rs as $v  ){
+    			$images[]="Uploads/ewm/".$v.".png";
+    		}
+    		
+    	    $zip = new \ZipArchive;
+            $filename = date('Ymd').'img.zip';
+            $zip->open($filename,\ZipArchive::OVERWRITE);
+            foreach ($images as $key => $value) {
+                $zip->addFile($value);
+            }
 
-$zip->close();
-header('Location:'.$filename);
-die();
-	    	}else{
+            $zip->close();
+            header('Location:'.$filename);die();
+	    }else{
 		    
-	 // 使用FormBuilder快速建立表单页面。
-            $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('下载二维码') //设置页面标题
-                    ->setPostUrl(U('xzewm'))    //设置表单提交地址
-                    ->addFormItem('ksid', 'text', '开始ID')
-                    ->addFormItem('endid', 'text', '结束ID')
-                    ->setAjaxSubmit(false)
-                    ->display();
-	    	}
+	   // 使用FormBuilder快速建立表单页面。
+        $builder = new \Common\Builder\FormBuilder();
+        $builder->setMetaTitle('下载二维码') //设置页面标题
+                ->setPostUrl(U('xzewm'))    //设置表单提交地址
+                ->addFormItem('ksid', 'text', '开始ID')
+                ->addFormItem('endid', 'text', '结束ID')
+                ->setAjaxSubmit(false)
+                ->display();
+    	}
 	
-}
-/**
-     * 新增用户
+    }
+
+    /**
+     * 新增网址跳转
      * 
      */
     public function add() {
         if (IS_POST) {
-           $user_object = M('cms_phone');
-           $data['create_time']=NOW_TIME;
-           $data['update_time']=NOW_TIME;
+            $user_object = M('cms_phone');
+            $data['create_time']=NOW_TIME;
+            $data['update_time']=NOW_TIME;
             $data['title']=I('title');
-             $data['uid']=$this->uid;
-             $data['d']=get_dwz();
+            $data['uid']=$this->uid;
+            $data['d']=get_dwz();
 	        $data['huoma']=get_huomaurl($data['d']);
+
             if ($data) {
                 $id = $user_object->add($data);
                 if ($id) {

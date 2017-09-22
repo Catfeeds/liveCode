@@ -250,7 +250,7 @@ class UserController extends AdminController {
         $mod = D('User');
         $user = $mod->where(['id'=>$uid,'status'=>1])->find(); //查找用户
         if (!$user) {
-            $this->error = '用户不存在或被禁用！';
+             $this->error('用户不存在或被禁用！');
         } else {
             // 记录登录SESSION和COOKIES
             $auth = array(
