@@ -14,6 +14,7 @@ $(function(){
 			$(".ch_edit .duration").eq(index).addClass('dis_block').show().siblings().removeClass('dis_block').hide();
 			$(".dis_block li:first-child").addClass('edit_on').siblings('li').removeClass('edit_on');
 			aihuoma();
+			edit();
 		})
 	})
 	$(".payli li").each(function(i){
@@ -44,5 +45,18 @@ $(function(){
 	}
 	aihuoma();
 	
+	function edit(){
+		var edit_on=$(".edition .edit_on").html();
+		//alert(edit_on)
+		$(".con_table tr th").each(function(){
+			var th=$(this).html();
+			if(edit_on==th){
+				var ind = $(this).index()+1;
+				$(this).addClass('bgcolg').siblings('th').removeClass('bgcolg');
+				$(".con_table tr td:nth-child("+ind+")").addClass('bgcolg').siblings('td').removeClass('bgcolg');
+			}
+		})
+	}
+	edit();
 })
 
