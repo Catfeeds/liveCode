@@ -110,7 +110,7 @@
 					<input type="text" placeholder="邮箱" class="login-inp" id="email2" name="email" value="" />
 					<div class="inp-box">
 						<input type="text" placeholder="邮箱验证码" class="login-inp" name="emailVerify" value="" />
-						<input type="button" value="发送" onclick="sendEmail('{:U("Home/User/getEmailVerify")}','email2')" class="inp-btn"/>
+						<input type="button" value="发送" onclick="sendEmail('{:U("Home/User/getEmailVerify")}','email2')" class="inp-btn" id="registbtn"/>
 					</div>
 					<input type="password" placeholder="密码（8-20位，必须包含字母和数字）" class="login-inp" name="password" value=""/>
 					<input type="password" placeholder="确认密码" class="login-inp" name="rePassword" value="" />
@@ -129,7 +129,7 @@
 					<input type="text" placeholder="邮箱" class="login-inp" id="email3" name="email" value=""/>
 					<div class="inp-box">
 						<input type="text" placeholder="邮箱验证码" class="login-inp" name="emailVerify" value=""/>
-						<input type="button" value="发送" onclick="sendEmail('{:U("Home/User/getEmailVerify")}','email3')" class="inp-btn"/>
+						<input type="button" value="发送" onclick="sendEmail('{:U("Home/User/getEmailVerify")}','email3')" class="inp-btn" id="gobackbtn"/>
 					</div>
 					<input type="password" placeholder="新密码（8-20位，必须包含字母和数字）" class="login-inp" name="password" value=""/>
 					<input type="password" placeholder="确认密码" class="login-inp" name="rePassword" value=""/>
@@ -152,4 +152,23 @@
 <block name="script">
 	<script src="__HOME__/user/js/tab.js" type="text/javascript" charset="utf-8"></script>
 	<script src="__HOME__/user/js/login.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var wait=60;
+		function time(o) {
+	        if (wait == 0) {
+	            o.removeAttribute("disabled");            
+	            o.value="重新发送";
+	            wait = 60;
+	        } else {
+	            o.setAttribute("disabled", true);
+	            o.value=wait+"秒后可重发";
+	            wait--;
+	            setTimeout(function() {
+	                time(o)
+	            },1000)
+	        }
+	    }
+		document.getElementById("gobackbtn").onclick=function(){time(this);}
+		document.getElementById("registbtn").onclick=function(){time(this);}
+	</script>
 </block>
