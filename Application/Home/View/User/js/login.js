@@ -38,16 +38,13 @@ function sendEmail(url,id){
 	    url: url,
 	    type: 'POST',
 	    data: {email:email}
-	}).done(function(data) {console.log();
+	}).done(function(data) {
 	    if (data.status == 1) {
-	        $('.version').html(data.info);
 //	        var gobackbtn=document.getElementById('gobackbtn');
 //	        var registbtn=document.getElementById('registbtn');
 //	        time(gobackbtn);
 //	        time(registbtn);
-	        if (data.sn_info) {
-	            $('.sn_info').html(data.sn_info);
-	        }
+	        $.alertMessager(data.info,'success');
 	    } else {
 	        $.alertMessager(data.info, 'danger');
 	    }

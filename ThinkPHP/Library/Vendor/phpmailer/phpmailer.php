@@ -3613,7 +3613,7 @@ class PHPMailer
  * PHPMailer exception handler
  * @package PHPMailer
  */
-class phpmailerException extends \think\Exception
+class phpmailerException extends \Exception
 {
     /**
      * Prettify error message output

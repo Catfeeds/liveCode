@@ -148,6 +148,7 @@ class UserController extends CommonController {
             if ($res != false) {
                 $this->success('操作成功', U('Home/User/login'));
             }
+            halt(I(''));
             $this->error($mod->getError());
         } else {
             $this->assign('meta_title', '找回密码');
@@ -165,7 +166,7 @@ class UserController extends CommonController {
         $mod = D('Home/User');
         $mod->getUserInfoByParam($email);
 
-        $code   = rand(0,999999);
+        $code   = rand(0,999999);   
         $status = $n->email($email)->send('updatePassContent',[$code]);
         if($status){
             // 绑定的邮箱
@@ -174,7 +175,7 @@ class UserController extends CommonController {
             session("email.key", $code);
             // 发起绑定邮箱的时间;
             session('email.time',time());
-            $this->success('发送成功！');
+            $this->success('邮件发送成功，请注意查收！');
         }else{
         }
     }
