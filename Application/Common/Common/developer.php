@@ -75,48 +75,56 @@ if($direction){
 return $tmparr;
 }
 
+/**
+ * 生成随机数
+ */
 function get_dwz() {
-       
-        $endtime=1356019200;//2012-12-21时间戳
-        $curtime=time();//当前时间戳
-        $newtime=$curtime-$endtime;//新时间戳
-        $rand=rand(10000,99999);//5随机
-        $all=$rand.$newtime;
-        $onlyid=base_convert($all,10,36);//把10进制转为36进制的唯一ID
-        return $onlyid;
-    }
- function get_huomaurl ($d='')
-{
+    $endtime=1356019200;//2012-12-21时间戳
+    $curtime=time();//当前时间戳
+    $newtime=$curtime-$endtime;//新时间戳
+    $rand=rand(10000,99999);//5随机
+    $all=$rand.$newtime;
+    $onlyid=base_convert($all,10,36);//把10进制转为36进制的唯一ID
+    return $onlyid;
+}
+/**
+ * 返回网址活码地址
+ */
+function get_huomaurl ($d=''){
 	 return C('HOME_PAGE').'/index.php/huoma/?d='.$d;
 }
- function get_huomaurlduo ($d='')
-{
+/**
+ * 返回多网址活码地址
+ */
+ function get_huomaurlduo ($d=''){
 	 return C('HOME_PAGE').'/index.php/huoma/duo?d='.$d;
 }
- function qrcode($url='http://www.baidu.com',$id=0,$urltype=1){
- 
-  Vendor('phpqrcode.phpqrcode');
-  
-  $errorCorrectionLevel =3 ;//容错级别 
-  $matrixPointSize = 7;//生成图片大小 
-if ( $urltype==1 )
-{
-	$filepath='Uploads/ewm/';
-}else{
-	$filepath='Uploads/duourl/';
-}
-            // 生成的文件名
-            $fileName = $filepath.$id.'.png';
-  $object = new \QRcode();
-  $object->png($url, $fileName, $errorCorrectionLevel, $matrixPointSize, 2);   
 
- }
-function get_duourl_titlearr ($title='')
-{
+/**
+ * 生成二维码
+ */
+function qrcode($url='http://www.baidu.com',$id=0,$urltype=1){
+ 
+    Vendor('phpqrcode.phpqrcode');
+  
+    $errorCorrectionLevel =3 ;//容错级别 
+    $matrixPointSize = 7;//生成图片大小 
+    if ( $urltype==1 ){
+    	$filepath='Uploads/ewm/';
+    }else{
+    	$filepath='Uploads/duourl/';
+    }
+    // 生成的文件名
+    $fileName = $filepath.$id.'.png';
+    $object = new \QRcode();
+    $object->png($url, $fileName, $errorCorrectionLevel, $matrixPointSize, 2);   
+}
+
+function get_duourl_titlearr ($title=''){
 	return explode('|||',$title);
 }
-function get_duourl_tztimearr ($tztime='')
-{
+
+function get_duourl_tztimearr ($tztime=''){
 	return explode('|||',$tztime);
 } 
 

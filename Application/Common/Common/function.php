@@ -214,7 +214,6 @@ function is_login() {
  */
 function get_user_info($id, $field) {
     $userinfo = D('Admin/User')->find($id);
-    $userinfo['avatar_url'] = get_cover($userinfo['avatar'], 'avatar');
     if ($userinfo[$field]) {
         return $userinfo[$field];
     }

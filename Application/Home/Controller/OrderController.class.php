@@ -81,12 +81,11 @@ class OrderController extends CommonController {
             // 获取套餐
             $vips = $mod->getVips();
             // 获取套餐价格
-            $versions = M('vip_price')->select();
+            $versions = M('vip_price')->order('year')->select();
             // 获取默认的套餐及价格
             $recommed = $mod->getRecommed();
             // halt($vips);
-            // halt($versions);
-            // halt($recommed);
+
             $this->assign([
                 'meta_title'    => '版本购买',
                 'vips'          => $vips,
@@ -128,17 +127,18 @@ class OrderController extends CommonController {
 
         } else {
             $mod = D('Home/Order');
-            // 获取套餐
-            $vips = $mod->getVips();
+            // 获取套餐(比现有套餐排序更高的套餐)
+            $vips = $mod->getFeeVips();
+            if (!$vips) {
+                $this->error($mod->getError());
+            }
             // 获取套餐价格
-            $versions = M('vip_price')->select();
+            $versions = M('vip_price')->order('year')->select();
             // 获取默认的套餐及价格
             $recommed = $mod->getRecommed();
-            // halt($vips);
-            // halt($versions);
-            // halt($recommed);
+
             $this->assign([
-                'meta_title'    => '版本购买',
+                'meta_title'    => '版本续费',
                 'vips'          => $vips,
                 'versions'      => $versions,
                 'recommed'      => $recommed,

@@ -15,7 +15,7 @@ use Common\Util\Think\Page;
  */
 class AccessController extends AdminController {
     /**
-     * 管理员列表111333
+     * 管理员列表
      * @param $tab 配置分组ID
      * 
      */

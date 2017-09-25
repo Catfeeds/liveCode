@@ -114,7 +114,7 @@
                     <i class="{$_ns_second.icon}"></i>
                     <span class="nav-label">{$_ns_second.title}</span>
                 </a>
-                <?php if($_ns_second['id'] == 11): ?>
+                <?php if($_ns_second['id'] == 11 || $_ns_second['id'] == 9): ?>
                     <ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$skey}">
                         <volist name="_ns_second._child" id="_ns_third" key="skey2">
                             <li <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?>>

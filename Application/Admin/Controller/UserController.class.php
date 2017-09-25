@@ -21,22 +21,26 @@ class UserController extends AdminController {
         // 搜索
         $keyword   = I('keyword', '', 'string');
         $condition = array('like','%'.$keyword.'%');
-        $map['id|username'] = array($condition, $condition, '_multi'=>true);
+        $map['u.id|username'] = array($condition, $condition, '_multi'=>true);
 
         // 获取所有用户
-        $map['status'] = array('egt', '0'); // 禁用和正常状态
+        $map['u.status'] = array('egt', '0'); // 禁用和正常状态
+        $map['u.user_type'] = 2;
+
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
-        $user_object = D('User');
-        $data_list = $user_object
+        $mod = D('User');
+        $data_list = $mod->alias('u')->field('u.*,v.name')->join('__VIP__ v on u.vipId = v.id','left')
                    ->page($p , C('ADMIN_PAGE_ROWS'))
                    ->where($map)
-                   ->order('id desc')
+                   ->order('u.id desc')
                    ->select();
+// halt($data_list);
         foreach ($data_list as $k => $v) {
             $data_list[$k]['expire_time'] = $v['expire_time'] ? date('Y-m-d H:i',$v['expire_time']) :'暂未订购';
+            $data_list[$k]['name'] = $v['vipId'] ? '<font color="green">'.$v['name'].'用户</font>' :'普通用户';
         }
         $page = new Page(
-            $user_object->where($map)->count(),
+            $mod->where($map)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
@@ -44,11 +48,11 @@ class UserController extends AdminController {
         $attr['name']  = 'fee';
         $attr['title'] = '续费';
         $attr['class'] = 'label label-info';
-        $attr['href']  = U('fee');
+        $attr['href']  = U('fee',['id'=>'__data_id__']);
         $attr2['name']  = 'fee';
         $attr2['title'] = '后台管理';
         $attr2['class'] = 'label label-info';
-        $attr2['href']  = U('adminManage');
+        $attr2['href']  = U('adminManage',['id'=>'__data_id__']);
         $attr3['name']  = 'fee';
         $attr3['title'] = '域名管理';
         $attr3['class'] = 'label label-info';
@@ -64,6 +68,7 @@ class UserController extends AdminController {
                
                 ->addTableColumn('username', '用户名')
                 ->addTableColumn('create_time', '注册时间', 'time')
+                ->addTableColumn('name', '用户类型')
                 ->addTableColumn('expire_time', '有效期至')
                 ->addTableColumn('status', '状态', 'status')
                 ->addTableColumn('right_button', '操作', 'btn')
@@ -103,10 +108,8 @@ class UserController extends AdminController {
             $builder->setMetaTitle('新增用户') //设置页面标题
                     ->setPostUrl(U('add'))    //设置表单提交地址
                     ->addFormItem('reg_type', 'hidden', '注册方式', '注册方式')
-                  
                     ->addFormItem('username', 'text', '用户名', '用户名')
                     ->addFormItem('password', 'password', '密码', '密码')
-                  
                     ->setFormData(array('reg_type' => 'admin'))
                     ->display();
         }
@@ -129,7 +132,7 @@ class UserController extends AdminController {
            
             if ($data) {
                 $result = $user_object
-                        ->field('id,nickname,username,password,email,mobile,gender,avatar,update_time,vip')
+                        ->field('id,username,password,email,mobile,update_time,vipId')
                         ->save($data);
                 if ($result) {
                     $this->success('更新成功', U('index'));
@@ -175,4 +178,90 @@ class UserController extends AdminController {
         }
         parent::setStatus($model);
     }
+
+    /**
+     * 续费
+     * 
+     */
+    public function fee($id) {
+        $mod = D('User');
+        $info = $mod->where(['status'=>1,'id'=>$id])->find();
+        if (!$info) {
+            $this->error('用户不存在或被禁用！');
+        }
+        if (IS_POST) {
+            $post = I('post.');
+            if ($post['vip'] == '') {
+                $this->error('请选择套餐');
+            }
+            //找到对应的套餐明细
+            $vip_price = M('vip_price')->find($post['vip']);
+
+            $data['orderNo'] = createOrderNo();
+            $data['userId'] = $id;
+            $data['orderStatus'] = 1;
+            $data['vipId'] = $vip_price['vipId'];
+            $data['year'] = $vip_price['year'];
+            $data['isNew'] = $info['vipId'] ? 0:1;
+            $data['payType'] = 2;
+            $data['payMoney'] = $vip_price['price'];
+            $data['create_time'] = time();
+            $data['pay_time'] = time();
+            //创建订单
+            $result = M('orders')->add($data);
+            if ($result) {
+                $expire_time = time()+$data['year']*365*86400;
+                //修改用户数据
+                $res = $mod->where(['status'=>1,'id'=>$id])->save(['vipId'=>$data['vipId'],'expire_time'=>$expire_time]);
+                if ($res) {
+                    $this->success('操作成功', U('index'));
+                }
+            }
+            $this->error('操作失败');
+
+        } else {
+            //账号的套餐信息
+            $order = M('orders')->alias('o')->field('o.orderId,o.year,v.id AS vipId')
+                    ->join('__VIP__ v on o.vipId = v.id')
+                    ->where(['o.userId'=>$id,'o.orderStatus'=>1])
+                    ->order('pay_time desc')
+                    ->find();
+            if ($order) {
+                $vip = M('vip_price')->where(['vipId'=>$order['vipId'],'year'=>$order['year']])->find();
+            }
+            //所有套餐
+            $allVersions = M('vip_price')->alias('p')->field('p.*,v.name')
+                        ->join('__VIP__ v on p.vipId = v.id')
+                        ->where(['v.is_show'=>1])
+                        ->select();
+            // halt($vip);
+            $this->assign(['vip'=>$vip,'allVersions'=>$allVersions,'id'=>$id,'meta_title'=>'续费']);
+            $this->display();
+        }
+    }
+
+    /**
+     * 后台管理
+     * 
+     */
+    public function adminmanage(){
+        $uid = I('get.id/d');
+        $where = array('eq', 1);
+        $mod = D('User');
+        $user = $mod->where(['id'=>$uid,'status'=>1])->find(); //查找用户
+        if (!$user) {
+             $this->error('用户不存在或被禁用！');
+        } else {
+            // 记录登录SESSION和COOKIES
+            $auth = array(
+                'uid'      => $user['id'],
+                'username' => $user['username'],
+                'user_type'=> $user['user_type'],
+            );
+            session('user_auth', $auth);
+            session('user_auth_sign', $mod->data_auth_sign($auth));
+            $this->success('登录成功！', U('Admin/Index/index'));
+        }
+    }
+
 }

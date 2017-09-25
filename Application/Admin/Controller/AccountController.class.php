@@ -140,7 +140,7 @@ class AccountController extends AdminController {
                 ->addTableColumn('pay_time', '订购时间','time')
                 ->addTableColumn('name', '套餐名称')
                 ->addTableColumn('expire_time', '有效期至','time')
-                ->addTableColumn('isNew', '状态','status')
+                // ->addTableColumn('isNew', '状态','status')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)     // 数据列表
                 ->setTableDataPage($page->show())  // 数据列表分页
