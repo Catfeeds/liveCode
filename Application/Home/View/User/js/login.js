@@ -41,8 +41,10 @@ function sendEmail(url,id){
 	}).done(function(data) {console.log();
 	    if (data.status == 1) {
 	        $('.version').html(data.info);
-//	        var gobackbtn=
-//	        time();
+//	        var gobackbtn=document.getElementById('gobackbtn');
+//	        var registbtn=document.getElementById('registbtn');
+//	        time(gobackbtn);
+//	        time(registbtn);
 	        if (data.sn_info) {
 	            $('.sn_info').html(data.sn_info);
 	        }
