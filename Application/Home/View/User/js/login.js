@@ -40,11 +40,34 @@ function sendEmail(url,id){
 	    data: {email:email}
 	}).done(function(data) {
 	    if (data.status == 1) {
-//	        var gobackbtn=document.getElementById('gobackbtn');
-//	        var registbtn=document.getElementById('registbtn');
-//	        time(gobackbtn);
-//	        time(registbtn);
 	        $.alertMessager(data.info,'success');
+	        var gobackbtn=document.getElementById('gobackbtn');
+	        time(gobackbtn);
+	    } else {
+	        $.alertMessager(data.info, 'danger');
+	    }
+	});
+	
+}
+
+function sendEmails(url,id){
+    var email = $('#'+id).val();
+    if (email == '') {
+    	$.alertMessager('请输入邮箱!');return;
+    }
+    var rule = /^[0-9a-zA-Z]+(?:[_-][a-z0-9-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*.[a-zA-Z]+$/i;
+    if (!rule.test(email)) {
+        $.alertMessager('请输入正确的邮箱!');return;
+    }
+    $.ajax({
+	    url: url,
+	    type: 'POST',
+	    data: {email:email}
+	}).done(function(data) {
+	    if (data.status == 1) {
+	        $.alertMessager(data.info,'success');
+	        var registbtn=document.getElementById('registbtn');
+	        times(registbtn);
 	    } else {
 	        $.alertMessager(data.info, 'danger');
 	    }
@@ -65,6 +88,22 @@ function time(o) {
         wait--;
         setTimeout(function() {
             time(o)
+        },1000)
+    }
+}
+
+var waits=60;
+function times(obj) {
+    if (waits == 0) {
+        obj.removeAttribute("disabled");            
+        obj.value="重新发送";
+        waits = 60;
+    } else {
+        obj.setAttribute("disabled", true);
+        obj.value=waits+"秒后可重发";
+        waits--;
+        setTimeout(function() {
+            times(obj)
         },1000)
     }
 }

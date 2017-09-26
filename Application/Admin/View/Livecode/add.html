@@ -3,11 +3,17 @@
 	
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/libs/huntertime/css/timePicker.css">
 	<link rel="stylesheet" type="text/css" href="__CUI__/css/addCode.css"/>
+	<link rel="stylesheet" type="text/css" href="__CUI__/css/layer.css"/>
+	<link rel="stylesheet" type="text/css" href="__CUI__/css/layui.css"/>
 	<link rel="stylesheet" type="text/css" href="__CUI__/css/fileinput.css"/>
 	<script type="text/javascript" src="__PUBLIC__/libs/huntertime/js/jquery-timepicker.js"></script>
 	<script type="text/javascript" src="__CUI__/js/duourl.js"></script>
 	<script type="text/javascript" src="__CUI__/js/fileinput.js"></script>
 	<script type="text/javascript" src="__CUI__/js/addcode.js"></script>
+	<script type="text/javascript" src="__CUI__/js/layui.js"></script>
+	<script type="text/javascript" src="__CUI__/js/moreupload.js"></script>
+	
+
 </block>
 <block name="main">
     <ul class="tab_code">
@@ -19,14 +25,14 @@
     </ul>
     <div class="wrapper">
     	<div class="editor-wrap" style="display: block;">
-	    	<div class="editor_main bd">
+	    	<div class="editor_main">
 	    		<div class="edit-left">
 					<div class="upload-img">
 				        <form>
 				            <div class="form-group" id="uploadForm" enctype='multipart/form-data'>
 				                <div class="fileinput fileinput-new" data-provides="fileinput"  id="exampleInputUpload">
 				                    <div class="fileinput-new thumbnail" style="width: 400px;height: auto;max-height:240px;">
-				                        <img id='picImg' style="max-width: 100%;height:100%;" src="https://static.clewm.net/static/images/pro/img-none@2x_6ec3f8b.png" alt="" />
+				                        <img id='picImg' style="max-width: 100%;height:100%;" src="../../../../Uploads/ewm/noimg.png" alt="" />
 				                    </div>
 				                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 400px; max-height:240px;"></div>
 				                    <div>
@@ -47,8 +53,8 @@
 	    		</div>
 	    		<div class="edit-right">
 	    			<div class="edit-img">
-	    				<img src="https://static.clewm.net/static/images/pro/qrcode-none@2x_162233f.png"/>
-	    				<a href="https://static.clewm.net/static/images/pro/qrcode-none@2x_162233f.png" download='二维码' class="btn-sm" id="show-qrcode">下载</a>
+	    				<img src="../../../../Uploads/ewm/nocode.png"/>
+	    				<a href="../../../../Uploads/ewm/nocode.png" download='二维码' class="btn-sm" id="show-qrcode">下载</a>
 	    			</div>
 	    			<div class="create-btn">
 	    				<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
@@ -78,8 +84,33 @@
 	    	
     	</div>
     	<div class="editor-wrap">
-	    	文件活码
-    		<div class="clear"></div>
+	    	<div class="editor_main txt_main">
+	    		<div class="txt_left">
+		    		<div class="layui-upload">
+					  <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button><input class="layui-upload-file" type="file" name="file" multiple=""> 
+					  <div class="layui-upload-list">
+					    <table class="layui-table">
+					      <thead>
+					        <tr><th>文件名</th>
+					        <th>大小</th>
+					        <th>状态</th>
+					        <th>操作</th>
+					      </tr></thead>
+					      <tbody id="demoList"></tbody>
+					    </table>
+					  </div>
+					  <button type="button" class="layui-btn" id="testListAction">开始上传</button>
+					</div>
+				</div>
+				<div class="txt_right">
+    				<span>
+    					左侧输入内容<br>
+						点击生成二维码
+    				</span>
+    			</div>
+	    		<div class="clear"></div>
+    		</div>
+    		
     	</div>
     	<div class="editor-wrap">
 	    	<div class="editor_main txt_main">
@@ -97,6 +128,7 @@
 						点击生成二维码
     				</span>
     			</div>
+    			
 	    		<div class="clear"></div>
     		</div>
     	</div>

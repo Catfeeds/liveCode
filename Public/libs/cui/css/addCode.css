@@ -19,19 +19,20 @@ a:active,a:focus{
 	min-height: 500px;
 	float: left;
 	background: #fff;
+    border: 1px solid #dcdcdc;
+    border-right: none;
 }
 .upload-img{
 	width: 600px;
 	height: 300px;
 	text-align: center;
-	box-shadow: 0 0 1px rgba(0,0,0,.3);
+    border-bottom: 1px solid #dcdcdc;
 }
 .t-box{
     width:600px;
     padding: 10px;
     z-index: 999;
-    min-height: 400px;
-    box-shadow: 0 0 1px rgba(0,0,0,.3);
+    min-height: 398px;
 }
 .t-area{
 	width: 100%;
@@ -45,7 +46,7 @@ a:active,a:focus{
     min-height: 700px;
     float: left;
     background: #f8f8f8;
-    box-shadow: 0 0 1px rgba(0,0,0,.3);
+    border: 1px solid #dcdcdc;
 }
 .edit-img{
 	padding: 10px;
@@ -121,7 +122,6 @@ ul li{
     border: 1px solid #dcdcdc;
     padding-right: 24px;
 }
-.bd{box-shadow: 0 0 1px rgba(0,0,0,.3);}
 .sub_btn{
 	width:100%;
 	margin: 35px 0 10px;
@@ -140,7 +140,7 @@ ul li{
 }
 .txt_left{
 	width: 600px;
-	height: 100%;
+	height:300px;
 	float: left;
 }
 .btn-primary.btn-file{
@@ -167,7 +167,7 @@ ul li{
 }
 .txt_right span{
 	display: inline-block;
-	padding: 120px 0;
+	padding: 140px 0;
 	cursor: pointer;
 }
 .web_wrap{
@@ -181,4 +181,10 @@ ul li{
     font-size: 20px;
     outline: none;
 	border: 1px solid #dcdcdc;
+}
+.create-btn.build_btn{
+    width: 300px;
+    float: right;
+    margin-top: 18px;
+    border-top: none;
 }

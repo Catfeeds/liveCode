@@ -110,7 +110,7 @@
 					<input type="text" placeholder="邮箱" class="login-inp" id="email2" name="email" value="" />
 					<div class="inp-box">
 						<input type="text" placeholder="邮箱验证码" class="login-inp" name="emailVerify" value="" />
-						<input type="button" value="发送" onclick="sendEmail('{:U("Home/User/getEmailVerify")}','email2')" class="inp-btn" id="registbtn"/>
+						<input type="button" value="发送" onclick="sendEmails('{:U("Home/User/getEmailVerify")}','email2')" class="inp-btn" id="registbtn"/>
 					</div>
 					<input type="password" placeholder="密码（8-20位，必须包含字母和数字）" class="login-inp" name="password" value=""/>
 					<input type="password" placeholder="确认密码" class="login-inp" name="rePassword" value="" />
