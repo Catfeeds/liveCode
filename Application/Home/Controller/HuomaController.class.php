@@ -13,37 +13,46 @@ use Think\Controller;
  */
 class HuomaController extends HomeController{
     /**
-     * 默认方法
+     * 默认活码跳转
      */
      public function index(){
-        
-         $d = I('d');
-         if (!$d)
-        {
+        $d = I('d');
+        if (!$d){
              $this -> error('参数错误');
-             }
-         $obj = M('cms_phone');
-         $title = $obj -> where(array('d' => $d)) -> getField('title');
-         if ($title)
-        {
-             redirect($title);
-             }else{
-             $this -> error('参数错误');
-             }
-         }
-    
-     public function duo ()
-    {
-         $d = I('d');
-         if (!$d)
-        {
-             $this -> error('参数错误');
-             }
-         $obj = M('cms_duourl');
-         $rs = $obj -> where(array('d' => $d)) -> find();
-         
-         if ($rs)
-        {
+        }
+        $obj = M('cms_phone');
+        $type = $obj -> where(array('d' => $d)) -> getField('type');
+        $videourl = $obj -> where(array('d' => $d)) -> getField('0,title,videourl,huoma');
+        $title = $obj -> where(array('d' => $d)) -> getField('videourl');
+        if ($type == 2 && $videourl){
+            //视频活码跳转
+            $obj->where(array('d' => $d)) ->setInc('count', 1);
+            //$huoma = $obj -> where(array('d' => $d)) -> getField('huoma');
+            $videoTitle = '{"mediaTitle": "'.$videourl[0]['title'].'"}';
+            $this->assign('title',$videourl[0]['title']);
+            $this->assign('videoTitle',$videoTitle);
+            $this->assign('vdurl',$videourl[0]['videourl']);
+            $this->assign('hmurl',$videourl[0]['huoma']);
+            $this->display();
+        }elseif ($type == 1 && $title){
+            //网址活码跳转
+            $obj->where(array('d' => $d)) ->setInc('count', 1);
+            redirect($title);
+        }else{
+            $this -> error('参数错误');
+        }
+    }
+    /**
+     * 多网址跳转
+     */
+    public function duo (){
+        $d = I('d');
+        if (!$d){
+            $this -> error('参数错误');
+        }
+        $obj = M('cms_duourl');
+        $rs = $obj -> where(array('d' => $d)) -> find();
+        if ($rs){
              $urlarr = get_duourl_titlearr($rs['title']);
             
              if (!is_array($urlarr))
@@ -72,7 +81,7 @@ class HuomaController extends HomeController{
          }else{
          $this -> error('参数错误');
          }
-     }
+    }
  // shunxu
 public function orderjump ($urlarr, $info)
 {

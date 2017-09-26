@@ -10,28 +10,26 @@ namespace Admin\Controller;
 use Common\Util\Think\Page;
 
 /**
- * 用户控制器
+ * 网址跳转控制器
  * 
  */
 class PhoneController extends AdminController {
-	  protected function _initialize() {
-	  parent::_initialize();
+	protected function _initialize() {
+	    parent::_initialize();
 		$this->uid=$this->_user_auth['uid'];
-	      }
+	}
     /**
-     * 用户列表
+     * 网址跳转列表
      * 
      */
     public function index() {
-	 
         // 搜索
         $keyword   = I('keyword', '', 'string');
-        if ( $keyword )
-        {
-        	 $map['title|huoma'] = array('like','%'.$keyword.'%');
+        if ( $keyword ){
+        	$map['title|huoma'] = array('like','%'.$keyword.'%');
         }
        
-       //$map['type']=1;
+        $map['type']=1;
         // 获取所有用户
         $map['status'] = array('egt', '0'); // 禁用和正常状态
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
@@ -52,38 +50,39 @@ class PhoneController extends AdminController {
         );
 
         // 使用Builder快速建立列表页面。
-        					$attr['name']  = 'dcurl';
-	                       $attr['title'] = '导出网址';
-	                       $attr['class'] = 'btn btn-primary';
-	                       $attr['href']  = U('outurl');
-	                       $attr2['name']  = 'xzewm';
-	                       $attr2['title'] = '下载二维码';
-	                       $attr2['class'] = 'btn btn-primary';
-	                       $attr2['href']  = U('xzewm');
-	                       $attr3['name']  = 'edittzwz';
-	                       $attr3['title'] = '批量修改跳转网址';
-	                       $attr3['class'] = 'btn btn-primary';
-	                       $attr3['href']  = U('edittzwz');
-	                       $attr4['name']  = 'edittzwz';
-	                       $attr4['title'] = '批量导入网址';
-	                       $attr4['class'] = 'btn btn-primary';
-	                       $attr4['href']  = U('drurl');
+        $attr['name']  = 'dcurl';
+	    $attr['title'] = '导出网址';
+	    $attr['class'] = 'btn btn-primary';
+	    $attr['href']  = U('outurl');
+	    $attr2['name']  = 'xzewm';
+	    $attr2['title'] = '下载二维码';
+	    $attr2['class'] = 'btn btn-primary';
+	    $attr2['href']  = U('xzewm');
+	    $attr3['name']  = 'edittzwz';
+	    $attr3['title'] = '批量修改跳转网址';
+	    $attr3['class'] = 'btn btn-primary';
+	    $attr3['href']  = U('edittzwz');
+	    $attr4['name']  = 'edittzwz';
+	    $attr4['title'] = '批量导入网址';
+	    $attr4['class'] = 'btn btn-primary';
+	    $attr4['href']  = U('drurl');
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr)
                 ->addTopButton('self', $attr2)
-                 ->addTopButton('self', $attr3)
-                  ->addTopButton('self', $attr4)
+                ->addTopButton('self', $attr3)
+                ->addTopButton('self', $attr4)
                 ->setSearch('请输入跳转网址或活码地址', U('index'))
                 ->addTableColumn('id', 'ID')
-                ->addTableColumn('title', '跳转网址')
+                ->addTableColumn('title', '网址名称')
+                ->addTableColumn('videourl', '跳转网址')
                 ->addTableColumn('huoma', '活码地址')
-                 ->addTableColumn('ewm', '二维码', 'img')
+                ->addTableColumn('count', '扫码次数')
+                ->addTableColumn('ewm', '二维码', 'img')
                 
                 ->addTableColumn('create_time', '添加时间', 'time')
-               // ->addTableColumn('status', '状态', 'status')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
@@ -91,34 +90,32 @@ class PhoneController extends AdminController {
                 ->addRightButton('delete')        // 添加删除按钮
                 ->display();
     }
-    public function outurl ()
-    {
-	    	if ( IS_POST )
-	        	{
-		        	$ksid=(int)I('ksid');
-		$endid=(int)I('endid');
-		if ( !$ksid )
-		{
-			$this->error('请输入开始ID');
-		}
-		if ( !$endid )
-		{
-			$this->error('请输入结束ID');
-		}
-		  //$where['type']=1;
-		$where['id']  = array('between',array($ksid,$endid));
-	     		$rs=M('cms_phone')->where($where)->order('id')->select();
-    $str = "id,跳转网址,活码地址\n";
-    $str = iconv('utf-8','gb2312',$str);
-    foreach( $rs as $v)
-    {
-    	$str .= $v['id'].",".$v['title'].",".$v['huoma']."\n";
-    }
-   
-    $filename = date('Ymd').'.csv';
-    $this->export_csv($filename,$str);
-	        	}else{
-	    // 使用FormBuilder快速建立表单页面。
+    /**
+     * 导出
+     */
+    public function outurl (){
+    	if ( IS_POST ){
+	        $ksid=(int)I('ksid');
+    		$endid=(int)I('endid');
+    		if ( !$ksid ){
+    			$this->error('请输入开始ID');
+    		}
+    		if ( !$endid ){
+    			$this->error('请输入结束ID');
+    		}
+    		$where['type']=1;
+    		$where['id']  = array('between',array($ksid,$endid));
+	     	$rs=M('cms_phone')->where($where)->order('id')->select();
+            $str = "id,跳转网址,活码地址\n";
+            foreach( $rs as $v){
+            	$str .= $v['id'].",".$v['videourl'].",".$v['huoma']."\n";
+            }
+            
+            $str = iconv('utf-8','gb2312',$str);
+            $filename = date('Ymd').'.csv';
+            $this->export_csv($filename,$str);
+    	}else{
+            // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('导出网址') //设置页面标题
                     ->setPostUrl(U('outurl'))    //设置表单提交地址
@@ -126,17 +123,20 @@ class PhoneController extends AdminController {
                     ->addFormItem('endid', 'text', '结束ID')
                      ->setAjaxSubmit(false)
                     ->display();
-	        	}
+    	}
     
     }
-   public function export_csv($filename,$data) {
-    header("Content-type:text/csv");
-    header("Content-Disposition:attachment;filename=".$filename);
-    header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
-    header('Expires:0');
-    header('Pragma:public');
-    echo $data;
-}
+    /**
+     * 执行导出
+     */
+    public function export_csv($filename,$data) {
+        header("Content-type:text/csv");
+        header("Content-Disposition:attachment;filename=".$filename);
+        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
+        header('Expires:0');
+        header('Pragma:public');
+        echo $data;
+    }
  public function edittzwz ()
     {
 	    	if ( IS_POST )
@@ -180,20 +180,19 @@ title = replace(title, '$ksid', '$endid') ");
     		if ( !$endid ){
     			$this->error('请输入结束ID');
     		}
-    		 //$where['type']=1;
+    		$where['type']=1;
     		$where['id']  = array('between',array($ksid,$endid));
+
     		$rs=M('cms_phone')->where($where)->getField('id',true);
     		foreach( $rs as $v  ){
     			$images[]="Uploads/ewm/".$v.".png";
     		}
-    		
     	    $zip = new \ZipArchive;
             $filename = date('Ymd').'img.zip';
-            $zip->open($filename,\ZipArchive::OVERWRITE);
+            $zip->open($filename,\ZipArchive::CREATE);
             foreach ($images as $key => $value) {
                 $zip->addFile($value);
             }
-
             $zip->close();
             header('Location:'.$filename);die();
 	    }else{
@@ -216,13 +215,14 @@ title = replace(title, '$ksid', '$endid') ");
      */
     public function add() {
         if (IS_POST) {
-            $user_object = M('cms_phone');
-            $data['create_time']=NOW_TIME;
-            $data['update_time']=NOW_TIME;
-            $data['title']=I('title');
-            $data['uid']=$this->uid;
-            $data['d']=get_dwz();
-	        $data['huoma']=get_huomaurl($data['d']);
+            $user_object         = M('cms_phone');
+            $data['create_time'] =NOW_TIME;
+            $data['update_time'] =NOW_TIME;
+            $data['title']       =I('title');
+            $data['videourl']    =I('videourl');
+            $data['uid']         =$this->uid;
+            $data['d']           =get_dwz();
+            $data['huoma']       =get_huomaurl($data['d']);
 
             if ($data) {
                 $id = $user_object->add($data);
@@ -240,7 +240,8 @@ title = replace(title, '$ksid', '$endid') ");
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('新增活码') //设置页面标题
                     ->setPostUrl(U('add'))    //设置表单提交地址
-                    ->addFormItem('title', 'text', '跳转网址')
+                    ->addFormItem('title', 'text', '网址名称')
+                    ->addFormItem('videourl', 'text', '跳转网址')
                     ->display();
         }
     }
@@ -251,7 +252,6 @@ title = replace(title, '$ksid', '$endid') ");
      */
     public function edit($id) {
         if (IS_POST) {
-            
             // 提交数据
             $user_object = D('Phone');
             $data = $user_object->create();
@@ -279,7 +279,8 @@ title = replace(title, '$ksid', '$endid') ");
             $builder->setMetaTitle('编辑活码')  // 设置页面标题
                     ->setPostUrl(U('edit'))    // 设置表单提交地址
                     ->addFormItem('id', 'hidden', 'ID', 'ID')
-                    ->addFormItem('title', 'text', '跳转网址')
+                    ->addFormItem('title', 'text', '网址名称')
+                    ->addFormItem('videourl', 'text', '跳转网址')
                     ->setFormData($info)
                     ->display();
         }

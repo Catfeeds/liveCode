@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$title}</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+<script src="/Public/libs/jquery/2.x/jquery.min.js"></script>
+
+<link rel="stylesheet" href="/Public/libs/video/css/zy.media.min.css">
+<link href="" rel="stylesheet">
+<style type="text/css">
+#modelView{background-color:#DDDDDD;z-index:0;opacity:0.7;height: 100%;width: 100%;position: relative;}
+.playvideo{padding-top: 0;z-index: 9999;position: relative;height: 100%;width: 100%;}
+
+button { 
+	width:98%;
+	height:10%;
+    text-align: center;
+    border-radius: 3px; 
+	margin: 2% 1%;
+}
+
+.button img {width: 22px;height: 22px;}
+.button { 
+	font-size: 16px;
+    padding: 8px 0;
+    border: 1px solid #adadab;
+    color: #000000;
+    background-color: #e8e8e8;
+    background-image: linear-gradient(to top, #dbdbdb, #f4f4f4);
+    background-image: -webkit-gradient(linear, 0 100%, 0 0, from(#dbdbdb),to(#f4f4f4));
+    box-shadow: 0 1px 1px rgba(0,0,0,0.45), inset 0 1px 1px #efefef;
+    text-shadow: 0.5px 0.5px 1px #ffffff;
+	
+}
+#cover{display:none;position:absolute;left:0;top:0;z-index:99999999998;background-color:#000000;opacity:0.7;}
+
+#guide{display:none;position:absolute;right:18px;top:5px;z-index:99999999999;}
+
+#guide img{width:260px;height:180px;}
+
+</style>
+
+</head>
+<body onmousewheel="return false;">
+<div class="playvideo">
+	<div class="zy_media" id='video'>
+		<video poster="/Public/libs/video/images/vod.jpg" data-config='{$videoTitle}'>
+			<source src="/{$vdurl}" type="video/mp4">
+		您的浏览器不支持HTML5视频
+		</video>
+	</div>
+	<div id="modelView">&nbsp;</div>
+	<button class="button" onclick="_system._guide(true)"><img src="/Public/libs/video/images/icon_timeline.png">&nbsp;分享到朋友圈</button>
+	<div id="cover"></div>
+
+<div id="guide"><img src="/Public/libs/video/images/guide1.png"></div>
+</div>
+
+
+<script src="/Public/libs/video/js/zy.media.min.js"></script>
+<script>
+//document.documentElement.style.overflow='hidden';
+document.body.style.overflow='hidden';
+zymedia('video',{autoplay: true});
+var screenheight = document.body.clientHeight/2;
+// $("#modelView").width(window.screen.width);
+// $("#modelView").height(screenheight);
+$(".zy_media").height(window.screen.height);
+var videoheight = $(".zy_media").height(screenheight)/2;
+var padding_top = screenheight-videoheight;
+
+$("#modelView").css({"margin-top":-1*(padding_top+$(".zy_media").height())});
+
+</script>
+<script>
+	
+ 		var _system={
+
+        $:function(id){return document.getElementById(id);},
+
+		_client:function(){
+
+			return {w:document.documentElement.scrollWidth,h:document.documentElement.scrollHeight,bw:document.documentElement.clientWidth,bh:document.documentElement.clientHeight};
+
+		},
+
+		_scroll:function(){
+
+			return {x:document.documentElement.scrollLeft?document.documentElement.scrollLeft:document.body.scrollLeft,y:document.documentElement.scrollTop?document.documentElement.scrollTop:document.body.scrollTop};
+
+		},
+
+		_cover:function(show){
+
+			if(show){
+
+			this.$("cover").style.display="block";
+			this.$("video").style.display="none";
+
+			this.$("cover").style.width=(this._client().bw>this._client().w?this._client().bw:this._client().w)+"px";
+
+			this.$("cover").style.height=(this._client().bh>this._client().h?this._client().bh:this._client().h)+"px";
+
+		}else{
+
+			this.$("cover").style.display="none";
+			this.$("video").style.display="block";
+
+		}
+
+		},
+
+		_guide:function(click){
+
+			this._cover(true);
+
+			this.$("guide").style.display="block";
+
+			this.$("guide").style.top=(_system._scroll().y+5)+"px";
+
+			window.onresize=function(){_system._cover(true);_system.$("guide").style.top=(_system._scroll().y+5)+"px";};
+
+		if(click){_system.$("cover").onclick=function(){
+
+				_system._cover();
+
+				_system.$("guide").style.display="none";
+
+		_system.$("cover").onclick=null;
+
+		window.onresize=null;
+
+		};}
+
+		},
+
+		_zero:function(n){
+
+			return n<0?0:n;
+
+		}
+
+		}
+	
+
+
+</script>
+</body>
+</html>

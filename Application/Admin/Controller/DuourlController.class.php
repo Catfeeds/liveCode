@@ -10,7 +10,7 @@ namespace Admin\Controller;
 use Common\Util\Think\Page;
 
 /**
- * 用户控制器
+ * 多网址跳转控制器
  * 
  */
 class DuourlController extends AdminController {
@@ -90,32 +90,30 @@ class DuourlController extends AdminController {
                 ->addRightButton('delete')        // 添加删除按钮
                 ->display();
     }
-    public function outurl ()
-    {
-	    	if ( IS_POST )
-	        	{
-		$id=(int)I('id');
-		if ( !$id )
-		{
-			$this->error('请输入需要导出的ID');
-		}
-			     		$rs=$this->obj->find($id);
-	     		if ( !$rs )
-	     		{
-	     			$this->error('没有找到此id的相关信息');
-	     		}
-	$title=get_duourl_titlearr($rs['title']);
-    $str = "跳转网址,活码地址\n";
-    $str = iconv('utf-8','gb2312',$str);
-    foreach( $title as $v)
-    {
-    	$str .= $v.",".$rs['huoma']."\n";
-    }
-   
-    $filename = date('Ymd').'.csv';
-    $this->export_csv($filename,$str);
-	        	}else{
-	    // 使用FormBuilder快速建立表单页面。
+    /**
+     * 导出
+     */
+    public function outurl (){
+	    if ( IS_POST ){
+    		$id=(int)I('id');
+    		if ( !$id ){
+    			$this->error('请输入需要导出的ID');
+    		}
+    		$rs=$this->obj->find($id);
+     		if ( !$rs ){
+     			$this->error('没有找到此id的相关信息');
+     		}
+        	$title=get_duourl_titlearr($rs['title']);
+            $str = "跳转网址,活码地址\n";
+            foreach( $title as $v){
+            	$str .= $v.",".$rs['huoma']."\n";
+            }
+            
+            $str = iconv('utf-8','gb2312',$str);
+            $filename = date('Ymd').'.csv';
+            $this->export_csv($filename,$str);
+    	}else{
+    	    // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('导出网址') //设置页面标题
                     ->setPostUrl(U('outurl'))    //设置表单提交地址
@@ -123,17 +121,20 @@ class DuourlController extends AdminController {
                    
                      ->setAjaxSubmit(false)
                     ->display();
-	        	}
+	    }
     
     }
-   public function export_csv($filename,$data) {
-    header("Content-type:text/csv");
-    header("Content-Disposition:attachment;filename=".$filename);
-    header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
-    header('Expires:0');
-    header('Pragma:public');
-    echo $data;
-}
+    /**
+     * 执行导出
+     */
+    public function export_csv($filename,$data) {
+        header("Content-type:text/csv");
+        header("Content-Disposition:attachment;filename=".$filename);
+        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
+        header('Expires:0');
+        header('Pragma:public');
+        echo $data;
+    }
 
 public function xzewm ()
 {
