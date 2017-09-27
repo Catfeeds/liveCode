@@ -11,8 +11,8 @@
 	<script type="text/javascript" src="__CUI__/js/fileinput.js"></script>
 	<script type="text/javascript" src="__CUI__/js/addcode.js"></script>
 	<script type="text/javascript" src="__CUI__/js/layui.js"></script>
+	<script type="text/javascript" src="__CUI__/js/cardlive.js"></script>
 	<script type="text/javascript" src="__CUI__/js/moreupload.js"></script>
-	
 
 </block>
 <block name="main">
@@ -54,7 +54,7 @@
 	    		<div class="edit-right">
 	    			<div class="edit-img">
 	    				<img src="../../../../Uploads/ewm/nocode.png"/>
-	    				<a href="../../../../Uploads/ewm/nocode.png" download='二维码' class="btn-sm" id="show-qrcode">下载</a>
+	    				<a href="javascript:;" class="btn-sm" >下载</a>
 	    			</div>
 	    			<div class="create-btn">
 	    				<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
@@ -73,11 +73,14 @@
 	    				<a href="#">生成二维码</a>
 	    			</div>
     			</div>
-    			<div class="txt_right">
-    				<span >
-    					左侧输入内容<br />
-						点击生成二维码
-    				</span>
+    			<div class="edit_left">
+    				<div class="txt_right">
+	    				<span >
+	    					左侧输入内容<br />
+							点击生成二维码
+	    				</span>
+	    			</div>
+	    			<a href="javascript:;" class="btn-sm btn_xz" >下载</a>
     			</div>
 	    		<div class="clear"></div>
     		</div>
@@ -101,12 +104,18 @@
 					  </div>
 					  <button type="button" class="layui-btn" id="testListAction">开始上传</button>
 					</div>
+					<div class="sub_btn">
+	    				<a href="#">生成二维码</a>
+	    			</div>
 				</div>
-				<div class="txt_right">
-    				<span>
-    					左侧输入内容<br>
-						点击生成二维码
-    				</span>
+				<div class="edit_left">
+    				<div class="txt_right">
+	    				<span >
+	    					左侧输入内容<br />
+							点击生成二维码
+	    				</span>
+	    			</div>
+	    			<a href="javascript:;" class="btn-sm btn_xz" >下载</a>
     			</div>
 	    		<div class="clear"></div>
     		</div>
@@ -122,26 +131,402 @@
 	    				<a href="#">生成二维码</a>
 	    			</div>
     			</div>
-    			<div class="txt_right">
-    				<span >
-    					左侧输入内容<br />
-						点击生成二维码
-    				</span>
+    			<div class="edit_left">
+    				<div class="txt_right">
+	    				<span >
+	    					左侧输入内容<br />
+							点击生成二维码
+	    				</span>
+	    			</div>
+	    			<a href="javascript:;" class="btn-sm btn_xz" >下载</a>
     			</div>
     			
 	    		<div class="clear"></div>
     		</div>
     	</div>
     	<div class="editor-wrap">
-	    	名片活码
-    	<div class="clear"></div>
+	    	<div class="editor_main txt_main">
+	    		<div id="leftwrap">
+	    			<div class="left_box left_basic border-rt-green">
+	    				<div class="bg_wrap basic-bg-wrap green hidden">
+	    					<div class="bg">
+	    						基本信息
+            				</div>
+	    				</div>
+	    				<div class="vcard_head" style="background-image: url(../../../../Uploads/ewm/vcardbg7.jpg);">
+	    					<div class="vcard_face_wrap">
+	    						<div class="vcard_face_bg"></div>
+	    						<div class="vcard_face"></div>
+	    						<div class="vcard_face_lang" >头像</div>
+	    					</div>
+	    					<div class="vcard_career_wrap">
+		    					<p id="vcard_data_name" class="lang" data-lang-key="Name" >姓名</p>
+		    					<p class="vcard_data_appointment lang" data-lang-key="Position">职位</p>
+		    					<p class="vcard_data_company lang" data-lang-key="Company">公司</p>
+		    					<div class="clear"></div>
+		    				</div>
+	    				</div>
+	    			</div>
+	    			<div class="left_box left_phone">
+	    				<div class="bg_wrap green hidden">
+	    					<div class="bg text-center ">
+	    						联系信息
+	    					</div>
+	    				</div>
+	    				<div class="vcard_data_txt b-b">
+	    					<span class="vcard_data_title lang" data-lang-key="Telephone">固定电话</span>
+	    					<span class="vcard_data_value vcard_data_phone"></span>
+	    				</div>
+	    				<div class="left_addable_wrap" id="left_addable_phone">
+	    					<div class="vcard_data_txt b-b">
+	    						<span class="vcard_data_title lang" data-lang-key="Mobile Phone">移动电话</span>
+	    						<span class="vcard_data_value vcard_data_mobile"></span>
+	    					</div>
+	    				</div>
+	    				<div class="left_addable_wrap" id="left_addable_fax">
+	    					<div class="vcard_data_txt b-b">
+	    						<span class="vcard_data_title lang" data-lang-key="Fax">传真</span>
+	    						<span class="vcard_data_value vcard_data_fax"></span>
+	    					</div>
+	    				</div>
+	    				<div class="left_addable_wrap" id="left_addable_email">
+	    					<div class="vcard_email vcard_data_txt b-b">
+	    						<span class="vcard_data_title lang" data-lang-key="Email">电子邮箱</span>
+	    						<span class="vcard_data_value vcard_data_email"></span>
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="left_box left_internet">
+	    				<div class="bg_wrap green hidden">
+	    					<div class="bg text-center ">
+	    						社交信息
+	    					</div>
+	    				</div>
+	    				<div class="left_addable_wrap" id="left_addable_message">
+	    					<div class="vcard_data_txt b-b vcard_message ">
+		    					<span class="vcard_data_title lang" data-lang-key="Wechat">微信</span>
+		    					<span class="vcard_data_value vcard_data_wechat"></span>
+		    				</div>
+	    				</div>
+	    				<div class="left_addable_wrap" id="left_addable_site">
+	    					<div class="vcard_site vcard_data_txt b-b">
+	    						<span class="vcard_data_title lang" data-lang-key="Website">主页网址</span>
+	    						<span class="vcard_data_value vcard_data_site"></span>
+	    					</div>
+	    				</div>
+	    				<div class="vcard_data_txt b-b">
+	    					<span class="vcard_data_title lang" data-lang-key="Weibo">微博</span>
+    						<span class="vcard_data_value vcard_data_weibo"></span>
+	    				</div>
+	    				<div class="vcard_data_txt b-b ">
+	    					<span class="vcard_data_title lang" data-lang-key="QQ">QQ</span>
+	    					<span class="vcard_data_value vcard_data_qq"></span>
+	    				</div>
+	    			</div>
+	    			<div class="left_box left_address">
+	    				<div class="bg_wrap green hidden">
+	    					<div class="bg">
+	    						地址
+            				</div>
+	    				</div>
+			            <div class="left_addable_wrap" id="left_addable_address">
+			            	<div class="vcard_address vcard_data_txt b-b">
+			            		<span class="vcard_data_title lang" data-lang-key="Address">地址</span>
+			            		<span class="vcard_data_value vcard_data_address vcard-mapaddr"></span>
+			            	</div>
+			            </div>
+	    			</div>
+	    			<div class="left_box left_intro borderlt">
+		            	<div class="bg_wrap green borderlt hidden">
+		            		<div class="bg">
+		            			个人说明
+            				</div>
+		            	</div>
+		            	<div class="vcard_other vcard_data_txt b-b borderlt">
+		            		<span class="vcard_data_title lang" data-lang-key="Self-intro">个人说明</span>
+		            		<span class="vcard_data_value vcard_data_introduce"></span>
+		            	</div>
+		            </div>
+		            <div class="language">
+		            	<span>手机显示语言:</span>
+		            	<label id="lang-cn" for="cn" class="radio-inline">
+		            		<input name="lang" type="radio" id="cn" value="cn" checked="checked">中文
+		            	</label>
+		            	<label id="lang-en" for="en" class="radio-inline">
+		            		<input name="lang" type="radio" id="en" value="en">英语
+		            	</label>
+		            	<input type="hidden" id="lang" value="cn" />
+		            </div>
+	    		</div>
+	    		<div id="rightwrap">
+	    			<div class="edit_area" style="display: block;">
+	    				<i class="arrowl"></i>
+	    				<i class="fa fa-close close"></i>
+	    				<div class="formlist">
+	    					<div class="form-group">
+	    						<label class="form-control-label lang" data-lang-key="Avatar">头像</label>
+	    						<div id="avatar-upload">
+	    							<div class="up_btn">
+	    								<span>上传头像</span>
+	    								<input type="file" title="上传头像" name="Filedata" class="head_upload uploadfile">
+	    							</div>
+	    						</div>
+	    						<div id="portraitSubmit" class="parent" style="display: none;">
+	    							<div class="preview-size">
+	    								<img width="100%" class="head_img" src="../../../../Uploads/ewm/vcardbg7.jpg"/>
+	    								<a href="javascript:;" class="fa fa-close up_close"></a>
+	    								<input type="file" title="上传头像" name="Filedata" class="head_upload uploadfile">
+	    							</div>
+	    						</div>
+	    					</div>
+	    					<div class="form-group">
+	    						<label class="form-control-label lang" data-lang-key="Background">封面图</label>
+	    						<div class="form_file" style="display: none;">
+	    							<button class="up_btn bj show_btn">选择封面图</button>
+	    						</div>
+	    						<div id="front_cover" class="parent" style="display: block;">
+	    							<div class="preview-size">
+	    								<img width="100%"  class="show_btn bgbtn" src="../../../../Uploads/ewm/vcardbg7.jpg"/>
+	    								<a href="javascript:;" class="fa fa-close up_close"></a>
+	    							</div>
+	    						</div>
+	    					</div>
+	    					<div class="form-group">
+	    						<label class="form-control-label lang" data-lang-key="Fullname">姓名</label>
+	    						<div class="inp_t">
+	    							<input type="text"  maxLength = '50' oninput="listenIn(this,'#vcard_data_name')"  value=""  placeholder="必填"/>
+	    							<span class="length_tip"><font>0</font>/50</span>
+	    						</div>
+	    						
+	    					</div>
+	    					<div class="form-group">
+	    						<label class="form-control-label lang"  data-lang-key="Position">职位</label>
+	    						<div class="inp_t">
+	    							<input type="text" maxLength = "100" oninput="listenIn(this,'.vcard_data_appointment')" value="" />
+	    							<span class="length_tip"><font>0</font>/100</span>
+	    						</div>
+	    					</div>
+	    					<div class="addable_wrap">
+		    					<div class="form-group">
+		    						<label class="form-control-label lang" data-lang-key="Company">公司</label>
+		    						<div class="inp_t">
+		    							<input type="text" maxLength = '50' oninput="listenIn(this,'.vcard_data_company')" value="" />
+		    							<span class="length_tip"><font>0</font>/50</span>
+		    						</div>
+		    						<a href="javascript:;" class="add_com add_com1 fa fa-plus" val = "0"></a>
+		    					</div>
+	    					</div>
+	    					<div class="form-group">
+	    						<label class="form-control-label lang" data-lang-key="Layout">展示位置</label>
+	    						<div class="inp_t">
+	    							<ul class="field-layout"> 
+	    								<li class="layoutbg1 active"><span></span></li>
+	    								<li class="layoutbg2"><span></span></li>
+	    								<li class="layoutbg3 mr0"><span></span></li>
+	    								<input type="hidden" id="info-layout"  value="0"/>
+	    							</ul>
+	    						</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="edit_area">
+	    				<i class="arrowl"></i>
+	    				<i class="fa fa-close close"></i>
+	    				<div class="formlist">
+	    					<div class="form-group">
+	    						<label class="form-control-label lang" data-lang-key="Telephone">固定电话</label>
+	    						<div class="inp_t">
+	    							<input type="text"  maxLength = '20' oninput="listenIn(this,'.vcard_data_phone')" value=""/>
+	    							<span class="length_tip"><font>0</font>/20</span>
+	    						</div>
+	    						
+	    					</div>
+	    					<div class="addable_wrap">
+		    					<div class="form-group">
+		    						<label class="form-control-label lang" data-lang-key="Mobilephone">移动电话</label>
+		    						<div class="inp_t">
+		    							<input type="text" maxLength = '20' oninput="listenIn(this,'.vcard_data_mobile')" value="" />
+		    							<span class="length_tip"><font>0</font>/20</span>
+		    						</div>
+		    						<a href="javascript:;" class="add_com add_mp fa fa-plus" val = "0"></a>
+		    					</div>
+	    					</div>
+	    					<div class="addable_wrap">
+		    					<div class="form-group">
+		    						<label class="form-control-label lang" data-lang-key="Fax">传真</label>
+		    						<div class="inp_t">
+		    							<input type="text" maxLength = '20'  oninput="listenIn(this,'.vcard_data_fax')" value="" />
+		    							<span class="length_tip"><font>0</font>/20</span>
+		    						</div>
+		    						<a href="javascript:;" class="add_com add_fax fa fa-plus" val = "0"></a>
+		    					</div>
+	    					</div>
+	    					<div class="addable_wrap">
+		    					<div class="form-group">
+		    						<label class="form-control-label lang" data-lang-key="Email" >电子邮件</label>
+		    						<div class="inp_t">
+		    							<input type="text" maxLength = '50' oninput="listenIn(this,'.vcard_data_email')" value="" />
+		    							<span class="length_tip"><font>0</font>/50</span>
+		    						</div>
+		    						<a href="javascript:;" class="add_com add_email fa fa-plus" val = "0"></a>
+		    					</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="edit_area">
+	    				<i class="arrowl"></i>
+	    				<i class="fa fa-close close"></i>
+	    				<div class="formlist">
+	    					<div class="addable_wrap">
+		    					<div class="form-group">
+		    						<label class="form-control-label lang" data-lang-key="Wechat">微信号</label>
+		    						<div class="inp_t">
+		    							<input type="text" oninput="listenIn(this,'.vcard_data_wechat')" value=""/>
+		    						</div>
+		    						<a href="javascript:;" class="add_com add_wechat fa fa-plus" val = "0"></a>
+		    					</div>
+	    					</div>
+	    					<div class="addable_wrap">
+		    					<div class="form-group">
+		    						<label class="form-control-label lang" data-lang-key="Website">主页网址</label>
+		    						<div class="inp_t">
+		    							<input type="text" maxLength = '20' oninput="listenIn(this,'.vcard_data_site')" value="" />
+		    							<span class="length_tip"><font>0</font>/200</span>
+		    						</div>
+		    						<a href="javascript:;" class="add_com add_website fa fa-plus" val = "0"></a>
+		    					</div>
+	    					</div>
+	    					
+	    					<div class="form-group">
+	    						<label class="form-control-label lang" data-lang-key="Weibo">微博</label>
+	    						<div class="inp_t">
+	    							<input type="text" maxLength = '200'  oninput="listenIn(this,'.vcard_data_weibo')" value="" />
+	    							<span class="length_tip"><font>0</font>/200</span>
+	    						</div>
+	    					</div>
+	    					
+	    					<div class="form-group">
+	    						<label class="form-control-label lang" data-lang-key="QQ">QQ</label>
+	    						<div class="inp_t">
+	    							<input type="text" maxLength = '50' oninput="listenIn(this,'.vcard_data_qq')" value="" />
+	    						</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="edit_area">
+	    				<i class="arrowl"></i>
+	    				<i class="fa fa-close close"></i>
+	    				<div class="formlist">
+	    					<div class="addable_wrap">
+	    						<div class="form-group">
+		    						<label class="form-control-label lang" data-lang-key="Address">地址</label>
+		    						<div class="inp_t">
+		    							<input type="text"  maxLength = '50' oninput="listenIn(this,'.vcard_data_address')"  value=""/>
+		    							<span class="length_tip"><font>0</font>/50</span>
+		    						</div>
+		    						<a href="javascript:;" class="add_com add_address fa fa-plus" val = "0"></a>
+		    					</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="edit_area">
+	    				<i class="arrowl"></i>
+	    				<i class="fa fa-close close"></i>
+	    				<div class="formlist">
+	    					<div class="form-group">
+	    						<label class="form-control-label lang" data-lang-key='Self-intro'>个人说明</label>
+	    						<div class="inp_t" style="width: 400px;">
+	    							<textarea id="info-introduce" oninput="listenIn(this,'.vcard_data_introduce')" class="textarea1" maxlength="200" value=""></textarea>
+	    							<span class="length_tip txt_tip"><font>0</font>/200</span>
+	    						</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="clear"></div>
+	    		<div class="creat_foot">
+	    			<div class="card_btn sub_btn">
+	    				<a href="#">生成二维码</a>
+	    			</div>
+	    			<div class="edit_left">
+	    				<div class="txt_right">
+		    				<span >
+		    					左侧输入内容<br />
+								点击生成二维码
+		    				</span>
+		    			</div>
+		    			<a href="javascript:;" class="btn-sm btn_xz" >下载</a>
+	    			</div>
+
+	    		</div>
+    		</div>
+    	
     	</div>
     </div>
-    
-    
-    
-    
-    
+ 	<div class="theme-popover-mask"></div>
+ 	<div class="theme-popover">
+ 		<div class="modal-header"><h4 class="modal-title">选择封面图</h4></div>
+ 		<div class="select-bg">
+ 			<input type="hidden" id="sel-bgcolor"  value="">
+ 			<ul id="bglist">
+ 				<li class="simple_bg active">
+ 					<img src="../../../../Uploads/ewm/vcardbg1.jpg"/>
+ 					<span></span>
+ 				</li>
+ 				<li class="simple_bg">
+ 					<img src="../../../../Uploads/ewm/vcardbg2.jpg"/>
+ 					<span></span>
+ 				</li>
+ 				<li class="simple_bg">
+ 					<img src="../../../../Uploads/ewm/vcardbg3.jpg"/>
+ 					<span></span>
+ 				</li>
+ 				<li class="simple_bg">
+ 					<img src="../../../../Uploads/ewm/vcardbg4.jpg"/>
+ 					<span></span>
+ 				</li>
+ 				<li class="simple_bg">
+ 					<img src="../../../../Uploads/ewm/vcardbg5.jpg"/>
+ 					<span></span>
+ 				</li>
+ 				<li class="simple_bg">
+ 					<img src="../../../../Uploads/ewm/vcardbg6.jpg"/>
+ 					<span></span>
+ 				</li>
+ 				<li class="simple_bg">
+ 					<img src="../../../../Uploads/ewm/vcardbg7.jpg"/>
+ 					<span></span>
+ 				</li>
+ 				<li class="simple_bg">
+ 					<img src="../../../../Uploads/ewm/vcardbg8.jpg"/>
+ 					<span></span>
+ 				</li>
+ 				<li class="simple_bg">
+ 					<img src="../../../../Uploads/ewm/vcardbg9.jpg"/>
+ 					<span></span>
+ 				</li>
+ 				<li class="simple_bg">
+ 					<img src="../../../../Uploads/ewm/vcardbg10.jpg"/>
+ 					<span></span>
+ 				</li>
+ 				<div class="youself_bg"><p>自定义背景</p></div>
+				<div class="bg-upload">
+ 					<input type="file" name="Filedata" class="uploadfile" id="upload-bg" title="上传封面图">
+ 					<span>本地上传</span>
+ 				</div>
+ 				<li class="imgShowBox">
+ 					<div class="imgshow" style="display: none;">
+ 						<img src="../../../../Uploads/ewm/vcardbg4.jpg" alt="" style="display: inline;">
+ 					</div>
+ 					<span></span>
+ 				</li>
+ 			</ul>
+ 		</div>
+ 		<div class="modal-footer">
+ 			<button type="button" class="btn_modal btn-cancel" >取消</button>
+ 			<button type="button" class="btn_modal btn-ok">确定</button>
+ 		</div>
+ 	</div>
     
     
     <script type="text/javascript">
