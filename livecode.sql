@@ -1,24 +1,22 @@
 /*
- Navicat Premium Data Transfer
+Navicat MySQL Data Transfer
 
- Source Server         : localhost
- Source Server Type    : MySQL
- Source Server Version : 100119
- Source Host           : localhost:3306
- Source Schema         : liveCode
+Source Server         : localhost
+Source Server Version : 50540
+Source Host           : localhost:3306
+Source Database       : livecode
 
- Target Server Type    : MySQL
- Target Server Version : 100119
- File Encoding         : 65001
+Target Server Type    : MYSQL
+Target Server Version : 50540
+File Encoding         : 65001
 
- Date: 22/09/2017 16:01:08
+Date: 2017-09-27 14:12:54
 */
 
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for fw_admin_access
+-- Table structure for `fw_admin_access`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_access`;
 CREATE TABLE `fw_admin_access` (
@@ -35,14 +33,12 @@ CREATE TABLE `fw_admin_access` (
 -- ----------------------------
 -- Records of fw_admin_access
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_access` VALUES (1, 1, 1, 1438651748, 1438651748, 0, 1);
-INSERT INTO `fw_admin_access` VALUES (3, 2, 1, 1505118943, 1505119057, 0, 1);
-INSERT INTO `fw_admin_access` VALUES (4, 13, 1, 1506048686, 1506048686, 0, 1);
-COMMIT;
+INSERT INTO `fw_admin_access` VALUES ('1', '1', '1', '1438651748', '1438651748', '0', '1');
+INSERT INTO `fw_admin_access` VALUES ('3', '2', '1', '1505118943', '1505119057', '0', '1');
+INSERT INTO `fw_admin_access` VALUES ('4', '13', '1', '1506048686', '1506048686', '0', '1');
 
 -- ----------------------------
--- Table structure for fw_admin_addon
+-- Table structure for `fw_admin_addon`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_addon`;
 CREATE TABLE `fw_admin_addon` (
@@ -65,12 +61,10 @@ CREATE TABLE `fw_admin_addon` (
 -- ----------------------------
 -- Records of fw_admin_addon
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_addon` VALUES (2, 'RocketToTop', '小火箭返回顶部', '小火箭返回顶部', '{\"status\":\"1\"}', 'OpenCMF', '1.2.0', 0, 0, 1505875334, 1505875334, 0, 1);
-COMMIT;
+INSERT INTO `fw_admin_addon` VALUES ('2', 'RocketToTop', '小火箭返回顶部', '小火箭返回顶部', '{\"status\":\"1\"}', 'OpenCMF', '1.2.0', '0', '0', '1505875334', '1505875334', '0', '1');
 
 -- ----------------------------
--- Table structure for fw_admin_banks
+-- Table structure for `fw_admin_banks`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_banks`;
 CREATE TABLE `fw_admin_banks` (
@@ -87,14 +81,12 @@ CREATE TABLE `fw_admin_banks` (
 -- ----------------------------
 -- Records of fw_admin_banks
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_banks` VALUES (30, '建设银行', '我是开卡人', '发送即可雷锋精神的开发的支行', '4214 6457 4564 3241 242', 1, 1505962166);
-INSERT INTO `fw_admin_banks` VALUES (32, '招商银行', '随便来个', '发酵饲料开发金士顿六块腹肌案例的支行', '6624 3245 3253 4532 433', 1, 1505965401);
-INSERT INTO `fw_admin_banks` VALUES (29, '工商银行', 'newbie', '工商银行合肥分行肥西路支行肥西路支行', '2222 3333 4444 5555', 1, 1505960940);
-COMMIT;
+INSERT INTO `fw_admin_banks` VALUES ('30', '建设银行', '我是开卡人', '发送即可雷锋精神的开发的支行', '4214 6457 4564 3241 242', '1', '1505962166');
+INSERT INTO `fw_admin_banks` VALUES ('32', '招商银行', '随便来个', '发酵饲料开发金士顿六块腹肌案例的支行', '6624 3245 3253 4532 433', '1', '1505965401');
+INSERT INTO `fw_admin_banks` VALUES ('29', '工商银行', 'newbie', '工商银行合肥分行肥西路支行肥西路支行', '2222 3333 4444 5555', '1', '1505960940');
 
 -- ----------------------------
--- Table structure for fw_admin_config
+-- Table structure for `fw_admin_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_config`;
 CREATE TABLE `fw_admin_config` (
@@ -116,33 +108,31 @@ CREATE TABLE `fw_admin_config` (
 -- ----------------------------
 -- Records of fw_admin_config
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_config` VALUES (1, '站点开关', 'TOGGLE_WEB_SITE', '1', 1, 'select', '0:关闭\r\n1:开启', '站点关闭后将不能访问', 1378898976, 1406992386, 1, 1);
-INSERT INTO `fw_admin_config` VALUES (2, '网站标题', 'WEB_SITE_TITLE', '网址跳转活码系统_网页跳转_链接跳转活码_爱活码活码管理系统_', 1, 'text', '', '网站标题前台显示标题', 1378898976, 1379235274, 2, 1);
-INSERT INTO `fw_admin_config` VALUES (3, '网站口号', 'WEB_SITE_SLOGAN', '爱活码 爱上活码', 1, 'text', '', '网站口号、宣传标语、一句话介绍', 1434081649, 1434081649, 3, 1);
-INSERT INTO `fw_admin_config` VALUES (5, '网站描述', 'WEB_SITE_DESCRIPTION', '爱活码二维码是一家提供免费的在线二维码生成服务，可以生成静态码、活码、微信二维码、淘宝二维码,网址跳转活码,微信群活码，比其他二维码服务商提供更优质的活码二维码服务', 1, 'textarea', '', '网站搜索引擎描述', 1378898976, 1379235841, 5, 1);
-INSERT INTO `fw_admin_config` VALUES (6, '网站关键字', 'WEB_SITE_KEYWORD', '网址跳转活码,网页跳转活码,链接跳转活码系统,活码管理系统,活码二维码,活码生成器,草料,码云,活码生成', 1, 'textarea', '', '网站搜索引擎关键字', 1378898976, 1381390100, 6, 1);
-INSERT INTO `fw_admin_config` VALUES (7, '版权信息', 'WEB_SITE_COPYRIGHT', 'Copyright © 爱活码 All rights reserved.', 1, 'text', '', '设置在网站底部显示的版权信息，如“版权所有 © 2014-2015 科斯克网络科技”', 1406991855, 1406992583, 7, 1);
-INSERT INTO `fw_admin_config` VALUES (8, '网站备案号', 'WEB_SITE_ICP', '皖ICP备17007700号-1', 1, 'text', '', '设置在网站底部显示的备案号，如“苏ICP备1502009-2号\"', 1378900335, 1415983236, 8, 1);
-INSERT INTO `fw_admin_config` VALUES (9, '站点统计', 'WEB_SITE_STATISTICS', '', 1, 'textarea', '', '支持百度、Google、cnzz等所有Javascript的统计代码', 1378900335, 1415983236, 9, 1);
-INSERT INTO `fw_admin_config` VALUES (11, '文件上传大小', 'UPLOAD_FILE_SIZE', '10', 2, 'num', '', '文件上传大小单位：MB', 1428681031, 1428681031, 1, 1);
-INSERT INTO `fw_admin_config` VALUES (12, '图片上传大小', 'UPLOAD_IMAGE_SIZE', '2', 2, 'num', '', '图片上传大小单位：MB', 1428681071, 1428681071, 2, 1);
-INSERT INTO `fw_admin_config` VALUES (13, '后台多标签', 'ADMIN_TABS', '0', 2, 'radio', '0:关闭\r\n1:开启', '', 1453445526, 1453445526, 3, 1);
-INSERT INTO `fw_admin_config` VALUES (14, '分页数量', 'ADMIN_PAGE_ROWS', '50', 2, 'num', '', '分页时每页的记录数', 1434019462, 1434019481, 4, 1);
-INSERT INTO `fw_admin_config` VALUES (15, '后台主题', 'ADMIN_THEME', 'green', 2, 'select', 'default:默认主题\r\nblue:蓝色理想\r\ngreen:绿色生活', '后台界面主题', 1436678171, 1436690570, 5, 1);
-INSERT INTO `fw_admin_config` VALUES (16, '开发模式', 'DEVELOP_MODE', '1', 3, 'select', '1:开启\r\n0:关闭', '开发模式下会显示菜单管理、配置管理、数据字典等开发者工具', 1432393583, 1432393583, 1, 1);
-INSERT INTO `fw_admin_config` VALUES (17, '是否显示页面Trace', 'SHOW_PAGE_TRACE', '0', 3, 'select', '0:关闭\r\n1:开启', '是否显示页面Trace信息', 1387165685, 1387165685, 2, 1);
-INSERT INTO `fw_admin_config` VALUES (19, 'URL模式', 'URL_MODEL', '3', 4, 'select', '0:普通模式\r\n1:PATHINFO模式\r\n2:REWRITE模式\r\n3:兼容模式', '', 1438423248, 1438423248, 1, 1);
-INSERT INTO `fw_admin_config` VALUES (21, '配置分组', 'CONFIG_GROUP_LIST', '1:基本\r\n2:系统\r\n3:开发\r\n4:部署\r\n', 2, 'array', '', '配置分组', 1379228036, 1426930700, 5, 1);
-INSERT INTO `fw_admin_config` VALUES (29, '邮箱服务器', 'EMAIL_HOST', 'smtp.163.com', 0, '', '', '', 0, 0, 0, 1);
-INSERT INTO `fw_admin_config` VALUES (30, '邮箱服务器端口', 'EMAIL_PORT', '25', 0, '', '', '', 0, 0, 0, 1);
-INSERT INTO `fw_admin_config` VALUES (31, '邮箱服务器帐号', 'EMAIL_ADDR', 'newbie91521@163.com', 0, '', '', '', 0, 0, 0, 1);
-INSERT INTO `fw_admin_config` VALUES (32, '邮箱服务器密码', 'EMAIL_PASS', 'aopming91', 0, '', '', '', 0, 0, 0, 1);
-INSERT INTO `fw_admin_config` VALUES (33, '来个编辑器标题', '来个编辑器名称', '来个编辑器配置值', 1, 'kindeditor', '来个编辑器配置项', '来个编辑器配置说明', 1505977647, 1505977647, 0, 1);
-COMMIT;
+INSERT INTO `fw_admin_config` VALUES ('1', '站点开关', 'TOGGLE_WEB_SITE', '1', '1', 'select', '0:关闭\r\n1:开启', '站点关闭后将不能访问', '1378898976', '1406992386', '1', '1');
+INSERT INTO `fw_admin_config` VALUES ('2', '网站标题', 'WEB_SITE_TITLE', '网址跳转活码系统_网页跳转_链接跳转活码_爱活码活码管理系统_', '1', 'text', '', '网站标题前台显示标题', '1378898976', '1379235274', '2', '1');
+INSERT INTO `fw_admin_config` VALUES ('3', '网站口号', 'WEB_SITE_SLOGAN', '爱活码 爱上活码', '1', 'text', '', '网站口号、宣传标语、一句话介绍', '1434081649', '1434081649', '3', '1');
+INSERT INTO `fw_admin_config` VALUES ('5', '网站描述', 'WEB_SITE_DESCRIPTION', '爱活码二维码是一家提供免费的在线二维码生成服务，可以生成静态码、活码、微信二维码、淘宝二维码,网址跳转活码,微信群活码，比其他二维码服务商提供更优质的活码二维码服务', '1', 'textarea', '', '网站搜索引擎描述', '1378898976', '1379235841', '5', '1');
+INSERT INTO `fw_admin_config` VALUES ('6', '网站关键字', 'WEB_SITE_KEYWORD', '网址跳转活码,网页跳转活码,链接跳转活码系统,活码管理系统,活码二维码,活码生成器,草料,码云,活码生成', '1', 'textarea', '', '网站搜索引擎关键字', '1378898976', '1381390100', '6', '1');
+INSERT INTO `fw_admin_config` VALUES ('7', '版权信息', 'WEB_SITE_COPYRIGHT', 'Copyright © 爱活码 All rights reserved.', '1', 'text', '', '设置在网站底部显示的版权信息，如“版权所有 © 2014-2015 科斯克网络科技”', '1406991855', '1406992583', '7', '1');
+INSERT INTO `fw_admin_config` VALUES ('8', '网站备案号', 'WEB_SITE_ICP', '皖ICP备17007700号-1', '1', 'text', '', '设置在网站底部显示的备案号，如“苏ICP备1502009-2号\"', '1378900335', '1415983236', '8', '1');
+INSERT INTO `fw_admin_config` VALUES ('9', '站点统计', 'WEB_SITE_STATISTICS', '', '1', 'textarea', '', '支持百度、Google、cnzz等所有Javascript的统计代码', '1378900335', '1415983236', '9', '1');
+INSERT INTO `fw_admin_config` VALUES ('11', '文件上传大小', 'UPLOAD_FILE_SIZE', '10', '2', 'num', '', '文件上传大小单位：MB', '1428681031', '1428681031', '1', '1');
+INSERT INTO `fw_admin_config` VALUES ('12', '图片上传大小', 'UPLOAD_IMAGE_SIZE', '2', '2', 'num', '', '图片上传大小单位：MB', '1428681071', '1428681071', '2', '1');
+INSERT INTO `fw_admin_config` VALUES ('13', '后台多标签', 'ADMIN_TABS', '0', '2', 'radio', '0:关闭\r\n1:开启', '', '1453445526', '1453445526', '3', '1');
+INSERT INTO `fw_admin_config` VALUES ('14', '分页数量', 'ADMIN_PAGE_ROWS', '50', '2', 'num', '', '分页时每页的记录数', '1434019462', '1434019481', '4', '1');
+INSERT INTO `fw_admin_config` VALUES ('15', '后台主题', 'ADMIN_THEME', 'green', '2', 'select', 'default:默认主题\r\nblue:蓝色理想\r\ngreen:绿色生活', '后台界面主题', '1436678171', '1436690570', '5', '1');
+INSERT INTO `fw_admin_config` VALUES ('16', '开发模式', 'DEVELOP_MODE', '1', '3', 'select', '1:开启\r\n0:关闭', '开发模式下会显示菜单管理、配置管理、数据字典等开发者工具', '1432393583', '1432393583', '1', '1');
+INSERT INTO `fw_admin_config` VALUES ('17', '是否显示页面Trace', 'SHOW_PAGE_TRACE', '0', '3', 'select', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '2', '1');
+INSERT INTO `fw_admin_config` VALUES ('19', 'URL模式', 'URL_MODEL', '3', '4', 'select', '0:普通模式\r\n1:PATHINFO模式\r\n2:REWRITE模式\r\n3:兼容模式', '', '1438423248', '1438423248', '1', '1');
+INSERT INTO `fw_admin_config` VALUES ('21', '配置分组', 'CONFIG_GROUP_LIST', '1:基本\r\n2:系统\r\n3:开发\r\n4:部署\r\n', '2', 'array', '', '配置分组', '1379228036', '1426930700', '5', '1');
+INSERT INTO `fw_admin_config` VALUES ('29', '邮箱服务器', 'EMAIL_HOST', 'smtp.163.com', '0', '', '', '', '0', '0', '0', '1');
+INSERT INTO `fw_admin_config` VALUES ('30', '邮箱服务器端口', 'EMAIL_PORT', '25', '0', '', '', '', '0', '0', '0', '1');
+INSERT INTO `fw_admin_config` VALUES ('31', '邮箱服务器帐号', 'EMAIL_ADDR', 'newbie91521@163.com', '0', '', '', '', '0', '0', '0', '1');
+INSERT INTO `fw_admin_config` VALUES ('32', '邮箱服务器密码', 'EMAIL_PASS', 'aopming91', '0', '', '', '', '0', '0', '0', '1');
+INSERT INTO `fw_admin_config` VALUES ('33', '来个编辑器标题', '来个编辑器名称', '来个编辑器配置值', '1', 'kindeditor', '来个编辑器配置项', '来个编辑器配置说明', '1505977647', '1505977647', '0', '1');
 
 -- ----------------------------
--- Table structure for fw_admin_group
+-- Table structure for `fw_admin_group`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_group`;
 CREATE TABLE `fw_admin_group` (
@@ -161,16 +151,14 @@ CREATE TABLE `fw_admin_group` (
 -- ----------------------------
 -- Records of fw_admin_group
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_group` VALUES (1, 0, '超级管理员', '', '', 1426881003, 1427552428, 0, 1);
-INSERT INTO `fw_admin_group` VALUES (3, 0, '网址跳转', '', '{\"Admin\":[\"59\",\"61\",\"63\",\"60\",\"62\",\"64\",\"65\",\"67\",\"66\"]}', 1496210172, 1505117600, 0, 1);
-INSERT INTO `fw_admin_group` VALUES (4, 0, '多网址跳转', '', '{\"Admin\":[\"68\",\"69\",\"70\",\"71\",\"72\",\"73\",\"74\",\"75\"]}', 1496210208, 1505117571, 0, 1);
-INSERT INTO `fw_admin_group` VALUES (5, 0, '活码管理', '', '{\"Admin\":[\"58\",\"59\",\"61\",\"63\",\"60\",\"62\",\"64\",\"65\",\"67\",\"66\",\"68\",\"69\",\"70\",\"71\",\"72\",\"73\",\"74\",\"75\"]}', 1496210230, 1496210240, 0, 1);
-INSERT INTO `fw_admin_group` VALUES (6, 0, '发送发生的发生的发生的', 'fa-search', '{\"Admin\":[\"1\",\"58\",\"59\",\"61\",\"63\",\"60\",\"62\",\"64\",\"65\",\"67\",\"66\",\"68\",\"69\",\"70\",\"71\",\"72\",\"73\",\"74\",\"75\",\"2\",\"3\",\"4\",\"23\",\"24\",\"25\",\"26\",\"27\",\"28\",\"29\",\"30\",\"31\",\"32\",\"33\",\"34\",\"35\",\"36\",\"44\",\"45\",\"46\",\"47\",\"48\"]}', 1505117366, 1505117550, 1, 1);
-COMMIT;
+INSERT INTO `fw_admin_group` VALUES ('1', '0', '超级管理员', '', '', '1426881003', '1427552428', '0', '1');
+INSERT INTO `fw_admin_group` VALUES ('3', '0', '网址跳转', '', '{\"Admin\":[\"59\",\"61\",\"63\",\"60\",\"62\",\"64\",\"65\",\"67\",\"66\"]}', '1496210172', '1505117600', '0', '1');
+INSERT INTO `fw_admin_group` VALUES ('4', '0', '多网址跳转', '', '{\"Admin\":[\"68\",\"69\",\"70\",\"71\",\"72\",\"73\",\"74\",\"75\"]}', '1496210208', '1505117571', '0', '1');
+INSERT INTO `fw_admin_group` VALUES ('5', '0', '活码管理', '', '{\"Admin\":[\"58\",\"59\",\"61\",\"63\",\"60\",\"62\",\"64\",\"65\",\"67\",\"66\",\"68\",\"69\",\"70\",\"71\",\"72\",\"73\",\"74\",\"75\"]}', '1496210230', '1496210240', '0', '1');
+INSERT INTO `fw_admin_group` VALUES ('6', '0', '发送发生的发生的发生的', 'fa-search', '{\"Admin\":[\"1\",\"58\",\"59\",\"61\",\"63\",\"60\",\"62\",\"64\",\"65\",\"67\",\"66\",\"68\",\"69\",\"70\",\"71\",\"72\",\"73\",\"74\",\"75\",\"2\",\"3\",\"4\",\"23\",\"24\",\"25\",\"26\",\"27\",\"28\",\"29\",\"30\",\"31\",\"32\",\"33\",\"34\",\"35\",\"36\",\"44\",\"45\",\"46\",\"47\",\"48\"]}', '1505117366', '1505117550', '1', '1');
 
 -- ----------------------------
--- Table structure for fw_admin_hook
+-- Table structure for `fw_admin_hook`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_hook`;
 CREATE TABLE `fw_admin_hook` (
@@ -188,16 +176,14 @@ CREATE TABLE `fw_admin_hook` (
 -- ----------------------------
 -- Records of fw_admin_hook
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_hook` VALUES (1, 'AdminIndex', '后台首页小工具', '后台首页小工具', 1, 1446522155, 1446522155, 1);
-INSERT INTO `fw_admin_hook` VALUES (2, 'FormBuilderExtend', 'FormBuilder类型扩展Builder', '', 1, 1447831268, 1447831268, 1);
-INSERT INTO `fw_admin_hook` VALUES (3, 'UploadFile', '上传文件钩子', '', 1, 1407681961, 1407681961, 1);
-INSERT INTO `fw_admin_hook` VALUES (4, 'PageHeader', '页面header钩子，一般用于加载插件CSS文件和代码', '', 1, 1407681961, 1407681961, 1);
-INSERT INTO `fw_admin_hook` VALUES (5, 'PageFooter', '页面footer钩子，一般用于加载插件CSS文件和代码', 'RocketToTop', 1, 1407681961, 1407681961, 1);
-COMMIT;
+INSERT INTO `fw_admin_hook` VALUES ('1', 'AdminIndex', '后台首页小工具', '后台首页小工具', '1', '1446522155', '1446522155', '1');
+INSERT INTO `fw_admin_hook` VALUES ('2', 'FormBuilderExtend', 'FormBuilder类型扩展Builder', '', '1', '1447831268', '1447831268', '1');
+INSERT INTO `fw_admin_hook` VALUES ('3', 'UploadFile', '上传文件钩子', '', '1', '1407681961', '1407681961', '1');
+INSERT INTO `fw_admin_hook` VALUES ('4', 'PageHeader', '页面header钩子，一般用于加载插件CSS文件和代码', '', '1', '1407681961', '1407681961', '1');
+INSERT INTO `fw_admin_hook` VALUES ('5', 'PageFooter', '页面footer钩子，一般用于加载插件CSS文件和代码', 'RocketToTop', '1', '1407681961', '1407681961', '1');
 
 -- ----------------------------
--- Table structure for fw_admin_link
+-- Table structure for `fw_admin_link`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_link`;
 CREATE TABLE `fw_admin_link` (
@@ -216,13 +202,11 @@ CREATE TABLE `fw_admin_link` (
 -- ----------------------------
 -- Records of fw_admin_link
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_link` VALUES (1, 0, '快捷功能', '', 'fa-folder-open-o', 1446713441, 1446713450, 0, 1);
-INSERT INTO `fw_admin_link` VALUES (3, 1, '系统设置', 'Admin/Config/group', 'fa-wrench', 1446713460, 1446713460, 0, 1);
-COMMIT;
+INSERT INTO `fw_admin_link` VALUES ('1', '0', '快捷功能', '', 'fa-folder-open-o', '1446713441', '1446713450', '0', '1');
+INSERT INTO `fw_admin_link` VALUES ('3', '1', '系统设置', 'Admin/Config/group', 'fa-wrench', '1446713460', '1446713460', '0', '1');
 
 -- ----------------------------
--- Table structure for fw_admin_livecode
+-- Table structure for `fw_admin_livecode`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_livecode`;
 CREATE TABLE `fw_admin_livecode` (
@@ -243,7 +227,11 @@ CREATE TABLE `fw_admin_livecode` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for fw_admin_menu
+-- Records of fw_admin_livecode
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `fw_admin_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_menu`;
 CREATE TABLE `fw_admin_menu` (
@@ -258,92 +246,95 @@ CREATE TABLE `fw_admin_menu` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `status` tinyint(3) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of fw_admin_menu
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_menu` VALUES (1, 0, 0, '系统', 0, '', 'fa fa-cog', 0, 1505210029, 1);
-INSERT INTO `fw_admin_menu` VALUES (4, 1, 0, '活码管理', 2, '', 'fa fa-folder-open-o', 0, 1505210029, 1);
-INSERT INTO `fw_admin_menu` VALUES (5, 1, 0, '系统功能', 1, '', 'fa fa-folder-open-o', 0, 1505554799, 1);
-INSERT INTO `fw_admin_menu` VALUES (6, 1, 0, '用户管理', 1, '', 'fa fa-folder-open-o', 0, 1505210055, 1);
-INSERT INTO `fw_admin_menu` VALUES (7, 4, 0, '网址跳转', 2, 'Admin/Phone/index', 'fa fa-list', 0, 1505210129, 1);
-INSERT INTO `fw_admin_menu` VALUES (8, 4, 0, '多网址跳转', 2, 'Admin/Duourl/index', 'fa fa-list', 0, 1505210266, 1);
-INSERT INTO `fw_admin_menu` VALUES (9, 4, 0, '产品活码', 2, 'Admin/Product/index', 'fa fa-list', 0, 1505210122, 1);
-INSERT INTO `fw_admin_menu` VALUES (10, 4, 0, '视频活码', 2, 'Admin/Video/index', 'fa fa-list', 0, 1505210128, 1);
-INSERT INTO `fw_admin_menu` VALUES (11, 4, 0, '活码生成', 2, 'Admin/Livecode/index', 'fa fa-list', 0, 1505210029, 1);
-INSERT INTO `fw_admin_menu` VALUES (13, 5, 0, '系统设置', 1, 'Admin/Config/group', 'fa fa-wrench', 0, 1505210777, 1);
-INSERT INTO `fw_admin_menu` VALUES (14, 6, 0, '会员管理', 1, 'Admin/User/index', 'fa fa-user', 0, 1505210028, 1);
-INSERT INTO `fw_admin_menu` VALUES (15, 7, 0, '新增', 2, 'Admin/Phone/add', '', 0, 0, 1);
-INSERT INTO `fw_admin_menu` VALUES (17, 11, 0, '新建目录', 2, 'Admin/Livecode/addmenu', '', 0, 0, -1);
-INSERT INTO `fw_admin_menu` VALUES (42, 38, 3, '编辑活码', 2, 'Admin/Livecode/edit/type/1505457893', '', 0, 1505457893, -1);
-INSERT INTO `fw_admin_menu` VALUES (41, 38, 3, '查看数据统计', 2, 'Admin/Livecode/view/type/1505457893', '', 0, 1505457893, -1);
-INSERT INTO `fw_admin_menu` VALUES (27, 8, 0, '添加多网址跳转', 2, 'Admin/Duourl/add', '', 0, 1505439785, 1);
-INSERT INTO `fw_admin_menu` VALUES (40, 38, 3, '下载二维码', 2, 'Admin/Livecode/xzewm/type/1505457893', '', 0, 1505457893, -1);
-INSERT INTO `fw_admin_menu` VALUES (39, 38, 3, '新增活码', 2, 'Admin/Livecode/add/type/1505457893', '', 0, 1505457893, -1);
-INSERT INTO `fw_admin_menu` VALUES (38, 11, 3, '新目录一号', 2, 'Admin/Livecode/child/type/1505457893', '', 0, 1505457893, 1);
-INSERT INTO `fw_admin_menu` VALUES (34, 11, 0, '新增活码', 2, 'Admin/Livecode/add', '', 0, 1505455366, -1);
-INSERT INTO `fw_admin_menu` VALUES (35, 11, 0, '下载二维码', 2, 'Admin/Livecode/xzewm', '', 0, 1505455452, -1);
-INSERT INTO `fw_admin_menu` VALUES (36, 11, 0, '查看数据统计', 2, 'Admin/Livecode/view', '', 0, 1505457007, -1);
-INSERT INTO `fw_admin_menu` VALUES (37, 11, 0, '编辑活码', 2, 'Admin/Livecode/edit', '', 0, 1505457343, -1);
-INSERT INTO `fw_admin_menu` VALUES (43, 9, 0, '新增', 2, 'Admin/Product/add', '', 0, 1505550934, -1);
-INSERT INTO `fw_admin_menu` VALUES (44, 9, 0, '新建目录', 2, 'Admin/Product/addmenu', '', 0, 1505551306, -1);
-INSERT INTO `fw_admin_menu` VALUES (45, 9, 0, '下载二维码', 2, 'Admin/Product/xzewm', '', 0, 1505551431, -1);
-INSERT INTO `fw_admin_menu` VALUES (46, 9, 0, '查看数据统计', 2, 'Admin/Product/view', '', 0, 1505551487, -1);
-INSERT INTO `fw_admin_menu` VALUES (47, 9, 0, '编辑活码', 2, 'Admin/Product/edit', '', 0, 1505551588, -1);
-INSERT INTO `fw_admin_menu` VALUES (48, 1, 0, '财务管理', 1, '', 'fa fa-folder-open-o', 0, 1505553794, 1);
-INSERT INTO `fw_admin_menu` VALUES (49, 48, 0, '订单中心', 1, 'Admin/Order/index', 'fa fa-bar-chart-o', 0, 1505553995, 1);
-INSERT INTO `fw_admin_menu` VALUES (50, 1, 0, '支付管理', 1, '', 'fa fa-folder-open-o', 0, 1505553799, 1);
-INSERT INTO `fw_admin_menu` VALUES (51, 50, 0, '支付宝', 1, 'Admin/Payconf/alipay', 'fa fa-credit-card', 0, 1505554606, 1);
-INSERT INTO `fw_admin_menu` VALUES (52, 50, 0, '微信', 1, 'Admin/Payconf/wechat', 'fa fa-credit-card', 0, 1505554695, 1);
-INSERT INTO `fw_admin_menu` VALUES (53, 50, 0, '汇款账号', 1, 'Admin/Payconf/bank', 'fa fa-credit-card', 0, 1505554725, 1);
-INSERT INTO `fw_admin_menu` VALUES (54, 50, 0, '套餐价格', 1, 'Admin/Vip/index', 'fa fa-credit-card', 0, 1505554792, 1);
-INSERT INTO `fw_admin_menu` VALUES (55, 54, 0, '新增套餐', 1, 'Admin/Vip/add', '', 0, 1505805835, -1);
-INSERT INTO `fw_admin_menu` VALUES (56, 54, 0, '编辑套餐', 1, 'Admin/Vip/edit', '', 0, 1505805956, -1);
-INSERT INTO `fw_admin_menu` VALUES (57, 1, 0, '账号管理', 2, '', 'fa fa-folder-open-o', 0, 1505814677, 1);
-INSERT INTO `fw_admin_menu` VALUES (58, 1, 0, '财务管理', 2, '', 'fa fa-folder-open-o', 0, 1505814780, 1);
-INSERT INTO `fw_admin_menu` VALUES (59, 57, 0, '密码修改', 2, 'Admin/Account/editPass', 'fa fa-list', 0, 1505815020, 1);
-INSERT INTO `fw_admin_menu` VALUES (60, 57, 0, '续费管理', 2, 'Admin/Account/fee', 'fa fa-list', 0, 1505815097, 1);
-INSERT INTO `fw_admin_menu` VALUES (61, 58, 0, '订单中心', 2, 'Admin/Account/order', 'fa fa-list', 0, 1505815175, 1);
-INSERT INTO `fw_admin_menu` VALUES (62, 14, 0, '新增用户', 1, 'Admin/User/add', '', 0, 1505899117, -1);
-INSERT INTO `fw_admin_menu` VALUES (63, 14, 0, '编辑用户', 1, 'Admin/User/edit', '', 0, 1505899659, -1);
-INSERT INTO `fw_admin_menu` VALUES (64, 53, 0, '新增汇款账号', 1, 'Admin/Payconf/add', '', 0, 1505959361, -1);
-INSERT INTO `fw_admin_menu` VALUES (65, 53, 0, '编辑汇款账号', 1, 'Admin/Payconf/edit', '', 0, 1505959443, -1);
-INSERT INTO `fw_admin_menu` VALUES (66, 14, 0, '续费', 1, 'Admin/User/fee', '', 0, 1505976986, -1);
-INSERT INTO `fw_admin_menu` VALUES (67, 11, 3, '第二个', 2, 'Admin/Livecode/child/type/1506064330', '', 0, 1506064330, 1);
-INSERT INTO `fw_admin_menu` VALUES (68, 67, 3, '新增活码', 2, 'Admin/Livecode/add/type/1506064330', '', 0, 1506064330, -1);
-INSERT INTO `fw_admin_menu` VALUES (69, 67, 3, '下载二维码', 2, 'Admin/Livecode/xzewm/type/1506064330', '', 0, 1506064330, -1);
-INSERT INTO `fw_admin_menu` VALUES (70, 67, 3, '查看数据统计', 2, 'Admin/Livecode/view/type/1506064330', '', 0, 1506064330, -1);
-INSERT INTO `fw_admin_menu` VALUES (71, 67, 3, '编辑活码', 2, 'Admin/Livecode/edit/type/1506064330', '', 0, 1506064330, -1);
-INSERT INTO `fw_admin_menu` VALUES (72, 11, 3, '再来个', 2, 'Admin/Livecode/child/type/1506064362', '', 0, 1506064362, 1);
-INSERT INTO `fw_admin_menu` VALUES (73, 72, 3, '新增活码', 2, 'Admin/Livecode/add/type/1506064362', '', 0, 1506064362, -1);
-INSERT INTO `fw_admin_menu` VALUES (74, 72, 3, '下载二维码', 2, 'Admin/Livecode/xzewm/type/1506064362', '', 0, 1506064362, -1);
-INSERT INTO `fw_admin_menu` VALUES (75, 72, 3, '查看数据统计', 2, 'Admin/Livecode/view/type/1506064362', '', 0, 1506064362, -1);
-INSERT INTO `fw_admin_menu` VALUES (76, 72, 3, '编辑活码', 2, 'Admin/Livecode/edit/type/1506064362', '', 0, 1506064362, -1);
-INSERT INTO `fw_admin_menu` VALUES (77, 11, 14, '我是哈哈哈', 2, 'Admin/Livecode/child/type/1506064409', '', 0, 1506064409, 1);
-INSERT INTO `fw_admin_menu` VALUES (78, 77, 14, '新增活码', 2, 'Admin/Livecode/add/type/1506064409', '', 0, 1506064409, -1);
-INSERT INTO `fw_admin_menu` VALUES (79, 77, 14, '下载二维码', 2, 'Admin/Livecode/xzewm/type/1506064409', '', 0, 1506064409, -1);
-INSERT INTO `fw_admin_menu` VALUES (80, 77, 14, '查看数据统计', 2, 'Admin/Livecode/view/type/1506064409', '', 0, 1506064409, -1);
-INSERT INTO `fw_admin_menu` VALUES (81, 77, 14, '编辑活码', 2, 'Admin/Livecode/edit/type/1506064409', '', 0, 1506064409, -1);
-INSERT INTO `fw_admin_menu` VALUES (90, 87, 3, '查看数据统计', 2, 'Admin/Product/view/type/1506065776', '', 0, 1506065776, -1);
-INSERT INTO `fw_admin_menu` VALUES (89, 87, 3, '下载二维码', 2, 'Admin/Product/xzewm/type/1506065776', '', 0, 1506065776, -1);
-INSERT INTO `fw_admin_menu` VALUES (88, 87, 3, '新增活码', 2, 'Admin/Product/add/type/1506065776', '', 0, 1506065776, -1);
-INSERT INTO `fw_admin_menu` VALUES (87, 9, 3, '产品的子目录', 2, 'Admin/Product/child/type/1506065776', '', 0, 1506065776, 1);
-INSERT INTO `fw_admin_menu` VALUES (91, 87, 3, '编辑活码', 2, 'Admin/Product/edit/type/1506065776', '', 0, 1506065776, -1);
-INSERT INTO `fw_admin_menu` VALUES (92, 7, 0, '编辑', 2, 'Admin/Phone/edit', '', 0, 1506066075, -1);
-INSERT INTO `fw_admin_menu` VALUES (93, 8, 0, '编辑', 2, 'Admin/Duourl/edit', '', 0, 1506066156, -1);
-INSERT INTO `fw_admin_menu` VALUES (94, 8, 0, '导出网址', 2, 'Admin/Duourl/outurl', '', 0, 1506066214, -1);
-INSERT INTO `fw_admin_menu` VALUES (95, 8, 0, '下载二维码', 2, 'Admin/Duourl/xzewm', '', 0, 1506066258, -1);
-INSERT INTO `fw_admin_menu` VALUES (96, 8, 0, '批量修改跳转地址', 2, 'Admin/Duourl/edittzwz', '', 0, 1506066291, -1);
-INSERT INTO `fw_admin_menu` VALUES (97, 7, 0, '批量修改跳转地址', 2, 'Admin/Phone/edittzwz', '', 0, 1506066342, -1);
-INSERT INTO `fw_admin_menu` VALUES (98, 7, 0, '导出网址', 2, 'Admin/Phone/outurl', '', 0, 1506066372, -1);
-INSERT INTO `fw_admin_menu` VALUES (99, 7, 0, '下载二维码', 2, 'Admin/Phone/xzewm', '', 0, 1506066390, -1);
-INSERT INTO `fw_admin_menu` VALUES (100, 7, 0, '导入网址', 2, 'Admin/Phone/drurl', '', 0, 1506066411, -1);
-COMMIT;
+INSERT INTO `fw_admin_menu` VALUES ('1', '0', '0', '系统', '0', '', 'fa fa-cog', '0', '1505210029', '1');
+INSERT INTO `fw_admin_menu` VALUES ('4', '1', '0', '活码管理', '2', '', 'fa fa-folder-open-o', '0', '1505210029', '1');
+INSERT INTO `fw_admin_menu` VALUES ('5', '1', '0', '系统功能', '1', '', 'fa fa-folder-open-o', '0', '1505554799', '1');
+INSERT INTO `fw_admin_menu` VALUES ('6', '1', '0', '用户管理', '1', '', 'fa fa-folder-open-o', '0', '1505210055', '1');
+INSERT INTO `fw_admin_menu` VALUES ('7', '4', '0', '网址跳转', '2', 'Admin/Phone/index', 'fa fa-list', '0', '1505210129', '1');
+INSERT INTO `fw_admin_menu` VALUES ('8', '4', '0', '多网址跳转', '2', 'Admin/Duourl/index', 'fa fa-list', '0', '1505210266', '1');
+INSERT INTO `fw_admin_menu` VALUES ('9', '4', '0', '产品活码', '2', 'Admin/Product/index', 'fa fa-list', '0', '1505210122', '1');
+INSERT INTO `fw_admin_menu` VALUES ('10', '4', '0', '视频活码', '2', 'Admin/Video/index', 'fa fa-list', '0', '1505210128', '1');
+INSERT INTO `fw_admin_menu` VALUES ('11', '4', '0', '活码生成', '2', 'Admin/Livecode/index', 'fa fa-list', '0', '1505210029', '1');
+INSERT INTO `fw_admin_menu` VALUES ('13', '5', '0', '系统设置', '1', 'Admin/Config/group', 'fa fa-wrench', '0', '1505210777', '1');
+INSERT INTO `fw_admin_menu` VALUES ('14', '6', '0', '会员管理', '1', 'Admin/User/index', 'fa fa-user', '0', '1505210028', '1');
+INSERT INTO `fw_admin_menu` VALUES ('15', '7', '0', '新增', '2', 'Admin/Phone/add', '', '0', '0', '1');
+INSERT INTO `fw_admin_menu` VALUES ('17', '11', '0', '新建目录', '2', 'Admin/Livecode/addmenu', '', '0', '0', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('42', '38', '3', '编辑活码', '2', 'Admin/Livecode/edit/type/1505457893', '', '0', '1505457893', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('41', '38', '3', '查看数据统计', '2', 'Admin/Livecode/view/type/1505457893', '', '0', '1505457893', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('27', '8', '0', '新增', '2', 'Admin/Duourl/add', '', '0', '1505439785', '1');
+INSERT INTO `fw_admin_menu` VALUES ('40', '38', '3', '下载二维码', '2', 'Admin/Livecode/xzewm/type/1505457893', '', '0', '1505457893', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('39', '38', '3', '新增活码', '2', 'Admin/Livecode/add/type/1505457893', '', '0', '1505457893', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('38', '11', '3', '新目录一号', '2', 'Admin/Livecode/child/type/1505457893', '', '0', '1505457893', '1');
+INSERT INTO `fw_admin_menu` VALUES ('34', '11', '0', '新增活码', '2', 'Admin/Livecode/add', '', '0', '1505455366', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('35', '11', '0', '下载二维码', '2', 'Admin/Livecode/xzewm', '', '0', '1505455452', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('36', '11', '0', '查看数据统计', '2', 'Admin/Livecode/view', '', '0', '1505457007', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('37', '11', '0', '编辑活码', '2', 'Admin/Livecode/edit', '', '0', '1505457343', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('43', '9', '0', '新增', '2', 'Admin/Product/add', '', '0', '1505550934', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('44', '9', '0', '新建目录', '2', 'Admin/Product/addmenu', '', '0', '1505551306', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('45', '9', '0', '下载二维码', '2', 'Admin/Product/xzewm', '', '0', '1505551431', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('46', '9', '0', '查看数据统计', '2', 'Admin/Product/view', '', '0', '1505551487', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('47', '9', '0', '编辑活码', '2', 'Admin/Product/edit', '', '0', '1505551588', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('48', '1', '0', '财务管理', '1', '', 'fa fa-folder-open-o', '0', '1505553794', '1');
+INSERT INTO `fw_admin_menu` VALUES ('49', '48', '0', '订单中心', '1', 'Admin/Order/index', 'fa fa-bar-chart-o', '0', '1505553995', '1');
+INSERT INTO `fw_admin_menu` VALUES ('50', '1', '0', '支付管理', '1', '', 'fa fa-folder-open-o', '0', '1505553799', '1');
+INSERT INTO `fw_admin_menu` VALUES ('51', '50', '0', '支付宝', '1', 'Admin/Payconf/alipay', 'fa fa-credit-card', '0', '1505554606', '1');
+INSERT INTO `fw_admin_menu` VALUES ('52', '50', '0', '微信', '1', 'Admin/Payconf/wechat', 'fa fa-credit-card', '0', '1505554695', '1');
+INSERT INTO `fw_admin_menu` VALUES ('53', '50', '0', '汇款账号', '1', 'Admin/Payconf/bank', 'fa fa-credit-card', '0', '1505554725', '1');
+INSERT INTO `fw_admin_menu` VALUES ('54', '50', '0', '套餐价格', '1', 'Admin/Vip/index', 'fa fa-credit-card', '0', '1505554792', '1');
+INSERT INTO `fw_admin_menu` VALUES ('55', '54', '0', '新增套餐', '1', 'Admin/Vip/add', '', '0', '1505805835', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('56', '54', '0', '编辑套餐', '1', 'Admin/Vip/edit', '', '0', '1505805956', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('57', '1', '0', '账号管理', '2', '', 'fa fa-folder-open-o', '0', '1505814677', '1');
+INSERT INTO `fw_admin_menu` VALUES ('58', '1', '0', '财务管理', '2', '', 'fa fa-folder-open-o', '0', '1505814780', '1');
+INSERT INTO `fw_admin_menu` VALUES ('59', '57', '0', '密码修改', '2', 'Admin/Account/editPass', 'fa fa-list', '0', '1505815020', '1');
+INSERT INTO `fw_admin_menu` VALUES ('60', '57', '0', '续费管理', '2', 'Admin/Account/fee', 'fa fa-list', '0', '1505815097', '1');
+INSERT INTO `fw_admin_menu` VALUES ('61', '58', '0', '订单中心', '2', 'Admin/Account/order', 'fa fa-list', '0', '1505815175', '1');
+INSERT INTO `fw_admin_menu` VALUES ('62', '14', '0', '新增用户', '1', 'Admin/User/add', '', '0', '1505899117', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('63', '14', '0', '编辑用户', '1', 'Admin/User/edit', '', '0', '1505899659', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('64', '53', '0', '新增汇款账号', '1', 'Admin/Payconf/add', '', '0', '1505959361', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('65', '53', '0', '编辑汇款账号', '1', 'Admin/Payconf/edit', '', '0', '1505959443', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('66', '14', '0', '续费', '1', 'Admin/User/fee', '', '0', '1505976986', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('67', '11', '3', '第二个', '2', 'Admin/Livecode/child/type/1506064330', '', '0', '1506064330', '1');
+INSERT INTO `fw_admin_menu` VALUES ('68', '67', '3', '新增活码', '2', 'Admin/Livecode/add/type/1506064330', '', '0', '1506064330', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('69', '67', '3', '下载二维码', '2', 'Admin/Livecode/xzewm/type/1506064330', '', '0', '1506064330', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('70', '67', '3', '查看数据统计', '2', 'Admin/Livecode/view/type/1506064330', '', '0', '1506064330', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('71', '67', '3', '编辑活码', '2', 'Admin/Livecode/edit/type/1506064330', '', '0', '1506064330', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('72', '11', '3', '再来个', '2', 'Admin/Livecode/child/type/1506064362', '', '0', '1506064362', '1');
+INSERT INTO `fw_admin_menu` VALUES ('73', '72', '3', '新增活码', '2', 'Admin/Livecode/add/type/1506064362', '', '0', '1506064362', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('74', '72', '3', '下载二维码', '2', 'Admin/Livecode/xzewm/type/1506064362', '', '0', '1506064362', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('75', '72', '3', '查看数据统计', '2', 'Admin/Livecode/view/type/1506064362', '', '0', '1506064362', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('76', '72', '3', '编辑活码', '2', 'Admin/Livecode/edit/type/1506064362', '', '0', '1506064362', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('77', '11', '14', '我是哈哈哈', '2', 'Admin/Livecode/child/type/1506064409', '', '0', '1506064409', '1');
+INSERT INTO `fw_admin_menu` VALUES ('78', '77', '14', '新增活码', '2', 'Admin/Livecode/add/type/1506064409', '', '0', '1506064409', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('79', '77', '14', '下载二维码', '2', 'Admin/Livecode/xzewm/type/1506064409', '', '0', '1506064409', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('80', '77', '14', '查看数据统计', '2', 'Admin/Livecode/view/type/1506064409', '', '0', '1506064409', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('81', '77', '14', '编辑活码', '2', 'Admin/Livecode/edit/type/1506064409', '', '0', '1506064409', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('90', '87', '3', '查看数据统计', '2', 'Admin/Product/view/type/1506065776', '', '0', '1506065776', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('89', '87', '3', '下载二维码', '2', 'Admin/Product/xzewm/type/1506065776', '', '0', '1506065776', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('88', '87', '3', '新增活码', '2', 'Admin/Product/add/type/1506065776', '', '0', '1506065776', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('87', '9', '3', '产品的子目录', '2', 'Admin/Product/child/type/1506065776', '', '0', '1506065776', '1');
+INSERT INTO `fw_admin_menu` VALUES ('91', '87', '3', '编辑活码', '2', 'Admin/Product/edit/type/1506065776', '', '0', '1506065776', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('92', '7', '0', '编辑', '2', 'Admin/Phone/edit', '', '0', '1506066075', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('93', '8', '0', '编辑', '2', 'Admin/Duourl/edit', '', '0', '1506066156', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('94', '8', '0', '导出网址', '2', 'Admin/Duourl/outurl', '', '0', '1506066214', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('95', '8', '0', '下载二维码', '2', 'Admin/Duourl/xzewm', '', '0', '1506066258', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('96', '8', '0', '批量修改跳转地址', '2', 'Admin/Duourl/edittzwz', '', '0', '1506066291', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('97', '7', '0', '批量修改跳转地址', '2', 'Admin/Phone/edittzwz', '', '0', '1506066342', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('98', '7', '0', '导出网址', '2', 'Admin/Phone/outurl', '', '0', '1506066372', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('99', '7', '0', '下载二维码', '2', 'Admin/Phone/xzewm', '', '0', '1506066390', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('100', '7', '0', '导入网址', '2', 'Admin/Phone/drurl', '', '0', '1506066411', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('103', '10', '0', '编辑', '2', 'Admin/Video/edit', '', '0', '1506309573', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('102', '10', '0', '新增', '2', 'Admin/Video/add', '', '0', '1506309507', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('104', '10', '0', '导出', '2', 'Admin/Video/outurl', '', '0', '1506309620', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('105', '10', '0', '下载', '2', 'Admin/Video/xzewm', '', '0', '1506309635', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('106', '7', '0', '数据统计', '2', 'Admin/Phone/view', '', '0', '1506416316', '-1');
 
 -- ----------------------------
--- Table structure for fw_admin_module
+-- Table structure for `fw_admin_module`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_module`;
 CREATE TABLE `fw_admin_module` (
@@ -370,13 +361,11 @@ CREATE TABLE `fw_admin_module` (
 -- ----------------------------
 -- Records of fw_admin_module
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_module` VALUES (1, 'Admin', '系统', '', 'fa fa-cog', '#3CA6F1', '核心系统', '', '1.2.0', '', '', '{\"1\":{\"pid\":\"0\",\"title\":\"\\u7cfb\\u7edf\",\"icon\":\"fa fa-cog\",\"level\":\"system\",\"id\":\"1\"},\"58\":{\"pid\":\"1\",\"title\":\"\\u6d3b\\u7801\\u7ba1\\u7406\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"58\"},\"59\":{\"pid\":\"58\",\"title\":\"\\u7f51\\u5740\\u8df3\\u8f6c\",\"icon\":\"fa fa-list\",\"url\":\"Admin\\/Phone\\/index\",\"id\":\"59\"},\"61\":{\"pid\":\"59\",\"title\":\"\\u6dfb\\u52a0\",\"url\":\"Admin\\/Phone\\/add\",\"id\":\"61\"},\"63\":{\"pid\":\"59\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Phone\\/edit\",\"id\":\"63\"},\"60\":{\"pid\":\"59\",\"title\":\"\\u5220\\u9664\",\"url\":\"Admin\\/Phone\\/setStatus\",\"id\":\"60\"},\"62\":{\"pid\":\"59\",\"title\":\"\\u6279\\u91cf\\u5bfc\\u5165\\u7f51\\u5740\",\"url\":\"Admin\\/Phone\\/drurl\",\"id\":\"62\"},\"64\":{\"pid\":\"59\",\"title\":\"\\u5bfc\\u51fa\",\"url\":\"Admin\\/Phone\\/outurl\",\"id\":\"64\"},\"65\":{\"pid\":\"59\",\"title\":\"\\u4e0b\\u8f7d\\u4e8c\\u7ef4\\u7801\",\"url\":\"Admin\\/Phone\\/xzewm\",\"id\":\"65\"},\"67\":{\"pid\":\"59\",\"title\":\"\\u6279\\u91cf\\u4fee\\u6539\\u8df3\\u8f6c\\u7f51\\u5740\",\"url\":\"Admin\\/Phone\\/edittzwz\",\"id\":\"67\"},\"66\":{\"pid\":\"59\",\"title\":\"\\u4e0a\\u4f20\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/upload\",\"id\":\"66\"},\"68\":{\"pid\":\"58\",\"title\":\"\\u591a\\u7f51\\u5740\\u8df3\\u8f6c\",\"icon\":\"fa fa-list\",\"url\":\"Admin\\/Duourl\\/index\",\"id\":\"68\"},\"69\":{\"pid\":\"68\",\"title\":\"\\u6dfb\\u52a0\",\"url\":\"Admin\\/Duourl\\/add\",\"id\":\"69\"},\"70\":{\"pid\":\"68\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Duourl\\/edit\",\"id\":\"70\"},\"71\":{\"pid\":\"68\",\"title\":\"\\u5220\\u9664\",\"url\":\"Admin\\/Duourl\\/setStatus\",\"id\":\"71\"},\"72\":{\"pid\":\"68\",\"title\":\"\\u5bfc\\u51fa\",\"url\":\"Admin\\/Duourl\\/outurl\",\"id\":\"72\"},\"73\":{\"pid\":\"68\",\"title\":\"\\u4e0b\\u8f7d\\u4e8c\\u7ef4\\u7801\",\"url\":\"Admin\\/Duourl\\/xzewm\",\"id\":\"73\"},\"74\":{\"pid\":\"68\",\"title\":\"\\u6279\\u91cf\\u4fee\\u6539\\u8df3\\u8f6c\\u7f51\\u5740\",\"url\":\"Admin\\/Duourl\\/edittzwz\",\"id\":\"74\"},\"75\":{\"pid\":\"68\",\"title\":\"\\u4e0a\\u4f20\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/upload\",\"id\":\"75\"},\"2\":{\"pid\":\"1\",\"title\":\"\\u7cfb\\u7edf\\u529f\\u80fd\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"2\"},\"3\":{\"pid\":\"2\",\"title\":\"\\u7cfb\\u7edf\\u8bbe\\u7f6e\",\"icon\":\"fa fa-wrench\",\"url\":\"Admin\\/Config\\/group\",\"id\":\"3\"},\"4\":{\"pid\":\"3\",\"title\":\"\\u4fee\\u6539\\u8bbe\\u7f6e\",\"url\":\"Admin\\/Config\\/groupSave\",\"id\":\"4\"},\"5\":{\"pid\":\"2\",\"title\":\"\\u5bfc\\u822a\\u7ba1\\u7406\",\"icon\":\"fa fa-map-signs\",\"url\":\"Admin\\/Nav\\/index\",\"id\":\"5\"},\"6\":{\"pid\":\"5\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Nav\\/add\",\"id\":\"6\"},\"7\":{\"pid\":\"5\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Nav\\/edit\",\"id\":\"7\"},\"8\":{\"pid\":\"5\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Nav\\/setStatus\",\"id\":\"8\"},\"9\":{\"pid\":\"2\",\"title\":\"\\u5feb\\u6377\\u94fe\\u63a5\",\"icon\":\"fa fa-link\",\"url\":\"Admin\\/Link\\/index\",\"id\":\"9\"},\"10\":{\"pid\":\"9\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Link\\/add\",\"id\":\"10\"},\"11\":{\"pid\":\"9\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Link\\/edit\",\"id\":\"11\"},\"12\":{\"pid\":\"9\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Link\\/setStatus\",\"id\":\"12\"},\"13\":{\"pid\":\"2\",\"title\":\"\\u914d\\u7f6e\\u7ba1\\u7406\",\"icon\":\"fa fa-cogs\",\"url\":\"Admin\\/Config\\/index\",\"id\":\"13\"},\"14\":{\"pid\":\"13\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Config\\/add\",\"id\":\"14\"},\"15\":{\"pid\":\"13\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Config\\/edit\",\"id\":\"15\"},\"16\":{\"pid\":\"13\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Config\\/setStatus\",\"id\":\"16\"},\"17\":{\"pid\":\"2\",\"title\":\"\\u4e0a\\u4f20\\u7ba1\\u7406\",\"icon\":\"fa fa-upload\",\"url\":\"Admin\\/Upload\\/index\",\"id\":\"17\"},\"18\":{\"pid\":\"17\",\"title\":\"\\u4e0a\\u4f20\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/upload\",\"id\":\"18\"},\"19\":{\"pid\":\"17\",\"title\":\"\\u5220\\u9664\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/delete\",\"id\":\"19\"},\"20\":{\"pid\":\"17\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Upload\\/setStatus\",\"id\":\"20\"},\"21\":{\"pid\":\"17\",\"title\":\"\\u4e0b\\u8f7d\\u8fdc\\u7a0b\\u56fe\\u7247\",\"url\":\"Admin\\/Upload\\/downremoteimg\",\"id\":\"21\"},\"22\":{\"pid\":\"17\",\"title\":\"\\u6587\\u4ef6\\u6d4f\\u89c8\",\"url\":\"Admin\\/Upload\\/fileManager\",\"id\":\"22\"},\"23\":{\"pid\":\"1\",\"title\":\"\\u7cfb\\u7edf\\u6743\\u9650\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"23\"},\"24\":{\"pid\":\"23\",\"title\":\"\\u7528\\u6237\\u7ba1\\u7406\",\"icon\":\"fa fa-user\",\"url\":\"Admin\\/User\\/index\",\"id\":\"24\"},\"25\":{\"pid\":\"24\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/User\\/add\",\"id\":\"25\"},\"26\":{\"pid\":\"24\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/User\\/edit\",\"id\":\"26\"},\"27\":{\"pid\":\"24\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/User\\/setStatus\",\"id\":\"27\"},\"28\":{\"pid\":\"23\",\"title\":\"\\u7ba1\\u7406\\u5458\\u7ba1\\u7406\",\"icon\":\"fa fa-lock\",\"url\":\"Admin\\/Access\\/index\",\"id\":\"28\"},\"29\":{\"pid\":\"28\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Access\\/add\",\"id\":\"29\"},\"30\":{\"pid\":\"28\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Access\\/edit\",\"id\":\"30\"},\"31\":{\"pid\":\"28\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Access\\/setStatus\",\"id\":\"31\"},\"32\":{\"pid\":\"23\",\"title\":\"\\u7528\\u6237\\u7ec4\\u7ba1\\u7406\",\"icon\":\"fa fa-sitemap\",\"url\":\"Admin\\/Group\\/index\",\"id\":\"32\"},\"33\":{\"pid\":\"32\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Group\\/add\",\"id\":\"33\"},\"34\":{\"pid\":\"32\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Group\\/edit\",\"id\":\"34\"},\"35\":{\"pid\":\"32\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Group\\/setStatus\",\"id\":\"35\"},\"36\":{\"pid\":\"1\",\"title\":\"\\u6269\\u5c55\\u4e2d\\u5fc3\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"36\"},\"37\":{\"pid\":\"36\",\"title\":\"\\u524d\\u53f0\\u4e3b\\u9898\",\"icon\":\"fa fa-adjust\",\"url\":\"Admin\\/Theme\\/index\",\"id\":\"37\"},\"38\":{\"pid\":\"37\",\"title\":\"\\u5b89\\u88c5\",\"url\":\"Admin\\/Theme\\/install\",\"id\":\"38\"},\"39\":{\"pid\":\"37\",\"title\":\"\\u5378\\u8f7d\",\"url\":\"Admin\\/Theme\\/uninstall\",\"id\":\"39\"},\"40\":{\"pid\":\"37\",\"title\":\"\\u66f4\\u65b0\\u4fe1\\u606f\",\"url\":\"Admin\\/Theme\\/updateInfo\",\"id\":\"40\"},\"41\":{\"pid\":\"37\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Theme\\/setStatus\",\"id\":\"41\"},\"42\":{\"pid\":\"37\",\"title\":\"\\u5207\\u6362\\u4e3b\\u9898\",\"url\":\"Admin\\/Theme\\/setCurrent\",\"id\":\"42\"},\"43\":{\"pid\":\"37\",\"title\":\"\\u53d6\\u6d88\\u4e3b\\u9898\",\"url\":\"Admin\\/Theme\\/cancel\",\"id\":\"43\"},\"44\":{\"pid\":\"36\",\"title\":\"\\u529f\\u80fd\\u6a21\\u5757\",\"icon\":\"fa fa-th-large\",\"url\":\"Admin\\/Module\\/index\",\"id\":\"44\"},\"45\":{\"pid\":\"44\",\"title\":\"\\u5b89\\u88c5\",\"url\":\"Admin\\/Module\\/install\",\"id\":\"45\"},\"46\":{\"pid\":\"44\",\"title\":\"\\u5378\\u8f7d\",\"url\":\"Admin\\/Module\\/uninstall\",\"id\":\"46\"},\"47\":{\"pid\":\"44\",\"title\":\"\\u66f4\\u65b0\\u4fe1\\u606f\",\"url\":\"Admin\\/Module\\/updateInfo\",\"id\":\"47\"},\"48\":{\"pid\":\"44\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Module\\/setStatus\",\"id\":\"48\"},\"49\":{\"pid\":\"36\",\"title\":\"\\u63d2\\u4ef6\\u7ba1\\u7406\",\"icon\":\"fa fa-th\",\"url\":\"Admin\\/Addon\\/index\",\"id\":\"49\"},\"50\":{\"pid\":\"49\",\"title\":\"\\u5b89\\u88c5\",\"url\":\"Admin\\/Addon\\/install\",\"id\":\"50\"},\"51\":{\"pid\":\"49\",\"title\":\"\\u5378\\u8f7d\",\"url\":\"Admin\\/Addon\\/uninstall\",\"id\":\"51\"},\"52\":{\"pid\":\"49\",\"title\":\"\\u8fd0\\u884c\",\"url\":\"Admin\\/Addon\\/execute\",\"id\":\"52\"},\"53\":{\"pid\":\"49\",\"title\":\"\\u8bbe\\u7f6e\",\"url\":\"Admin\\/Addon\\/config\",\"id\":\"53\"},\"54\":{\"pid\":\"49\",\"title\":\"\\u540e\\u53f0\\u7ba1\\u7406\",\"url\":\"Admin\\/Addon\\/adminList\",\"id\":\"54\"},\"55\":{\"pid\":\"54\",\"title\":\"\\u65b0\\u589e\\u6570\\u636e\",\"url\":\"Admin\\/Addon\\/adminAdd\",\"id\":\"55\"},\"56\":{\"pid\":\"54\",\"title\":\"\\u7f16\\u8f91\\u6570\\u636e\",\"url\":\"Admin\\/Addon\\/adminEdit\",\"id\":\"56\"},\"57\":{\"pid\":\"54\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Addon\\/setStatus\",\"id\":\"57\"}}', 1, 1438651748, 1453274303, 0, 1);
-INSERT INTO `fw_admin_module` VALUES (2, 'User', '用户后台', '', 'fa fa-cog', '#3CA6F1', '核心系统', 'Hung', '1.3.0', '', '', '{\"1\":{\"pid\":\"0\",\"title\":\"\\u7cfb\\u7edf\",\"icon\":\"fa fa-cog\",\"level\":\"system\",\"id\":\"1\"},\"58\":{\"pid\":\"1\",\"title\":\"\\u6d3b\\u7801\\u7ba1\\u7406\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"58\"},\"59\":{\"pid\":\"58\",\"title\":\"\\u7f51\\u5740\\u8df3\\u8f6c\",\"icon\":\"fa fa-list\",\"url\":\"Admin\\/Phone\\/index\",\"id\":\"59\"},\"61\":{\"pid\":\"59\",\"title\":\"\\u6dfb\\u52a0\",\"url\":\"Admin\\/Phone\\/add\",\"id\":\"61\"},\"63\":{\"pid\":\"59\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Phone\\/edit\",\"id\":\"63\"},\"60\":{\"pid\":\"59\",\"title\":\"\\u5220\\u9664\",\"url\":\"Admin\\/Phone\\/setStatus\",\"id\":\"60\"},\"62\":{\"pid\":\"59\",\"title\":\"\\u6279\\u91cf\\u5bfc\\u5165\\u7f51\\u5740\",\"url\":\"Admin\\/Phone\\/drurl\",\"id\":\"62\"},\"64\":{\"pid\":\"59\",\"title\":\"\\u5bfc\\u51fa\",\"url\":\"Admin\\/Phone\\/outurl\",\"id\":\"64\"},\"65\":{\"pid\":\"59\",\"title\":\"\\u4e0b\\u8f7d\\u4e8c\\u7ef4\\u7801\",\"url\":\"Admin\\/Phone\\/xzewm\",\"id\":\"65\"},\"67\":{\"pid\":\"59\",\"title\":\"\\u6279\\u91cf\\u4fee\\u6539\\u8df3\\u8f6c\\u7f51\\u5740\",\"url\":\"Admin\\/Phone\\/edittzwz\",\"id\":\"67\"},\"66\":{\"pid\":\"59\",\"title\":\"\\u4e0a\\u4f20\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/upload\",\"id\":\"66\"},\"68\":{\"pid\":\"58\",\"title\":\"\\u591a\\u7f51\\u5740\\u8df3\\u8f6c\",\"icon\":\"fa fa-list\",\"url\":\"Admin\\/Duourl\\/index\",\"id\":\"68\"},\"69\":{\"pid\":\"68\",\"title\":\"\\u6dfb\\u52a0\",\"url\":\"Admin\\/Duourl\\/add\",\"id\":\"69\"},\"70\":{\"pid\":\"68\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Duourl\\/edit\",\"id\":\"70\"},\"71\":{\"pid\":\"68\",\"title\":\"\\u5220\\u9664\",\"url\":\"Admin\\/Duourl\\/setStatus\",\"id\":\"71\"},\"72\":{\"pid\":\"68\",\"title\":\"\\u5bfc\\u51fa\",\"url\":\"Admin\\/Duourl\\/outurl\",\"id\":\"72\"},\"73\":{\"pid\":\"68\",\"title\":\"\\u4e0b\\u8f7d\\u4e8c\\u7ef4\\u7801\",\"url\":\"Admin\\/Duourl\\/xzewm\",\"id\":\"73\"},\"74\":{\"pid\":\"68\",\"title\":\"\\u6279\\u91cf\\u4fee\\u6539\\u8df3\\u8f6c\\u7f51\\u5740\",\"url\":\"Admin\\/Duourl\\/edittzwz\",\"id\":\"74\"},\"75\":{\"pid\":\"68\",\"title\":\"\\u4e0a\\u4f20\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/upload\",\"id\":\"75\"},\"2\":{\"pid\":\"1\",\"title\":\"\\u7cfb\\u7edf\\u529f\\u80fd\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"2\"},\"3\":{\"pid\":\"2\",\"title\":\"\\u7cfb\\u7edf\\u8bbe\\u7f6e\",\"icon\":\"fa fa-wrench\",\"url\":\"Admin\\/Config\\/group\",\"id\":\"3\"},\"4\":{\"pid\":\"3\",\"title\":\"\\u4fee\\u6539\\u8bbe\\u7f6e\",\"url\":\"Admin\\/Config\\/groupSave\",\"id\":\"4\"},\"23\":{\"pid\":\"1\",\"title\":\"\\u7cfb\\u7edf\\u6743\\u9650\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"23\"},\"24\":{\"pid\":\"23\",\"title\":\"\\u7528\\u6237\\u7ba1\\u7406\",\"icon\":\"fa fa-user\",\"url\":\"Admin\\/User\\/index\",\"id\":\"24\"},\"25\":{\"pid\":\"24\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/User\\/add\",\"id\":\"25\"},\"26\":{\"pid\":\"24\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/User\\/edit\",\"id\":\"26\"},\"27\":{\"pid\":\"24\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/User\\/setStatus\",\"id\":\"27\"},\"28\":{\"pid\":\"23\",\"title\":\"\\u7ba1\\u7406\\u5458\\u7ba1\\u7406\",\"icon\":\"fa fa-lock\",\"url\":\"Admin\\/Access\\/index\",\"id\":\"28\"},\"29\":{\"pid\":\"28\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Access\\/add\",\"id\":\"29\"},\"30\":{\"pid\":\"28\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Access\\/edit\",\"id\":\"30\"},\"31\":{\"pid\":\"28\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Access\\/setStatus\",\"id\":\"31\"},\"32\":{\"pid\":\"23\",\"title\":\"\\u7528\\u6237\\u7ec4\\u7ba1\\u7406\",\"icon\":\"fa fa-sitemap\",\"url\":\"Admin\\/Group\\/index\",\"id\":\"32\"},\"33\":{\"pid\":\"32\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Group\\/add\",\"id\":\"33\"},\"34\":{\"pid\":\"32\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Group\\/edit\",\"id\":\"34\"},\"35\":{\"pid\":\"32\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Group\\/setStatus\",\"id\":\"35\"},\"36\":{\"pid\":\"1\",\"title\":\"\\u6269\\u5c55\\u4e2d\\u5fc3\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"36\"},\"44\":{\"pid\":\"36\",\"title\":\"\\u529f\\u80fd\\u6a21\\u5757\",\"icon\":\"fa fa-th-large\",\"url\":\"Admin\\/Module\\/index\",\"id\":\"44\"},\"45\":{\"pid\":\"44\",\"title\":\"\\u5b89\\u88c5\",\"url\":\"Admin\\/Module\\/install\",\"id\":\"45\"},\"46\":{\"pid\":\"44\",\"title\":\"\\u5378\\u8f7d\",\"url\":\"Admin\\/Module\\/uninstall\",\"id\":\"46\"},\"47\":{\"pid\":\"44\",\"title\":\"\\u66f4\\u65b0\\u4fe1\\u606f\",\"url\":\"Admin\\/Module\\/updateInfo\",\"id\":\"47\"},\"48\":{\"pid\":\"44\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Module\\/setStatus\",\"id\":\"48\"}}', 1, 1505180658, 1505180658, 1, 1);
-COMMIT;
+INSERT INTO `fw_admin_module` VALUES ('1', 'Admin', '系统', '', 'fa fa-cog', '#3CA6F1', '核心系统', '', '1.2.0', '', '', '{\"1\":{\"pid\":\"0\",\"title\":\"\\u7cfb\\u7edf\",\"icon\":\"fa fa-cog\",\"level\":\"system\",\"id\":\"1\"},\"58\":{\"pid\":\"1\",\"title\":\"\\u6d3b\\u7801\\u7ba1\\u7406\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"58\"},\"59\":{\"pid\":\"58\",\"title\":\"\\u7f51\\u5740\\u8df3\\u8f6c\",\"icon\":\"fa fa-list\",\"url\":\"Admin\\/Phone\\/index\",\"id\":\"59\"},\"61\":{\"pid\":\"59\",\"title\":\"\\u6dfb\\u52a0\",\"url\":\"Admin\\/Phone\\/add\",\"id\":\"61\"},\"63\":{\"pid\":\"59\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Phone\\/edit\",\"id\":\"63\"},\"60\":{\"pid\":\"59\",\"title\":\"\\u5220\\u9664\",\"url\":\"Admin\\/Phone\\/setStatus\",\"id\":\"60\"},\"62\":{\"pid\":\"59\",\"title\":\"\\u6279\\u91cf\\u5bfc\\u5165\\u7f51\\u5740\",\"url\":\"Admin\\/Phone\\/drurl\",\"id\":\"62\"},\"64\":{\"pid\":\"59\",\"title\":\"\\u5bfc\\u51fa\",\"url\":\"Admin\\/Phone\\/outurl\",\"id\":\"64\"},\"65\":{\"pid\":\"59\",\"title\":\"\\u4e0b\\u8f7d\\u4e8c\\u7ef4\\u7801\",\"url\":\"Admin\\/Phone\\/xzewm\",\"id\":\"65\"},\"67\":{\"pid\":\"59\",\"title\":\"\\u6279\\u91cf\\u4fee\\u6539\\u8df3\\u8f6c\\u7f51\\u5740\",\"url\":\"Admin\\/Phone\\/edittzwz\",\"id\":\"67\"},\"66\":{\"pid\":\"59\",\"title\":\"\\u4e0a\\u4f20\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/upload\",\"id\":\"66\"},\"68\":{\"pid\":\"58\",\"title\":\"\\u591a\\u7f51\\u5740\\u8df3\\u8f6c\",\"icon\":\"fa fa-list\",\"url\":\"Admin\\/Duourl\\/index\",\"id\":\"68\"},\"69\":{\"pid\":\"68\",\"title\":\"\\u6dfb\\u52a0\",\"url\":\"Admin\\/Duourl\\/add\",\"id\":\"69\"},\"70\":{\"pid\":\"68\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Duourl\\/edit\",\"id\":\"70\"},\"71\":{\"pid\":\"68\",\"title\":\"\\u5220\\u9664\",\"url\":\"Admin\\/Duourl\\/setStatus\",\"id\":\"71\"},\"72\":{\"pid\":\"68\",\"title\":\"\\u5bfc\\u51fa\",\"url\":\"Admin\\/Duourl\\/outurl\",\"id\":\"72\"},\"73\":{\"pid\":\"68\",\"title\":\"\\u4e0b\\u8f7d\\u4e8c\\u7ef4\\u7801\",\"url\":\"Admin\\/Duourl\\/xzewm\",\"id\":\"73\"},\"74\":{\"pid\":\"68\",\"title\":\"\\u6279\\u91cf\\u4fee\\u6539\\u8df3\\u8f6c\\u7f51\\u5740\",\"url\":\"Admin\\/Duourl\\/edittzwz\",\"id\":\"74\"},\"75\":{\"pid\":\"68\",\"title\":\"\\u4e0a\\u4f20\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/upload\",\"id\":\"75\"},\"2\":{\"pid\":\"1\",\"title\":\"\\u7cfb\\u7edf\\u529f\\u80fd\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"2\"},\"3\":{\"pid\":\"2\",\"title\":\"\\u7cfb\\u7edf\\u8bbe\\u7f6e\",\"icon\":\"fa fa-wrench\",\"url\":\"Admin\\/Config\\/group\",\"id\":\"3\"},\"4\":{\"pid\":\"3\",\"title\":\"\\u4fee\\u6539\\u8bbe\\u7f6e\",\"url\":\"Admin\\/Config\\/groupSave\",\"id\":\"4\"},\"5\":{\"pid\":\"2\",\"title\":\"\\u5bfc\\u822a\\u7ba1\\u7406\",\"icon\":\"fa fa-map-signs\",\"url\":\"Admin\\/Nav\\/index\",\"id\":\"5\"},\"6\":{\"pid\":\"5\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Nav\\/add\",\"id\":\"6\"},\"7\":{\"pid\":\"5\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Nav\\/edit\",\"id\":\"7\"},\"8\":{\"pid\":\"5\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Nav\\/setStatus\",\"id\":\"8\"},\"9\":{\"pid\":\"2\",\"title\":\"\\u5feb\\u6377\\u94fe\\u63a5\",\"icon\":\"fa fa-link\",\"url\":\"Admin\\/Link\\/index\",\"id\":\"9\"},\"10\":{\"pid\":\"9\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Link\\/add\",\"id\":\"10\"},\"11\":{\"pid\":\"9\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Link\\/edit\",\"id\":\"11\"},\"12\":{\"pid\":\"9\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Link\\/setStatus\",\"id\":\"12\"},\"13\":{\"pid\":\"2\",\"title\":\"\\u914d\\u7f6e\\u7ba1\\u7406\",\"icon\":\"fa fa-cogs\",\"url\":\"Admin\\/Config\\/index\",\"id\":\"13\"},\"14\":{\"pid\":\"13\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Config\\/add\",\"id\":\"14\"},\"15\":{\"pid\":\"13\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Config\\/edit\",\"id\":\"15\"},\"16\":{\"pid\":\"13\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Config\\/setStatus\",\"id\":\"16\"},\"17\":{\"pid\":\"2\",\"title\":\"\\u4e0a\\u4f20\\u7ba1\\u7406\",\"icon\":\"fa fa-upload\",\"url\":\"Admin\\/Upload\\/index\",\"id\":\"17\"},\"18\":{\"pid\":\"17\",\"title\":\"\\u4e0a\\u4f20\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/upload\",\"id\":\"18\"},\"19\":{\"pid\":\"17\",\"title\":\"\\u5220\\u9664\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/delete\",\"id\":\"19\"},\"20\":{\"pid\":\"17\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Upload\\/setStatus\",\"id\":\"20\"},\"21\":{\"pid\":\"17\",\"title\":\"\\u4e0b\\u8f7d\\u8fdc\\u7a0b\\u56fe\\u7247\",\"url\":\"Admin\\/Upload\\/downremoteimg\",\"id\":\"21\"},\"22\":{\"pid\":\"17\",\"title\":\"\\u6587\\u4ef6\\u6d4f\\u89c8\",\"url\":\"Admin\\/Upload\\/fileManager\",\"id\":\"22\"},\"23\":{\"pid\":\"1\",\"title\":\"\\u7cfb\\u7edf\\u6743\\u9650\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"23\"},\"24\":{\"pid\":\"23\",\"title\":\"\\u7528\\u6237\\u7ba1\\u7406\",\"icon\":\"fa fa-user\",\"url\":\"Admin\\/User\\/index\",\"id\":\"24\"},\"25\":{\"pid\":\"24\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/User\\/add\",\"id\":\"25\"},\"26\":{\"pid\":\"24\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/User\\/edit\",\"id\":\"26\"},\"27\":{\"pid\":\"24\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/User\\/setStatus\",\"id\":\"27\"},\"28\":{\"pid\":\"23\",\"title\":\"\\u7ba1\\u7406\\u5458\\u7ba1\\u7406\",\"icon\":\"fa fa-lock\",\"url\":\"Admin\\/Access\\/index\",\"id\":\"28\"},\"29\":{\"pid\":\"28\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Access\\/add\",\"id\":\"29\"},\"30\":{\"pid\":\"28\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Access\\/edit\",\"id\":\"30\"},\"31\":{\"pid\":\"28\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Access\\/setStatus\",\"id\":\"31\"},\"32\":{\"pid\":\"23\",\"title\":\"\\u7528\\u6237\\u7ec4\\u7ba1\\u7406\",\"icon\":\"fa fa-sitemap\",\"url\":\"Admin\\/Group\\/index\",\"id\":\"32\"},\"33\":{\"pid\":\"32\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Group\\/add\",\"id\":\"33\"},\"34\":{\"pid\":\"32\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Group\\/edit\",\"id\":\"34\"},\"35\":{\"pid\":\"32\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Group\\/setStatus\",\"id\":\"35\"},\"36\":{\"pid\":\"1\",\"title\":\"\\u6269\\u5c55\\u4e2d\\u5fc3\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"36\"},\"37\":{\"pid\":\"36\",\"title\":\"\\u524d\\u53f0\\u4e3b\\u9898\",\"icon\":\"fa fa-adjust\",\"url\":\"Admin\\/Theme\\/index\",\"id\":\"37\"},\"38\":{\"pid\":\"37\",\"title\":\"\\u5b89\\u88c5\",\"url\":\"Admin\\/Theme\\/install\",\"id\":\"38\"},\"39\":{\"pid\":\"37\",\"title\":\"\\u5378\\u8f7d\",\"url\":\"Admin\\/Theme\\/uninstall\",\"id\":\"39\"},\"40\":{\"pid\":\"37\",\"title\":\"\\u66f4\\u65b0\\u4fe1\\u606f\",\"url\":\"Admin\\/Theme\\/updateInfo\",\"id\":\"40\"},\"41\":{\"pid\":\"37\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Theme\\/setStatus\",\"id\":\"41\"},\"42\":{\"pid\":\"37\",\"title\":\"\\u5207\\u6362\\u4e3b\\u9898\",\"url\":\"Admin\\/Theme\\/setCurrent\",\"id\":\"42\"},\"43\":{\"pid\":\"37\",\"title\":\"\\u53d6\\u6d88\\u4e3b\\u9898\",\"url\":\"Admin\\/Theme\\/cancel\",\"id\":\"43\"},\"44\":{\"pid\":\"36\",\"title\":\"\\u529f\\u80fd\\u6a21\\u5757\",\"icon\":\"fa fa-th-large\",\"url\":\"Admin\\/Module\\/index\",\"id\":\"44\"},\"45\":{\"pid\":\"44\",\"title\":\"\\u5b89\\u88c5\",\"url\":\"Admin\\/Module\\/install\",\"id\":\"45\"},\"46\":{\"pid\":\"44\",\"title\":\"\\u5378\\u8f7d\",\"url\":\"Admin\\/Module\\/uninstall\",\"id\":\"46\"},\"47\":{\"pid\":\"44\",\"title\":\"\\u66f4\\u65b0\\u4fe1\\u606f\",\"url\":\"Admin\\/Module\\/updateInfo\",\"id\":\"47\"},\"48\":{\"pid\":\"44\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Module\\/setStatus\",\"id\":\"48\"},\"49\":{\"pid\":\"36\",\"title\":\"\\u63d2\\u4ef6\\u7ba1\\u7406\",\"icon\":\"fa fa-th\",\"url\":\"Admin\\/Addon\\/index\",\"id\":\"49\"},\"50\":{\"pid\":\"49\",\"title\":\"\\u5b89\\u88c5\",\"url\":\"Admin\\/Addon\\/install\",\"id\":\"50\"},\"51\":{\"pid\":\"49\",\"title\":\"\\u5378\\u8f7d\",\"url\":\"Admin\\/Addon\\/uninstall\",\"id\":\"51\"},\"52\":{\"pid\":\"49\",\"title\":\"\\u8fd0\\u884c\",\"url\":\"Admin\\/Addon\\/execute\",\"id\":\"52\"},\"53\":{\"pid\":\"49\",\"title\":\"\\u8bbe\\u7f6e\",\"url\":\"Admin\\/Addon\\/config\",\"id\":\"53\"},\"54\":{\"pid\":\"49\",\"title\":\"\\u540e\\u53f0\\u7ba1\\u7406\",\"url\":\"Admin\\/Addon\\/adminList\",\"id\":\"54\"},\"55\":{\"pid\":\"54\",\"title\":\"\\u65b0\\u589e\\u6570\\u636e\",\"url\":\"Admin\\/Addon\\/adminAdd\",\"id\":\"55\"},\"56\":{\"pid\":\"54\",\"title\":\"\\u7f16\\u8f91\\u6570\\u636e\",\"url\":\"Admin\\/Addon\\/adminEdit\",\"id\":\"56\"},\"57\":{\"pid\":\"54\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Addon\\/setStatus\",\"id\":\"57\"}}', '1', '1438651748', '1453274303', '0', '1');
+INSERT INTO `fw_admin_module` VALUES ('2', 'User', '用户后台', '', 'fa fa-cog', '#3CA6F1', '核心系统', 'Hung', '1.3.0', '', '', '{\"1\":{\"pid\":\"0\",\"title\":\"\\u7cfb\\u7edf\",\"icon\":\"fa fa-cog\",\"level\":\"system\",\"id\":\"1\"},\"58\":{\"pid\":\"1\",\"title\":\"\\u6d3b\\u7801\\u7ba1\\u7406\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"58\"},\"59\":{\"pid\":\"58\",\"title\":\"\\u7f51\\u5740\\u8df3\\u8f6c\",\"icon\":\"fa fa-list\",\"url\":\"Admin\\/Phone\\/index\",\"id\":\"59\"},\"61\":{\"pid\":\"59\",\"title\":\"\\u6dfb\\u52a0\",\"url\":\"Admin\\/Phone\\/add\",\"id\":\"61\"},\"63\":{\"pid\":\"59\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Phone\\/edit\",\"id\":\"63\"},\"60\":{\"pid\":\"59\",\"title\":\"\\u5220\\u9664\",\"url\":\"Admin\\/Phone\\/setStatus\",\"id\":\"60\"},\"62\":{\"pid\":\"59\",\"title\":\"\\u6279\\u91cf\\u5bfc\\u5165\\u7f51\\u5740\",\"url\":\"Admin\\/Phone\\/drurl\",\"id\":\"62\"},\"64\":{\"pid\":\"59\",\"title\":\"\\u5bfc\\u51fa\",\"url\":\"Admin\\/Phone\\/outurl\",\"id\":\"64\"},\"65\":{\"pid\":\"59\",\"title\":\"\\u4e0b\\u8f7d\\u4e8c\\u7ef4\\u7801\",\"url\":\"Admin\\/Phone\\/xzewm\",\"id\":\"65\"},\"67\":{\"pid\":\"59\",\"title\":\"\\u6279\\u91cf\\u4fee\\u6539\\u8df3\\u8f6c\\u7f51\\u5740\",\"url\":\"Admin\\/Phone\\/edittzwz\",\"id\":\"67\"},\"66\":{\"pid\":\"59\",\"title\":\"\\u4e0a\\u4f20\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/upload\",\"id\":\"66\"},\"68\":{\"pid\":\"58\",\"title\":\"\\u591a\\u7f51\\u5740\\u8df3\\u8f6c\",\"icon\":\"fa fa-list\",\"url\":\"Admin\\/Duourl\\/index\",\"id\":\"68\"},\"69\":{\"pid\":\"68\",\"title\":\"\\u6dfb\\u52a0\",\"url\":\"Admin\\/Duourl\\/add\",\"id\":\"69\"},\"70\":{\"pid\":\"68\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Duourl\\/edit\",\"id\":\"70\"},\"71\":{\"pid\":\"68\",\"title\":\"\\u5220\\u9664\",\"url\":\"Admin\\/Duourl\\/setStatus\",\"id\":\"71\"},\"72\":{\"pid\":\"68\",\"title\":\"\\u5bfc\\u51fa\",\"url\":\"Admin\\/Duourl\\/outurl\",\"id\":\"72\"},\"73\":{\"pid\":\"68\",\"title\":\"\\u4e0b\\u8f7d\\u4e8c\\u7ef4\\u7801\",\"url\":\"Admin\\/Duourl\\/xzewm\",\"id\":\"73\"},\"74\":{\"pid\":\"68\",\"title\":\"\\u6279\\u91cf\\u4fee\\u6539\\u8df3\\u8f6c\\u7f51\\u5740\",\"url\":\"Admin\\/Duourl\\/edittzwz\",\"id\":\"74\"},\"75\":{\"pid\":\"68\",\"title\":\"\\u4e0a\\u4f20\\u6587\\u4ef6\",\"url\":\"Admin\\/Upload\\/upload\",\"id\":\"75\"},\"2\":{\"pid\":\"1\",\"title\":\"\\u7cfb\\u7edf\\u529f\\u80fd\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"2\"},\"3\":{\"pid\":\"2\",\"title\":\"\\u7cfb\\u7edf\\u8bbe\\u7f6e\",\"icon\":\"fa fa-wrench\",\"url\":\"Admin\\/Config\\/group\",\"id\":\"3\"},\"4\":{\"pid\":\"3\",\"title\":\"\\u4fee\\u6539\\u8bbe\\u7f6e\",\"url\":\"Admin\\/Config\\/groupSave\",\"id\":\"4\"},\"23\":{\"pid\":\"1\",\"title\":\"\\u7cfb\\u7edf\\u6743\\u9650\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"23\"},\"24\":{\"pid\":\"23\",\"title\":\"\\u7528\\u6237\\u7ba1\\u7406\",\"icon\":\"fa fa-user\",\"url\":\"Admin\\/User\\/index\",\"id\":\"24\"},\"25\":{\"pid\":\"24\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/User\\/add\",\"id\":\"25\"},\"26\":{\"pid\":\"24\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/User\\/edit\",\"id\":\"26\"},\"27\":{\"pid\":\"24\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/User\\/setStatus\",\"id\":\"27\"},\"28\":{\"pid\":\"23\",\"title\":\"\\u7ba1\\u7406\\u5458\\u7ba1\\u7406\",\"icon\":\"fa fa-lock\",\"url\":\"Admin\\/Access\\/index\",\"id\":\"28\"},\"29\":{\"pid\":\"28\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Access\\/add\",\"id\":\"29\"},\"30\":{\"pid\":\"28\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Access\\/edit\",\"id\":\"30\"},\"31\":{\"pid\":\"28\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Access\\/setStatus\",\"id\":\"31\"},\"32\":{\"pid\":\"23\",\"title\":\"\\u7528\\u6237\\u7ec4\\u7ba1\\u7406\",\"icon\":\"fa fa-sitemap\",\"url\":\"Admin\\/Group\\/index\",\"id\":\"32\"},\"33\":{\"pid\":\"32\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Group\\/add\",\"id\":\"33\"},\"34\":{\"pid\":\"32\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Group\\/edit\",\"id\":\"34\"},\"35\":{\"pid\":\"32\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Group\\/setStatus\",\"id\":\"35\"},\"36\":{\"pid\":\"1\",\"title\":\"\\u6269\\u5c55\\u4e2d\\u5fc3\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"36\"},\"44\":{\"pid\":\"36\",\"title\":\"\\u529f\\u80fd\\u6a21\\u5757\",\"icon\":\"fa fa-th-large\",\"url\":\"Admin\\/Module\\/index\",\"id\":\"44\"},\"45\":{\"pid\":\"44\",\"title\":\"\\u5b89\\u88c5\",\"url\":\"Admin\\/Module\\/install\",\"id\":\"45\"},\"46\":{\"pid\":\"44\",\"title\":\"\\u5378\\u8f7d\",\"url\":\"Admin\\/Module\\/uninstall\",\"id\":\"46\"},\"47\":{\"pid\":\"44\",\"title\":\"\\u66f4\\u65b0\\u4fe1\\u606f\",\"url\":\"Admin\\/Module\\/updateInfo\",\"id\":\"47\"},\"48\":{\"pid\":\"44\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Module\\/setStatus\",\"id\":\"48\"}}', '1', '1505180658', '1505180658', '1', '1');
 
 -- ----------------------------
--- Table structure for fw_admin_nav
+-- Table structure for `fw_admin_nav`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_nav`;
 CREATE TABLE `fw_admin_nav` (
@@ -398,14 +387,12 @@ CREATE TABLE `fw_admin_nav` (
 -- ----------------------------
 -- Records of fw_admin_nav
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_nav` VALUES (1, 0, 'home', '首页', 'link', '', '', 'fa-archive', 1441293186, 1441297331, 0, 1);
-INSERT INTO `fw_admin_nav` VALUES (2, 0, 'user', '用户', 'module', 'User', '', 'fa fa-users', 1453102131, 1453102131, 0, 1);
-INSERT INTO `fw_admin_nav` VALUES (3, 0, 'cms', 'CMS', 'module', 'Cms', '', 'fa fa-newspaper-o', 1453102270, 1453102270, 0, 1);
-COMMIT;
+INSERT INTO `fw_admin_nav` VALUES ('1', '0', 'home', '首页', 'link', '', '', 'fa-archive', '1441293186', '1441297331', '0', '1');
+INSERT INTO `fw_admin_nav` VALUES ('2', '0', 'user', '用户', 'module', 'User', '', 'fa fa-users', '1453102131', '1453102131', '0', '1');
+INSERT INTO `fw_admin_nav` VALUES ('3', '0', 'cms', 'CMS', 'module', 'Cms', '', 'fa fa-newspaper-o', '1453102270', '1453102270', '0', '1');
 
 -- ----------------------------
--- Table structure for fw_admin_payments
+-- Table structure for `fw_admin_payments`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_payments`;
 CREATE TABLE `fw_admin_payments` (
@@ -417,7 +404,11 @@ CREATE TABLE `fw_admin_payments` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for fw_admin_theme
+-- Records of fw_admin_payments
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `fw_admin_theme`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_theme`;
 CREATE TABLE `fw_admin_theme` (
@@ -437,7 +428,11 @@ CREATE TABLE `fw_admin_theme` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='前台主题表';
 
 -- ----------------------------
--- Table structure for fw_admin_upload
+-- Records of fw_admin_theme
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `fw_admin_upload`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_upload`;
 CREATE TABLE `fw_admin_upload` (
@@ -457,21 +452,21 @@ CREATE TABLE `fw_admin_upload` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
 
 -- ----------------------------
 -- Records of fw_admin_upload
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_upload` VALUES (25, 1, '新建文本文档.txt', '/Uploads/2017-09/59b628a9337bd.txt', '', 'txt', 62, 'c051ec633060723e7936a0d1f7c706d2', '4a5ee8d84e0f3ad4824bef2521a1b76caa76b4ed', 'Local', 0, 1505110185, 1505110185, 0, 1);
-INSERT INTO `fw_admin_upload` VALUES (26, 3, '1.txt', '/Uploads/2017-09/59b8fedbc3c97.txt', '', 'txt', 16, '49cded5debcf38a6eafc45cec49666cd', 'ec73df76fa785ab5171a473b774a1f4ec91b4760', 'Local', 0, 1505296091, 1505296091, 0, 0);
-INSERT INTO `fw_admin_upload` VALUES (27, 1, '1658.jpg', '/Uploads/2017-09/59c3655c70e7b.jpg', '', 'jpg', 246603, '603a6c4ab966bd05cd445a9b88fb295c', '660dceb308932097043ce61c79b8e3cb057df957', 'Local', 0, 1505977692, 1505977692, 0, 1);
-INSERT INTO `fw_admin_upload` VALUES (28, 1, '7bf22f4a3e712fe1b8be86dfd3cc5073.jpg', '/Uploads/2017-09/59c4865c6a21a.jpg', '', 'jpg', 26508, 'a2cd60a1fdaee22aa52c651263067215', 'e34ba84da1eb56cb65af845119eb2ceaa0f0d464', 'Local', 0, 1506051676, 1506051676, 0, 1);
-INSERT INTO `fw_admin_upload` VALUES (29, 1, 'timg.jpeg', '/Uploads/2017-09/59c4867a40d2d.jpeg', '', 'jpeg', 9238, 'e403418b494a9e1c0adfb675b7a57eca', 'fc65269d5bad9233b2e25999e396f9d2f861a571', 'Local', 0, 1506051706, 1506051706, 0, 1);
-COMMIT;
+INSERT INTO `fw_admin_upload` VALUES ('25', '1', '新建文本文档.txt', '/Uploads/2017-09/59b628a9337bd.txt', '', 'txt', '62', 'c051ec633060723e7936a0d1f7c706d2', '4a5ee8d84e0f3ad4824bef2521a1b76caa76b4ed', 'Local', '0', '1505110185', '1505110185', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('26', '3', '1.txt', '/Uploads/2017-09/59b8fedbc3c97.txt', '', 'txt', '16', '49cded5debcf38a6eafc45cec49666cd', 'ec73df76fa785ab5171a473b774a1f4ec91b4760', 'Local', '0', '1505296091', '1505296091', '0', '0');
+INSERT INTO `fw_admin_upload` VALUES ('27', '1', '1658.jpg', '/Uploads/2017-09/59c3655c70e7b.jpg', '', 'jpg', '246603', '603a6c4ab966bd05cd445a9b88fb295c', '660dceb308932097043ce61c79b8e3cb057df957', 'Local', '0', '1505977692', '1505977692', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('28', '1', '7bf22f4a3e712fe1b8be86dfd3cc5073.jpg', '/Uploads/2017-09/59c4865c6a21a.jpg', '', 'jpg', '26508', 'a2cd60a1fdaee22aa52c651263067215', 'e34ba84da1eb56cb65af845119eb2ceaa0f0d464', 'Local', '0', '1506051676', '1506051676', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('29', '1', 'timg.jpeg', '/Uploads/2017-09/59c4867a40d2d.jpeg', '', 'jpeg', '9238', 'e403418b494a9e1c0adfb675b7a57eca', 'fc65269d5bad9233b2e25999e396f9d2f861a571', 'Local', '0', '1506051706', '1506051706', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('30', '1', 'alipay.jpg', '/Uploads/2017-09/59c85e8a0ec06.jpg', '', 'jpg', '4789', '3d8f3e4f9904b3b0b93c7cede3fddf00', '632c5c744aa227b2a6b24338619600f17d10b76e', 'Local', '0', '1506303626', '1506303626', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('31', '3', '1.txt', '/Uploads/2017-09/59c87ae41e7c5.txt', '', 'txt', '24', '3622f7d80fefe78b38dd8cab31244fa4', '48b30a53a646cc3130d31045b619887cd47a81b8', 'Local', '0', '1506310884', '1506310884', '0', '1');
 
 -- ----------------------------
--- Table structure for fw_admin_user
+-- Table structure for `fw_admin_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_user`;
 CREATE TABLE `fw_admin_user` (
@@ -495,23 +490,21 @@ CREATE TABLE `fw_admin_user` (
 -- ----------------------------
 -- Records of fw_admin_user
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_admin_user` VALUES (1, 1, 'admin', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', 0, '', 1438651748, 1501578198, 1, 0, 0);
-INSERT INTO `fw_admin_user` VALUES (2, 1, 'admin2', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', 0, 'admin', 1496210259, 1505898727, 1, 0, 0);
-INSERT INTO `fw_admin_user` VALUES (3, 2, '哈哈哈1', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@163.com', '18121029523', 2130706433, 'admin', 1505117796, 1505898740, 1, 3, 1569060179);
-INSERT INTO `fw_admin_user` VALUES (13, 2, '我师父', 'b7aebc807e9844d9148e5cb32c6ff885', '发的发的发', 'fasdfsdf', 0, '', 0, 1505812506, 0, 0, 0);
-INSERT INTO `fw_admin_user` VALUES (14, 2, '哈哈哈小号', 'b7aebc807e9844d9148e5cb32c6ff885', '447936059@qq.com', '13333333333', 0, '', 1505548436, 0, 1, 2, 1537587243);
-COMMIT;
+INSERT INTO `fw_admin_user` VALUES ('1', '1', 'admin', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', '0', '', '1438651748', '1501578198', '1', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('2', '1', 'admin2', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', '0', 'admin', '1496210259', '1505898727', '1', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('3', '2', '哈哈哈1', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@163.com', '18121029523', '2130706433', 'admin', '1505117796', '1505898740', '1', '3', '1569060179');
+INSERT INTO `fw_admin_user` VALUES ('13', '2', '我师父', 'b7aebc807e9844d9148e5cb32c6ff885', '发的发的发', 'fasdfsdf', '0', '', '0', '1505812506', '0', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('14', '2', '哈哈哈小号', 'b7aebc807e9844d9148e5cb32c6ff885', '447936059@qq.com', '13333333333', '0', '', '1505548436', '0', '1', '2', '1537607827');
 
 -- ----------------------------
--- Table structure for fw_cms_duourl
+-- Table structure for `fw_cms_duourl`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_cms_duourl`;
 CREATE TABLE `fw_cms_duourl` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` varchar(255) NOT NULL,
   `title` text NOT NULL COMMENT '题标',
   `tztime` text,
-  `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态0禁用1启用',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
@@ -520,52 +513,49 @@ CREATE TABLE `fw_cms_duourl` (
   `uid` int(11) DEFAULT '0',
   `type` tinyint(1) unsigned DEFAULT '2' COMMENT '1单网址2多网址',
   `tztype` tinyint(1) DEFAULT '1',
+  `count` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `status` (`status`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of fw_cms_duourl
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_cms_duourl` VALUES (2, 'www.livecode1.com|||www.livecode2.com', NULL, 0, 1, 1505110505, 1505887545, 'http://www.livecode.com/index.php/huoma/duo?d=5m5bn5uqx', '5m5bn5uqx', 1, 2, 2);
-INSERT INTO `fw_cms_duourl` VALUES (3, '发生地方撒|||2132131231232', NULL, 0, 1, 1506066598, 1506066598, 'http://www.livecode.com/index.php/huoma/duo?d=4ja0dz6hy', '4ja0dz6hy', 3, 2, 1);
-COMMIT;
+INSERT INTO `fw_cms_duourl` VALUES ('10', '妈的再来个1112', 'http://www.qq.com/|||http://www.taobao.com/', null, '1', '1506405851', '1506406371', 'http://www.livecode.com/index.php/huoma/duo?d=b9tpf8dzv', 'b9tpf8dzv', '3', '2', '1', '5');
 
 -- ----------------------------
--- Table structure for fw_cms_phone
+-- Table structure for `fw_cms_phone`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_cms_phone`;
 CREATE TABLE `fw_cms_phone` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `title` varchar(500) NOT NULL COMMENT '题标',
-  `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `videourl` varchar(255) DEFAULT NULL COMMENT '视频地址',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态0禁用1启用',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `huoma` varchar(255) DEFAULT NULL,
   `d` varchar(255) DEFAULT NULL,
   `uid` int(11) DEFAULT '0',
-  `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1单网址2多网址',
+  `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1网址2视频',
   `tztype` tinyint(1) DEFAULT '1',
+  `count` int(11) DEFAULT '0' COMMENT '播放次数',
   PRIMARY KEY (`id`),
   KEY `status` (`status`) USING BTREE,
   KEY `title` (`title`(333))
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of fw_cms_phone
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_cms_phone` VALUES (1, 'www.livecode.com1', 0, 1, 1505108175, 1505444122, 'http://www.livecode.com/index.php/huoma/?d=jmusvduj3', 'jmusvduj3', 1, 1, 1);
-INSERT INTO `fw_cms_phone` VALUES (2, 'www.livecode.com', 0, 1, 1505110103, 1505110103, 'http://www.livecode.com/index.php/huoma/?d=eooadp6xj', 'eooadp6xj', 1, 1, 1);
-INSERT INTO `fw_cms_phone` VALUES (9, '方式发生地方', 0, 1, 1506066523, 1506066523, 'http://www.livecode.com/index.php/huoma/?d=agece64ij', 'agece64ij', 3, 1, 1);
-INSERT INTO `fw_cms_phone` VALUES (10, '问人发送到发送到发', 0, 1, 1506066571, 1506066571, 'http://www.livecode.com/index.php/huoma/?d=pz3236f0r', 'pz3236f0r', 3, 1, 1);
-INSERT INTO `fw_cms_phone` VALUES (8, '1112', 0, 1, 1505459680, 1505459712, 'http://www.livecode.com/index.php/huoma/?d=9mzwfp2hs', '9mzwfp2hs', 3, 1, 1);
-COMMIT;
+INSERT INTO `fw_cms_phone` VALUES ('12', '来个视频', 'Uploads/video/55797c0709a1f.avi', '1', '1506395606', '1506420087', 'http://www.livecode.com/index.php/huoma/?d=gficcxivq', 'gficcxivq', '3', '2', '1', '4');
+INSERT INTO `fw_cms_phone` VALUES ('4', '百度单网址', 'https://www.baidu.com/', '1', '1506319731', '1506406977', 'http://www.livecode.com/index.php/huoma/?d=vlnh12ohf', 'vlnh12ohf', '3', '1', '1', '2');
+INSERT INTO `fw_cms_phone` VALUES ('5', '淘宝', 'http://www.taobao.com/', '1', '1506321094', '1506397533', 'http://www.livecode.com/index.php/huoma/?d=lsqhcqcp2', 'lsqhcqcp2', '3', '1', '1', '1');
+INSERT INTO `fw_cms_phone` VALUES ('11', '跳到qqqq', 'http://www.qq.com/', '1', '1506326211', '1506326318', 'http://www.livecode.com/index.php/huoma/?d=p25d2kloj', 'p25d2kloj', '3', '1', '1', '1');
+INSERT INTO `fw_cms_phone` VALUES ('8', 'music11哈', 'Uploads/video/music.mp4', '1', '1506325027', '1506325590', 'http://www.livecode.com/index.php/huoma/?d=dsj2qv0v7', 'dsj2qv0v7', '3', '2', '1', '19');
 
 -- ----------------------------
--- Table structure for fw_cms_sales_moban
+-- Table structure for `fw_cms_sales_moban`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_cms_sales_moban`;
 CREATE TABLE `fw_cms_sales_moban` (
@@ -579,7 +569,35 @@ CREATE TABLE `fw_cms_sales_moban` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
--- Table structure for fw_orders
+-- Records of fw_cms_sales_moban
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `fw_echarts_data`
+-- ----------------------------
+DROP TABLE IF EXISTS `fw_echarts_data`;
+CREATE TABLE `fw_echarts_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `codeId` int(11) NOT NULL COMMENT '活码id',
+  `createTime` datetime NOT NULL COMMENT '扫码日期',
+  `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1单网址2视频3多网址',
+  PRIMARY KEY (`id`),
+  KEY `codeId` (`codeId`)
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of fw_echarts_data
+-- ----------------------------
+INSERT INTO `fw_echarts_data` VALUES ('29', '0', '0000-00-00 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('30', '0', '2017-09-26 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('31', '8', '2017-09-26 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('32', '11', '2017-09-26 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('33', '10', '2017-09-26 00:00:00', '3');
+INSERT INTO `fw_echarts_data` VALUES ('34', '10', '2017-09-26 00:00:00', '3');
+INSERT INTO `fw_echarts_data` VALUES ('35', '10', '2017-09-26 00:00:00', '3');
+
+-- ----------------------------
+-- Table structure for `fw_orders`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_orders`;
 CREATE TABLE `fw_orders` (
@@ -599,33 +617,101 @@ CREATE TABLE `fw_orders` (
   PRIMARY KEY (`orderId`),
   KEY `userId` (`userId`),
   KEY `orderStatus` (`orderStatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_orders
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_orders` VALUES (3, '20170919150578733245', 3, -1, 2, 1, 1, 0, 3200.00, NULL, 1505787332, 0, 1);
-INSERT INTO `fw_orders` VALUES (4, '2017091915057876713579', 3, -1, 2, 3, 1, 0, 8400.00, NULL, 1505787671, 1505798826, 1);
-INSERT INTO `fw_orders` VALUES (5, '2017091915057877316572', 3, -1, 2, 2, 0, 0, 6000.00, NULL, 1505787731, 0, 1);
-INSERT INTO `fw_orders` VALUES (6, '2017091915057898523251', 3, -1, 3, 2, 1, 0, 9600.00, NULL, 1505789852, 0, 1);
-INSERT INTO `fw_orders` VALUES (8, '2017091915057900911085', 3, 1, 3, 2, 1, 2, 9600.00, '暂无', 1505790091, 1505798726, 1);
-INSERT INTO `fw_orders` VALUES (16, '2017092015059012115478', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505901211, 0, 1);
-INSERT INTO `fw_orders` VALUES (17, '2017092115059577404758', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505957740, 0, 1);
-INSERT INTO `fw_orders` VALUES (18, '2017092115059587624845', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505958762, 0, 1);
-INSERT INTO `fw_orders` VALUES (19, '2017092115059631348383', 14, -1, 3, 2, 1, 0, 9600.00, NULL, 1505963134, 0, 1);
-INSERT INTO `fw_orders` VALUES (20, '2017092115059654793415', 14, -1, 1, 3, 1, 0, 4800.00, NULL, 1505965479, 0, 1);
-INSERT INTO `fw_orders` VALUES (21, '2017092115059846350373', 3, 1, 2, 3, 1, 1, 8400.00, '暂无', 1505984635, 1505984639, 1);
-INSERT INTO `fw_orders` VALUES (22, '2017092115059881792709', 3, 1, 3, 2, 0, 2, 4800.00, NULL, 1505988179, 1505988179, 1);
-INSERT INTO `fw_orders` VALUES (23, '2017092115059886587836', 14, -1, 1, 4, 1, 0, 5600.00, NULL, 1505988658, 0, 1);
-INSERT INTO `fw_orders` VALUES (24, '2017092215060426153415', 3, -1, 3, 1, 1, 0, 5000.00, NULL, 1506042615, 0, 1);
-INSERT INTO `fw_orders` VALUES (25, '2017092215060426544387', 14, 1, 3, 1, 1, 1, 5000.00, '暂无', 1506042654, 1506042660, 1);
-INSERT INTO `fw_orders` VALUES (26, '2017092215060471086317', 14, 1, 3, 2, 0, 0, 9600.00, '暂无', 1506047108, 1506047114, 1);
-INSERT INTO `fw_orders` VALUES (28, '2017092215060512436693', 14, 1, 2, 1, 0, 2, 3200.00, NULL, 1506051243, 1506051243, 1);
-COMMIT;
+INSERT INTO `fw_orders` VALUES ('3', '20170919150578733245', '3', '-1', '2', '1', '1', '0', '3200.00', null, '1505787332', '0', '1');
+INSERT INTO `fw_orders` VALUES ('4', '2017091915057876713579', '3', '-1', '2', '3', '1', '0', '8400.00', null, '1505787671', '1505798826', '1');
+INSERT INTO `fw_orders` VALUES ('5', '2017091915057877316572', '3', '-1', '2', '2', '0', '0', '6000.00', null, '1505787731', '0', '1');
+INSERT INTO `fw_orders` VALUES ('6', '2017091915057898523251', '3', '-1', '3', '2', '1', '0', '9600.00', null, '1505789852', '0', '1');
+INSERT INTO `fw_orders` VALUES ('8', '2017091915057900911085', '3', '1', '3', '2', '1', '2', '9600.00', '暂无', '1505790091', '1505798726', '1');
+INSERT INTO `fw_orders` VALUES ('16', '2017092015059012115478', '14', '-1', '1', '4', '1', '0', '5600.00', null, '1505901211', '0', '1');
+INSERT INTO `fw_orders` VALUES ('17', '2017092115059577404758', '14', '-1', '1', '4', '1', '0', '5600.00', null, '1505957740', '0', '1');
+INSERT INTO `fw_orders` VALUES ('18', '2017092115059587624845', '14', '-1', '1', '4', '1', '0', '5600.00', null, '1505958762', '0', '1');
+INSERT INTO `fw_orders` VALUES ('19', '2017092115059631348383', '14', '-1', '3', '2', '1', '0', '9600.00', null, '1505963134', '0', '1');
+INSERT INTO `fw_orders` VALUES ('20', '2017092115059654793415', '14', '-1', '1', '3', '1', '0', '4800.00', null, '1505965479', '0', '1');
+INSERT INTO `fw_orders` VALUES ('21', '2017092115059846350373', '3', '1', '2', '3', '1', '1', '8400.00', '暂无', '1505984635', '1505984639', '1');
+INSERT INTO `fw_orders` VALUES ('22', '2017092115059881792709', '3', '1', '3', '2', '0', '2', '4800.00', null, '1505988179', '1505988179', '1');
+INSERT INTO `fw_orders` VALUES ('23', '2017092115059886587836', '14', '-1', '1', '4', '1', '0', '5600.00', null, '1505988658', '0', '1');
+INSERT INTO `fw_orders` VALUES ('24', '2017092215060426153415', '3', '-1', '3', '1', '1', '0', '5000.00', null, '1506042615', '0', '1');
+INSERT INTO `fw_orders` VALUES ('25', '2017092215060426544387', '14', '1', '3', '1', '1', '1', '5000.00', '暂无', '1506042654', '1506042660', '1');
+INSERT INTO `fw_orders` VALUES ('26', '2017092215060471086317', '14', '1', '3', '2', '0', '0', '9600.00', '暂无', '1506047108', '1506047114', '1');
+INSERT INTO `fw_orders` VALUES ('28', '2017092215060512436693', '14', '1', '2', '1', '0', '2', '3200.00', null, '1506051243', '1506051243', '1');
+INSERT INTO `fw_orders` VALUES ('29', '2017092215060718162331', '14', '1', '2', '1', '0', '1', '3200.00', '暂无', '1506071816', '1506071827', '1');
 
 -- ----------------------------
--- Table structure for fw_vip
+-- Table structure for `fw_users`
+-- ----------------------------
+DROP TABLE IF EXISTS `fw_users`;
+CREATE TABLE `fw_users` (
+  `userId` int(11) NOT NULL AUTO_INCREMENT,
+  `loginName` varchar(20) NOT NULL,
+  `loginSecret` int(11) NOT NULL,
+  `loginPwd` varchar(50) NOT NULL,
+  `userType` tinyint(4) NOT NULL DEFAULT '0',
+  `userSex` tinyint(4) DEFAULT '0',
+  `userName` varchar(20) DEFAULT NULL,
+  `trueName` varchar(100) DEFAULT NULL,
+  `brithday` date DEFAULT NULL,
+  `userPhoto` varchar(150) DEFAULT '',
+  `userQQ` varchar(20) DEFAULT NULL,
+  `userPhone` char(11) DEFAULT '',
+  `userEmail` varchar(50) DEFAULT '',
+  `userScore` int(11) DEFAULT '0',
+  `userTotalScore` int(11) DEFAULT '0',
+  `lastIP` varchar(16) DEFAULT NULL,
+  `lastTime` datetime DEFAULT NULL,
+  `userFrom` tinyint(4) DEFAULT '0',
+  `userMoney` decimal(11,2) DEFAULT '0.00',
+  `lockMoney` decimal(11,2) DEFAULT '0.00',
+  `userStatus` tinyint(4) NOT NULL DEFAULT '1',
+  `dataFlag` tinyint(4) NOT NULL DEFAULT '1',
+  `createTime` datetime NOT NULL,
+  `payPwd` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`userId`),
+  KEY `userStatus` (`userStatus`,`dataFlag`),
+  KEY `loginName` (`loginName`),
+  KEY `userPhone` (`userPhone`),
+  KEY `userEmail` (`userEmail`),
+  KEY `userType` (`userType`,`dataFlag`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of fw_users
+-- ----------------------------
+INSERT INTO `fw_users` VALUES ('1', 'wstmart', '5937', '33c67f436e38cfa964f1fde58a5213cc', '1', '0', null, null, null, '', null, '', '', '0', '0', '117.80.194.93', '2017-04-08 11:15:33', '0', '0.00', '0.00', '1', '1', '2016-10-08 10:27:28', null);
+INSERT INTO `fw_users` VALUES ('2', 'test', '8860', 'bf9156c6c4cc320de14c4a3fd2839616', '0', '0', null, null, null, '', '', '', '', '0', '0', '116.22.173.168', '2016-10-11 19:05:05', '0', '0.00', '0.00', '1', '1', '2016-10-08 11:20:42', null);
+INSERT INTO `fw_users` VALUES ('3', '新鲜鲜果旗舰店', '9096', '4a0eda0f97c3da3e6d9ce42256c3d887', '1', '1', '新鲜鲜果', null, null, '', '23234', '15918671994', 'sadf@qq.com', '0', '2', '116.22.12.53', '2016-10-14 22:01:10', '0', '0.00', '0.00', '1', '1', '2016-10-08 16:02:44', null);
+INSERT INTO `fw_users` VALUES ('4', 'haiyuan', '7413', '760c16148d35bf403e455fd7aafc3f35', '1', '0', null, null, null, '', null, '', '', '0', '0', '116.22.12.172', '2016-10-09 10:59:56', '0', '0.00', '0.00', '1', '1', '2016-10-08 21:44:57', null);
+INSERT INTO `fw_users` VALUES ('5', 'maysh1009', '6326', '9df7f105ab4f096958e74c2008733c65', '0', '0', null, null, null, '', '', '', '', '0', '0', '116.22.12.172', '2016-10-09 11:06:53', '0', '0.00', '0.00', '1', '1', '2016-10-09 11:06:53', null);
+INSERT INTO `fw_users` VALUES ('6', 'zhangfaguang', '5152', 'f59eac75fafe3a5dae279d5510c5ff71', '0', '0', null, null, null, '', '', '', '', '0', '0', '60.13.219.25', '2016-10-09 19:00:02', '0', '0.00', '0.00', '1', '1', '2016-10-09 19:00:02', null);
+INSERT INTO `fw_users` VALUES ('7', 'vda123', '6640', 'e6b43a8ec3abf125e4808c08b2f7682b', '1', '0', null, null, null, '', null, '', '', '0', '0', '116.22.12.53', '2016-10-14 22:12:07', '0', '0.00', '0.00', '1', '1', '2016-10-09 19:32:17', null);
+INSERT INTO `fw_users` VALUES ('8', 'weisheng', '9840', '2d52a8859152143a6ae3099af02f50f7', '1', '0', null, null, null, '', null, '', '', '0', '0', '116.22.12.172', '2016-10-09 21:27:48', '0', '0.00', '0.00', '1', '1', '2016-10-09 21:03:01', null);
+INSERT INTO `fw_users` VALUES ('9', 'jiushui', '7789', '55d4131f13d29a8fd716a44858c0d3e6', '1', '0', null, null, null, '', null, '', '', '0', '0', '116.22.12.172', '2016-10-10 09:54:16', '0', '0.00', '0.00', '1', '1', '2016-10-10 09:53:50', null);
+INSERT INTO `fw_users` VALUES ('10', 'liangyou', '8964', '15335b0063ff9974df4b8afaded54bd1', '1', '0', null, null, null, '', null, '', '', '0', '0', '116.22.12.172', '2016-10-10 16:45:07', '0', '0.00', '0.00', '1', '1', '2016-10-10 10:49:35', null);
+INSERT INTO `fw_users` VALUES ('11', 'songshu', '7576', '21d917b9434892bb0846d7c0d905e94a', '1', '0', null, null, null, '', null, '', '', '0', '0', '116.22.12.172', '2016-10-10 14:50:29', '0', '0.00', '0.00', '1', '1', '2016-10-10 14:50:07', null);
+INSERT INTO `fw_users` VALUES ('12', 'sisley', '5139', '4b53be1961c187abf4258c5d0a6cae29', '1', '0', null, null, null, '', null, '', '', '0', '0', '116.22.12.172', '2016-10-10 16:08:27', '0', '0.00', '0.00', '1', '1', '2016-10-10 16:07:38', null);
+INSERT INTO `fw_users` VALUES ('13', 'aodisite', '7761', 'fdcd139ac6b01fd12bfff41aee70a196', '1', '0', null, null, null, '', null, '', '', '0', '0', '116.22.173.168', '2016-10-11 11:41:41', '0', '0.00', '0.00', '1', '1', '2016-10-10 19:15:34', null);
+INSERT INTO `fw_users` VALUES ('14', 'honor1', '7412', '43225a3e24aa6cb309db9e295d552759', '1', '0', null, null, null, '', null, '', '', '0', '0', '116.22.173.168', '2016-10-11 14:26:47', '0', '0.00', '0.00', '1', '1', '2016-10-11 14:25:24', null);
+INSERT INTO `fw_users` VALUES ('15', 'ceshi1011', '4323', '8c697ca89e74b22a4dc53352a3d66aa6', '0', '0', null, null, null, '', '', '', '', '0', '0', '116.22.173.168', '2016-10-11 18:55:57', '0', '0.00', '0.00', '1', '1', '2016-10-11 18:55:57', null);
+INSERT INTO `fw_users` VALUES ('16', 'ceshi1010', '1063', '8e37f5001b9bca610bbd699b908ab0de', '0', '0', null, null, null, '', '', '', '', '0', '0', '116.22.173.168', '2016-10-11 19:02:07', '0', '0.00', '0.00', '1', '1', '2016-10-11 19:02:07', null);
+INSERT INTO `fw_users` VALUES ('17', 'test1', '3454', 'e42e0ac9893c62802af5e47433bd86b2', '0', '0', null, null, null, '', '', '', '', '0', '0', '116.22.173.168', '2016-10-11 19:11:18', '0', '0.00', '0.00', '1', '1', '2016-10-11 19:10:47', null);
+INSERT INTO `fw_users` VALUES ('18', 'ceshi111', '9440', 'a8725a52ea26d65956f201c3b7059679', '0', '0', null, null, null, '', '', '', '', '0', '0', '116.22.173.168', '2016-10-11 19:12:32', '0', '0.00', '0.00', '1', '1', '2016-10-11 19:11:22', null);
+INSERT INTO `fw_users` VALUES ('19', 'hushichun', '5513', '6a6ae583b6001aad3ed5aacfc184a0ce', '0', '0', null, null, null, '', '', '', '', '0', '0', '113.208.116.106', '2016-10-12 16:04:42', '0', '0.00', '0.00', '1', '1', '2016-10-12 16:04:42', null);
+INSERT INTO `fw_users` VALUES ('20', 'dfdfdsf', '1189', '0058d330018760ca1c4e79a69fb151e0', '0', '0', null, null, null, '', '', '', '', '0', '0', '113.107.234.101', '2016-10-12 16:59:32', '0', '0.00', '0.00', '1', '1', '2016-10-12 16:59:32', null);
+INSERT INTO `fw_users` VALUES ('21', 'maysh1013', '6825', '2a46c2a5fd65a633db3ab2720e03b9d0', '0', '0', null, null, null, '', '', '', '', '0', '0', '116.22.12.53', '2016-10-14 20:42:17', '0', '0.00', '0.00', '1', '1', '2016-10-13 18:01:02', null);
+INSERT INTO `fw_users` VALUES ('22', 'test@qq.com', '2974', '7615c6b6cd874f8f33ce73e39f6e57dc', '0', '0', null, null, null, '', '', '', '', '0', '0', '49.223.185.240', '2016-10-13 20:23:55', '0', '0.00', '0.00', '1', '1', '2016-10-13 20:23:55', null);
+INSERT INTO `fw_users` VALUES ('23', 'ro1058029', '4245', 'e93bbc57ca254c5bcb535f2892d28437', '0', '0', null, null, null, '', '', '', '', '0', '0', '61.140.122.29', '2016-10-14 10:42:49', '0', '0.00', '0.00', '1', '1', '2016-10-14 01:57:25', null);
+INSERT INTO `fw_users` VALUES ('24', 'zzzzzzzzzz', '7647', '32c3db12927569bebee24e8d32dae5b4', '0', '0', null, null, null, '', '', '', '', '0', '0', '116.25.76.27', '2016-10-14 11:29:13', '0', '0.00', '0.00', '1', '1', '2016-10-14 11:29:13', null);
+INSERT INTO `fw_users` VALUES ('25', 'Marky', '3994', 'c19d1870ad5242a37c5c72cc863d6ee0', '0', '1', 'Marky', 'Marky', '2016-12-06', 'upload/users/2016-10/5800dde7459e5.jpg', '', '', '', '0', '0', '113.119.38.118', '2016-10-15 10:10:26', '0', '0.00', '0.00', '1', '1', '2016-10-14 21:22:17', null);
+INSERT INTO `fw_users` VALUES ('26', 'haihai', '9980', 'd3f5e693f5038b3366d3b6e9e9a40c04', '0', '0', null, null, null, '', '', '', '', '0', '0', '27.38.29.11', '2016-10-16 23:20:42', '0', '0.00', '0.00', '1', '1', '2016-10-16 23:20:42', null);
+INSERT INTO `fw_users` VALUES ('27', 'demotest', '3752', '2fa0e6e9dd780c6c8db86be3eec83227', '0', '0', null, null, null, '', '', '', '', '0', '0', '123.161.250.74', '2016-10-17 10:46:42', '0', '0.00', '0.00', '1', '1', '2016-10-17 10:46:42', null);
+INSERT INTO `fw_users` VALUES ('28', 'testgq', '9660', 'ec72d43233595fd8754fc8ec52c656e7', '0', '0', null, null, null, '', '', '', '', '0', '0', '112.226.160.141', '2016-10-17 14:19:26', '0', '0.00', '0.00', '1', '1', '2016-10-17 12:54:35', null);
+
+-- ----------------------------
+-- Table structure for `fw_vip`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_vip`;
 CREATE TABLE `fw_vip` (
@@ -649,17 +735,15 @@ CREATE TABLE `fw_vip` (
 -- ----------------------------
 -- Records of fw_vip
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_vip` VALUES (1, '基础版', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0);
-INSERT INTO `fw_vip` VALUES (2, '高级版', 0, 1, 4, 11, 5, 1, 1, 1, 1, 1, 1, 1);
-INSERT INTO `fw_vip` VALUES (3, '定制版', 0, 1, 3, 12, 3, 0, 0, 0, 0, 0, 0, 0);
-INSERT INTO `fw_vip` VALUES (12, '来个新套餐', 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0);
-INSERT INTO `fw_vip` VALUES (6, 'fdsf', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-INSERT INTO `fw_vip` VALUES (22, 'fdsf浮动', 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-COMMIT;
+INSERT INTO `fw_vip` VALUES ('1', '基础版', '1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '1', '0');
+INSERT INTO `fw_vip` VALUES ('2', '高级版', '0', '1', '4', '11', '5', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `fw_vip` VALUES ('3', '定制版', '0', '1', '3', '12', '3', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `fw_vip` VALUES ('12', '来个新套餐', '0', '1', '0', '0', '0', '0', '0', '1', '0', '0', '1', '0');
+INSERT INTO `fw_vip` VALUES ('6', 'fdsf', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `fw_vip` VALUES ('22', 'fdsf浮动', '0', '0', '11', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 
 -- ----------------------------
--- Table structure for fw_vip_price
+-- Table structure for `fw_vip_price`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_vip_price`;
 CREATE TABLE `fw_vip_price` (
@@ -673,26 +757,22 @@ CREATE TABLE `fw_vip_price` (
 -- ----------------------------
 -- Records of fw_vip_price
 -- ----------------------------
-BEGIN;
-INSERT INTO `fw_vip_price` VALUES (1, 1, 11, 2000.00);
-INSERT INTO `fw_vip_price` VALUES (2, 14, 2, 3.00);
-INSERT INTO `fw_vip_price` VALUES (3, 1, 3, 1600.00);
-INSERT INTO `fw_vip_price` VALUES (4, 1, 4, 1400.00);
-INSERT INTO `fw_vip_price` VALUES (5, 1, 5, 1200.00);
-INSERT INTO `fw_vip_price` VALUES (6, 2, 1, 3200.00);
-INSERT INTO `fw_vip_price` VALUES (7, 2, 2, 3000.00);
-INSERT INTO `fw_vip_price` VALUES (8, 2, 3, 2800.00);
-INSERT INTO `fw_vip_price` VALUES (9, 2, 4, 2600.00);
-INSERT INTO `fw_vip_price` VALUES (10, 2, 5, 2400.00);
-INSERT INTO `fw_vip_price` VALUES (11, 3, 1, 5000.00);
-INSERT INTO `fw_vip_price` VALUES (12, 3, 2, 4800.00);
-INSERT INTO `fw_vip_price` VALUES (13, 6, 12, 2222.00);
-INSERT INTO `fw_vip_price` VALUES (14, 7, 11, 5555.00);
-INSERT INTO `fw_vip_price` VALUES (15, 8, 44, 33.00);
-INSERT INTO `fw_vip_price` VALUES (16, 6, 127, 55555.00);
-INSERT INTO `fw_vip_price` VALUES (17, 6, 9, 333.00);
-INSERT INTO `fw_vip_price` VALUES (18, 6, 12, 34.00);
-INSERT INTO `fw_vip_price` VALUES (20, 12, 5, 50000.00);
-COMMIT;
-
-SET FOREIGN_KEY_CHECKS = 1;
+INSERT INTO `fw_vip_price` VALUES ('1', '1', '11', '2000.00');
+INSERT INTO `fw_vip_price` VALUES ('2', '14', '2', '3.00');
+INSERT INTO `fw_vip_price` VALUES ('3', '1', '3', '1600.00');
+INSERT INTO `fw_vip_price` VALUES ('4', '1', '4', '1400.00');
+INSERT INTO `fw_vip_price` VALUES ('5', '1', '5', '1200.00');
+INSERT INTO `fw_vip_price` VALUES ('6', '2', '1', '3200.00');
+INSERT INTO `fw_vip_price` VALUES ('7', '2', '2', '3000.00');
+INSERT INTO `fw_vip_price` VALUES ('8', '2', '3', '2800.00');
+INSERT INTO `fw_vip_price` VALUES ('9', '2', '4', '2600.00');
+INSERT INTO `fw_vip_price` VALUES ('10', '2', '5', '2400.00');
+INSERT INTO `fw_vip_price` VALUES ('11', '3', '1', '5000.00');
+INSERT INTO `fw_vip_price` VALUES ('12', '3', '2', '4800.00');
+INSERT INTO `fw_vip_price` VALUES ('13', '6', '12', '2222.00');
+INSERT INTO `fw_vip_price` VALUES ('14', '7', '11', '5555.00');
+INSERT INTO `fw_vip_price` VALUES ('15', '8', '44', '33.00');
+INSERT INTO `fw_vip_price` VALUES ('16', '6', '127', '55555.00');
+INSERT INTO `fw_vip_price` VALUES ('17', '6', '9', '333.00');
+INSERT INTO `fw_vip_price` VALUES ('18', '6', '12', '34.00');
+INSERT INTO `fw_vip_price` VALUES ('20', '12', '5', '50000.00');

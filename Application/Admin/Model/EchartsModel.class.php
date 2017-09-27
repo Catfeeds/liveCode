@@ -17,7 +17,9 @@ class EchartsModel extends Model {
      * 数据库表名
      * 
      */
-    protected $tableName = 'echarts_data';
+    // protected $tableName = 'echarts_data';
+    protected $tableName = 'users';
+
 
     /**
      * 获取数据统计
