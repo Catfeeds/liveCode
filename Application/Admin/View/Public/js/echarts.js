@@ -2,7 +2,7 @@ var myChart;
 $(function(){
     $("#startDate").ligerDateEditor();
 	$("#endDate").ligerDateEditor();
-    myChart = echarts.init(document.getElementById('main'));
+    myChart = echarts.init(document.getElementById('mainwarp'));
     loadStat();
 });
 function loadStat(){
