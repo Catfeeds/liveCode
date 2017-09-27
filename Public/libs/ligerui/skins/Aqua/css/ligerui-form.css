@@ -46,8 +46,8 @@ margin-left: 40px;
 .l-text
 {
     position:relative;
-    border:1px solid #AECAF0; height:20px; line-height:20px;
-    width:130px; background:white;
+    border:1px solid #AECAF0; height:20px; line-height:18px;
+    width:150px; background:white;
 }
 /* 文本框 验证不通过 */
 .l-text-invalid{ border-color:#FF7777; background:#FFEEEE url(../images/common/invalid-line.gif) repeat-x bottom;}
