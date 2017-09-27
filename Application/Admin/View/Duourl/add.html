@@ -101,17 +101,23 @@
             <div class="col-xs-12">
                 <form action="{:U('add')}" method="post" class="form-horizontal form form-builder">
                     <div class="col-xs-12">
+                        <div class="form-group item_title ">
+                            <label class="left control-label">网址名称</label>
+                            <div class="right">
+                                <input type="text" class="form-control input text" name="name" value="" >
+                            </div>
+                        </div>
 	                    <div class="form-group item_title ">
-        <label class="left control-label">添加方式：</label>
-        <div class="right">
-           <label class="radio-inline">
-  <input type="radio" name="addtype" id="addtype1" value="1" checked> 一键导入
-</label>
-<label class="radio-inline">
-  <input type="radio" name="addtype" id="addtype2" value="2"> 手动添加
-</label>
-                    </div>
-    </div>                                                
+                            <label class="left control-label">添加方式：</label>
+                            <div class="right">
+                               <label class="radio-inline">
+                                  <input type="radio" name="addtype" id="addtype1" value="1" checked> 一键导入
+                                </label>
+                                <label class="radio-inline">
+                                  <input type="radio" name="addtype" id="addtype2" value="2"> 手动添加
+                                </label>
+                            </div>
+                        </div>                                                
                         <div class="form-group item_file " style="display: block;">
         <label class="left control-label">上传文件：</label>
         <div class="right row">

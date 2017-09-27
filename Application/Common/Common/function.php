@@ -421,5 +421,3 @@ function showDiffCount($type,$data){
 
 
 
-
-

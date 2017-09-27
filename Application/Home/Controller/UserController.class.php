@@ -148,7 +148,6 @@ class UserController extends CommonController {
             if ($res != false) {
                 $this->success('操作成功', U('Home/User/login'));
             }
-            halt(I(''));
             $this->error($mod->getError());
         } else {
             $this->assign('meta_title', '找回密码');
@@ -177,6 +176,7 @@ class UserController extends CommonController {
             session('email.time',time());
             $this->success('邮件发送成功，请注意查收！');
         }else{
+            $this->error($mod->getError());
         }
     }
 

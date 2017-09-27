@@ -66,6 +66,11 @@ class PhoneController extends AdminController {
 	    $attr4['title'] = '批量导入网址';
 	    $attr4['class'] = 'btn btn-primary';
 	    $attr4['href']  = U('drurl');
+        $attr5['name']  = 'edittzwz';
+        $attr5['title'] = '查看数据统计';
+        $attr5['class'] = 'btn btn-primary';
+        $attr5['href']  = U('view');
+
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
@@ -74,6 +79,8 @@ class PhoneController extends AdminController {
                 ->addTopButton('self', $attr2)
                 ->addTopButton('self', $attr3)
                 ->addTopButton('self', $attr4)
+                ->addTopButton('self', $attr5)
+
                 ->setSearch('请输入跳转网址或活码地址', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '网址名称')
@@ -81,7 +88,6 @@ class PhoneController extends AdminController {
                 ->addTableColumn('huoma', '活码地址')
                 ->addTableColumn('count', '扫码次数')
                 ->addTableColumn('ewm', '二维码', 'img')
-                
                 ->addTableColumn('create_time', '添加时间', 'time')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
@@ -110,7 +116,7 @@ class PhoneController extends AdminController {
             foreach( $rs as $v){
             	$str .= $v['id'].",".$v['videourl'].",".$v['huoma']."\n";
             }
-            
+
             $str = iconv('utf-8','gb2312',$str);
             $filename = date('Ymd').'.csv';
             $this->export_csv($filename,$str);
@@ -218,11 +224,17 @@ title = replace(title, '$ksid', '$endid') ");
             $user_object         = M('cms_phone');
             $data['create_time'] =NOW_TIME;
             $data['update_time'] =NOW_TIME;
-            $data['title']       =I('title');
-            $data['videourl']    =I('videourl');
+            $data['title']       =I('title/s');
+            $data['videourl']    =I('videourl/s');
             $data['uid']         =$this->uid;
             $data['d']           =get_dwz();
             $data['huoma']       =get_huomaurl($data['d']);
+            if ( !$data['name'] ){
+                $this->error('请输入网址名称');
+            }
+            if ( !$data['title'] ){
+                $this->error('请输入跳转网址');
+            }
 
             if ($data) {
                 $id = $user_object->add($data);
@@ -241,7 +253,7 @@ title = replace(title, '$ksid', '$endid') ");
             $builder->setMetaTitle('新增活码') //设置页面标题
                     ->setPostUrl(U('add'))    //设置表单提交地址
                     ->addFormItem('title', 'text', '网址名称')
-                    ->addFormItem('videourl', 'text', '跳转网址')
+                    ->addFormItem('videourl', 'text', '跳转网址','请在网址前添加http://,确保网址完整！','','',"placeholder='http://'")
                     ->display();
         }
     }
@@ -257,9 +269,6 @@ title = replace(title, '$ksid', '$endid') ");
             $data = $user_object->create();
            
             if ($data) {
-	        //$data['d']=$this->get_dwz($data['title']);
-	        //$data['huoma']=$this->get_huomaurl($data['d']);
-	            //$data['huoma']=$this->get_huomaurl($data['d']);
                 $result = $user_object->save($data);
                 if ($result) {
 	                // unlink("Uploads/ewm/".$data['id'].'.png');
@@ -280,7 +289,7 @@ title = replace(title, '$ksid', '$endid') ");
                     ->setPostUrl(U('edit'))    // 设置表单提交地址
                     ->addFormItem('id', 'hidden', 'ID', 'ID')
                     ->addFormItem('title', 'text', '网址名称')
-                    ->addFormItem('videourl', 'text', '跳转网址')
+                    ->addFormItem('videourl', 'text', '跳转网址','请在网址前添加http://,确保网址完整！','','',"placeholder='http://'")
                     ->setFormData($info)
                     ->display();
         }
@@ -337,12 +346,8 @@ title = replace(title, '$ksid', '$endid') ");
                     ->display();
         }
     }
-
-
-
  
- 
-  /**
+    /**
      * 设置一条或者多条数据的状态
      * 
      */
@@ -369,4 +374,17 @@ title = replace(title, '$ksid', '$endid') ");
        
         parent::setStatus($model);
     }
+    /**
+     * 获取统计报表数据
+     */
+    public function getEchartsData(){
+        $mod = D('Echarts');
+        $data = $mod->getEchartsData();
+        // halt($data);
+        $this->success($data);
+
+    }
+
+
+
 }

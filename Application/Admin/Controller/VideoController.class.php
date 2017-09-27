@@ -67,13 +67,12 @@ class VideoController extends AdminController {
                 ->addTableColumn('title', '视频名称')
                 ->addTableColumn('huoma', '活码地址')
                 ->addTableColumn('count', '播放次数')
-                 ->addTableColumn('ewm', '二维码', 'img')
-                
+                ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
-                 ->addRightButton('edit')          // 添加编辑按钮
+                ->addRightButton('edit')          // 添加编辑按钮
                 ->addRightButton('delete')        // 添加删除按钮
                 ->display();
     }
@@ -97,7 +96,7 @@ class VideoController extends AdminController {
             foreach( $rs as $v){
                 $str .= $v['id'].",".$v['title'].",".$v['huoma']."\n";
             }
-            
+
             $str = iconv('utf-8','gb2312',$str);
             $filename = date('Ymd').'.csv';
             $this->export_csv($filename,$str);
