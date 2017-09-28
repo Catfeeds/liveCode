@@ -207,7 +207,7 @@ class VideoController extends AdminController {
                 $data['huoma']=get_huomaurl($data['d']);                
                 $id = $user_object->add($data);
                 if ($id) {
-                     qrcode($data['huoma'],$id);
+                     qrcode($data['huoma'],$id,3);
                     $this->success('新增成功', U('index'));
                 } else {
                     $this->error('新增失败');
@@ -303,7 +303,7 @@ class VideoController extends AdminController {
             $data['huoma']=get_huomaurl($data['d']);
              //unset($data['id']);
                 $ewmid=$user_object->add($data);
-               qrcode($data['huoma'],$ewmid);
+               qrcode($data['huoma'],$ewmid,3);
                 }    
             }
             $this->success('导入成功', U('index'));

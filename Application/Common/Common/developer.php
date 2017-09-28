@@ -103,16 +103,21 @@ function get_huomaurl ($d=''){
 /**
  * 生成二维码
  */
-function qrcode($url='http://www.baidu.com',$id=0,$urltype=1){
- 
+function qrcode($url='',$id=0,$urltype=1){
     Vendor('phpqrcode.phpqrcode');
   
     $errorCorrectionLevel =3 ;//容错级别 
     $matrixPointSize = 7;//生成图片大小 
     if ( $urltype==1 ){
-    	$filepath='Uploads/ewm/';
-    }else{
-    	$filepath='Uploads/duourl/';
+    	$filepath='Uploads/livecode/';  //活码生成
+    }elseif ( $urltype==2 ){
+    	$filepath='Uploads/product/';   //产品活码
+    }elseif ( $urltype==3 ){
+        $filepath='Uploads/ewm/';       //视频活码
+    }elseif ( $urltype==4 ){
+        $filepath='Uploads/phone/';     //网址跳转
+    }elseif ( $urltype==5 ){
+        $filepath='Uploads/duourl/';    //多网址跳转
     }
     // 生成的文件名
     $fileName = $filepath.$id.'.png';

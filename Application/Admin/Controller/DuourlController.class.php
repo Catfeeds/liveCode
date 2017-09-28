@@ -231,7 +231,7 @@ die();
             if ($data) {
                 $id = $this->obj->add($data);
                 if ($id) {
-                    qrcode($data['huoma'],$id,2);
+                    qrcode($data['huoma'],$id,5);
                     $this->success('新增成功', U('index'));
                 } else {
                     $this->error('新增失败');

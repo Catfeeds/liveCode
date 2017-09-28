@@ -42,7 +42,7 @@ class PhoneController extends AdminController {
                   
         foreach( $data_list as $k => $v )
         {
-        	$data_list[$k]['ewm']="Uploads/ewm/".$v['id'].'.png';
+        	$data_list[$k]['ewm']="Uploads/phone/".$v['id'].'.png';
         }           
         $page = new Page(
             $user_object->where($map)->count(),
@@ -229,17 +229,17 @@ title = replace(title, '$ksid', '$endid') ");
             $data['uid']         =$this->uid;
             $data['d']           =get_dwz();
             $data['huoma']       =get_huomaurl($data['d']);
-            if ( !$data['name'] ){
+
+            if ( !$data['title'] ){
                 $this->error('请输入网址名称');
             }
-            if ( !$data['title'] ){
+            if ( !$data['videourl'] ){
                 $this->error('请输入跳转网址');
             }
-
             if ($data) {
                 $id = $user_object->add($data);
                 if ($id) {
-	                 qrcode($data['huoma'],$id);
+	                qrcode($data['huoma'],$id,4);
                     $this->success('新增成功', U('index'));
                 } else {
                     $this->error('新增失败');
@@ -333,7 +333,7 @@ title = replace(title, '$ksid', '$endid') ");
 	        $data['huoma']=get_huomaurl($data['d']);
 		     //unset($data['id']);
 		        $ewmid=$user_object->add($data);
-		       qrcode($data['huoma'],$ewmid);
+		       qrcode($data['huoma'],$ewmid,4);
 		        }    
             }
             $this->success('导入成功', U('index'));
