@@ -14,12 +14,14 @@ use Common\Util\Think\Page;
  * 
  */
 class LivecodeController extends AdminController {
-	  protected function _initialize() {
-	  parent::_initialize();
+    /**
+     * 初始化
+     */
+	protected function _initialize() {
+	    parent::_initialize();
 		$this->uid=$this->_user_auth['uid'];
 		$this->obj=D('Livecode');
-		
-	      }
+	}
     /**
      * 活码生成列表
      * 
