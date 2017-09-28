@@ -5,8 +5,8 @@ $(function(){
 		
 		$("#code2").qrcode({
 			render: "table",
-			width: 300,
-			height:300,
+			width: 150,
+			height:150,
 			text: str
 		});
 		$.alertMessager('二维码已成功保存!','success');return;
