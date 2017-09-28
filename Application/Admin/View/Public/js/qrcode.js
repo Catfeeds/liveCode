@@ -11,6 +11,28 @@ $(function(){
 		});
 		$.alertMessager('二维码已成功保存!','success');return;
 	});
+
+    KindEditor.ready(function(K) {
+        kindeditor_1 = K.create('#imgtext', {
+            allowFileManager : true,
+            filePostName : 'file',
+            cssPath : [
+                '__PUBLIC__/libs/cui/css/cui.min.css',
+                '__PUBLIC__/libs/kindeditor/plugins/code/prettify.css'
+            ],
+            width : '100%',
+            height : '500px',
+            resizeType: 1,
+            pasteType : 2,
+            urlType : 'absolute',
+            fileManagerJson : '/admin.php?s=/admin/upload/filemanager',
+            uploadJson : '/admin.php?s=/admin/upload/upload',
+            extraFileUploadParams: {
+                session_id : '16dnm7gnf59ivch3tu8cb95kq5'
+            },
+            afterBlur: function(){this.sync();}
+        });
+    });
 })
 
 function toUtf8(str) {   
