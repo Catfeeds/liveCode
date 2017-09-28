@@ -9,7 +9,7 @@
 namespace Admin\Model;
 use Think\Model;
 /**
- * 用户模型
+ * 数据统计模型
  * 
  */
 class EchartsModel extends Model {
@@ -17,32 +17,32 @@ class EchartsModel extends Model {
      * 数据库表名
      * 
      */
-    // protected $tableName = 'echarts_data';
-    protected $tableName = 'users';
-
+    protected $tableName = 'echarts_data';
 
     /**
      * 获取数据统计
      */
-    public function getEchartsData(){
-        $start = date('Y-m-d 00:00:00',strtotime(I('startDate')));
-        $end   = date('Y-m-d 23:59:59',strtotime(I('endDate')));
+    public function getEchartsData($id,$code,$startDate,$endDate){
+        $start = date('Y-m-d 00:00:00',strtotime($startDate));
+        $end   = date('Y-m-d 23:59:59',strtotime($endDate));
+        $where = ['codeId'=>$id,'type'=>$code];
+        if (!empty($endDate)) {
+            $where['createTime'] = ['between',[$start,$end]];
+        }
 
-        $urs = $this->field('left(createTime,10) createTime,count(userId) userNum')
-                // ->whereTime('createTime','between',[$start,$end])
-                ->where(['dataFlag'=>1,'userType'=>0])
+        $data = $this->field('left(createTime,10) createTime,count(codeId) codeNum')
+                ->where($where)
                 ->order('createTime asc')
                 ->group('left(createTime,10)')
                 ->select();
-        // halt($urs);
 
         $rdata = [];
         $days  = [];
         $tmp   = [];
-        if(count($urs)>0){
-            foreach($urs as $key => $v){
+        if(count($data)>0){
+            foreach($data as $key => $v){
                 if(!in_array($v['createTime'],$days))$days[] = $v['createTime'];
-                $tmp["0_".$v['createTime']] = $v['userNum'];
+                $tmp["0_".$v['createTime']] = $v['codeNum'];
             }
         }
 

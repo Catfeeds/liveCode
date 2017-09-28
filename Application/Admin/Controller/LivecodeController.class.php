@@ -59,31 +59,31 @@ class LivecodeController extends AdminController {
         $attr2['title'] = '下载二维码';
         $attr2['class'] = 'btn btn-primary';
         $attr2['href']  = U('xzewm');
-        $attr3['name']  = 'edittzwz';
-        $attr3['title'] = '查看数据统计';
-        $attr3['class'] = 'btn btn-primary';
-        $attr3['href']  = U('view');
+        $attr3['name']  = 'view';
+        $attr3['title'] = '数据统计';
+        $attr3['class'] = 'label label-info';
+        $attr3['href']  = U('view',['id'=>'__data_id__','code'=>'1']);
+
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr)
                 ->addTopButton('self', $attr2)
-                 ->addTopButton('self', $attr3)
-                ->setSearch('请输入id或活码名称', U('index'))
+                ->setSearch('请输入ID或活码名称', U('index'))
                 ->addTableColumn('id', 'ID')
-                ->addTableColumn('title', '活码名称')
+                ->addTableColumn('id', '活码名称')
                 ->addTableColumn('title', '活码类型')
                 ->addTableColumn('huoma', '活码内容')
-                ->addTableColumn('title', '扫描次数')
-                 ->addTableColumn('ewm', '二维码', 'img')
+                ->addTableColumn('id', '扫描次数')
+                ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
-
                 ->setTableDataPage($page->show()) // 数据列表分页
-                 ->addRightButton('edit')          // 添加编辑按钮
+                ->addRightButton('edit')          // 添加编辑按钮
                 ->addRightButton('delete')        // 添加删除按钮
+                ->addRightButton('self', $attr3)
                 ->display();
     }
 
@@ -123,33 +123,32 @@ class LivecodeController extends AdminController {
         $attr2['title'] = '下载二维码';
         $attr2['class'] = 'btn btn-primary';
         $attr2['href']  = U('xzewm',['type'=>I('type/d')]);
-        $attr3['name']  = 'edittzwz';
-        $attr3['title'] = '查看数据统计';
-        $attr3['class'] = 'btn btn-primary';
-        $attr3['href']  = U('view',['type'=>I('type/d')]);
         $attr4['name']  = 'add';
         $attr4['title'] = '新增';
         $attr4['class'] = 'btn btn-primary';
         $attr4['href']  = U('add',['type'=>I('type/d')]);
+        $attr5['name']  = 'view';
+        $attr5['title'] = '数据统计';
+        $attr5['class'] = 'label label-info';
+        $attr5['href']  = U('view',['id'=>'__data_id__','code'=>'1']);
+
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
                 ->addTopButton('addnew', $attr4)  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr2)
-                 ->addTopButton('self', $attr3)
-                ->setSearch('请输入id或活码名称', U('child',['type'=>I('type/d')]))
+                ->setSearch('请输入ID或活码名称', U('child',['type'=>I('type/d')]))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '跳转网址')
                 ->addTableColumn('huoma', '活码地址')
-                 ->addTableColumn('ewm', '二维码', 'img')
-                
+                ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
-               // ->addTableColumn('status', '状态', 'status')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
-                 ->addRightButton('edit', ['href'=>U('edit',['type'=>I('type/d'),'id'=>'__data_id__'])])          // 添加编辑按钮
+                ->addRightButton('edit', ['href'=>U('edit',['type'=>I('type/d'),'id'=>'__data_id__'])])          // 添加编辑按钮
                 ->addRightButton('delete')        // 添加删除按钮
+                ->addRightButton('self', $attr5)
                 ->display();
     }
 
@@ -159,7 +158,7 @@ class LivecodeController extends AdminController {
     public function addMenu() {
         if (IS_POST) {
             $time = time();
-            $mod    = M('admin_menu');
+            $mod  = M('admin_menu');
             $data['pid']        = $mod->getFieldByTitle('活码生成','id');
             $data['user_id']    = session('user_auth.uid');
             $data['title']      = I('title/s');
@@ -200,83 +199,15 @@ class LivecodeController extends AdminController {
         }
     }
     
-    /**
-     * 查看数据统计
-     * 
-     */
-    public function view() {
-        // halt($_GET);
-
-        if (IS_POST) {
-           $info=I('post.');
-          
-          if ( $info['addtype']==1 )
-          {
-             if ( !$info['file'] )
-             {
-                $this->error('请上传文件');
-             }
-             $filename=get_upload_info($info['file'],'path');
-            if ( !$filename )
-            {
-                $this->error('请上传文件');
-            }
-            $txtarr=file( getcwd().$filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-            if ( !is_array($txtarr) )
-            {
-                $this->error('读取失败，请确认txt格式是否符合要求');
-            }
-            
-            $data['title']=implode('|||',$txtarr);
-           
-          }else{
-               $info['title']=array_filter($info['title']);
-            $info['tztime']=array_filter($info['tztime']);
-            if ( !$info['title'] )
-            {
-                $this->error('请输入跳转网址');
-            }  
-            if ( $info['tztype']==3 )
-            {
-                if ( count($info['title'])!=count($info['tztime']) )
-                {
-                    $this->error('请确认对应跳转网址是否完整输入跳转时间');
-                }
-             $data['tztime']=implode('|||',$info['tztime']);
-            }
-            $data['title']=implode('|||',$info['title']);
-          }
-           $data['create_time']=NOW_TIME;
-           $data['update_time']=NOW_TIME;
-            $data['tztype']=$info['tztype'];
-             $data['uid']=$this->uid;
-             $data['d']=get_dwz();
-            $data['huoma']=get_huomaurlduo($data['d']);
-            if ($data) {
-                $id = $this->obj->add($data);
-                if ($id) {
-                     qrcode($data['huoma'],$id,2);
-                    $this->success('新增成功', U('index'));
-                } else {
-                    $this->error('新增失败');
-                }
-            } else {
-                $this->error($this->obj->getError());
-            }
-        } else {
-            $this->meta_title = '查看数据统计';
-            $this->display();
-        }
+    
+    public function export_csv($filename,$data) {
+        header("Content-type:text/csv");
+        header("Content-Disposition:attachment;filename=".$filename);
+        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
+        header('Expires:0');
+        header('Pragma:public');
+        echo $data;
     }
-
-   public function export_csv($filename,$data) {
-    header("Content-type:text/csv");
-    header("Content-Disposition:attachment;filename=".$filename);
-    header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
-    header('Expires:0');
-    header('Pragma:public');
-    echo $data;
-}
 
 public function xzewm ()
 {
@@ -529,4 +460,18 @@ die();
     	$this->assign('info',$info);
     	$this->display();
     }
+
+    /**
+     * 显示数据统计
+     * 
+     */
+    public function view() {
+        $this->assign([
+            'id'=>I('get.id/d'),
+            'code'=>I('get.code/d'),
+            'meta_title'=>'数据统计',
+            ]);
+        $this->display('Phone/view');
+    }
+
 }

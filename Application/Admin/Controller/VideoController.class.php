@@ -8,7 +8,7 @@ use Common\Util\Think\Page;
  */
 class VideoController extends AdminController {
     protected function _initialize() {
-    parent::_initialize();
+        parent::_initialize();
         $this->uid=$this->_user_auth['uid'];
     }
     /**
@@ -19,7 +19,7 @@ class VideoController extends AdminController {
         // 搜索
         $keyword   = I('keyword', '', 'string');
         if ( $keyword ){
-            $map['title|id'] = array('like','%'.$keyword.'%');
+            $map['id|title'] = array('like','%'.$keyword.'%');
         }
        
         $map['type'] = 2;
@@ -50,19 +50,18 @@ class VideoController extends AdminController {
         $attr2['title'] = '下载二维码';
         $attr2['class'] = 'btn btn-primary';
         $attr2['href']  = U('xzewm');
-        $attr3['name']  = 'edittzwz';
-        $attr3['title'] = '查看数据统计';
-        $attr3['class'] = 'btn btn-primary';
-        $attr3['href']  = U('view');
+        $attr3['name']  = 'view';
+        $attr3['title'] = '数据统计';
+        $attr3['class'] = 'label label-info';
+        $attr3['href']  = U('view',['id'=>'__data_id__','code'=>'3']);
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr)
                 ->addTopButton('self', $attr2)
-                ->addTopButton('self', $attr3)
 
-                ->setSearch('请输入名称或id', U('index'))
+                ->setSearch('请输入ID或视频名称', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '视频名称')
                 ->addTableColumn('huoma', '活码地址')
@@ -74,6 +73,7 @@ class VideoController extends AdminController {
                 ->setTableDataPage($page->show()) // 数据列表分页
                 ->addRightButton('edit')          // 添加编辑按钮
                 ->addRightButton('delete')        // 添加删除按钮
+                ->addRightButton('self', $attr3)
                 ->display();
     }
     /**
@@ -408,6 +408,19 @@ class VideoController extends AdminController {
                 }
             }
         }
+    }
+
+    /**
+     * 显示数据统计
+     * 
+     */
+    public function view() {
+        $this->assign([
+            'id'=>I('get.id/d'),
+            'code'=>I('get.code/d'),
+            'meta_title'=>'数据统计',
+            ]);
+        $this->display('Phone/view');
     }
 
 }

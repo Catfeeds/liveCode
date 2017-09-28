@@ -26,7 +26,7 @@ class PhoneController extends AdminController {
         // 搜索
         $keyword   = I('keyword', '', 'string');
         if ( $keyword ){
-        	$map['title|huoma'] = array('like','%'.$keyword.'%');
+        	$map['id|title'] = array('like','%'.$keyword.'%');
         }
        
         $map['type']=1;
@@ -66,10 +66,10 @@ class PhoneController extends AdminController {
 	    $attr4['title'] = '批量导入网址';
 	    $attr4['class'] = 'btn btn-primary';
 	    $attr4['href']  = U('drurl');
-        $attr5['name']  = 'edittzwz';
-        $attr5['title'] = '查看数据统计';
-        $attr5['class'] = 'btn btn-primary';
-        $attr5['href']  = U('view');
+        $attr5['name']  = 'view';
+        $attr5['title'] = '数据统计';
+        $attr5['class'] = 'label label-info';
+        $attr5['href']  = U('view',['id'=>'__data_id__','code'=>'4']);
 
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
@@ -79,9 +79,8 @@ class PhoneController extends AdminController {
                 ->addTopButton('self', $attr2)
                 ->addTopButton('self', $attr3)
                 ->addTopButton('self', $attr4)
-                ->addTopButton('self', $attr5)
 
-                ->setSearch('请输入跳转网址或活码地址', U('index'))
+                ->setSearch('请输入ID或网址名称', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '网址名称')
                 ->addTableColumn('videourl', '跳转网址')
@@ -92,8 +91,9 @@ class PhoneController extends AdminController {
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
-                 ->addRightButton('edit')          // 添加编辑按钮
+                ->addRightButton('edit')          // 添加编辑按钮
                 ->addRightButton('delete')        // 添加删除按钮
+                ->addRightButton('self', $attr5)
                 ->display();
     }
     /**
@@ -374,17 +374,33 @@ title = replace(title, '$ksid', '$endid') ");
        
         parent::setStatus($model);
     }
+
+    /**
+     * 显示数据统计
+     * 
+     */
+    public function view() {
+        $this->assign([
+            'id'=>I('get.id/d'),
+            'code'=>I('get.code/d'),
+            'meta_title'=>'数据统计',
+            ]);
+        $this->display();
+    }
+
     /**
      * 获取统计报表数据
      */
     public function getEchartsData(){
-        $mod = D('Echarts');
-        $data = $mod->getEchartsData();
-        // halt($data);
+        $id        = I('post.id/d');
+        $code      = I('post.code/d');
+        $startDate = I('post.startDate/s');
+        $endDate   = I('post.endDate/s');
+
+        $mod  = D('Echarts');
+        $data = $mod->getEchartsData($id,$code,$startDate,$endDate);
         $this->success($data);
-
     }
-
 
 
 }

@@ -28,7 +28,7 @@ class DuourlController extends AdminController {
         // 搜索
         $keyword   = I('keyword', '', 'string');
         if ( $keyword ){
-        	 $map['id|huoma'] = array('like','%'.$keyword.'%');
+        	 $map['id|name'] = array('like','%'.$keyword.'%');
         }
        
         $map['status'] = array('egt', '0'); // 禁用和正常状态
@@ -63,10 +63,10 @@ class DuourlController extends AdminController {
         $attr3['title'] = '批量修改跳转网址';
         $attr3['class'] = 'btn btn-primary';
         $attr3['href']  = U('edittzwz');
-        $attr4['name']  = 'edittzwz';
-        $attr4['title'] = '查看数据统计';
-        $attr4['class'] = 'btn btn-primary';
-        $attr4['href']  = U('view');
+        $attr4['name']  = 'view';
+        $attr4['title'] = '数据统计';
+        $attr4['class'] = 'label label-info';
+        $attr4['href']  = U('view',['id'=>'__data_id__','code'=>'5']);
 
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
@@ -75,9 +75,8 @@ class DuourlController extends AdminController {
                 ->addTopButton('self', $attr)
                 ->addTopButton('self', $attr2)
                 ->addTopButton('self', $attr3)
-                ->addTopButton('self', $attr4)
 
-                ->setSearch('请输入id或活码地址', U('index'))
+                ->setSearch('请输入ID或网址名称', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('name', '网址名称')
                 ->addTableColumn('title', '跳转网址')
@@ -90,6 +89,7 @@ class DuourlController extends AdminController {
                 ->setTableDataPage($page->show()) // 数据列表分页
                 ->addRightButton('edit')          // 添加编辑按钮
                 ->addRightButton('delete')        // 添加删除按钮
+                ->addRightButton('self', $attr4)
                 ->display();
     }
     /**
@@ -380,4 +380,19 @@ die();
     	$this->assign('info',$info);
     	$this->display();
     }
+
+    /**
+     * 显示数据统计
+     * 
+     */
+    public function view() {
+        $this->assign([
+            'id'=>I('get.id/d'),
+            'code'=>I('get.code/d'),
+            'meta_title'=>'数据统计',
+            ]);
+        $this->display('Phone/view');
+    }
+
+
 }

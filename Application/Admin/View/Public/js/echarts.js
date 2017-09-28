@@ -6,10 +6,14 @@ $(function(){
     loadStat();
 });
 function loadStat(){
+	var id        = $('#id').val();
+	var code      = $('#code').val();
+	var startDate = $('#startDate').val();
+	var endDate   = $('#endDate').val();
 	$.ajax({
 	    url: 'admin.php?s=/admin/phone/getEchartsData',
 	    type: 'POST',
-	    data: {email:1}
+	    data: {id:id,code:code,startDate:startDate,endDate:endDate}
 	}).done(function(data) {
 	    if (data.status == 1) {
 	        var option = {

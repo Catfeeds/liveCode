@@ -27,7 +27,7 @@ class HuomaController extends HomeController{
         if ($type == 2 && $videourl){
             //视频活码跳转
             $obj->where(array('d' => $d)) ->setInc('count', 1);
-            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d'),'type'=>1]);
+            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d'),'type'=>3]);
             //$huoma = $obj -> where(array('d' => $d)) -> getField('huoma');
             $videoTitle = '{"mediaTitle": "'.$videourl[0]['title'].'"}';
             $this->assign('title',$videourl[0]['title']);
@@ -38,7 +38,7 @@ class HuomaController extends HomeController{
         }elseif ($type == 1 && $title){
             //网址活码跳转
             $obj->where(array('d' => $d)) ->setInc('count', 1);
-            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d'),'type'=>2]);
+            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d'),'type'=>4]);
             redirect($title);
         }else{
             $this -> error('参数错误');
@@ -74,7 +74,7 @@ class HuomaController extends HomeController{
             }
             if ($tzurl){
                 $obj->where(array('d' => $d)) ->setInc('count', 1);
-                M('echarts_data')->add(['codeId'=>$rs['id'],'createTime'=>date('Y-m-d'),'type'=>3]);
+                M('echarts_data')->add(['codeId'=>$rs['id'],'createTime'=>date('Y-m-d'),'type'=>5]);
                 redirect($tzurl);
             }else{
                 $this -> error('参数错误');
@@ -83,42 +83,36 @@ class HuomaController extends HomeController{
             $this -> error('参数错误');
          }
     }
- // shunxu
-public function orderjump ($urlarr, $info)
-{
-     $cachename = $info['id'] . $info['d'];
-     $tznum = (int)F($cachename);
-     $allurlnum = count($urlarr);
-     if ($tznum >= $allurlnum)
-    {
-         $tznum = 0;
-         }
-     F($cachename, $tznum + 1);
-     return $urlarr[$tznum];
-     }
- // shijian
-public function timejump ($urlarr, $timearr)
-{
-     if (is_array($timearr))
-        {
-	    $today=date("Y-m-d"); 
-	    $tznum=0;    
-        foreach( $timearr as $k=>$v  )
-        {
-        	$tztime=strtotime($today.$v);
-        	if ( NOW_TIME<=$tztime )
-        	{
-        		$tznum=$k;
-        		break;
-        	}
+    // shunxu
+    public function orderjump ($urlarr, $info){
+        $cachename = $info['id'] . $info['d'];
+        $tznum = (int)F($cachename);
+        $allurlnum = count($urlarr);
+        if ($tznum >= $allurlnum){
+             $tznum = 0;
         }
+        F($cachename, $tznum + 1);
         return $urlarr[$tznum];
-         }
+     }
+     // shijian
+    public function timejump ($urlarr, $timearr){
+        if (is_array($timearr)){
+    	    $today=date("Y-m-d"); 
+    	    $tznum=0;    
+            foreach( $timearr as $k=>$v  ){
+            	$tztime=strtotime($today.$v);
+            	if ( NOW_TIME<=$tztime ){
+            		$tznum=$k;
+            		break;
+            	}
+            }
+            return $urlarr[$tznum];
+        }
          
      }
- // suiji
-public function randjump ($urlarr)
-{
-     return $urlarr[array_rand($urlarr)];
-     }
+     // suiji
+    public function randjump ($urlarr){
+        return $urlarr[array_rand($urlarr)];
+    }
+
 }
