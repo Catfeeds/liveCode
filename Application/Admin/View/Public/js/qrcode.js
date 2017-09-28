@@ -33,6 +33,7 @@ function toUtf8(str) {
     return out;   
 }
 
+
 $('#picID').click(function () {
     var data = new FormData($('#uploadForm')[0]);
     $.ajax({
