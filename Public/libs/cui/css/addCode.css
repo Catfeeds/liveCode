@@ -16,18 +16,16 @@ a:active,a:focus{
 	margin-left: 52px;
 }
 .edit-left{
-	width: 600px;
+	width: 100%;
 	min-height: 500px;
 	float: left;
 	background: #fff;
-    border: 1px solid #dcdcdc;
-    border-right: none;
 }
 .upload-img{
-	width: 600px;
+	width: 100%;
 	height: 300px;
 	text-align: center;
-    border-bottom: 1px solid #dcdcdc;
+    border: 1px solid #dcdcdc;
 }
 .t-box{
     width:600px;
@@ -43,11 +41,10 @@ a:active,a:focus{
 	resize: none;
 }
 .edit-right{
-    width: 200px;
-    min-height: 700px;
+    width: 300px;
+    height: auto;
     float: left;
-    background: #f8f8f8;
-    border: 1px solid #dcdcdc;
+    margin-left: 20px;
 }
 .edit-img{
 	padding: 10px;
@@ -142,7 +139,7 @@ ul li{
 }
 .txt_left{
 	width: 600px;
-	height:300px;
+	min-height:300px;
 	float: left;
 }
 .btn-primary.btn-file{
@@ -696,7 +693,7 @@ a:hover{
     height: 30px;
     float: left;
     text-align: center;
-    margin-left: 60px;
+    margin-left: 65px;
     margin-top: 30px;
 }
 #front_cover .preview-size{
@@ -757,4 +754,9 @@ a:hover{
 .card_code{
     width: 320px;
     float: left;
+}
+/*修改*/
+.font20{
+	font-size:20px;
+	height: 50px;
 }

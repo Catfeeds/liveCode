@@ -17,7 +17,7 @@
 
     <!-- 图文活码S -->
     	<div class="editor-wrap" style="display: block;">
-	    	<div class="editor_main">
+	    	<div class="editor_main txt_main lf">
 	    		<div class="edit-left">
 					<div class="upload-img">
 				        <form>
@@ -40,7 +40,7 @@
 				        </form>
 					</div><br>
 					<div class="right">
-	            		<input type="text" class="form-control input text" name="title" value="" placeholder="请输入标题名称">
+	            		<input type="text" class="form-control input text font20" name="title" value="" placeholder="请输入标题名称">
 	                </div><br>
 					<div class="form-group item_config[来个编辑器名称] ">
                         <div class="right">
@@ -48,17 +48,23 @@
                         </div>
                     </div>
 	    		</div>
-	    		<div class="edit-right">
-	    			<div class="edit-img">
-	    				<img src="../../../../Uploads/ewm/nocode.png"/>
-	    				<a href="../../../../Uploads/ewm/nocode.png" download="二维码" class="btn-sm" >下载</a>
-	    			</div>
-	    			<div class="create-btn">
-	    				<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
-	    			</div>
-	    		</div>
+	    		
 	    		<div class="clear"></div>
 	    	</div>
+	    	<div class="edit-right">
+				<div class="edit_left">
+    				<div class="txt_right" id="code">
+	    				<span>
+	    					左侧输入内容<br>
+							点击生成二维码
+	    				</span>
+	    			</div>
+	    			<a href="../../../../Uploads/ewm/nocode.png" download="二维码" class="btn-sm btn_xz">下载</a>
+    			</div>
+				<div class="create-btn">
+					<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
+				</div>
+			</div>
     	</div>
 	<!-- 图文活码E -->
 
@@ -67,13 +73,10 @@
     		<div class="editor_main txt_main">
     			<div class="txt_left">
 					<div class="right">
-	            		<input type="text" class="form-control input text" name="title" value="" placeholder="请输入标题名称">
+	            		<input type="text" class="form-control input text font20" name="title" value="" placeholder="请输入标题名称">
 	                </div><br>
     				<div class="desc-wrap">
 	    				<textarea name="" class="main_text" placeholder="请输入文字内容"></textarea>
-	    			</div>
-	    			<div class="sub_btn">
-	    				<a href="#">生成二维码</a>
 	    			</div>
     			</div>
     			<div class="edit_left">
@@ -84,7 +87,9 @@
 	    				</span>
 	    			</div>
 	    			<a href="../../../../Uploads/ewm/nocode.png" download="二维码" class="btn-sm btn_xz" >下载</a>
-	    			<!--下载的href是图片的路径-->
+	    			<div class="create-btn">
+						<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
+					</div>
     			</div>
 	    		<div class="clear"></div>
     		</div>
@@ -109,9 +114,7 @@
 					  </div>
 					  <button type="button" class="layui-btn" id="testListAction">开始上传</button>
 					</div>
-					<div class="sub_btn">
-	    				<a href="#">生成二维码</a>
-	    			</div>
+					
 				</div>
 				<div class="edit_left">
     				<div class="txt_right" id="code">
@@ -121,6 +124,9 @@
 	    				</span>
 	    			</div>
 	    			<a href="../../../../Uploads/ewm/nocode.png" download="二维码" class="btn-sm btn_xz" >下载</a>
+	    			<div class="create-btn">
+						<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
+					</div>
     			</div>
 	    		<div class="clear"></div>
     		</div>
@@ -132,9 +138,9 @@
     				<div class="web_wrap">
 	    				<input type="text" class="form_inp" placeholder="http://" value="" />
 	    			</div>
-	    			<div class="sub_btn">
+	    			<!--<div class="sub_btn">
 	    				<a href="#">生成二维码</a>
-	    			</div>
+	    			</div>-->
     			</div>
     			<div class="edit_left">
     				<div class="txt_right">
@@ -144,6 +150,9 @@
 	    				</span>
 	    			</div>
 	    			<a href="../../../../Uploads/ewm/nocode.png" download="二维码" class="btn-sm btn_xz" >下载</a>
+	    			<div class="create-btn">
+						<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
+					</div>
     			</div>
     			
 	    		<div class="clear"></div>
@@ -449,9 +458,9 @@
 	    			</div>
 	    		</div>
 	    		<div class="clear"></div>
-	    		<div class="card_btn sub_btn">
+	    		<!--<div class="card_btn sub_btn">
     				<a href="#">生成二维码</a>
-    			</div>
+    			</div>-->
     		</div>
     		<div class="card_code">
     			<div class="edit_left">
@@ -462,6 +471,9 @@
 	    				</span>
 	    			</div>
 	    			<a href="../../../../Uploads/ewm/nocode.png" download="二维码" class="btn-sm btn_xz" >下载</a>
+	    			<div class="create-btn">
+						<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
+					</div>
     			</div>
     		</div>
     	
