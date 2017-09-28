@@ -1,5 +1,8 @@
 .clear{clear: both;}
 .lf{float: left;}
+.txt_right img{
+	width: 100%;
+}
 a:active,a:focus{
 	text-decoration: none;
 	color: #000;
@@ -41,10 +44,9 @@ a:active,a:focus{
 	resize: none;
 }
 .edit-right{
-    width: 300px;
+    width: 150px;
     height: auto;
     float: left;
-    margin-left: 20px;
 }
 .edit-img{
 	padding: 10px;
@@ -56,7 +58,7 @@ a:active,a:focus{
     margin-top: 10px;
 }
 .btn-sm{
-    width: 168px;
+    width: 150px;
 	display: block;
     padding:6px;
 	font-size: 14px;
@@ -75,7 +77,6 @@ a:active,a:focus{
 .create-btn{
 	width: 100%;
 	text-align: center;
-	border-top: 1px solid rgba(120,130,140,.25);
 }
 .create-btn .green-btn{
 	border: none;
@@ -155,8 +156,8 @@ ul li{
 	border: 1px solid red;
 }
 .txt_right{
-	width: 300px;
-	height: 300px;
+	width: 150px;
+	height: 150px;
 	float: right;
 	text-align: center;
     border: 1px solid #dcdcdc;
@@ -685,15 +686,15 @@ a:hover{
     margin: 0px 0 20px;
 }
 .edit_left{
-    width: 300px;
-    min-height: 300px;
-    float: right;
+    width: 150px;
+    height: 100%;
+    float: left;
+    margin-left: 20px;
 }
 .btn_xz{
     height: 30px;
     float: left;
     text-align: center;
-    margin-left: 65px;
     margin-top: 30px;
 }
 #front_cover .preview-size{
