@@ -69,7 +69,7 @@ class DuourlController extends AdminController {
         $attr4['href']  = U('view',['id'=>'__data_id__','code'=>'5']);
 
         $builder = new \Common\Builder\ListBuilder();
-        $builder->setMetaTitle('活码列表') // 设置页面标题
+        $builder->setMetaTitle('多网址跳转') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr)
@@ -240,7 +240,7 @@ die();
                 $this->error($this->obj->getError());
             }
         } else {
-            $this->meta_title = '添加多网址跳转';
+            $this->meta_title = '新增多网址跳转';
             $this->display();
         }
     }
@@ -284,7 +284,7 @@ die();
                 $this->error($this->obj->getError());
             }
         } else {
-            $this->meta_title = '修改多网址跳转';
+            $this->meta_title = '编辑多网址跳转';
             $info = $this->obj->find($id);
             $info['title']=explode('|||',$info['title']);
             $info['tztime']=explode('|||',$info['tztime']);

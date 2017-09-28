@@ -62,7 +62,7 @@ class ProductController extends AdminController {
         $attr3['href']  = U('view',['id'=>'__data_id__','code'=>'2']);
 
         $builder = new \Common\Builder\ListBuilder();
-        $builder->setMetaTitle('活码列表') // 设置页面标题
+        $builder->setMetaTitle('产品活码') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr)
@@ -251,121 +251,34 @@ die();
 	
 }
     /**
-     * 新增用户
+     * 新增产品活码
      * 
      */
     public function add() {
-        // halt($_GET);
-
         if (IS_POST) {
-           $info=I('post.');
           
-          if ( $info['addtype']==1 )
-          {
-          	 if ( !$info['file'] )
-          	 {
-          	 	$this->error('请上传文件');
-          	 }
-          	 $filename=get_upload_info($info['file'],'path');
-	        if ( !$filename )
-	        {
-	        	$this->error('请上传文件');
-	        }
-	        $txtarr=file( getcwd().$filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	        if ( !is_array($txtarr) )
-	        {
-	        	$this->error('读取失败，请确认txt格式是否符合要求');
-	        }
-	        
-	        $data['title']=implode('|||',$txtarr);
-	       
-          }else{
-	           $info['title']=array_filter($info['title']);
-            $info['tztime']=array_filter($info['tztime']);
-	        if ( !$info['title'] )
-	        {
-	        	$this->error('请输入跳转网址');
-	        }  
-	        if ( $info['tztype']==3 )
-	        {
-	        	if ( count($info['title'])!=count($info['tztime']) )
-	        	{
-	        		$this->error('请确认对应跳转网址是否完整输入跳转时间');
-	        	}
-	         $data['tztime']=implode('|||',$info['tztime']);
-	        }
-	        $data['title']=implode('|||',$info['title']);
-          }
-           $data['create_time']=NOW_TIME;
-           $data['update_time']=NOW_TIME;
-            $data['tztype']=$info['tztype'];
-             $data['uid']=$this->uid;
-             $data['d']=get_dwz();
-	        $data['huoma']=get_huomaurlduo($data['d']);
-            if ($data) {
-                $id = $this->obj->add($data);
-                if ($id) {
-	                 qrcode($data['huoma'],$id,2);
-                    $this->success('新增成功', U('index'));
-                } else {
-                    $this->error('新增失败');
-                }
-            } else {
-                $this->error($this->obj->getError());
-            }
+          
         } else {
-           $this->meta_title = '新增活码';
-                    $this->display();
+            $this->meta_title = '新增产品活码';
+            $this->display();
         }
     }
 
     /**
-     * 编辑用户
+     * 编辑产品活码
      * 
      */
     public function edit($id) {
         if (IS_POST) {
             
-            // 提交数据
-            $info=I('post.');
-           $info['title']=array_filter($info['title']);
-            $info['tztime']=array_filter($info['tztime']);
-          
-            if ( !$info['title'] )
-	        {
-	        	$this->error('请输入跳转网址');
-	        }  
-           if ( $info['tztype']==3 )
-	        {
-	        	if ( count($info['title'])!=count($info['tztime']) )
-	        	{
-	        		$this->error('请确认对应跳转网址是否完整输入跳转时间');
-	        	}
-	         $data['tztime']=implode('|||',$info['tztime']);
-	        }
-            $data['title']=implode('|||',$info['title']);
-             $data['update_time']=NOW_TIME;
-             $data['id']=$info['id'];
-             $data['tztype']=$info['tztype'];
-            if ($data) {
-	       
-                $result = $this->obj->save($data);
-                if ($result) {
-	               
-                    $this->success('更新成功', U('index'));
-                } else {
-                    $this->error('更新失败', $this->obj->getError());
-                }
-            } else {
-                $this->error($this->obj->getError());
-            }
+
         } else {
-            $this->meta_title = '编辑活码';
+            $this->meta_title = '编辑产品活码';
             $info = $this->obj->find($id);
             $info['title']=explode('|||',$info['title']);
             $info['tztime']=explode('|||',$info['tztime']);
-           $this->assign('info',$info);
-           $this->display();
+            $this->assign('info',$info);
+            $this->display();
         }
     }
 
@@ -374,7 +287,7 @@ die();
 
  
  
-  /**
+    /**
      * 设置一条或者多条数据的状态
      * 
      */

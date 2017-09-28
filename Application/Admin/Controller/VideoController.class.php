@@ -55,7 +55,7 @@ class VideoController extends AdminController {
         $attr3['class'] = 'label label-info';
         $attr3['href']  = U('view',['id'=>'__data_id__','code'=>'3']);
         $builder = new \Common\Builder\ListBuilder();
-        $builder->setMetaTitle('活码列表') // 设置页面标题
+        $builder->setMetaTitle('视频活码') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr)
@@ -216,12 +216,7 @@ class VideoController extends AdminController {
                 $this->error($user_object->getError());
             }
         } else {
-            // 使用FormBuilder快速建立表单页面。
-            // $builder = new \Common\Builder\FormBuilder();
-            // $builder->setMetaTitle('新增活码') //设置页面标题
-            //         ->setPostUrl(U('add'))    //设置表单提交地址
-            //         ->addFormItem('title', 'text', '视频文件')
-            //         ->addFormItem('file', 'file', '上传文件','上传需要导入的网址文件，格式为一行一个网址，文档格式为txt')
+            $this->meta_title = '新增视频活码';
             $this->display();
         }
     }
@@ -261,6 +256,7 @@ class VideoController extends AdminController {
             // 获取账号信息
             $info = D('Phone')->find($id);
             $this->assign('info',$info);
+            $this->meta_title = '编辑视频活码';
             $this->display();
         }
     }

@@ -72,7 +72,7 @@ class PhoneController extends AdminController {
         $attr5['href']  = U('view',['id'=>'__data_id__','code'=>'4']);
 
         $builder = new \Common\Builder\ListBuilder();
-        $builder->setMetaTitle('活码列表') // 设置页面标题
+        $builder->setMetaTitle('网址跳转') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr)
@@ -96,6 +96,7 @@ class PhoneController extends AdminController {
                 ->addRightButton('self', $attr5)
                 ->display();
     }
+
     /**
      * 导出
      */
@@ -132,6 +133,7 @@ class PhoneController extends AdminController {
     	}
     
     }
+    
     /**
      * 执行导出
      */
@@ -250,7 +252,7 @@ title = replace(title, '$ksid', '$endid') ");
         } else {
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('新增活码') //设置页面标题
+            $builder->setMetaTitle('新增网址跳转') //设置页面标题
                     ->setPostUrl(U('add'))    //设置表单提交地址
                     ->addFormItem('title', 'text', '网址名称')
                     ->addFormItem('videourl', 'text', '跳转网址','请在网址前添加http://,确保网址完整！','','',"placeholder='http://'")
@@ -285,7 +287,7 @@ title = replace(title, '$ksid', '$endid') ");
             $info = D('Phone')->find($id);
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('编辑活码')  // 设置页面标题
+            $builder->setMetaTitle('编辑网址跳转')  // 设置页面标题
                     ->setPostUrl(U('edit'))    // 设置表单提交地址
                     ->addFormItem('id', 'hidden', 'ID', 'ID')
                     ->addFormItem('title', 'text', '网址名称')
