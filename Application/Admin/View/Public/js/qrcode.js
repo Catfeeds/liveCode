@@ -1,17 +1,4 @@
 $(function(){
-	$(".sub_btn").click(function(){
-		$("#code2").empty();
-		var str = toUtf8($(".main_text").val());
-		
-		$("#code2").qrcode({
-			render: "table",
-			width: 150,
-			height:150,
-			text: str
-		});
-		$.alertMessager('二维码已成功保存!','success');return;
-	});
-
     KindEditor.ready(function(K) {
         kindeditor_1 = K.create('#imgtext', {
             allowFileManager : true,
@@ -33,27 +20,60 @@ $(function(){
             afterBlur: function(){this.sync();}
         });
     });
+
+    //文本活码
+    $("#save_btn2").click(function(){
+        // $("#code2").empty();
+        var title = $("#title2").val();
+        var content = $("#content2").val();
+        if (content == '') {
+            $.alertMessager('请输入内容!');return;
+        }
+        $.ajax({
+            url: 'admin.php?s=/admin/livecode/add',
+            type: 'POST',
+            data: {title:title,content:content,type:2},
+            success: function (data) {  
+                if(data.status == 1){
+                    console.log(data.url);
+                    $("#code2 img").attr('src',data.url);
+                    $("#img2").attr('href',data.url);
+                }else{
+                    console.log(data.message);
+                }
+            }
+        });
+        $.alertMessager('二维码已成功保存!','success');return;
+        
+        // $("#code2").qrcode({
+        //     render: "table",
+        //     width: 150,
+        //     height:150,
+        //     text: content
+        // });
+    });
+
 })
 
-function toUtf8(str) {   
-    var out, i, len, c;   
-    out = "";   
-    len = str.length;   
-    for(i = 0; i < len; i++) {   
-    	c = str.charCodeAt(i);   
-    	if ((c >= 0x0001) && (c <= 0x007F)) {   
-        	out += str.charAt(i);   
-    	} else if (c > 0x07FF) {   
-        	out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));   
-        	out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));   
-        	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
-    	} else {   
-        	out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));   
-        	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
-    	}   
-    }   
-    return out;   
-}
+// function toUtf8(str) {   
+//     var out, i, len, c;   
+//     out = "";   
+//     len = str.length;   
+//     for(i = 0; i < len; i++) {   
+//     	c = str.charCodeAt(i);   
+//     	if ((c >= 0x0001) && (c <= 0x007F)) {   
+//         	out += str.charAt(i);   
+//     	} else if (c > 0x07FF) {   
+//         	out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));   
+//         	out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));   
+//         	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
+//     	} else {   
+//         	out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));   
+//         	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
+//     	}   
+//     }   
+//     return out;   
+// }
 
 
 $('#picID').click(function () {

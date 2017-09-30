@@ -209,41 +209,40 @@ class LivecodeController extends AdminController {
         echo $data;
     }
 
-public function xzewm ()
-{
-		if ( IS_POST )
-	    	{
-		$ksid=(int)I('ksid');
-		$endid=(int)I('endid');
-		if ( !$ksid )
-		{
-			$this->error('请输入开始ID');
-		}
-		if ( !$endid )
-		{
-			$this->error('请输入结束ID');
-		}
-		// $where['type']=1;
-		$where['id']  = array('between',array($ksid,$endid));
-		$rs=$this->obj->where($where)->getField('id',true);
-		foreach( $rs as $v  )
-		{
-			$images[]="Uploads/duourl/".$v.".png";
-		}
-		
-	$zip = new \ZipArchive;
-$filename = date('Ymd').'img.zip';
-$zip->open($filename,\ZipArchive::OVERWRITE);
-foreach ($images as $key => $value) {
-    $zip->addFile($value);
-}
+    /**
+     * 下载二维码
+     */
+    public function xzewm (){
+    	if ( IS_POST ){
+    		$ksid=(int)I('ksid');
+    		$endid=(int)I('endid');
+    		if ( !$ksid )
+    		{
+    			$this->error('请输入开始ID');
+    		}
+    		if ( !$endid )
+    		{
+    			$this->error('请输入结束ID');
+    		}
+    		// $where['type']=1;
+    		$where['id']  = array('between',array($ksid,$endid));
+    		$rs=$this->obj->where($where)->getField('id',true);
+    		foreach( $rs as $v  )
+    		{
+    			$images[]="Uploads/duourl/".$v.".png";
+    		}
+        		
+        	$zip = new \ZipArchive;
+            $filename = date('Ymd').'img.zip';
+            $zip->open($filename,\ZipArchive::OVERWRITE);
+            foreach ($images as $key => $value) {
+                $zip->addFile($value);
+            }
 
-$zip->close();
-header('Location:'.$filename);
-die();
-	    	}else{
-		    
-	 // 使用FormBuilder快速建立表单页面。
+            $zip->close();
+            header('Location:'.$filename);die();
+	    }else{
+	        // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('下载二维码') //设置页面标题
                     ->setPostUrl(U('xzewm'))    //设置表单提交地址
@@ -251,111 +250,72 @@ die();
                     ->addFormItem('endid', 'text', '结束ID')
                     ->setAjaxSubmit(false)
                     ->display();
-	    	}
+	    }
 	
-}
+    }
     /**
-     * 新增用户
+     * 新增活码
      * 
      */
     public function add() {
-        // halt($_GET);
-
         if (IS_POST) {
-           $info=I('post.');
-          
-          if ( $info['addtype']==1 )
-          {
-          	 if ( !$info['file'] )
-          	 {
-          	 	$this->error('请上传文件');
-          	 }
-          	 $filename=get_upload_info($info['file'],'path');
-	        if ( !$filename )
-	        {
-	        	$this->error('请上传文件');
-	        }
-	        $txtarr=file( getcwd().$filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	        if ( !is_array($txtarr) )
-	        {
-	        	$this->error('读取失败，请确认txt格式是否符合要求');
-	        }
-	        
-	        $data['title']=implode('|||',$txtarr);
-	       
-          }else{
-	           $info['title']=array_filter($info['title']);
-            $info['tztime']=array_filter($info['tztime']);
-	        if ( !$info['title'] )
-	        {
-	        	$this->error('请输入跳转网址');
-	        }  
-	        if ( $info['tztype']==3 )
-	        {
-	        	if ( count($info['title'])!=count($info['tztime']) )
-	        	{
-	        		$this->error('请确认对应跳转网址是否完整输入跳转时间');
-	        	}
-	         $data['tztime']=implode('|||',$info['tztime']);
-	        }
-	        $data['title']=implode('|||',$info['title']);
-          }
-           $data['create_time']=NOW_TIME;
-           $data['update_time']=NOW_TIME;
-            $data['tztype']=$info['tztype'];
-             $data['uid']=$this->uid;
-             $data['d']=get_dwz();
-	        $data['huoma']=get_huomaurlduo($data['d']);
+            $type = I('post.type/d');
+            $mod = D('Livecode');
+            
+            if ($type == 1) {   //图文活码
+                # code...
+            }elseif ($type == 2) {  //文本活码
+                $data = $mod->create();
+                // halt($data);
+            }
+
+            $data['uid']   = session('user_auth.uid');
+            $data['d']     = get_dwz();
+            $data['huoma'] = get_huomaurlduo($data['d']);
             if ($data) {
                 $id = $this->obj->add($data);
                 if ($id) {
-	                 qrcode($data['huoma'],$id,2);
-                    $this->success('新增成功', U('index'));
+	                 qrcode($data['huoma'],$id,1);
+                    $this->success('新增成功', '/Uploads/livecode/'.$id.'.png');
                 } else {
                     $this->error('新增失败');
                 }
             } else {
-                $this->error($this->obj->getError());
+                $this->error($mod->getError());
             }
+            
         } else {
-           $this->meta_title = '新增活码';
-                    $this->display();
+            $this->meta_title = '新增活码';
+            $this->display();
         }
     }
 
     /**
-     * 编辑用户
+     * 编辑活码
      * 
      */
     public function edit($id) {
         if (IS_POST) {
-            
-            // 提交数据
             $info=I('post.');
-           $info['title']=array_filter($info['title']);
+            $info['title']=array_filter($info['title']);
             $info['tztime']=array_filter($info['tztime']);
           
-            if ( !$info['title'] )
-	        {
+            if ( !$info['title'] ){
 	        	$this->error('请输入跳转网址');
 	        }  
-           if ( $info['tztype']==3 )
-	        {
-	        	if ( count($info['title'])!=count($info['tztime']) )
-	        	{
+            if ( $info['tztype']==3 ){
+	        	if ( count($info['title'])!=count($info['tztime']) ){
 	        		$this->error('请确认对应跳转网址是否完整输入跳转时间');
 	        	}
-	         $data['tztime']=implode('|||',$info['tztime']);
+	            $data['tztime']=implode('|||',$info['tztime']);
 	        }
             $data['title']=implode('|||',$info['title']);
-             $data['update_time']=NOW_TIME;
-             $data['id']=$info['id'];
-             $data['tztype']=$info['tztype'];
+            $data['update_time']=NOW_TIME;
+            $data['id']=$info['id'];
+            $data['tztype']=$info['tztype'];
             if ($data) {
-	       
                 $result = $this->obj->save($data);
                 if ($result) {
-	               
                     $this->success('更新成功', U('index'));
                 } else {
                     $this->error('更新失败', $this->obj->getError());
@@ -368,43 +328,30 @@ die();
             $info = $this->obj->find($id);
             $info['title']=explode('|||',$info['title']);
             $info['tztime']=explode('|||',$info['tztime']);
-           $this->assign('info',$info);
-           $this->display();
+            $this->assign('info',$info);
+            $this->display();
         }
     }
 
-   
-   
-
- 
- 
-  /**
+    /**
      * 设置一条或者多条数据的状态
      * 
      */
     public function setStatus($model = CONTROLLER_NAME){
         $ids = I('request.ids');
-        
         $status=I('request.status');
-       
-        if ( $status=='delete' )
-        {
-	      
-        	 if (is_array($ids)) {
-	        	
-           foreach( $ids as $v  )
-           {
-	           
-           	unlink("Uploads/duourl/".$v.'.png');
-           }
-          
-        } else {
-           unlink("Uploads/duourl/".$ids.'.png');
+        if ( $status=='delete' ){
+        	if (is_array($ids)) {
+               foreach( $ids as $v  ){ 
+               	unlink("Uploads/duourl/".$v.'.png');
+               }
+            } else {
+               unlink("Uploads/duourl/".$ids.'.png');
+            }
         }
-        }
-       
         parent::setStatus($model);
     }
+
     public function edittzwz ()
     {
 	    	if ( IS_POST )
