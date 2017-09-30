@@ -13,12 +13,29 @@ use Think\Controller;
  */
 class HuomaController extends HomeController{
     /**
-     * 默认活码跳转
+     * 活码生成跳转
      */
-     public function index(){
+    public function live(){
+        $d    = I('d/s');
+        $obj  = M('cms_livecode');
+        $data = $obj->where(['d'=>$d])->find();
+        if (!$data) {
+            $this -> error('数据不存在');
+        }
+        $obj->where(array('d' => $d)) ->setInc('count', 1);
+        M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>1]);
+
+        $this->assign('data',$data);
+        $this->display();
+    }
+
+    /**
+     * 默认活码跳转（视频活码、网址活码）
+     */
+    public function index(){
         $d = I('d/s');
         if (!$d){
-             $this -> error('参数错误');
+            $this -> error('参数错误');
         }
         $obj = M('cms_phone');
         $type = $obj -> where(array('d' => $d)) -> getField('type');
@@ -79,9 +96,9 @@ class HuomaController extends HomeController{
             }else{
                 $this -> error('参数错误');
             }
-         }else{
+        }else{
             $this -> error('参数错误');
-         }
+        }
     }
     // shunxu
     public function orderjump ($urlarr, $info){

@@ -88,6 +88,12 @@ function get_dwz() {
     return $onlyid;
 }
 /**
+ * 返回活码生成地址
+ */
+ function get_liveurl ($d=''){
+     return C('HOME_PAGE').'/index.php/huoma/live?d='.$d;
+}
+/**
  * 返回网址活码地址
  */
 function get_huomaurl ($d=''){

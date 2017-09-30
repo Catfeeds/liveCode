@@ -23,9 +23,11 @@ $(function(){
 
     //文本活码
     $("#save_btn2").click(function(){
-        // $("#code2").empty();
         var title = $("#title2").val();
         var content = $("#content2").val();
+        if (title == '') {
+            $.alertMessager('请输入标题!');return;
+        }
         if (content == '') {
             $.alertMessager('请输入内容!');return;
         }
@@ -38,19 +40,12 @@ $(function(){
                     console.log(data.url);
                     $("#code2 img").attr('src',data.url);
                     $("#img2").attr('href',data.url);
+                    $.alertMessager('二维码已成功保存!','success');return;
                 }else{
-                    console.log(data.message);
+                    $.alertMessager(data.info);return;
                 }
             }
         });
-        $.alertMessager('二维码已成功保存!','success');return;
-        
-        // $("#code2").qrcode({
-        //     render: "table",
-        //     width: 150,
-        //     height:150,
-        //     text: content
-        // });
     });
 
 })

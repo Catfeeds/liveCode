@@ -364,7 +364,6 @@ if (!function_exists('getallheaders')) {
 function halt($obj) {
     echo '<pre>';var_dump($obj);exit;
 }
-
 /*
     获取系统配置表数据
     @param string $name 变量名（varname）
@@ -374,14 +373,12 @@ function system_config($name){
     $sysConfig = D('Admin/Config')->field("id, value")->where(['name'=>$name,'status = 1'])->find();
     return isset($sysConfig) ? $sysConfig : null;
 }
-
 /**
  * 生成默认订单号
  */
 function createOrderNo(){
     return date('Ymd').(round(microtime(true),4)*10000);
 }
-
 /**
  * 返回交易类型
  */
@@ -398,7 +395,6 @@ function payType($payType){
             break;
     }
 }
-
 /**
  * 返回对比表显示数量
  */
@@ -418,6 +414,60 @@ function showDiffCount($type,$data){
     }
 
 }
-
+/**
+ * 返回活码类型
+ */
+function codeType($codeType){
+    switch ($codeType) {
+        case '1':
+            return '图文活码';
+            break;
+        case '2':
+            return '文本活码';
+            break;
+        case '3':
+            return '文件活码';
+            break;
+        case '4':
+            return '网址导航';
+            break;
+        case '5':
+            return '名片活码';
+            break;
+        default:
+            return '图文活码';
+            break;
+    }
+}
+/**
+ * 截取字符串
+ */
+function LC_Substr($str, $start = 0, $length, $charset = "utf-8", $suffix = false){
+    $newStr = '';
+    if (function_exists ( "mb_substr" )) {
+        if ($suffix && mb_strlen($str,'utf8')>$length){
+            $newStr = mb_substr ( $str, $start, $length, $charset )."...";
+        }else{
+            $newStr = mb_substr ( $str, $start, $length, $charset );
+        }
+    } elseif (function_exists ( 'iconv_substr' )) {
+        if ($suffix && mb_strlen($str,'utf8')>$length){
+            $newStr = iconv_substr ( $str, $start, $length, $charset )."...";
+        }else{
+            $newStr = iconv_substr ( $str, $start, $length, $charset );
+        }
+    }
+    if($newStr==''){
+    $re ['utf-8'] = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
+    $re ['gb2312'] = "/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
+    $re ['gbk'] = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
+    $re ['big5'] = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
+    preg_match_all ( $re [$charset], $str, $match );
+    $slice = join ( "", array_slice ( $match [0], $start, $length ) );
+    if ($suffix)
+        $newStr = $slice;
+    }
+    return $newStr;
+}
 
 

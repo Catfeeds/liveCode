@@ -19,30 +19,34 @@ class LivecodeController extends AdminController {
      */
 	protected function _initialize() {
 	    parent::_initialize();
-		$this->uid=$this->_user_auth['uid'];
-		$this->obj=D('Livecode');
+        $this->uid = $this->_user_auth['uid'];
+        $this->obj = D('Livecode');
 	}
     /**
      * 活码生成列表
      * 
      */
     public function index() {
+        $where = ['menuId'=>0,'uid'=>$this->uid];
         $keyword   = I('keyword', '', 'string');
         if ( $keyword ){
-        	 $map['id|huoma'] = array('like','%'.$keyword.'%');
+        	 $where['id|title'] = array('like','%'.$keyword.'%');
         }
         // 获取所有用户
-        $map['status'] = array('egt', '0'); // 禁用和正常状态
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
         
         $data_list = $this->obj
                    ->page($p , C('ADMIN_PAGE_ROWS'))
-                   ->where($map)
+                   ->where($where)
                    ->order('id desc')
                    ->select();
+// halt($data_list);
                   
         foreach( $data_list as $k => $v ){
-        	$data_list[$k]['ewm']="Uploads/duourl/".$v['id'].'.png';
+            $data_list[$k]['ewm']     = "Uploads/livecode/".$v['id'].'.png';
+            $data_list[$k]['type']    = codeType($v['type']);
+            $data_list[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
+            $data_list[$k]['content'] = LC_Substr($v['content'],0,20,"utf-8",true);
         }      
           
         $page = new Page(
@@ -72,10 +76,10 @@ class LivecodeController extends AdminController {
                 ->addTopButton('self', $attr2)
                 ->setSearch('请输入ID或活码名称', U('index'))
                 ->addTableColumn('id', 'ID')
-                ->addTableColumn('id', '活码名称')
-                ->addTableColumn('title', '活码类型')
-                ->addTableColumn('huoma', '活码内容')
-                ->addTableColumn('id', '扫描次数')
+                ->addTableColumn('title', '活码名称')
+                ->addTableColumn('type', '活码类型')
+                ->addTableColumn('content', '活码内容')
+                ->addTableColumn('count', '扫描次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
                 ->addTableColumn('right_button', '操作', 'btn')
@@ -260,28 +264,25 @@ class LivecodeController extends AdminController {
     public function add() {
         if (IS_POST) {
             $type = I('post.type/d');
-            $mod = D('Livecode');
             
             if ($type == 1) {   //图文活码
                 # code...
             }elseif ($type == 2) {  //文本活码
-                $data = $mod->create();
-                // halt($data);
-            }
-
-            $data['uid']   = session('user_auth.uid');
-            $data['d']     = get_dwz();
-            $data['huoma'] = get_huomaurlduo($data['d']);
-            if ($data) {
-                $id = $this->obj->add($data);
-                if ($id) {
-	                 qrcode($data['huoma'],$id,1);
-                    $this->success('新增成功', '/Uploads/livecode/'.$id.'.png');
-                } else {
-                    $this->error('新增失败');
+                $data = $this->obj->create();
+                if (!$data) {
+                    $this->error($this->obj->getError());exit();
                 }
+                $data['uid']   = $this->uid;
+                $data['d']     = get_dwz();
+                $data['huoma'] = get_liveurl($data['d']);
+            }
+            //执行添加
+            $id = $this->obj->add($data);
+            if ($id) {
+                qrcode($data['huoma'],$id,1);
+                $this->success('新增成功', '/Uploads/livecode/'.$id.'.png');
             } else {
-                $this->error($mod->getError());
+                $this->error('新增失败');
             }
             
         } else {
