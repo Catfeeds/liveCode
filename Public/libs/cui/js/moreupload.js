@@ -5,8 +5,11 @@ $(function(){
 	  var demoListView = $('#demoList')
 	  uploadListIns = upload.render({
 	    elem: '#testList'
-	    ,url: '/upload/'
+	    ,url: 'admin.php?s=/admin/livecode/addfile'
+  		,data: {name1:1} //可选项。额外的参数，如：{id: 123, abc: 'xxx'}
 	    ,accept: 'file'
+        ,exts: "doc|docx|pdf|xls|xlsx|ppt|pptx|wps|txt|zip|rar|gz|bz2|7z|gif|jpg|jpeg|png|bmp"
+        ,size: 10240
 	    ,multiple: true
 	    ,auto: false
 	    ,bindAction: '#testListAction'

@@ -265,9 +265,9 @@ class LivecodeController extends AdminController {
         if (IS_POST) {
             $type = I('post.type/d');
             
-            if ($type == 1) {   //图文活码
+            if ($type == 1) {           //图文活码
                 # code...
-            }elseif ($type == 2) {  //文本活码
+            }elseif ($type == 2 || $type == 4) {      //文本活码 || 网址导航
                 $data = $this->obj->create();
                 if (!$data) {
                     $this->error($this->obj->getError());exit();
@@ -275,6 +275,8 @@ class LivecodeController extends AdminController {
                 $data['uid']   = $this->uid;
                 $data['d']     = get_dwz();
                 $data['huoma'] = get_liveurl($data['d']);
+            }elseif ($type == 3) {      //文件活码
+                
             }
             //执行添加
             $id = $this->obj->add($data);
@@ -420,6 +422,75 @@ class LivecodeController extends AdminController {
             'meta_title'=>'数据统计',
             ]);
         $this->display('Phone/view');
+    }
+
+    /**
+     * 上传文件
+     */
+    public function addfile() {
+        halt(I(''));
+        
+        $REQUEST_METHOD=$_SERVER['REQUEST_METHOD'];
+        $uploads_dir="Uploads/video/";
+        if($REQUEST_METHOD == "GET")
+        {
+            if(count($_GET)>0)
+            {
+                $chunkNumber = $_GET['resumableChunkNumber'];
+                $chunkSize = $_GET['resumableChunkSize'];
+                $totalSize = $_GET['resumableTotalSize'];
+                $identifier = $_GET['resumableIdentifier'];
+                $filename = iconv ( 'UTF-8', 'GB2312', $_GET ['resumableFilename'] );
+                if(validateRequest($chunkNumber, $chunkSize, $totalSize, $identifier, $filename)=='valid')
+                {
+                    $chunkFilename = getChunkFilename($chunkNumber, $identifier,$filename,$uploads_dir);
+                    {
+                        if(file_exists($chunkFilename)){
+                            header("HTTP/1.0 200 Found");
+                        } else {
+                            header("HTTP/1.0 404 Not Found");
+                           
+                        }
+                    }
+                }
+                else
+                {
+                    header("HTTP/1.0 404 Not Found");
+                    
+                }}
+        }
+
+        if($REQUEST_METHOD == "POST"){
+            if(count($_POST)>0)
+            {
+                $resumableFilename = iconv ( 'UTF-8', 'GB2312', $_POST ['resumableFilename'] );
+                $resumableIdentifier=$_POST['resumableIdentifier'];
+                $resumableChunkNumber=$_POST['resumableChunkNumber'];
+                $resumableTotalSize=$_POST['resumableTotalSize'];
+                $resumableChunkSize=$_POST['resumableChunkSize'];
+                if (!empty($_FILES)) foreach ($_FILES as $file) {
+                    
+                    if ($file['error'] != 0) {
+                        _log('error '.$file['error'].' in file '.$resumableFilename);
+                        continue;
+                    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                    $temp_dir = $uploads_dir.'/'.$resumableIdentifier;
+                    $dest_file = $temp_dir.'/'.$resumableFilename.'.part'.$resumableChunkNumber;
+                    
+                    if (!is_dir($temp_dir)) {
+                        mkdir($temp_dir, 0777, true);
+                    }
+                    
+                    if (!move_uploaded_file($file['tmp_name'], $dest_file)) {
+                        _log('Error saving (move_uploaded_file) chunk '.$resumableChunkNumber.' for file '.$resumableFilename);
+                    } else {
+                        
+                        createFileFromChunks($temp_dir, $resumableFilename,$resumableChunkSize, $resumableTotalSize, $uploads_dir);
+                    }
+                }
+            }
+        }
     }
 
 }

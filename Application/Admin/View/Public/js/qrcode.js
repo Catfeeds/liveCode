@@ -26,7 +26,7 @@ $(function(){
         var title = $("#title2").val();
         var content = $("#content2").val();
         if (title == '') {
-            $.alertMessager('请输入标题!');return;
+            $.alertMessager('请输入标题名称!');return;
         }
         if (content == '') {
             $.alertMessager('请输入内容!');return;
@@ -37,7 +37,6 @@ $(function(){
             data: {title:title,content:content,type:2},
             success: function (data) {  
                 if(data.status == 1){
-                    console.log(data.url);
                     $("#code2 img").attr('src',data.url);
                     $("#img2").attr('href',data.url);
                     $.alertMessager('二维码已成功保存!','success');return;
@@ -48,28 +47,34 @@ $(function(){
         });
     });
 
+    //网址导航
+    $("#save_btn4").click(function(){
+        var title = $("#title4").val();
+        var content = $("#url").val();
+        if (title == '') {
+            $.alertMessager('请输入标题名称!');return;
+        }
+        if (content == '') {
+            $.alertMessager('请输入网址!');return;
+        }
+        $.ajax({
+            url: 'admin.php?s=/admin/livecode/add',
+            type: 'POST',
+            data: {title:title,content:content,type:4},
+            success: function (data) {  
+                if(data.status == 1){
+                    $("#code4 img").attr('src',data.url);
+                    $("#img4").attr('href',data.url);
+                    $.alertMessager('二维码已成功保存!','success');return;
+                }else{
+                    $.alertMessager(data.info);return;
+                }
+            }
+        });
+    });
+
+
 })
-
-// function toUtf8(str) {   
-//     var out, i, len, c;   
-//     out = "";   
-//     len = str.length;   
-//     for(i = 0; i < len; i++) {   
-//     	c = str.charCodeAt(i);   
-//     	if ((c >= 0x0001) && (c <= 0x007F)) {   
-//         	out += str.charAt(i);   
-//     	} else if (c > 0x07FF) {   
-//         	out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));   
-//         	out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));   
-//         	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
-//     	} else {   
-//         	out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));   
-//         	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
-//     	}   
-//     }   
-//     return out;   
-// }
-
 
 $('#picID').click(function () {
     var data = new FormData($('#uploadForm')[0]);

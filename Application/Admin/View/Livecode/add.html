@@ -15,7 +15,7 @@
     </ul>
     <div class="wrapper">
 
-    <!-- 图文活码S -->
+<!-- 图文活码S -->
     	<div class="editor-wrap">
 	    	<div class="editor_main txt_main lf">
 	    		<div class="edit-left">
@@ -64,10 +64,10 @@
 				
 			</div>
     	</div>
-	<!-- 图文活码E -->
+<!-- 图文活码E -->
 
-	<!-- 文本活码S -->
-    	<div class="editor-wrap" style="display: block;">
+<!-- 文本活码S -->
+    	<div class="editor-wrap">
     		<div class="editor_main txt_main">
     			<div class="txt_left">
 					<div class="right">
@@ -89,13 +89,13 @@
 	    		<div class="clear"></div>
     		</div>
     	</div>
-	<!-- 文本活码E -->
-
-    	<div class="editor-wrap">
+<!-- 文本活码E -->
+<!-- 文件活码S -->
+    	<div class="editor-wrap" style="display: block;">
 	    	<div class="editor_main txt_main">
 	    		<div class="txt_left">
 		    		<div class="layui-upload">
-					  <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button><input class="layui-upload-file" type="file" name="file" multiple=""> 
+					  <button type="button" class="layui-btn layui-btn-normal" id="testList">选择文件</button><input class="layui-upload-file" type="file" name="file" multiple=""> 
 					  <div class="layui-upload-list">
 					    <table class="layui-table">
 					      <thead>
@@ -112,41 +112,42 @@
 					
 				</div>
 				<div class="edit_left">
-    				<div class="txt_right" id="code">
+    				<div class="txt_right" id="code3">
 	    				<img src="__PUBLIC__/images/nocode.png"/>
 	    			</div>
-	    			<a href="__PUBLIC__/images/nocode.png" download="二维码" class="btn-sm btn_xz" >下载</a>
+	    			<a href="__PUBLIC__/images/nocode.png" download="文件活码" class="btn-sm btn_xz" id="img3">下载</a>
 	    			<div class="create-btn">
-						<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
+						<button id="save_btn3" class="btn-sm green-btn">生成二维码</button>
 					</div>
     			</div>
 	    		<div class="clear"></div>
     		</div>
-    		
     	</div>
+<!-- 文件活码E -->
+<!-- 网址导航S -->
     	<div class="editor-wrap">
 	    	<div class="editor_main txt_main">
     			<div class="txt_left">
     				<div class="web_wrap">
-	    				<input type="text" class="form_inp" placeholder="http://" value="" />
+	    				<input type="text" class="form_inp" placeholder="请输入标题名称" id="title4" value="" style="margin-bottom: 20px;" />
+	    				<input type="text" class="form_inp" placeholder="http://" id="url" value="" />
+	    				<span class="check-tips text-muted small">请在网址前添加http://,确保网址完整！</span>
 	    			</div>
-	    			<!--<div class="sub_btn">
-	    				<a href="#">生成二维码</a>
-	    			</div>-->
     			</div>
     			<div class="edit_left">
-    				<div class="txt_right">
+    				<div class="txt_right" id="code4">
 	    				<img src="__PUBLIC__/images/nocode.png"/>
 	    			</div>
-	    			<a href="__PUBLIC__/images/nocode.png" download="二维码" class="btn-sm btn_xz" >下载</a>
+	    			<a href="__PUBLIC__/images/nocode.png" download="网址导航" class="btn-sm btn_xz" id="img4">下载</a>
 	    			<div class="create-btn">
-						<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
+						<button id="save_btn4" class="btn-sm green-btn">生成二维码</button>
 					</div>
     			</div>
-    			
 	    		<div class="clear"></div>
     		</div>
     	</div>
+<!-- 网址导航E -->
+
     	<div class="editor-wrap">
 	    	<div class="editor_main txt_main lf" >
 	    		<div id="leftwrap">
