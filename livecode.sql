@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2017-09-27 14:12:54
+Date: 2017-10-10 17:09:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -206,31 +206,6 @@ INSERT INTO `fw_admin_link` VALUES ('1', '0', '快捷功能', '', 'fa-folder-ope
 INSERT INTO `fw_admin_link` VALUES ('3', '1', '系统设置', 'Admin/Config/group', 'fa-wrench', '1446713460', '1446713460', '0', '1');
 
 -- ----------------------------
--- Table structure for `fw_admin_livecode`
--- ----------------------------
-DROP TABLE IF EXISTS `fw_admin_livecode`;
-CREATE TABLE `fw_admin_livecode` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `menuId` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1文本,2图文,3文件,4网址,5名片',
-  `content` text NOT NULL COMMENT '活码内容',
-  `count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '扫描次数',
-  `huoma` varchar(255) DEFAULT NULL,
-  `d` varchar(255) DEFAULT NULL,
-  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态0禁用1启用',
-  PRIMARY KEY (`id`),
-  KEY `uid` (`uid`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of fw_admin_livecode
--- ----------------------------
-
--- ----------------------------
 -- Table structure for `fw_admin_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `fw_admin_menu`;
@@ -246,7 +221,7 @@ CREATE TABLE `fw_admin_menu` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `status` tinyint(3) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of fw_admin_menu
@@ -332,6 +307,8 @@ INSERT INTO `fw_admin_menu` VALUES ('102', '10', '0', '新增', '2', 'Admin/Vide
 INSERT INTO `fw_admin_menu` VALUES ('104', '10', '0', '导出', '2', 'Admin/Video/outurl', '', '0', '1506309620', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('105', '10', '0', '下载', '2', 'Admin/Video/xzewm', '', '0', '1506309635', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('106', '7', '0', '数据统计', '2', 'Admin/Phone/view', '', '0', '1506416316', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('107', '8', '0', '数据统计', '2', 'Admin/Duourl/view', '', '0', '1506566192', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('108', '10', '0', '数据统计', '2', 'Admin/Video/view', '', '0', '1506568502', '-1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_module`
@@ -452,7 +429,7 @@ CREATE TABLE `fw_admin_upload` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
 
 -- ----------------------------
 -- Records of fw_admin_upload
@@ -464,6 +441,11 @@ INSERT INTO `fw_admin_upload` VALUES ('28', '1', '7bf22f4a3e712fe1b8be86dfd3cc50
 INSERT INTO `fw_admin_upload` VALUES ('29', '1', 'timg.jpeg', '/Uploads/2017-09/59c4867a40d2d.jpeg', '', 'jpeg', '9238', 'e403418b494a9e1c0adfb675b7a57eca', 'fc65269d5bad9233b2e25999e396f9d2f861a571', 'Local', '0', '1506051706', '1506051706', '0', '1');
 INSERT INTO `fw_admin_upload` VALUES ('30', '1', 'alipay.jpg', '/Uploads/2017-09/59c85e8a0ec06.jpg', '', 'jpg', '4789', '3d8f3e4f9904b3b0b93c7cede3fddf00', '632c5c744aa227b2a6b24338619600f17d10b76e', 'Local', '0', '1506303626', '1506303626', '0', '1');
 INSERT INTO `fw_admin_upload` VALUES ('31', '3', '1.txt', '/Uploads/2017-09/59c87ae41e7c5.txt', '', 'txt', '24', '3622f7d80fefe78b38dd8cab31244fa4', '48b30a53a646cc3130d31045b619887cd47a81b8', 'Local', '0', '1506310884', '1506310884', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('32', '3', '2634.jpg', '/Uploads/2017-09/59cca7adcc047.jpg', '', 'jpg', '449983', '90b1f3f1e46c2631765e4406dff595f5', '9f44072323ec315bbf00a5b9a1f4203487f4bc28', 'Local', '0', '1506584493', '1506584493', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('33', '3', '3324.jpg', '/Uploads/2017-09/59ccc520dcf6c.jpg', '', 'jpg', '374895', 'ac3154509babb8e42d80a4395b898102', '06325fa6615768ed7befaea4fd4c7faba4798fe0', 'Local', '0', '1506592032', '1506592032', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('34', '3', '3418.jpg', '/Uploads/2017-09/59ccc56375132.jpg', '', 'jpg', '503252', '218e90787d3f6a1668df11d1a7b13c96', '0540cecc8ae979477738606ede73e262f28ebf7e', 'Local', '0', '1506592099', '1506592099', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('35', '3', '2937.jpg', '/Uploads/2017-09/59ccc9fd116ab.jpg', '', 'jpg', '508934', '2660fb562f0d4bf2b9aa7a6a26d35e5a', '1263a4272556d8e5edb0fdc8fc9f0f3441b93ee0', 'Local', '0', '1506593277', '1506593277', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('36', '3', 'ThinkPHP 5 简明开发手册.pdf', '/Uploads/2017-10/59dc34405a0dc.pdf', '', 'pdf', '1491237', 'e861d994002db60f3f8f47325a5cd1bc', '6184175b7eea8e7e8d62baa8b6e2be7c6f82ea4b', 'Local', '0', '1507603520', '1507603520', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_user`
@@ -516,12 +498,50 @@ CREATE TABLE `fw_cms_duourl` (
   `count` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `status` (`status`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of fw_cms_duourl
 -- ----------------------------
-INSERT INTO `fw_cms_duourl` VALUES ('10', '妈的再来个1112', 'http://www.qq.com/|||http://www.taobao.com/', null, '1', '1506405851', '1506406371', 'http://www.livecode.com/index.php/huoma/duo?d=b9tpf8dzv', 'b9tpf8dzv', '3', '2', '1', '5');
+INSERT INTO `fw_cms_duourl` VALUES ('11', '看一看瞧一瞧', 'https://daily.zhihu.com/|||http://english.ctrip.com/?allianceid=16875&sid=441318&ouid=000401app-2WJZ1LNoM0ZmVlw&utm_medium=&utm_campaign=&utm_source=&isctrip=', null, '1', '1506565137', '1506565137', 'http://www.livecode.com/index.php/huoma/duo?d=wbq0io6qa', 'wbq0io6qa', '3', '2', '1', '1');
+INSERT INTO `fw_cms_duourl` VALUES ('10', '妈的再来个1112', 'http://www.qq.com/|||http://www.taobao.com/', null, '1', '1506405851', '1506406371', 'http://www.livecode.com/index.php/huoma/duo?d=b9tpf8dzv', 'b9tpf8dzv', '3', '2', '1', '2');
+
+-- ----------------------------
+-- Table structure for `fw_cms_livecode`
+-- ----------------------------
+DROP TABLE IF EXISTS `fw_cms_livecode`;
+CREATE TABLE `fw_cms_livecode` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1图文,2文本,3文件,4网址,5名片',
+  `menuId` int(11) NOT NULL DEFAULT '0',
+  `uid` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `content` text NOT NULL COMMENT '活码内容',
+  `count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '扫描次数',
+  `huoma` varchar(255) DEFAULT NULL,
+  `d` varchar(255) DEFAULT NULL,
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of fw_cms_livecode
+-- ----------------------------
+INSERT INTO `fw_cms_livecode` VALUES ('30', '2', '0', '3', '文本活码标题', '文本活码内容', '0', 'http://www.livecode.com/index.php/huoma/duo?d=yxpwozxxd', 'yxpwozxxd', '1506751617', '1506751617');
+INSERT INTO `fw_cms_livecode` VALUES ('31', '2', '0', '3', '', '没有标题的文本活码内容', '0', 'http://www.livecode.com/index.php/huoma/duo?d=92uz80aso', '92uz80aso', '1506751656', '1506751656');
+INSERT INTO `fw_cms_livecode` VALUES ('34', '2', '0', '3', '1', '2', '0', 'http://www.livecode.com/index.php/huoma/duo?d=pxrqo1n6c', 'pxrqo1n6c', '1506751892', '1506751892');
+INSERT INTO `fw_cms_livecode` VALUES ('35', '2', '0', '3', '1发生的范德萨', '风湿跌打酊的点点滴滴多多多多多多多多多多多大大大的', '0', 'http://www.livecode.com/index.php/huoma/duo?d=qbcztjqhz', 'qbcztjqhz', '1506751975', '1506751975');
+INSERT INTO `fw_cms_livecode` VALUES ('33', '2', '0', '3', '沙发沙发上的', 'sad付多付付付付付付付付付付付付，的点点滴滴多多多多多多多多，少时诵诗书所所所少时诵诗书所所所少时诵诗书所所所少时诵诗书所所所少时诵诗书', '0', 'http://www.livecode.com/index.php/huoma/duo?d=dm32z5kd9', 'dm32z5kd9', '1506751837', '1506751837');
+INSERT INTO `fw_cms_livecode` VALUES ('44', '4', '0', '3', '百度', 'https://www.baidu.com/?tn=59046333_1_dg', '6', 'http://www.livecode.com/index.php/huoma/live?d=981hpxi03', '981hpxi03', '1506759779', '1506759779');
+INSERT INTO `fw_cms_livecode` VALUES ('43', '2', '0', '3', '牛不舒服', '发大发顺丰是的范德萨', '43', 'http://www.livecode.com/index.php/huoma/live?d=wjplf0ssg', 'wjplf0ssg', '1506755264', '1506755264');
+INSERT INTO `fw_cms_livecode` VALUES ('39', '2', '0', '3', '1', '2', '0', 'http://www.livecode.com/index.php/huoma/duo?d=uohibu3xd', 'uohibu3xd', '1506752609', '1506752609');
+INSERT INTO `fw_cms_livecode` VALUES ('40', '2', '0', '3', '33', '44', '0', 'http://www.livecode.com/index.php/huoma/duo?d=l6nqbnml3', 'l6nqbnml3', '1506752791', '1506752791');
+INSERT INTO `fw_cms_livecode` VALUES ('41', '2', '0', '3', '33', '44', '0', 'http://www.livecode.com/index.php/huoma/duo?d=if6r9x0rh', 'if6r9x0rh', '1506752797', '1506752797');
+INSERT INTO `fw_cms_livecode` VALUES ('42', '2', '0', '3', '33', '4411', '0', 'http://www.livecode.com/index.php/huoma/duo?d=bgtwvv4tf', 'bgtwvv4tf', '1506752803', '1506752803');
+INSERT INTO `fw_cms_livecode` VALUES ('49', '3', '0', '3', 'ThinkPHP 5 简明开发手册.pdf', '{\"url\":\"2017-10-10\\/59dc70fc8eec1.pdf\",\"size\":\"1.422 MB\"}', '52', 'http://www.livecode.com/index.php/huoma/live?d=8yd9st9tp', '8yd9st9tp', '1507619069', '1507619069');
+INSERT INTO `fw_cms_livecode` VALUES ('50', '3', '0', '3', 'infinityWallpaper.jpg', '{\"url\":\"2017-10-10\\/59dc79bb32aa2.jpg\",\"size\":\"270.241 KB\"}', '2', 'http://www.livecode.com/index.php/huoma/live?d=44wqfkpmk', '44wqfkpmk', '1507621308', '1507621308');
 
 -- ----------------------------
 -- Table structure for `fw_cms_phone`
@@ -543,34 +563,15 @@ CREATE TABLE `fw_cms_phone` (
   PRIMARY KEY (`id`),
   KEY `status` (`status`) USING BTREE,
   KEY `title` (`title`(333))
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of fw_cms_phone
 -- ----------------------------
-INSERT INTO `fw_cms_phone` VALUES ('12', '来个视频', 'Uploads/video/55797c0709a1f.avi', '1', '1506395606', '1506420087', 'http://www.livecode.com/index.php/huoma/?d=gficcxivq', 'gficcxivq', '3', '2', '1', '4');
-INSERT INTO `fw_cms_phone` VALUES ('4', '百度单网址', 'https://www.baidu.com/', '1', '1506319731', '1506406977', 'http://www.livecode.com/index.php/huoma/?d=vlnh12ohf', 'vlnh12ohf', '3', '1', '1', '2');
-INSERT INTO `fw_cms_phone` VALUES ('5', '淘宝', 'http://www.taobao.com/', '1', '1506321094', '1506397533', 'http://www.livecode.com/index.php/huoma/?d=lsqhcqcp2', 'lsqhcqcp2', '3', '1', '1', '1');
-INSERT INTO `fw_cms_phone` VALUES ('11', '跳到qqqq', 'http://www.qq.com/', '1', '1506326211', '1506326318', 'http://www.livecode.com/index.php/huoma/?d=p25d2kloj', 'p25d2kloj', '3', '1', '1', '1');
-INSERT INTO `fw_cms_phone` VALUES ('8', 'music11哈', 'Uploads/video/music.mp4', '1', '1506325027', '1506325590', 'http://www.livecode.com/index.php/huoma/?d=dsj2qv0v7', 'dsj2qv0v7', '3', '2', '1', '19');
-
--- ----------------------------
--- Table structure for `fw_cms_sales_moban`
--- ----------------------------
-DROP TABLE IF EXISTS `fw_cms_sales_moban`;
-CREATE TABLE `fw_cms_sales_moban` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `title` varchar(255) NOT NULL COMMENT '题标',
-  `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态0禁用1启用',
-  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of fw_cms_sales_moban
--- ----------------------------
+INSERT INTO `fw_cms_phone` VALUES ('17', '腾讯首页', 'http://www.qq.com/', '1', '1506590224', '1506590224', 'http://www.livecode.com/index.php/huoma/?d=g29hqnb4g', 'g29hqnb4g', '3', '1', '1', '0');
+INSERT INTO `fw_cms_phone` VALUES ('12', '来个视频', 'Uploads/video/55797c0709a1f.avi', '1', '1506395606', '1506420087', 'http://www.livecode.com/index.php/huoma/?d=gficcxivq', 'gficcxivq', '3', '2', '1', '1');
+INSERT INTO `fw_cms_phone` VALUES ('20', '哈哈哈', 'Uploads/video/test111.pdf', '1', '1507603971', '1507603971', 'http://www.livecode.com/index.php/huoma/?d=ujv7iw16r', 'ujv7iw16r', '3', '2', '1', '0');
+INSERT INTO `fw_cms_phone` VALUES ('8', 'music11哈', 'Uploads/video/music.mp4', '1', '1506325027', '1506325590', 'http://www.livecode.com/index.php/huoma/?d=dsj2qv0v7', 'dsj2qv0v7', '3', '2', '1', '2');
 
 -- ----------------------------
 -- Table structure for `fw_echarts_data`
@@ -580,21 +581,194 @@ CREATE TABLE `fw_echarts_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codeId` int(11) NOT NULL COMMENT '活码id',
   `createTime` datetime NOT NULL COMMENT '扫码日期',
-  `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1单网址2视频3多网址',
+  `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1活码生成2产品3视频4网址5多网址',
   PRIMARY KEY (`id`),
   KEY `codeId` (`codeId`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=210 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_echarts_data
 -- ----------------------------
-INSERT INTO `fw_echarts_data` VALUES ('29', '0', '0000-00-00 00:00:00', '1');
-INSERT INTO `fw_echarts_data` VALUES ('30', '0', '2017-09-26 00:00:00', '1');
-INSERT INTO `fw_echarts_data` VALUES ('31', '8', '2017-09-26 00:00:00', '1');
-INSERT INTO `fw_echarts_data` VALUES ('32', '11', '2017-09-26 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('36', '11', '2017-09-28 09:29:45', '4');
+INSERT INTO `fw_echarts_data` VALUES ('30', '11', '2017-09-26 00:00:00', '4');
+INSERT INTO `fw_echarts_data` VALUES ('31', '8', '2017-09-26 00:00:00', '3');
+INSERT INTO `fw_echarts_data` VALUES ('32', '11', '2017-09-26 00:00:00', '4');
 INSERT INTO `fw_echarts_data` VALUES ('33', '10', '2017-09-26 00:00:00', '3');
 INSERT INTO `fw_echarts_data` VALUES ('34', '10', '2017-09-26 00:00:00', '3');
 INSERT INTO `fw_echarts_data` VALUES ('35', '10', '2017-09-26 00:00:00', '3');
+INSERT INTO `fw_echarts_data` VALUES ('37', '11', '2017-08-02 00:00:00', '4');
+INSERT INTO `fw_echarts_data` VALUES ('38', '11', '2017-09-02 00:00:00', '4');
+INSERT INTO `fw_echarts_data` VALUES ('39', '11', '2017-09-14 00:00:00', '4');
+INSERT INTO `fw_echarts_data` VALUES ('40', '11', '2017-09-28 00:00:00', '4');
+INSERT INTO `fw_echarts_data` VALUES ('41', '11', '2017-09-28 00:00:00', '4');
+INSERT INTO `fw_echarts_data` VALUES ('42', '11', '2017-09-28 00:00:00', '4');
+INSERT INTO `fw_echarts_data` VALUES ('43', '12', '2017-09-28 00:00:00', '3');
+INSERT INTO `fw_echarts_data` VALUES ('44', '8', '2017-09-28 00:00:00', '3');
+INSERT INTO `fw_echarts_data` VALUES ('45', '10', '2017-09-28 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('46', '10', '2017-09-28 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('47', '11', '2017-09-28 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('48', '4', '2017-09-28 00:00:00', '4');
+INSERT INTO `fw_echarts_data` VALUES ('49', '5', '2017-09-28 00:00:00', '4');
+INSERT INTO `fw_echarts_data` VALUES ('50', '5', '2017-09-28 00:00:00', '4');
+INSERT INTO `fw_echarts_data` VALUES ('51', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('52', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('53', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('54', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('55', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('56', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('57', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('58', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('59', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('60', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('61', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('62', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('63', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('64', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('65', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('66', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('67', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('68', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('69', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('70', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('71', '44', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('72', '44', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('73', '44', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('74', '44', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('75', '44', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('76', '44', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('77', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('78', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('79', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('80', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('81', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('82', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('83', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('84', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('85', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('86', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('87', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('88', '43', '2017-09-30 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('89', '46', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('90', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('91', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('92', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('93', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('94', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('95', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('96', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('97', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('98', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('99', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('100', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('101', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('102', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('103', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('104', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('105', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('106', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('107', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('108', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('109', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('110', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('111', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('112', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('113', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('114', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('115', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('116', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('117', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('118', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('119', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('120', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('121', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('122', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('123', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('124', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('125', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('126', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('127', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('128', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('129', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('130', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('131', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('132', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('133', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('134', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('135', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('136', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('137', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('138', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('139', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('140', '45', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('141', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('142', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('143', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('144', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('145', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('146', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('147', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('148', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('149', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('150', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('151', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('152', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('153', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('154', '48', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('155', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('156', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('157', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('158', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('159', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('160', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('161', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('162', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('163', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('164', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('165', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('166', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('167', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('168', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('169', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('170', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('171', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('172', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('173', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('174', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('175', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('176', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('177', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('178', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('179', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('180', '43', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('181', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('182', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('183', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('184', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('185', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('186', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('187', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('188', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('189', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('190', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('191', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('192', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('193', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('194', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('195', '50', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('196', '50', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('197', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('198', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('199', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('200', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('201', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('202', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('203', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('204', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('205', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('206', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('207', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('208', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('209', '49', '2017-10-10 00:00:00', '1');
 
 -- ----------------------------
 -- Table structure for `fw_orders`
