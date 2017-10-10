@@ -6,7 +6,6 @@ $(function(){
 	  uploadListIns = upload.render({
 	    elem: '#testList'
 	    ,url: 'admin.php?s=/admin/livecode/addfile'
-  		,data: {name1:1} //可选项。额外的参数，如：{id: 123, abc: 'xxx'}
 	    ,accept: 'file'
         ,exts: "doc|docx|pdf|xls|xlsx|ppt|pptx|wps|txt|zip|rar|gz|bz2|7z|gif|jpg|jpeg|png|bmp"
         ,size: 10240
@@ -42,12 +41,14 @@ $(function(){
 	      });
 	    }
 	    ,done: function(res, index, upload){
-	      if(res.code == 0){ //上传成功
+	      if(res.status == 1){ //上传成功
 	        var tr = demoListView.find('tr#upload-'+ index)
 	        ,tds = tr.children();
 	        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
 	        tds.eq(3).html(''); //清空操作
-	        delete files[index]; //删除文件队列已经上传成功的文件
+	        $('#uploadFileName').val(res.info.uploadFileName);
+	        $('#uploadFileSize').val(res.info.uploadFileSize);
+	        $('#uploadFileUrl').val(res.info.uploadFileUrl);
 	        return;
 	      }
 	      this.error(index, upload);

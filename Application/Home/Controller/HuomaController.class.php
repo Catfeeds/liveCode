@@ -26,12 +26,18 @@ class HuomaController extends HomeController{
         M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>1]);
         if ($data['type'] == 2) {           //文本活码
             $this->assign('data',$data);
-            $this->display();
+            $this->display('live_text');
+        }elseif ($data['type'] == 3) {      //文件活码
+            $ext             = substr(strrchr($data['title'], '.'), 1); 
+            $content         = json_decode($data['content'],true);
+            $data['url']     = '/Uploads/livecode/file/'.$content['url'];
+            $data['size']    = $content['size'];
+            $data['picIcon'] = getPicType($ext);
+            $this->assign('data',$data);
+            $this->display('live_file');
         }elseif ($data['type'] == 4) {      //网址导航
             redirect($data['content']);
-        }
-        
-        
+        } 
     }
 
     /**

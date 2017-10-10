@@ -46,7 +46,29 @@ $(function(){
             }
         });
     });
-
+    //文件活码
+    $("#save_btn3").click(function(){
+        var uploadFileName = $("#uploadFileName").val();
+        var uploadFileSize = $("#uploadFileSize").val();
+        var uploadFileUrl  = $("#uploadFileUrl").val();
+        if (uploadFileName == '' || uploadFileUrl == '') {
+            $.alertMessager('请先上传文件!');return;
+        }
+        $.ajax({
+            url: 'admin.php?s=/admin/livecode/add',
+            type: 'POST',
+            data: {title:uploadFileName,content:{url:uploadFileUrl,size:uploadFileSize},type:3},
+            success: function (data) {
+                if(data.status == 1){
+                    $("#code3 img").attr('src',data.url);
+                    $("#img3").attr('href',data.url);
+                    $.alertMessager('二维码已成功保存!','success');return;
+                }else{
+                    $.alertMessager(data.info);return;
+                }
+            }
+        });
+    });
     //网址导航
     $("#save_btn4").click(function(){
         var title = $("#title4").val();
@@ -76,26 +98,19 @@ $(function(){
 
 })
 
-$('#picID').click(function () {
-    var data = new FormData($('#uploadForm')[0]);
+
+$('#file').click(function () {
+    var formdata = new FormData($('#uploadForm')[0]);
+    console.log(formdata)
     $.ajax({
-        url: 'url',
+        url: 'admin.php?s=/admin/livecode/addfile',
         type: 'POST',
-        data: data,
+        data: formdata,
         async: false,
         cache: false,
         contentType: false,
         processData: false,
-        success: function (data) {
-            console.log(data);
-            if(data.status){
-                console.log('upload success');
-            }else{
-                console.log(data.message);
-            }
-        },
-        error: function (data) {
-            console.log(data.status);
-        }
-    });
+    }).done(function(data){  
+
+    }); 
 });

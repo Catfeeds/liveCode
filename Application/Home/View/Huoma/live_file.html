@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>{$data['title']}</title>
+		<link rel="stylesheet" type="text/css" href="__HOME_CSS__/live.css">
+	</head>
+	
+	<body>
+		<div class="file_wrap">
+			<div class="file_con">
+				<img class="file_img" src="/Public/images/{$data.picIcon}.png"/>
+				<p class="file_tit">{$data['title']}</p>
+				<p class="filesize">{$data['size']}</p>
+			</div>
+			<a href="{$data['url']}" download="{$data['title']}" class="down_btn">下载</a>
+			
+		</div>
+	</body>
+</html>

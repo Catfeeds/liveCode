@@ -420,22 +420,22 @@ function showDiffCount($type,$data){
 function codeType($codeType){
     switch ($codeType) {
         case '1':
-            return '图文活码';
+            return '图文';
             break;
         case '2':
-            return '文本活码';
+            return '文本';
             break;
         case '3':
-            return '文件活码';
+            return '文件';
             break;
         case '4':
-            return '网址导航';
+            return '网址';
             break;
         case '5':
-            return '名片活码';
+            return '名片';
             break;
         default:
-            return '图文活码';
+            return '图文';
             break;
     }
 }
@@ -468,6 +468,53 @@ function LC_Substr($str, $start = 0, $length, $charset = "utf-8", $suffix = fals
         $newStr = $slice;
     }
     return $newStr;
+}
+/**
+ * 字节Byte转换
+ */
+function getFilesize($num){
+    $p = 0;
+    $format='bytes';
+    if($num>0 && $num<1024){
+       $p = 0;
+       return number_format($num).' '.$format;
+    }
+    if($num>=1024 && $num<pow(1024, 2)){
+       $p = 1;
+       $format = 'KB';
+   }
+   if ($num>=pow(1024, 2) && $num<pow(1024, 3)) {
+      $p = 2;
+      $format = 'MB';
+   }
+   if ($num>=pow(1024, 3) && $num<pow(1024, 4)) {
+      $p = 3;
+      $format = 'GB';
+   }
+   if ($num>=pow(1024, 4) && $num<pow(1024, 5)) {
+      $p = 3;
+      $format = 'TB';
+   }
+   $num /= pow(1024, $p);
+   return number_format($num, 3).' '.$format;
+}
+/**
+ * 返回文件图片类型
+ */
+function getPicType($ext){
+    if ($ext == 'doc' || $ext == 'docx') {
+        return 'wordicon';
+    }elseif ($ext == 'pdf') {
+        return 'pdficon';
+    }elseif ($ext == 'xls' || $ext == 'xlsx') {
+        return 'excelicon';
+    }elseif ($ext == 'ppt' || $ext == 'pptx') {
+        return 'ppticon';
+    }elseif ($ext == 'gif' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'png' || $ext == 'bmp') {
+        return 'imgicon';
+    }else{
+        return 'fileicon';
+    }
 }
 
 
