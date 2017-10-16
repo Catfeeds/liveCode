@@ -267,6 +267,12 @@ class LivecodeController extends AdminController {
      */
     public function add() {
         if (IS_POST) {
+            //判断用户当前套餐活码数量是否已达上限
+            $limit = $this->obj->userLivecodeCountLimit();
+            if (!$limit) {
+                $this->error('活码创建数量已达上限，请在续费管理中升级套餐');
+            }
+
             $type = I('post.type/d');
             
             if ($type == 1) {           //图文活码

@@ -98,6 +98,38 @@ class OrderModel extends Model {
     }
 
     /**
+     * 检查订单是否已支付
+     */
+    public function checkOrderPay (){
+        $userId  = (int)session('user_auth.uid');
+        $orderId = I("orderId/d");
+        $rs      = array();
+        $where   = ['orderId'=>$orderId,"userId"=>$userId,"orderStatus"=>-1,"status"=>1,"payType"=>0];
+        $rs      = $this->field('orderId,orderNo')->where($where)->select();
+        if(count($rs)>0){
+            return WSTReturn('',1);
+        }
+        return WSTReturn('订单已支付',-1);
+    }
+
+    /**
+     * 获取支付订单信息
+     */
+    public function getPayOrder ($obj){
+        $userId  = (int)session('user_auth.uid');
+        $orderId = $obj['orderId'];
+        $where   = ['orderId'=>$orderId,"userId"=>$userId,"orderStatus"=>-1,"status"=>1,"payType"=>0];
+        $order   = $this->where($where)->find();
+
+        $data = array();
+        $data["needPay"] = $order['payMoney'];
+        $data["orderNo"] = $order['orderNo'];
+        $data["orderId"] = $order['orderId'];
+
+        return $data;
+    }
+
+    /**
      * 用户支付
      * 
      */
@@ -105,6 +137,9 @@ class OrderModel extends Model {
         $order = $this->where(['orderId'=>$orderId,'userId'=>session('user_auth.uid'),'orderStatus'=>-1,'status'=>1])->find();
         if (!$order) {
             $this->error = '无效订单！';return false;
+        }
+        if ($order['orderStatus'] == 1) {
+            return true;
         }
         $user = D('User')->find(session('user_auth.uid'));
         $isNew = $user['vipId'] ? 0:1;
@@ -123,12 +158,7 @@ class OrderModel extends Model {
         }else{
             $this->rollback();
             $this->error = '支付失败！';return false;
-        }
-
-
-
-            
-        
+        } 
         
     }
     

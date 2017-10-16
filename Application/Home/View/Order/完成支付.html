@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>支付完成</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+			.pay-sbox{
+			    border: 1px solid #eeeeee;
+			    text-align: center;
+    			padding: 50px;
+			}
+			.pay-sbox img {
+			    display: inline-block;
+			    border: none;
+			    vertical-align: middle;
+			}
+			.pay-sbox .info{
+				line-height: 35px;
+			}
+			.pay-sbox .info span{
+				color: #666;
+				font-size: 14px;
+			}
+			.pay-sbox .go a{
+				border-radius: 5px;
+			    width: 135px;
+			    height: 35px;
+			    line-height: 35px;
+			    color: #fff;
+			    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+			    font-size: 14px;
+			    background: #0088CF;
+			    text-align: center;
+			    margin: 0 auto;
+			    display: block;
+			}
+			.pay-sbox .go a:hover {
+			    color: #0088CF;
+			    background: #b5e0f7;
+			    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="main">
+			<div class="top">
+				<div class="w1000">
+					<div class="logo left">
+						<a href="#"><img src="img/logo.png"/></a>
+						<a href="#" class="buy_txt">购买</a>
+					</div>
+					<div class="step right">
+						<img src="img/step3.png"/>
+					</div>
+				</div>
+			</div>
+			<div class="mainwarp w1000">
+				<div class="pay-sbox">
+					<div class="imgs">
+						<img src="img/icon_success.png"/>
+					</div>
+					<div class="info">
+			            <span>支付完成!</span>
+			        </div>
+			        <div class="go">
+			         	<span id="countdown"></span>秒后跳转另一个页面
+			         </div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<footer class="foot">
+				<div class="foot_txt">
+					<div class="left">
+						<p class="left_t">详细产品信息，请咨询我们的售前工程师</p>
+						<p class="cont_t"><span class="tel"><i></i>热线电话：0551-65567790</span><span class="email"><i></i>邮箱地址：xiazezhong@hfzeqi.com</span></p>
+					</div>
+					<a href="#" class="right_t"><img src="img/qq.png"/></a>
+				</div>
+			</footer>
+			<div class="clear"></div>
+		</div>
+		<script type="text/javascript">
+			var wait=3;
+			function time(o) {
+		        if (wait == 0) {
+					window.location.href='http://baidu.com'
+		            wait = 3;
+		        } else {
+		            o.innerHTML=wait;
+		            wait--;
+		            setTimeout(function() {
+		                time(o)
+		            },1000)
+		        }
+		    }
+			var countdown=document.getElementById('countdown');
+			time(countdown);
+		</script>
+	</body>
+</html>

@@ -23,6 +23,9 @@ class OrderController extends CommonController {
         if (!C('TOGGLE_WEB_SITE')) {
             $this->error('站点已经关闭，请稍后访问~');
         }
+        if (!session('user_auth.uid')) {
+            $this->error('请先登录', U('Home/User/login'));
+        }
         // 获取所有模块配置的用户导航
         $mod_con['status'] = 1;
         $_user_nav_main = array();
@@ -153,6 +156,7 @@ class OrderController extends CommonController {
      */
     public function pay() {
         if (IS_POST) {
+            halt(I());
             //支付操作
             $orderId = I('post.orderId/d');
             $payType = I('post.payType/d');
@@ -171,6 +175,10 @@ class OrderController extends CommonController {
             if (!$order) {
                 $this->error('订单不存在');
             }
+            if ($order['orderStatus'] == 1) {
+                $this->success('订单已支付成功','/admin.php?s=/admin/index/index');
+            }
+            // halt($order);
             $vip = M('vip')->getFieldById($order['vipId'],'name');
             //汇款账号
             $banks = M('admin_banks')->where(['status'=>1])->order('create_time desc')->select();

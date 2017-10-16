@@ -9,7 +9,7 @@
 		<div class="top">
 			<div class="w1000">
 				<div class="logo left">
-					<a href="#"><img src="__HOME__/user/img/logo.png"/></a>
+					<a href="{:U('Home/Index/index')}"><img src="__HOME__/user/img/logo.png"/></a>
 					<a href="#" class="buy_txt">购买</a>
 				</div>
 				<div class="step right">
@@ -35,13 +35,13 @@
 				</ul>
 			</div>
 			<div class="now_buy">
-				<form action="{:U('Home/Order/pay')}" method="post" class="theme-buy">
+				<form class="theme-buy">
 					<span>正在开通&nbsp;</span>  
 					<span class="col1">{$vip}{$order['year']}年</span>
 					<span>&nbsp;&nbsp;总计：<span class="col2">￥<font>{$order['payMoney']}</font></span></span>
-					<input type="hidden" name="orderId" value="{$order['orderId']}">
+					<input type="hidden" id="orderId" name="orderId" value="{$order['orderId']}">
 					<input type="hidden" id="payType" name="payType" value="0" />
-					<input type="submit" class="buy_btn ajax-post" target-form="theme-buy" value="现在支付"/>
+					<input type="button" class="buy_btn" onclick='javascript:getPayUrl();' value="现在支付"/>
 				</form>
 			</div>
 			<div class="offline" style="display: none;">
@@ -77,6 +77,6 @@
 </block>
 		
 <block name="script">
-	<script src="__HOME__/user/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="__HOME__/user/js/tab.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HOME__/user/js/pay.js" type="text/javascript" charset="utf-8"></script>
 </block>

@@ -118,6 +118,7 @@ class UserModel extends Model {
         );
         session('user_auth', $auth);
         session('user_auth_sign', $this->data_auth_sign($auth));
+        unset($_SESSION['OC_Home_']);
         return $this->is_login();
     }
 

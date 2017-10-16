@@ -38,6 +38,21 @@ class LivecodeModel extends Model {
         array('update_time', 'time', self::MODEL_BOTH, 'function'),
        
     );
+    /**
+     * 判断用户当前套餐活码数量是否已达上限
+     * 
+     */
+    public function userLivecodeCountLimit() {
+        // 用户已创建的活码数量
+        $count = $this->where(['uid'=>session('user_auth.uid')])->count();
+        //限制数量
+        $vip = D('User')->alias('u')->field('livecode_count')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.session('user_auth.uid'))->find();
+        if ($count < $vip['livecode_count']) {
+            return true;
+        }else{
+            return false;
+        }
+    }
    
   
 }

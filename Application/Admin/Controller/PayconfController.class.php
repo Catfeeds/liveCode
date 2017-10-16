@@ -19,27 +19,38 @@ class PayconfController extends AdminController {
      * 
      */
     public function alipay() {
+        $m = M('payments');
+        $alipay = $m->where(['payCode'=>'alipays'])->find();
+
         if (IS_POST) {
-            // $nav_object = D('Module');
-            // $data = $nav_object->validate(false)->create();
-            // if (empty($data['icon'])) {
-            //     $data['status'] = -1;
-            // }
-            // if ($data) {
-            //     $id = $nav_object->add($data);
-            //     halt('新增成功');
-            // } else {
-            //     $this->error($nav_object->getError());
-            // }
+            $data = I('post.');
+            if (empty($data['payAccount'])) {$this->error('收款支付宝账号不能为空');}
+            if (empty($data['parterID'])) {$this->error('合作者身份不能为空');}
+            if (empty($data['parterKey'])) {$this->error('交易安全验证码不能为空');}
+
+            if ($alipay) {
+                $rs = $m->where(['payCode'=>'alipays'])->save(['payConfig'=>json_encode($data)]);
+            }else{
+                $rs = $m->add(['payCode'=>'alipays','payName'=>'支付宝（及时到账）','payConfig'=>json_encode($data)]);
+            }
+            if ($rs !== false) {
+                $this->success('操作成功');
+            } else {
+                $this->error('操作失败');
+            }
         } else {
+            $payConfig = json_decode($alipay["payConfig"]) ;
+            foreach ($payConfig as $key => $value) {
+                $alipay[$key] = $value;
+            }
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('支付宝')  // 设置页面标题
-                    ->setPostUrl(U('add'))     // 设置表单提交地址
-                    ->addFormItem('pid', 'text', '收款支付宝账号', '收款支付宝账号')
-                    ->addFormItem('is_recommed', 'radio', '使用纯即时到账接口', '使用纯即时到账接口', array('1' => '是','0' => '否'))
-                    ->addFormItem('title', 'text', '合作者身份(PID)', '合作者身份(PID)')
-                    ->addFormItem('url', 'text', '交易安全验证码(KEY)', '交易安全验证码(KEY)')
+                    ->addFormItem('payAccount', 'text', '收款支付宝账号', '收款支付宝账号')
+                    // ->addFormItem('is_recommed', 'radio', '使用纯即时到账接口', '使用纯即时到账接口', array('1' => '是','0' => '否'))
+                    ->addFormItem('parterID', 'text', '合作者身份(PID)', '合作者身份(PID)')
+                    ->addFormItem('parterKey', 'text', '交易安全验证码(KEY)', '交易安全验证码(KEY)')
+                    ->setFormData($alipay)
                     ->display();
         }
     }
@@ -49,59 +60,42 @@ class PayconfController extends AdminController {
      * 
      */
     public function wechat() {
+        $m = M('payments');
+        $weixin = $m->where(['payCode'=>'weixinpays'])->find();
+
         if (IS_POST) {
-            //
+            $data = I('post.');
+
+            if (empty($data['appId'])) {$this->error('AppID不能为空');}
+            if (empty($data['appsecret'])) {$this->error('AppSecret不能为空');}
+            if (empty($data['apiKey'])) {$this->error('API密钥(key)不能为空');}
+            if (empty($data['mchId'])) {$this->error('受理商ID不能为空');}
+
+            if ($weixin) {
+                $rs = $m->where(['payCode'=>'weixinpays'])->save(['payConfig'=>json_encode($data)]);
+            }else{
+                $rs = $m->add(['payCode'=>'weixinpays','payName'=>'微信支付','payConfig'=>json_encode($data)]);
+            }
+            if ($rs !== false) {
+                $this->success('操作成功');
+            } else {
+                $this->error('操作失败');
+            }
         } else {
+            $payConfig = json_decode($weixin["payConfig"]) ;
+            foreach ($payConfig as $key => $value) {
+                $weixin[$key] = $value;
+            }
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('微信')  // 设置页面标题
-                    ->setPostUrl(U('add'))     // 设置表单提交地址
-                    ->addFormItem('pid', 'text', 'AppID(应用ID)', 'AppID(应用ID)')
-                    ->addFormItem('title', 'text', 'AppSecret(应用秘钥)', 'AppSecret(应用秘钥)')
-                    ->addFormItem('url', 'text', '受理商ID', '受理商ID')
-                    ->addFormItem('title', 'text', '商户支付秘钥', '商户支付秘钥')
-                    ->addFormItem('title', 'text', '微信支付回调URL', '微信支付回调URL')
-                    ->addFormItem('title', 'text', '微信支付说明', '微信支付说明')
-                    ->display();
-        }
-    }
-
-    /**
-     * 编辑导航
-     * 
-     */
-    public function edit1($id) {
-        if (IS_POST) {
-            $nav_object = D('Nav');
-            $data = $nav_object->create();
-            if ($data) {
-                if ($nav_object->save($data)) {
-                    $this->success('更新成功', U('index'));
-                } else {
-                    $this->error('更新失败');
-                }
-            } else {
-                $this->error($nav_object->getError());
-            }
-        } else {
-            $info = D('Nav')->find($id);
-
-            // 使用FormBuilder快速建立表单页面。
-            $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('编辑导航')  // 设置页面标题
-                    ->setPostUrl(U('edit'))    // 设置表单提交地址
-                    ->addFormItem('id', 'hidden', 'ID', 'ID')
-                    ->addFormItem('pid', 'select', '上级导航', '上级导航', select_list_as_tree('Nav', null, '顶级导航'))
-                    ->addFormItem('name', 'text', '导航名称', '名称一般为英文单词')
-                    ->addFormItem('title', 'text', '导航标题', '导航前台显示标题')
-                    ->addFormItem('type', 'select', '导航类型', '导航类型', D('Nav')->nav_type())
-                    ->addFormItem('url', 'text', '请填写外链URL地址', '支持http://格式或者TP的U函数解析格式', null, $info['url'] ? : 'hidden')
-                    ->addFormItem('module_name', 'select', '模块', '选择的模块需要具有前台页面', select_list_as_tree('Module', null, null, 'name'), $info['module_name'] ? : 'hidden')
-                    ->addFormItem('target', 'radio', '打开方式', '打开方式', array('' => '当前窗口','_blank' => '新窗口打开'))
-                    ->addFormItem('icon', 'icon', '图标', '导航图标')
-                    ->addFormItem('sort', 'num', '排序', '用于显示的顺序')
-                    ->setFormData($info)
-                    ->setExtraHtml($this->extra_html)
+                    ->addFormItem('appId', 'text', 'AppID', 'AppID(应用ID)')
+                    ->addFormItem('appsecret', 'text', 'AppSecret', 'AppSecret(应用秘钥)')
+                    ->addFormItem('apiKey', 'text', 'API密钥(key)', 'API密钥(key)')
+                    ->addFormItem('mchId', 'text', '受理商ID', '受理商ID')
+                    // ->addFormItem('title', 'text', '微信支付回调URL', '微信支付回调URL')
+                    // ->addFormItem('title', 'text', '微信支付说明', '微信支付说明')
+                    ->setFormData($weixin)
                     ->display();
         }
     }
