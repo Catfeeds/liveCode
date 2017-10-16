@@ -141,7 +141,7 @@ class WeixinPaysController extends CommonController {
         }
     
     }
-    function logResult($word='fdfasfads') {
+    public function logResult($word='fdfasfads') {
         $fp = fopen("log.txt","a");
         flock($fp, LOCK_EX) ;
         fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time())."\n".$word."\n");
@@ -153,7 +153,7 @@ class WeixinPaysController extends CommonController {
      * 微信异步通知
      */
     public function wxNotify() {
-        logResult('111111111111111');
+        $this->logResult('111111111111111');
         // 使用通用通知接口
         $wxQrcodePay = new \WxQrcodePay ();
         // 存储微信的回调

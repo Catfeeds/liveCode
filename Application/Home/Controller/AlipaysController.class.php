@@ -19,9 +19,9 @@ class AlipaysController extends CommonController {
      */
     private $aliPayConfig;
     public function _initialize() {
-        if (!session('user_auth.uid')) {
-            $this->error('请先登录', U('Home/User/login'));
-        }
+        // if (!session('user_auth.uid')) {
+        //     $this->error('请先登录', U('Home/User/login'));
+        // }
         $this->aliPayConfig = array();
         $m = D('Payments');
         $this->aliPayConfig = $m->getPayment("alipays");
@@ -105,12 +105,21 @@ class AlipaysController extends CommonController {
             $this->error('支付失败');
         }
     }
+    public function logResult($word='fdfasfads') {
+        $fp = fopen("log.txt","a");
+        flock($fp, LOCK_EX) ;
+        fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time())."\n".$word."\n");
+        flock($fp, LOCK_UN);
+        fclose($fp);
+    }
     
     /**
      * 支付结果异步回调
      */
     public function aliNotify(){
-        halt(I(''));
+        $this->logResult('2222222222222222222');
+
+        // halt(I(''));
         $m = D('order');
         $request = I('post.');
         halt($request);
