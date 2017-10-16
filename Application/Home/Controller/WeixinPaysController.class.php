@@ -20,9 +20,9 @@ class WeixinPaysController extends CommonController {
     private $wxpayConfig;
     private $wxpay;
     public function _initialize() {
-        if (!session('user_auth.uid')) {
-            $this->error('请先登录', U('Home/User/login'));
-        }
+        // if (!session('user_auth.uid')) {
+        //     $this->error('请先登录', U('Home/User/login'));
+        // }
         header ("Content-type: text/html; charset=utf-8");
         Vendor('wxpay.WxPayConf');
         Vendor('wxpay.WxQrcodePay');
@@ -34,7 +34,7 @@ class WeixinPaysController extends CommonController {
         $this->wxpayConfig['appsecret'] = $this->wxpay['appsecret']; // JSAPI接口中获取openid
         $this->wxpayConfig['mchid'] = $this->wxpay['mchId']; // 受理商ID
         $this->wxpayConfig['key'] = $this->wxpay['apiKey']; // 商户支付密钥Key
-        $this->wxpayConfig['notifyurl'] = U("home/WeixinPays/wxNotify","",true,true);
+        $this->wxpayConfig['notifyurl'] = U("Home/WeixinPays/wxNotify","",true,true);
         $this->wxpayConfig['curl_timeout'] = 30;
         $this->wxpayConfig['returnurl'] = "";
         // 初始化WxPayConf_pub
