@@ -1,0 +1,63 @@
+<extend name="$_home_public_layout"/>
+<block name="style">
+    <link rel="stylesheet" type="text/css" href="__HOME__/user/css/style.css"/>
+</block>
+
+<block name="main">
+	<div class="main">
+		<div class="top">
+			<div class="w1000">
+				<div class="logo left">
+					<a href="#"><img src="__HOME__/user/img/logo.png"/></a>
+					<a href="#" class="buy_txt">购买</a>
+				</div>
+				<div class="step right">
+					<img src="__HOME__/user/img/step3.png"/>
+				</div>
+			</div>
+		</div>
+		<div class="mainwarp w1000">
+			<div class="pay-sbox">
+				<div class="imgs">
+					<img src="__HOME__/user/img/icon_success.png"/>
+				</div>
+				<div class="info">
+		            <span style="font-size: 30px;">支付成功!</span>
+		        </div>
+		        <div class="go">
+		         	<span id="countdown" style="color:red;"></span>秒后自动为您跳转到用户后台
+		         </div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<footer class="foot">
+			<div class="foot_txt">
+				<div class="left">
+					<p class="left_t">详细产品信息，请咨询我们的售前工程师</p>
+					<p class="cont_t"><span class="tel"><i></i>热线电话：0551-65567790</span><span class="email"><i></i>邮箱地址：xiazezhong@hfzeqi.com</span></p>
+				</div>
+				<a href="#" class="right_t"><img src="__HOME__/user/img/qq.png"/></a>
+			</div>
+		</footer>
+		<div class="clear"></div>
+	</div>
+</block>
+<block name="script">
+	<script type="text/javascript">
+		var wait=3;
+		function time(o) {
+	        if (wait == 0) {
+				// window.location.href='http://baidu.com'
+	   //          wait = 3;
+	        } else {
+	            o.innerHTML=wait;
+	            wait--;
+	            setTimeout(function() {
+	                time(o)
+	            },1000)
+	        }
+	    }
+		var countdown=document.getElementById('countdown');
+		time(countdown);
+	</script>
+</block>

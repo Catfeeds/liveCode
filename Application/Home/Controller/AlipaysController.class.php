@@ -31,7 +31,6 @@ class AlipaysController extends CommonController {
      * 生成支付代码
      */
     public function getAlipaysUrl(){
-        $payObj       = I("payObj/s");
         $m            = D('order');
         $obj          = array();
         $data         = array();
@@ -46,13 +45,15 @@ class AlipaysController extends CommonController {
             $obj["userId"]      = (int)session('user_auth.uid');
             $order              = $m->getPayOrder($obj);
             $orderAmount        = $order["needPay"];
-            $out_trade_no       = $order["orderNo"]."_".$obj["userId"];
-            $extra_common_param = $payObj."@".$obj["userId"]."@0";
+            $out_trade_no       = $order['orderNo'].'_'.$order['orderId'];
+            $extra_common_param = $obj["orderId"];
         }
         
         if($data["status"]==1){
-            $return_url = U("home/alipays/response","",true,true);
-            $notify_url = U("home/alipays/aliNotify","",true,true);
+            $return_url = U("Home/Alipays/response","",true,true);
+            $notify_url = U("Home/Alipays/aliNotify","",true,true);
+            // $notify_url = 'http://10.10.1.133/liveCode2/index.php?s=/home/Alipays/aliNotify';
+
             $parameter = array(
                     'extra_common_param'=> $extra_common_param,
                     'service'           => 'create_direct_pay_by_user',
@@ -73,7 +74,6 @@ class AlipaysController extends CommonController {
                     'logistics_payment' => 'BUYER_PAY_AFTER_RECEIVE',
                     /* 买卖双方信息 */
                     'seller_email'      => $this->aliPayConfig['payAccount']
-                    /* RSA签名 */
             );
 
             ksort($parameter);
@@ -87,28 +87,20 @@ class AlipaysController extends CommonController {
             $param = substr($param, 0, -1);
             $sign  = substr($sign, 0, -1). $this->aliPayConfig['parterKey'];            
             $url = 'https://mapi.alipay.com/gateway.do?'.$param. '&sign='.md5($sign).'&sign_type=MD5';
-            $data["url"] = $url;
         }
 
-        $this->success('',$data['url']);
+        $this->success('',$url);
     }
 
     /**
      * 支付结果同步回调
      */
-    function response(){
-        $m = new M();
-        $request = $_GET;
+    public function response(){
+        $request = I('get.');
         unset($request['_URL_']);
         $payRes = self::notify($request);
         if($payRes['status']){
-            $extras = explode("@",$_GET['extra_common_param']);
-            if($extras[0]=="recharge"){//充值
-                $this->redirect(url("home/logmoneys/shopmoneys"));
-            }else{
-                $this->redirect(url("home/orders/waitReceive"));
-            }
-            
+            redirect(U("Home/Order/completePay", null, true, true));
         }else{
             $this->error('支付失败');
         }
@@ -117,43 +109,25 @@ class AlipaysController extends CommonController {
     /**
      * 支付结果异步回调
      */
-    function aliNotify(){
-        $m = new OM();
-        $request = $_POST;
+    public function aliNotify(){
+        halt(I(''));
+        $m = D('order');
+        $request = I('post.');
+        halt($request);
         $payRes = self::notify($request);
         if($payRes['status']){
-            
-            $extras = explode("@",$_POST['extra_common_param']);
             $rs = array();
-            if($extras[0]=="recharge"){//充值
-                $targetId = (int)$extras [1];
-                $targetType = (int)$extras [2];
-                $obj = array ();
-                $obj["trade_no"] = $_POST['trade_no'];
-                $obj["out_trade_no"] = $_POST["out_trade_no"];;
-                $obj["targetId"] = $targetId;
-                $obj["targetType"] = $targetType;
-                $obj["total_fee"] = $_POST['total_fee'];
-                $obj["payFrom"] = 'alipays';
-                // 支付成功业务逻辑
-                $m = new LM();
-                $rs = $m->complateRecharge ( $obj );
-            }else{
-                //商户订单号
-                $obj = array();
-                $tradeNo = explode("_",$_POST['out_trade_no']);
-                $obj["trade_no"] = $_POST['trade_no'];
-                $obj["out_trade_no"] = $tradeNo[0];
-                $obj["total_fee"] = $_POST['total_fee'];
-                    
-                $obj["userId"] = $extras[1];
-                $obj["isBatch"] = $extras[2];
-                $obj["payFrom"] = 'alipays';
-                //支付成功业务逻辑
-                $rs = $m->complatePay($obj);
-            }
+            $obj = array();
+            $obj["userId"] = session('user_auth.uid');
+            $obj["orderId"] = $request['extra_common_param'];
+            $obj["payType"] = 0;
+            $obj["tradeNo"] = $request['outTradeNo'];
+            $obj["pay_time"] = time();
             
-            if($rs["status"]==1){
+            //支付成功业务逻辑
+            $rs = $m->complatePay($obj);
+            
+            if($rs){
                 echo 'success';
             }else{
                 echo 'fail';
@@ -166,7 +140,7 @@ class AlipaysController extends CommonController {
     /**
      * 支付回调接口
      */
-    function notify($request){
+    public function notify($request){
         $returnRes = array('info'=>'','status'=>false);
         $request = $this->argSort($request);
         // 检查数字签名是否正确 
@@ -184,7 +158,7 @@ class AlipaysController extends CommonController {
     /**
      * 获取返回时的签名验证结果
      */
-    function getSignVeryfy($para_temp) {
+    public function getSignVeryfy($para_temp) {
         $parterKey = $this->aliPayConfig["parterKey"];
         //除去待签名参数数组中的空值和签名参数
         $para_filter = $this->paraFilter($para_temp);
@@ -201,7 +175,7 @@ class AlipaysController extends CommonController {
     /**
      * 验证签名
      */
-    function md5Verify($prestr, $sign, $key) {
+    public function md5Verify($prestr, $sign, $key) {
         $prestr = $prestr . $key;
         $mysgin = md5($prestr);
         if($mysgin == $sign) {
@@ -214,7 +188,7 @@ class AlipaysController extends CommonController {
     /**
      * 把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
      */
-    function createLinkstring($para) {
+    public function createLinkstring($para) {
         $arg  = "";
         while (list ($key, $val) = each ($para)) {
             $arg.=$key."=".$val."&";
@@ -230,7 +204,7 @@ class AlipaysController extends CommonController {
     /**
      * 除去数组中的空值和签名参数
      */
-    function paraFilter($para) {
+    public function paraFilter($para) {
         $para_filter = array();
         while (list ($key, $val) = each ($para)) {
             if($key == "sign" || $key == "sign_type" || $val == "")continue;
@@ -242,7 +216,7 @@ class AlipaysController extends CommonController {
     /**
      * 对数组排序
      */
-    function argSort($para) {
+    public function argSort($para) {
         ksort($para);
         reset($para);
         return $para;

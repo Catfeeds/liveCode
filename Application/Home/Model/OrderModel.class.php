@@ -133,18 +133,18 @@ class OrderModel extends Model {
      * 用户支付
      * 
      */
-    public function pay($orderId,$payType) {
-        $order = $this->where(['orderId'=>$orderId,'userId'=>session('user_auth.uid'),'orderStatus'=>-1,'status'=>1])->find();
-        if (!$order) {
-            $this->error = '无效订单！';return false;
-        }
-        if ($order['orderStatus'] == 1) {
-            return true;
-        }
+    public function complatePay($obj) {
+echo 222222222222;exit;
+        $userId  = $obj["userId"];
+        $orderId  = $obj["orderId"];
+        $payType  = $obj["payType"];
+        $tradeNo  = $obj["tradeNo"];
+        $pay_time = $obj["pay_time"];
+
         $user = D('User')->find(session('user_auth.uid'));
         $isNew = $user['vipId'] ? 0:1;
         $this->startTrans();
-        $result = $this->where(['orderId'=>$orderId,'userId'=>session('user_auth.uid')])->save(['orderStatus'=>1,'tradeNo'=>'暂无','pay_time'=>time(),'payType'=>$payType,'isNew'=>$isNew]);
+        $result = $this->where(['orderId'=>$orderId,'userId'=>$userId])->save(['orderStatus'=>1,'tradeNo'=>$tradeNo,'pay_time'=>$pay_time,'payType'=>$payType,'isNew'=>$isNew]);
         if($result){
             $expire_time = time()+$order['year']*365*86400;
             $user_action = M('admin_user')->where(['id'=>session('user_auth.uid')])->save(['vipId'=>$order['vipId'],'expire_time'=>$expire_time]);

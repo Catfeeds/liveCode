@@ -57,9 +57,8 @@ class WeixinPaysController extends CommonController {
             $pkey    = $payObj."@".$userId."@".$orderId."@2";
         }
 
-        $data["url"] = U('Home/WeixinPays/createQrcode',array("pkey"=>base64_encode($pkey)));
-        $this->success('',$data['url']);
-
+        $url = U('Home/WeixinPays/createQrcode',array("pkey"=>base64_encode($pkey)));
+        $this->success('',$url);
     }
     
     public function createQrcode() {
@@ -81,7 +80,7 @@ class WeixinPaysController extends CommonController {
             $order          = $m->getPayOrder($obj);
             $needPay        = $order["needPay"];
             $body           = "支付订单费用";
-            $out_trade_no   = $obj["orderNo"]."_".$userId;
+            $out_trade_no   = $order['orderNo'].'_'.$order['orderId'];
             $trade_no       = $obj["orderNo"];
         }
         

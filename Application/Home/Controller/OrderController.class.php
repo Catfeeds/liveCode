@@ -161,7 +161,7 @@ class OrderController extends CommonController {
             $orderId = I('post.orderId/d');
             $payType = I('post.payType/d');
             $mod = D('Home/Order');
-            $result = $mod->pay($orderId,$payType);
+            $result = $mod->complatePay($orderId,$payType);
             if ($result) {
                 $this->success('支付成功！', '/admin.php?s=/admin/index/index');
             }else{
@@ -191,6 +191,13 @@ class OrderController extends CommonController {
             $this->display();
         }
     }
-
+    /**
+     * 支付成功页
+     * 
+     */
+    public function completePay() {
+        $this->assign('meta_title','支付成功');
+        $this->display();
+    }
     
 }

@@ -463,3 +463,40 @@ body {
 	right: 3px;
 	top: 3px;
 }
+
+/*支付成功页*/
+.pay-sbox{
+    border: 1px solid #eeeeee;
+    text-align: center;
+	padding: 50px;
+}
+.pay-sbox img {
+    display: inline-block;
+    border: none;
+    vertical-align: middle;
+}
+.pay-sbox .info{
+	line-height: 35px;
+}
+.pay-sbox .info span{
+	color: #666;
+	font-size: 14px;
+}
+.pay-sbox .go a{
+	border-radius: 5px;
+    width: 135px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    background: #0088CF;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}
+.pay-sbox .go a:hover {
+    color: #0088CF;
+    background: #b5e0f7;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+}

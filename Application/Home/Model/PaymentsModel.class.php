@@ -10,7 +10,7 @@ namespace Home\Model;
 use Think\Model;
 
 /**
- * 用户模型
+ * 支付模型
  * 
  */
 class PaymentsModel extends Model {
@@ -23,20 +23,6 @@ class PaymentsModel extends Model {
      * 自动验证规则
      * 
      */
-    /**
-     * 获取支付方式种类
-     */
-    public function getByGroup($fielterCode = ''){
-        $payments = ['0'=>[],'1'=>[]];
-        $rs = $this->where(['enabled'=>1])->order('payOrder asc')->select();
-        foreach ($rs as $key =>$v){
-            if($fielterCode==$v['payCode'])continue;
-            if($v['payConfig']!='')$v['payConfig'] = json_decode($v['payConfig'], true);
-            $payments[$v['isOnline']][] = $v;
-        }
-        return $payments;
-    }
-
     
     /**
      * 获取支付信息
@@ -49,21 +35,6 @@ class PaymentsModel extends Model {
         }
         // halt($payment);
         return $payment;
-    }
-    
-    /**
-     * 获取在线支付方式
-     */
-    public function getOnlinePayments(){
-        //获取支付信息
-        return $this->where(['isOnline'=>1,'enabled'=>1])->order('payOrder asc')->select();
-    }
-    /**
-     * 判断某种支付是否开启
-     */
-    public function isEnablePayment($payCode){
-        //获取支付信息
-        return $this->where(['isOnline'=>1,'enabled'=>1,'payCode'=>$payCode])->Count();
     }
 
 }
