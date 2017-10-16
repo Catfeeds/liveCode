@@ -766,3 +766,9 @@ a:hover{
 	font-size:20px;
 	height: 50px;
 }
+.layui-upload-img{
+	max-height: 205px;
+}
+#demoText{
+	margin-top: 5px;
+}
