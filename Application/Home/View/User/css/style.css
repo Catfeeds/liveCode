@@ -500,3 +500,24 @@ body {
     background: #b5e0f7;
     box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
 }
+
+/*微信扫码支付页*/
+.pbox {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.wst-fred {
+    color: #df2003;
+}
+.wst-qrcode {
+    width: 260px;
+    height: 260px;
+    text-align: center;
+    margin: 0 auto;
+}
+.wst-qrcode img {
+    width: 260px;
+    height: 260px;
+    margin-top: 10px;
+}

@@ -39,6 +39,15 @@ class WeixinPaysController extends CommonController {
         $this->wxpayConfig['returnurl'] = "";
         // 初始化WxPayConf_pub
         $wxpaypubconfig = new \WxPayConf($this->wxpayConfig);
+
+        $this->assign('meta_keywords', C('WEB_SITE_KEYWORD'));
+        $this->assign('meta_description', C('WEB_SITE_DESCRIPTION'));
+        $this->assign('_new_message', cookie('_new_message'));          // 获取用户未读消息数量
+        $this->assign('_user_auth', session('user_auth'));              // 用户登录信息
+        $this->assign('_user_nav_main', $_user_nav_main);               // 用户导航信息
+        $this->assign('_user_center_side', C('USER_CENTER_SIDE'));      // 用户中心侧边
+        $this->assign('_user_login_modal', C('USER_LOGIN_MODAL'));      // 用户登录弹窗
+        $this->assign('_home_public_layout', C('HOME_PUBLIC_LAYOUT'));  // 页面公共继承模版
     }
     
     /**
@@ -61,6 +70,9 @@ class WeixinPaysController extends CommonController {
         $this->success('',$url);
     }
     
+    /**
+     * 生成支付二维码
+     */
     public function createQrcode() {
         $pkey         = base64_decode(I("pkey"));
         $pkeys        = explode("@", $pkey );
@@ -111,37 +123,23 @@ class WeixinPaysController extends CommonController {
                 $code_url = $wxQrcodePayResult ["code_url"];
                 // 商户自行增加处理流程
             }
-            $this->assign ( 'out_trade_no', $trade_no );
+            $this->assign ( 'out_trade_no', $out_trade_no );
             $this->assign ( 'code_url', $code_url );
             $this->assign ( 'wxQrcodePayResult', $wxQrcodePayResult );
             $this->assign ( 'needPay', $needPay );
+            // halt($needPay);
         }else{
             $flag = false;
         }
         
         if($flag){
-            return $this->display('order/pay_step2');
+            $this->assign('meta_title','微信支付');
+            return $this->display('order/wxpay');
         }else{
-            return $this->fetch('order/pay_step3');
+            $this->assign('meta_title','支付成功');
+            return $this->fetch('order/completepay');
         }
     
-    }
-    
-    
-    /**
-     * 检查支付结果
-     */
-    public function getPayStatus() {
-        $trade_no = input('trade_no');
-        $total_fee = cache( $trade_no );
-        $data = array("status"=>-1);
-        if($total_fee>0){
-            cache( $trade_no, null );
-            $data["status"] = 1;
-        }else{// 检查缓存是否存在，存在说明支付成功
-            $data["status"] = -1;
-        }
-        return $data;
     }
     
     /**
@@ -174,39 +172,25 @@ class WeixinPaysController extends CommonController {
                 $pkey = $order ["attach"] ;
                 $pkeys = explode ( "@", $pkey );
                 $out_trade_no = 0;
-                if($pkeys[0]=="recharge"){//充值
-                    $out_trade_no = $order["out_trade_no"];
-                    $targetId = (int)$pkeys [1];
-                    $targetType = (int)$pkeys [2];
-                    $obj = array ();
-                    $obj["trade_no"] = $trade_no;
-                    $obj["out_trade_no"] = $out_trade_no;
-                    $obj["targetId"] = $targetId;
-                    $obj["targetType"] = $targetType;
-                    $obj["total_fee"] = (float)$total_fee/100;
-                    $obj["payFrom"] = 'weixinpays';
-                    // 支付成功业务逻辑
-                    $m = new LM();
-                    $rs = $m->complateRecharge ( $obj );
-                    
-                }else{//订单支付
-                    $userId = (int)$pkeys [1];
-                    $out_trade_no = $pkeys[2];
-                    $isBatch = (int)$pkeys[3];
-                    // 商户订单
-                    $obj = array ();
-                    $obj["trade_no"] = $trade_no;
-                    $obj["out_trade_no"] = $out_trade_no;
-                    $obj["isBatch"] = $isBatch;
-                    $obj["total_fee"] = (float)$total_fee/100;
-                    $obj["userId"] = $userId;
-                    $obj["payFrom"] = 'weixinpays';
-                    // 支付成功业务逻辑
-                    $m = new OM();
-                    $rs = $m->complatePay ( $obj );
-                }
+
+                $userId = (int)$pkeys [1];
+                $out_trade_no = $pkeys[2];
+                $isBatch = (int)$pkeys[3];
+                // 商户订单
+                $obj = array ();
+                $obj["userId"] = $userId;
+                $obj["payType"] = 1;
+
+                $obj["trade_no"] = $trade_no;
+                $obj["out_trade_no"] = $out_trade_no;
+                $obj["total_fee"] = (float)$total_fee/100;
+                halt($obj);
+                // 支付成功业务逻辑
+                $m = D('order');
+                $rs = $m->complatePay ( $obj );
+
                 if($rs["status"]==1){
-                    cache("$out_trade_no",$total_fee);
+                    session("total_fee",$total_fee);
                     echo "SUCCESS";
                 }else{
                     echo "FAIL";
@@ -220,8 +204,25 @@ class WeixinPaysController extends CommonController {
     /**
      * 检查支付结果
      */
+    public function getPayStatus() {
+        $trade_no = I('trade_no/s');
+        $total_fee = (float)session("total_fee");
+        // halt($total_fee);
+        $data = array("status"=>-1);
+        if($total_fee>0){
+            cache( $trade_no, null );
+            $data["status"] = 1;
+        }else{// 检查缓存是否存在，存在说明支付成功
+            $data["status"] = -1;
+        }
+        return $data;
+    }
+
+    /**
+     * 支付完成
+     */
     public function paySuccess() {
-        return $this->fetch('order_pay_step3');
+        return $this->fetch('completepay');
     }
 
 }
