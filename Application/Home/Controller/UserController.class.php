@@ -87,7 +87,7 @@ class UserController extends CommonController {
             $username = I('username/s');
             $password = I('password/s');
             // 验证用户名密码是否正确
-            $mod = D('Home/User');
+            $mod = D('User');
             $user_info = $mod->login($username, $password);
             if (!$user_info) {
                 $this->error($mod->getError());
@@ -117,7 +117,7 @@ class UserController extends CommonController {
     public function regist() {
         if (IS_POST) {
             // 注册验证
-            $mod = D('Home/User');
+            $mod = D('User');
             $res = $mod->regist();
 
             if ($res != false) {
@@ -143,7 +143,7 @@ class UserController extends CommonController {
             $picVerify      = I('picVerify/s');
 
             // 修改密码
-            $mod = D('Home/User');
+            $mod = D('User');
             $res = $mod->updatePass($email, $emailVerify,$password,$rePassword,$picVerify);
             if ($res != false) {
                 $this->success('操作成功', U('Home/User/login'));
@@ -159,13 +159,14 @@ class UserController extends CommonController {
      * 发送验证邮件/绑定邮箱
      */
     public function getEmailVerify(){
-        $n = D('Home/Notice');
+        $n = D('Notice');
         $email = I('post.email/s');
         //判断邮箱是否已注册
-        $mod = D('Home/User');
+        $mod = D('User');
         $ifRegist = $mod->getUserInfoByParam($email);
+
         if (!$ifRegist) {
-            $code   = rand(0,999999);   
+            $code   = rand(0,999999);
             $status = $n->email($email)->send('updatePassContent',[$code]);
             if($status){
                 // 绑定的邮箱
