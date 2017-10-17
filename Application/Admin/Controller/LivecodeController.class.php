@@ -46,7 +46,9 @@ class LivecodeController extends AdminController {
             $data_list[$k]['ewm']     = "Uploads/livecode/".$v['id'].'.png';
             $data_list[$k]['type']    = codeType($v['type']);
             $data_list[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
-            if ($v['type'] == 3) {
+            if ($v['type'] == 1) {
+                $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+            }elseif ($v['type'] == 3) {
                 $data_list[$k]['content']   = json_decode($v['content'],true)['url'];
             }else{
                 $data_list[$k]['content'] = LC_Substr($v['content'],0,20,"utf-8",true);
@@ -224,12 +226,10 @@ class LivecodeController extends AdminController {
     	if ( IS_POST ){
     		$ksid=(int)I('ksid');
     		$endid=(int)I('endid');
-    		if ( !$ksid )
-    		{
+    		if ( !$ksid ){
     			$this->error('请输入开始ID');
     		}
-    		if ( !$endid )
-    		{
+    		if ( !$endid ){
     			$this->error('请输入结束ID');
     		}
     		// $where['type']=1;
@@ -267,6 +267,10 @@ class LivecodeController extends AdminController {
      */
     public function add() {
         if (IS_POST) {
+            $editId = I('post.editId/d');
+            if (!empty($editId)) {
+                $this->edit();
+            }
             //判断用户当前套餐活码数量是否已达上限
             $limit = $this->obj->userLivecodeCountLimit();
             if (!$limit) {
@@ -274,10 +278,7 @@ class LivecodeController extends AdminController {
             }
 
             $type = I('post.type/d');
-            
-            if ($type == 1) {           //图文活码
-                # code...
-            }elseif ($type == 2 || $type == 3 || $type == 4) {      //文本活码 || 文件活码 || 网址导航
+            if ($type == 1 || $type == 2 || $type == 3 || $type == 4) {    //图文活码 || 文本活码 || 文件活码 || 网址导航
                 $data = $this->obj->create();
                 if (!$data) {
                     $this->error($this->obj->getError());exit();
@@ -286,7 +287,8 @@ class LivecodeController extends AdminController {
                 $data['d']     = get_dwz();
                 $data['huoma'] = get_liveurl($data['d']);
             }
-            if ($type == 3) {
+            //如果是图文或者文件，内容保存为json格式
+            if ($type == 1 || $type == 3) {
                 $data['content']   = json_encode($data['content']);
             }
             //执行添加
@@ -311,26 +313,28 @@ class LivecodeController extends AdminController {
     public function edit($id) {
         if (IS_POST) {
             $info=I('post.');
-            $info['title']=array_filter($info['title']);
-            $info['tztime']=array_filter($info['tztime']);
-          
-            if ( !$info['title'] ){
-	        	$this->error('请输入跳转网址');
-	        }  
-            if ( $info['tztype']==3 ){
-	        	if ( count($info['title'])!=count($info['tztime']) ){
-	        		$this->error('请确认对应跳转网址是否完整输入跳转时间');
-	        	}
-	            $data['tztime']=implode('|||',$info['tztime']);
-	        }
-            $data['title']=implode('|||',$info['title']);
-            $data['update_time']=NOW_TIME;
-            $data['id']=$info['id'];
-            $data['tztype']=$info['tztype'];
+            $type = $info['type'];
+            if ($type == 1 || $type == 2 || $type == 3 || $type == 4) {    //图文活码 || 文本活码 || 文件活码 || 网址导航
+                $data = $this->obj->create();
+                if (!$data) {
+                    $this->error($this->obj->getError());exit();
+                }
+                $data['uid']   = $this->uid;
+                $data['d']     = get_dwz();
+                $data['huoma'] = get_liveurl($data['d']);
+            }
+            //如果是图文或者文件，内容保存为json格式
+            if ($type == 1 || $type == 3) {
+                $data['content']   = json_encode($data['content']);
+            }
+            $data['id']=$info['editId'];
+            // halt($data);
+
             if ($data) {
                 $result = $this->obj->save($data);
                 if ($result) {
-                    $this->success('更新成功', U('index'));
+                    qrcode($data['huoma'],$data['id'],1);
+                    $this->success('更新成功', '/Uploads/livecode/'.$data['id'].'.png');
                 } else {
                     $this->error('更新失败', $this->obj->getError());
                 }
@@ -339,10 +343,16 @@ class LivecodeController extends AdminController {
             }
         } else {
             $this->meta_title = '编辑活码';
-            $info = $this->obj->find($id);
-            $info['title']=explode('|||',$info['title']);
-            $info['tztime']=explode('|||',$info['tztime']);
-            $this->assign('info',$info);
+            $data = $this->obj->find($id);
+            if ($data['type'] == 1 || $data['type'] == 3) {
+                $content = json_decode($data["content"]) ;
+                foreach ($content as $key => $value) {
+                    $data[$key] = $value;
+                }
+            }
+            // halt($data);
+
+            $this->assign('data',$data);
             $this->display();
         }
     }
@@ -366,60 +376,18 @@ class LivecodeController extends AdminController {
         parent::setStatus($model);
     }
 
-    public function edittzwz ()
-    {
-	    	if ( IS_POST )
-	        	{
-		        	$ksid=I('ksid');
-		
-		if ( !$ksid )
-		{
-			$this->error('请输入需要修改的ID');
-		}
-		$rs=$this->obj->find($ksid);
-		if ( !$rs )
-		{
-			$this->error('没有找到此id的相关信息');
-		}
-	 $file=I('file');
-	        if ( !$file )
-	        {
-	        	$this->error('请上传文件');
-	        }
-	        $filename=get_upload_info($file,'path');
-	        if ( !$filename )
-	        {
-	        	$this->error('请上传文件');
-	        }
-	        $txtarr=file( getcwd().$filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	        if ( !is_array($txtarr) )
-	        {
-	        	$this->error('读取失败，请确认txt格式是否符合要求');
-	        }
-	        $data['id']=$ksid;
-	        $data['title']=implode('|||',$txtarr);
-	        $data['update_time']=NOW_TIME;
-	        $this->obj->save($data);
-	     	$this->success('修改成功',U('index'));
-	        	}else{
-	    // 使用FormBuilder快速建立表单页面。
-            $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('批量修改跳转网址') //设置页面标题
-                    ->setPostUrl(U('edittzwz'))    //设置表单提交地址
-                    ->addFormItem('ksid', 'text', '需要修改的ID')
-                    ->addFormItem('file', 'file', '上传修改网址','上传需要导入的网址文件，格式为一行一个网址，文档格式为txt')
-                    
-                    ->display();
-	        	}
-    
-    }
-    public function detail ()
-    {
-    	$id=I('id');
-    	$info=$this->obj->find($id);
-    	$info['title']=str_replace('|||','</br>',$info['title']);
-    	$this->assign('info',$info);
-    	$this->display();
+    /**
+     * 点击查看
+     */
+    public function detail (){
+        $id            = I('id/d');
+        $data          = $this->obj->find($id);
+        $content = json_decode($data["content"]) ;
+        foreach ($content as $key => $value) {
+            $data[$key] = $value;
+        }
+        $this->assign('data',$data);
+        $this->display('live_text');
     }
 
     /**
@@ -445,7 +413,6 @@ class LivecodeController extends AdminController {
             $upload->savePath  =     ''; // 设置附件上传（子）目录+
             // 上传文件 
             $info   =   $upload->upload();
-            // halt($info);
             if(!$info) {// 上传错误提示错误信息
                 $this->error('上传失败！');
             }else{// 上传成功

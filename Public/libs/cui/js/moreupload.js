@@ -70,7 +70,7 @@ $(function(){
 	  //普通图片上传
 	  var uploadInst = upload.render({
 	    elem: '#test1'
-	    ,url: '/upload/'
+	    ,url: 'admin.php?s=/admin/livecode/addfile'
 	    ,before: function(obj){
 	      //预读本地文件示例，不支持ie8
 	      obj.preview(function(index, file, result){
@@ -81,8 +81,11 @@ $(function(){
 	      //如果上传失败
 	      if(res.code > 0){
 	        return layer.msg('上传失败');
+	      }else{
+	      	//上传成功
+	        $('#uploadPicUrl').val(res.info.uploadFileUrl);
 	      }
-	      //上传成功
+	      
 	    }
 	    ,error: function(){
 	      //演示失败状态，并实现重传
