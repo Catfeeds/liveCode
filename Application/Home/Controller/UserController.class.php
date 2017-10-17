@@ -163,21 +163,25 @@ class UserController extends CommonController {
         $email = I('post.email/s');
         //判断邮箱是否已注册
         $mod = D('Home/User');
-        $mod->getUserInfoByParam($email);
-
-        $code   = rand(0,999999);   
-        $status = $n->email($email)->send('updatePassContent',[$code]);
-        if($status){
-            // 绑定的邮箱
-            session('email.val',$email);
-            // 验证码
-            session("email.key", $code);
-            // 发起绑定邮箱的时间;
-            session('email.time',time());
-            $this->success('邮件发送成功，请注意查收！');
+        $ifRegist = $mod->getUserInfoByParam($email);
+        if (!$ifRegist) {
+            $code   = rand(0,999999);   
+            $status = $n->email($email)->send('updatePassContent',[$code]);
+            if($status){
+                // 绑定的邮箱
+                session('email.val',$email);
+                // 验证码
+                session("email.key", $code);
+                // 发起绑定邮箱的时间;
+                session('email.time',time());
+                $this->success('邮件发送成功，请注意查收！');
+            }else{
+                $this->error('发送失败，请稍后再试');
+            }
         }else{
-            $this->error($mod->getError());
+            $this->error('邮箱已注册');
         }
+        
     }
 
     

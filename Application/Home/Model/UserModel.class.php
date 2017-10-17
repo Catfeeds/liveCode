@@ -177,11 +177,10 @@ class UserModel extends Model {
             $this->error = '输入不正确！';
             return false;
         }
-        $map['status']      = array('eq', 1);
         $map['user_type']   = array('eq', 2);
         $user_info = $this->where($map)->find(); //查找用户
         if (!$user_info) {
-            $this->error = '用户不存在或被禁用！';return false;
+            $this->error = '用户不存在！';return false;
         }
         return $user_info;
     }
