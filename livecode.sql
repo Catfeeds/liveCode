@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2017-10-16 14:38:13
+Date: 2017-10-17 14:57:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -413,7 +413,7 @@ CREATE TABLE `fw_admin_upload` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
 
 -- ----------------------------
 -- Records of fw_admin_upload
@@ -430,6 +430,7 @@ INSERT INTO `fw_admin_upload` VALUES ('33', '3', '3324.jpg', '/Uploads/2017-09/5
 INSERT INTO `fw_admin_upload` VALUES ('34', '3', '3418.jpg', '/Uploads/2017-09/59ccc56375132.jpg', '', 'jpg', '503252', '218e90787d3f6a1668df11d1a7b13c96', '0540cecc8ae979477738606ede73e262f28ebf7e', 'Local', '0', '1506592099', '1506592099', '0', '1');
 INSERT INTO `fw_admin_upload` VALUES ('35', '3', '2937.jpg', '/Uploads/2017-09/59ccc9fd116ab.jpg', '', 'jpg', '508934', '2660fb562f0d4bf2b9aa7a6a26d35e5a', '1263a4272556d8e5edb0fdc8fc9f0f3441b93ee0', 'Local', '0', '1506593277', '1506593277', '0', '1');
 INSERT INTO `fw_admin_upload` VALUES ('36', '3', 'ThinkPHP 5 简明开发手册.pdf', '/Uploads/2017-10/59dc34405a0dc.pdf', '', 'pdf', '1491237', 'e861d994002db60f3f8f47325a5cd1bc', '6184175b7eea8e7e8d62baa8b6e2be7c6f82ea4b', 'Local', '0', '1507603520', '1507603520', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('37', '3', '3325.jpg', '/Uploads/2017-10/59e5752398f6f.jpg', '', 'jpg', '276727', 'c3c6f4492818454d82c3adcae35d6d44', 'e471481e86da516f205a03431c504b51cfe502d4', 'Local', '0', '1508209955', '1508209955', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_user`
@@ -452,7 +453,7 @@ CREATE TABLE `fw_admin_user` (
   `ifCheck` tinyint(4) DEFAULT '1' COMMENT '新增活码时是否需要审核',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='用户账号表';
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='用户账号表';
 
 -- ----------------------------
 -- Records of fw_admin_user
@@ -462,6 +463,7 @@ INSERT INTO `fw_admin_user` VALUES ('2', '1', 'admin2', 'b7aebc807e9844d9148e5cb
 INSERT INTO `fw_admin_user` VALUES ('3', '2', '哈哈哈1', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@163.com', '18121029523', '2130706433', 'admin', '1505117796', '1505898740', '1', '1', '1602571763', '1');
 INSERT INTO `fw_admin_user` VALUES ('13', '2', '我师父', 'b7aebc807e9844d9148e5cb32c6ff885', '发的发的发', 'fasdfsdf', '0', '', '0', '1505812506', '0', '0', '0', '1');
 INSERT INTO `fw_admin_user` VALUES ('14', '2', '哈哈哈小号', 'b7aebc807e9844d9148e5cb32c6ff885', '447936059@qq.com', '13333333333', '0', '', '1505548436', '0', '1', '2', '1537607827', '1');
+INSERT INTO `fw_admin_user` VALUES ('15', '2', '15555555555', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@qq.com', '15555555555', '0', '', '1508201855', '0', '1', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_cms_duourl`
@@ -510,23 +512,26 @@ CREATE TABLE `fw_cms_livecode` (
   `status` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_cms_livecode
 -- ----------------------------
-INSERT INTO `fw_cms_livecode` VALUES ('30', '2', '0', '3', '文本活码标题', '文本活码内容', '0', 'http://www.livecode.com/index.php/huoma/duo?d=yxpwozxxd', 'yxpwozxxd', '1506751617', '1506751617', '0');
-INSERT INTO `fw_cms_livecode` VALUES ('31', '2', '0', '3', '', '没有标题的文本活码内容', '0', 'http://www.livecode.com/index.php/huoma/duo?d=92uz80aso', '92uz80aso', '1506751656', '1506751656', '0');
-INSERT INTO `fw_cms_livecode` VALUES ('34', '2', '0', '3', '1', '2', '0', 'http://www.livecode.com/index.php/huoma/duo?d=pxrqo1n6c', 'pxrqo1n6c', '1506751892', '1506751892', '0');
-INSERT INTO `fw_cms_livecode` VALUES ('35', '2', '0', '3', '1发生的范德萨', '风湿跌打酊的点点滴滴多多多多多多多多多多多大大大的', '0', 'http://www.livecode.com/index.php/huoma/duo?d=qbcztjqhz', 'qbcztjqhz', '1506751975', '1506751975', '0');
-INSERT INTO `fw_cms_livecode` VALUES ('33', '2', '0', '3', '沙发沙发上的', 'sad付多付付付付付付付付付付付付，的点点滴滴多多多多多多多多，少时诵诗书所所所少时诵诗书所所所少时诵诗书所所所少时诵诗书所所所少时诵诗书', '0', 'http://www.livecode.com/index.php/huoma/duo?d=dm32z5kd9', 'dm32z5kd9', '1506751837', '1506751837', '0');
-INSERT INTO `fw_cms_livecode` VALUES ('44', '4', '0', '3', '百度', 'https://www.baidu.com/?tn=59046333_1_dg', '6', 'http://www.livecode.com/index.php/huoma/live?d=981hpxi03', '981hpxi03', '1506759779', '1506759779', '0');
-INSERT INTO `fw_cms_livecode` VALUES ('43', '2', '0', '3', '牛不舒服', '发大发顺丰是的范德萨', '43', 'http://www.livecode.com/index.php/huoma/live?d=wjplf0ssg', 'wjplf0ssg', '1506755264', '1506755264', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('65', '1', '0', '3', '发生的范德萨', '{\"picUrl\":\"2017-10-17\\/59e57a61cea8f.jpg\",\"content\":\"<span style=\\\"color:#E53333;\\\">\\u53d1\\u751f\\u7684\\u8303\\u5fb7\\u8428<\\/span>\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=hwtovc7zd', 'hwtovc7zd', '1508211305', '1508211305', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('66', '1', '0', '3', '来个图文的标题', '{\"picUrl\":\"2017-10-17\\/59e591caa56c4.jpg\",\"content\":\"<p>\\n\\t\\u53d1\\u751f\\u7684\\u8303\\u5fb7\\u8428\\u6cd5\\u6492\\u65e6\\u6cd5\\n<\\/p>\\n<p>\\n\\t<img src=\\\"\\/Uploads\\/2017-09\\/59cca7adcc047.jpg\\\" alt=\\\"\\\" \\/>\\n<\\/p>\\n<p>\\n\\t<strong><span style=\\\"font-size:24px;\\\">\\u6cd5\\u6492\\u65e6\\u6cd5\\u8bf4\\u7684<\\/span><\\/strong>\\n<\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=cst8fnmr5', 'cst8fnmr5', '1508217329', '1508217329', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('63', '1', '0', '3', '我是图文', '', '0', 'http://www.livecode.com/index.php/huoma/live?d=cox4aiyw7', 'cox4aiyw7', '1508209959', '1508209959', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('68', '1', '0', '3', '标题111范德萨发的', '{\"picUrl\":\"2017-10-17\\/59e598a774a82.jpg\",\"content\":\"<p>\\n\\t<span style=\\\"font-size:32px;\\\">12\\u997f\\u6cd5\\u6492\\u65e6\\u6cd51<\\/span>\\n<\\/p>\\n<p>\\n\\t<span style=\\\"font-size:32px;color:#9933E5;\\\">\\u5149\\u7535\\u80a1\\u4efd\\u80a1\\u4efd<\\/span>\\n<\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=5a8pkwk0a', '5a8pkwk0a', '1508221770', '1508221770', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('44', '4', '0', '3', '百度111111', 'https://www.baidu.com/?tn=59046333_1_dg', '7', 'http://www.livecode.com/index.php/huoma/live?d=svsdtm5mu', 'svsdtm5mu', '1508223238', '1508223238', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('43', '2', '0', '3', '牛不舒服', '发大发顺丰是的范德萨', '44', 'http://www.livecode.com/index.php/huoma/live?d=wjplf0ssg', 'wjplf0ssg', '1506755264', '1506755264', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('51', '3', '0', '3', '2937.jpg', '{\"url\":\"2017-10-10\\/59dc8f73a31f0.jpg\",\"size\":\"497.006 KB\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=hudhj5cvq', 'hudhj5cvq', '1507626870', '1507626870', '0');
-INSERT INTO `fw_cms_livecode` VALUES ('49', '3', '0', '3', 'ThinkPHP 5 简明开发手册.pdf', '{\"url\":\"2017-10-10\\/59dc70fc8eec1.pdf\",\"size\":\"1.422 MB\"}', '52', 'http://www.livecode.com/index.php/huoma/live?d=8yd9st9tp', '8yd9st9tp', '1507619069', '1507619069', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('49', '3', '0', '3', 'ThinkPHP 5 简明开发手册.pdf', '{\"url\":\"2017-10-10\\/59dc70fc8eec1.pdf\",\"size\":\"1.422 MB\"}', '54', 'http://www.livecode.com/index.php/huoma/live?d=8yd9st9tp', '8yd9st9tp', '1507619069', '1507619069', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('50', '3', '0', '3', 'infinityWallpaper.jpg', '{\"url\":\"2017-10-10\\/59dc79bb32aa2.jpg\",\"size\":\"270.241 KB\"}', '2', 'http://www.livecode.com/index.php/huoma/live?d=44wqfkpmk', '44wqfkpmk', '1507621308', '1507621308', '0');
-INSERT INTO `fw_cms_livecode` VALUES ('59', '2', '0', '3', '1', '1', '0', 'http://www.livecode.com/index.php/huoma/live?d=c3gvmdxd8', 'c3gvmdxd8', '1507971116', '1507971116', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('60', '3', '0', '3', 'test111.pdf', '{\"url\":\"2017-10-17\\/59e5a7dd620de.pdf\",\"size\":\"1.422 MB\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=ljv7ct42m', 'ljv7ct42m', '1508222942', '1508222942', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('59', '2', '0', '3', '1111111', '22222222222', '0', 'http://www.livecode.com/index.php/huoma/live?d=d6rcnn04p', 'd6rcnn04p', '1508222313', '1508222313', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('58', '2', '0', '3', '1', '1', '0', 'http://www.livecode.com/index.php/huoma/live?d=6m3w9b221', '6m3w9b221', '1507971113', '1507971113', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('67', '1', '0', '3', '1', '{\"picUrl\":\"2017-10-17\\/59e598a774a82.jpg\",\"content\":\"2\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=efb3ewh48', 'efb3ewh48', '1508219048', '1508219048', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('64', '1', '0', '3', '我是图文', '', '0', 'http://www.livecode.com/index.php/huoma/live?d=nxvims21v', 'nxvims21v', '1508210019', '1508210019', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('69', '3', '0', '3', 'ThinkPHP 5 简明开发手册.pdf', '{\"url\":\"2017-10-17\\/59e5a77488fe7.pdf\",\"size\":\"1.422 MB\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=yargjq16f', 'yargjq16f', '1508222839', '1508222839', '0');
 
 -- ----------------------------
 -- Table structure for `fw_cms_phone`
@@ -569,7 +574,7 @@ CREATE TABLE `fw_echarts_data` (
   `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1活码生成2产品3视频4网址5多网址',
   PRIMARY KEY (`id`),
   KEY `codeId` (`codeId`)
-) ENGINE=MyISAM AUTO_INCREMENT=210 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=214 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_echarts_data
@@ -754,6 +759,10 @@ INSERT INTO `fw_echarts_data` VALUES ('206', '49', '2017-10-10 00:00:00', '1');
 INSERT INTO `fw_echarts_data` VALUES ('207', '49', '2017-10-10 00:00:00', '1');
 INSERT INTO `fw_echarts_data` VALUES ('208', '49', '2017-10-10 00:00:00', '1');
 INSERT INTO `fw_echarts_data` VALUES ('209', '49', '2017-10-10 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('210', '44', '2017-10-17 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('211', '43', '2017-10-17 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('212', '49', '2017-10-17 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('213', '49', '2017-10-17 00:00:00', '1');
 
 -- ----------------------------
 -- Table structure for `fw_orders`
@@ -776,7 +785,7 @@ CREATE TABLE `fw_orders` (
   PRIMARY KEY (`orderId`),
   KEY `userId` (`userId`),
   KEY `orderStatus` (`orderStatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_orders
@@ -814,6 +823,11 @@ INSERT INTO `fw_orders` VALUES ('41', '2017101615081234460836', '3', '-1', '1', 
 INSERT INTO `fw_orders` VALUES ('42', '2017101615081316633579', '3', '-1', '1', '4', '1', '0', '0.01', null, '1508131663', '0', '1');
 INSERT INTO `fw_orders` VALUES ('43', '2017101615081340675359', '3', '-1', '1', '4', '1', '0', '0.01', null, '1508134067', '0', '1');
 INSERT INTO `fw_orders` VALUES ('44', '2017101615081356111603', '3', '-1', '1', '3', '1', '0', '0.01', null, '1508135611', '0', '1');
+INSERT INTO `fw_orders` VALUES ('45', '2017101615081381236805', '3', '-1', '1', '4', '1', '0', '0.01', null, '1508138123', '0', '1');
+INSERT INTO `fw_orders` VALUES ('46', '2017101615081417432443', '3', '-1', '1', '4', '1', '0', '0.01', null, '1508141743', '0', '1');
+INSERT INTO `fw_orders` VALUES ('47', '2017101615081471634691', '3', '-1', '1', '4', '1', '0', '5600.00', null, '1508147163', '0', '1');
+INSERT INTO `fw_orders` VALUES ('48', '2017101715082016654033', '3', '-1', '1', '4', '1', '0', '5600.00', null, '1508201665', '0', '1');
+INSERT INTO `fw_orders` VALUES ('49', '2017101715082018994693', '15', '-1', '1', '1', '1', '0', '0.01', null, '1508201899', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_payments`
@@ -858,7 +872,7 @@ CREATE TABLE `fw_vip` (
 -- ----------------------------
 -- Records of fw_vip
 -- ----------------------------
-INSERT INTO `fw_vip` VALUES ('1', '基础版', '1', '1', '1', '12', '0', '0', '0', '0', '0', '0', '1', '0');
+INSERT INTO `fw_vip` VALUES ('1', '基础版', '1', '1', '1', '120', '0', '0', '0', '0', '0', '0', '1', '0');
 INSERT INTO `fw_vip` VALUES ('2', '高级版', '0', '1', '4', '15', '5', '1', '1', '1', '1', '1', '1', '1');
 INSERT INTO `fw_vip` VALUES ('3', '定制版', '0', '1', '3', '20', '3', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `fw_vip` VALUES ('12', '来个新套餐', '0', '1', '0', '0', '0', '0', '0', '1', '0', '0', '1', '0');
@@ -882,7 +896,7 @@ CREATE TABLE `fw_vip_price` (
 -- ----------------------------
 INSERT INTO `fw_vip_price` VALUES ('1', '1', '11', '2000.00');
 INSERT INTO `fw_vip_price` VALUES ('2', '14', '2', '3.00');
-INSERT INTO `fw_vip_price` VALUES ('3', '1', '3', '1600.00');
+INSERT INTO `fw_vip_price` VALUES ('3', '1', '1', '0.01');
 INSERT INTO `fw_vip_price` VALUES ('4', '1', '4', '1400.00');
 INSERT INTO `fw_vip_price` VALUES ('5', '1', '5', '1200.00');
 INSERT INTO `fw_vip_price` VALUES ('6', '2', '1', '3200.00');
