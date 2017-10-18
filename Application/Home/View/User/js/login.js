@@ -25,6 +25,7 @@ $(function(){
         }
     });
 })
+//找回密码
 function sendEmail(url,id){
     var email = $('#'+id).val();
     if (email == '') {
@@ -37,7 +38,7 @@ function sendEmail(url,id){
     $.ajax({
 	    url: url,
 	    type: 'POST',
-	    data: {email:email}
+	    data: {email:email,type:'forgetPass'}
 	}).done(function(data) {
 	    if (data.status == 1) {
 	        $.alertMessager(data.info,'success');
@@ -49,7 +50,7 @@ function sendEmail(url,id){
 	});
 	
 }
-
+//注册
 function sendEmails(url,id){
     var email = $('#'+id).val();
     if (email == '') {
@@ -62,7 +63,7 @@ function sendEmails(url,id){
     $.ajax({
 	    url: url,
 	    type: 'POST',
-	    data: {email:email}
+	    data: {email:email,type:'regist'}
 	}).done(function(data) {
 	    if (data.status == 1) {
 	        $.alertMessager(data.info,'success');
@@ -84,7 +85,7 @@ function time(o) {
         wait = 60;
     } else {
         o.setAttribute("disabled", true);
-        o.value=wait+"秒后可重发";
+        o.value=wait+"秒后重试";
         wait--;
         setTimeout(function() {
             time(o)
@@ -100,7 +101,7 @@ function times(obj) {
         waits = 60;
     } else {
         obj.setAttribute("disabled", true);
-        obj.value=waits+"秒后可重发";
+        obj.value=waits+"秒后重试";
         waits--;
         setTimeout(function() {
             times(obj)

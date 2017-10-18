@@ -159,28 +159,51 @@ class UserController extends CommonController {
      * 发送验证邮件/绑定邮箱
      */
     public function getEmailVerify(){
-        $n = D('Notice');
+        $n     = D('Notice');
         $email = I('post.email/s');
+        $type  = I('post.type/s');
         //判断邮箱是否已注册
         $mod = D('User');
         $ifRegist = $mod->getUserInfoByParam($email);
-
-        if (!$ifRegist) {
-            $code   = rand(0,999999);
-            $status = $n->email($email)->send('updatePassContent',[$code]);
-            if($status){
-                // 绑定的邮箱
-                session('email.val',$email);
-                // 验证码
-                session("email.key", $code);
-                // 发起绑定邮箱的时间;
-                session('email.time',time());
-                $this->success('邮件发送成功，请注意查收！');
+        if ($type == 'regist') {
+            //注册
+            if (!$ifRegist) {
+                $code   = rand(0,999999);
+                $status = $n->email($email)->send('updatePassContent',[$code]);
+                if($status){
+                    // 绑定的邮箱
+                    session('email.val',$email);
+                    // 验证码
+                    session("email.key", $code);
+                    // 发起绑定邮箱的时间;
+                    session('email.time',time());
+                    $this->success('邮件发送成功，请注意查收！');
+                }else{
+                    $this->error('发送失败，请稍后再试');
+                }
             }else{
-                $this->error('发送失败，请稍后再试');
+                $this->error('邮箱已注册');
             }
         }else{
-            $this->error('邮箱已注册');
+            //忘记密码
+            if ($ifRegist) {
+                $code   = rand(0,999999);
+                $status = $n->email($email)->send('updatePassContent',[$code]);
+                // halt()
+                if($status){
+                    // 绑定的邮箱
+                    session('email.val',$email);
+                    // 验证码
+                    session("email.key", $code);
+                    // 发起绑定邮箱的时间;
+                    session('email.time',time());
+                    $this->success('邮件发送成功，请注意查收！');
+                }else{
+                    $this->error('发送失败，请稍后再试');
+                }
+            }else{
+                $this->error('邮箱尚未注册');
+            }
         }
         
     }
