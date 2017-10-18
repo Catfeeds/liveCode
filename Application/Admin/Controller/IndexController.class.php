@@ -28,6 +28,7 @@ class IndexController extends AdminController {
         }
 
         $this->assign('meta_title', "首页");
+        $this->assign('user_type', session('user_auth.user_type'));
         $this->display();
     }
 

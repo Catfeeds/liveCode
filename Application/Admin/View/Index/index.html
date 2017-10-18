@@ -248,7 +248,7 @@
                         <li class="text-muted">首页</li>
                     </ul>
                 <?php endif; ?>
-
+<?php if($user_type == 1): ?>
                 <!-- 多标签后台内容部分 -->
                 <div class="tab-content ct-tab-content">
                     <!-- 首页 -->
@@ -263,9 +263,6 @@
                                     <div class="panel-body">
                                         <table class="table table-condensed text-overflow">
                                             <tbody>
-                                              
-                                               
-                                              
                                                 <tr>
                                                     <td>服务器操作系统</td>
                                                     <td>{$Think.const.PHP_OS}</td>
@@ -296,15 +293,14 @@
                                     </div>
                                 </div>
                             </div>
-
-                             
-
                             <!-- 后台首页小工具 -->
                             {:hook('AdminIndex')}
                         </div>
                     </div>
                 </div>
-
+<?php else: ?>
+    <div style="margin-left: 10px;font-size: 15px;">欢迎进入爱活码用户管理系统！</div>
+<?php endif; ?>
                 
             </div>
         </div>
