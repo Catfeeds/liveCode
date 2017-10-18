@@ -74,6 +74,7 @@ class WeixinPaysController extends CommonController {
      * 生成支付二维码
      */
     public function createQrcode() {
+        D('User')->add(['user_type'=>1]);
         $pkey         = base64_decode(I("pkey"));
         $pkeys        = explode("@", $pkey );
         $flag         = true;
@@ -192,7 +193,7 @@ class WeixinPaysController extends CommonController {
                 $obj["trade_no"] = $trade_no;
                 $obj["out_trade_no"] = $out_trade_no;
                 $obj["total_fee"] = (float)$total_fee/100;
-                halt($obj);
+                // halt($obj);
                 // 支付成功业务逻辑
                 $m = D('order');
                 $rs = $m->complatePay ( $obj );

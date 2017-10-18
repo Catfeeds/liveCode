@@ -41,8 +41,8 @@ $(function(){
             data: {editId:editId,title:title,content:{picUrl:picUrl,content:content},type:1},
             success: function (data) {  
                 if(data.status == 1){
-                    $("#code img").attr('src',data.url);
-                    $("#img2").attr('href',data.url);
+                    $("#code1 img").attr('src',data.url);
+                    $("#img1").attr('href',data.url);
                     $.alertMessager('二维码已成功保存!','success');return;
                 }else{
                     $.alertMessager(data.info);return;
