@@ -557,3 +557,10 @@ div.l-disabled a.l-radio-checked
 .l-form-tabs .ui-tabs-selected {
     background: #fefefe;
 }
+.f-left.tbr-h{
+	float: left;
+	line-height: 1;
+}
+.wst-toolbar{
+	margin-top: 15px;
+}
