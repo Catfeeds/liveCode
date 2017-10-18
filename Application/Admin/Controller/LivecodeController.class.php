@@ -320,8 +320,8 @@ class LivecodeController extends AdminController {
                     $this->error($this->obj->getError());exit();
                 }
                 $data['uid']   = $this->uid;
-                $data['d']     = get_dwz();
-                $data['huoma'] = get_liveurl($data['d']);
+                // $data['d']     = get_dwz();
+                // $data['huoma'] = get_liveurl($data['d']);
             }
             //如果是图文或者文件，内容保存为json格式
             if ($type == 1 || $type == 3) {
@@ -333,7 +333,7 @@ class LivecodeController extends AdminController {
             if ($data) {
                 $result = $this->obj->save($data);
                 if ($result) {
-                    qrcode($data['huoma'],$data['id'],1);
+                    // qrcode($data['huoma'],$data['id'],1);
                     $this->success('更新成功', '/Uploads/livecode/'.$data['id'].'.png');
                 } else {
                     $this->error('更新失败', $this->obj->getError());
