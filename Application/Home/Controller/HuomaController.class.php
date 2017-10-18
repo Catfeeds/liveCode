@@ -31,7 +31,6 @@ class HuomaController extends HomeController{
                     $data[$key] = $value;
                 }
             }
-
             $this->assign('data',$data);
             $this->display('live_text');
         }elseif ($data['type'] == 3) {      //文件活码
