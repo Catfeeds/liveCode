@@ -145,7 +145,7 @@ class UserController extends CommonController {
             // 修改密码
             $mod = D('User');
             $res = $mod->updatePass($email, $emailVerify,$password,$rePassword,$picVerify);
-            if ($res != false) {
+            if ($res !== false) {
                 $this->success('操作成功', U('Home/User/login'));
             }
             $this->error($mod->getError());
