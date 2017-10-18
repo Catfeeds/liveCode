@@ -24,7 +24,14 @@ class HuomaController extends HomeController{
         }
         $obj->where(array('d' => $d)) ->setInc('count', 1);
         M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>1]);
-        if ($data['type'] == 2) {           //文本活码
+        if ($data['type'] == 1 || $data['type'] == 2) {           //文本活码
+            if ($data['type'] == 1) {
+                $content = json_decode($data["content"]) ;
+                foreach ($content as $key => $value) {
+                    $data[$key] = $value;
+                }
+            }
+
             $this->assign('data',$data);
             $this->display('live_text');
         }elseif ($data['type'] == 3) {      //文件活码

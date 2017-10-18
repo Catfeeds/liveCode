@@ -9,20 +9,17 @@
 	<body>
 		<div class="code_warp">
 			<div class="code_con">
-
 			<?php if($data['type'] == 1): ?>
 				<div class="titImg">
-					<img src="/Public/images/vcardbg9.jpg"/>
+					<img src="/Uploads/livecode/file/{$data['picUrl']}"/>
 				</div>
 			<?php endif; ?>
-
 				<div class="code_text">
 					<p class="code_tit">{$data['title']}</p>
 					<div class="code_des">
 						{$data['content']}
 					</div>
 				</div>
-				
 			</div>
 		</div>
 	</body>
