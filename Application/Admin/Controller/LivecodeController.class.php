@@ -48,10 +48,14 @@ class LivecodeController extends AdminController {
             if ($v['type'] == 1) {
                 $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
             }elseif ($v['type'] == 3) {
-                $data_list[$k]['content']   = json_decode($v['content'],true)['url'];
+                $file = json_decode($v['content'],true)['url'];
+                $ext  = substr(strrchr($file, '.'), 1);
+                $picIcon = getPicType($ext);
+                $data_list[$k]['content']   = '<img class="picture" src="/Public/images/'.$picIcon.'.png">';
             }else{
                 $data_list[$k]['content'] = LC_Substr($v['content'],0,20,"utf-8",true);
             }
+
         }      
           
         $page = new Page(

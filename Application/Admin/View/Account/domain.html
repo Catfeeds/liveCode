@@ -105,7 +105,7 @@
                         <?php if($info): ?>
     	                    <div class="form-group item_title ">
                                 <label class="left control-label">状态：</label>
-                                <label class="left control-label"><?php if($info['status'] == 0): ?><font color="red">审核中</font><?php elseif($info['status'] == 1): ?><font color="green">审核已通过</font><?php else: ?><font color="red">未通过审核</font><?php endif; ?></label>
+                                <label class="left control-label"><?php if($info['url_status'] == 0): ?><font color="red">审核中</font><?php elseif($info['url_status'] == 1): ?><font color="green">审核已通过</font><?php else: ?><font color="red">未通过审核</font><?php endif; ?></label>
                             </div>
                         <?php endif; ?>                                             
                             <div class="form-group">
