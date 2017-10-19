@@ -92,3 +92,17 @@ a{text-decoration: none;}
 .file_img{
     width: 77px;
 }
+.l_filedown{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 2;
+    top: 0px;
+    left: 0;
+}
+.l_filedown img{
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%,0);
+}
