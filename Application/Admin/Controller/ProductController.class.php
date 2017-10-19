@@ -16,8 +16,10 @@ use Common\Util\Think\Page;
 class ProductController extends AdminController {
 	protected function _initialize() {
   	    parent::_initialize();
-  		$this->uid=$this->_user_auth['uid'];
-  		$this->obj=D('Livecode');
+        $this->uid = $this->_user_auth['uid'];
+        $this->obj = D('Livecode');
+        //判断用户状态是否正常 && 套餐是否过期
+        $this->ifExpired();
 	}
     /**
      * 活码生成列表

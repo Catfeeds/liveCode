@@ -10,6 +10,8 @@ class VideoController extends AdminController {
     protected function _initialize() {
         parent::_initialize();
         $this->uid=$this->_user_auth['uid'];
+        //判断用户状态是否正常 && 套餐是否过期
+        $this->ifExpired();
     }
     /**
      * 视频活码列表
@@ -152,6 +154,9 @@ class VideoController extends AdminController {
                     }
         
     }
+    /**
+     * 现在二维码
+     */
     public function xzewm (){
         if ( IS_POST ){
             $ksid=(int)I('ksid');
@@ -164,12 +169,18 @@ class VideoController extends AdminController {
             }
             $where['type']=2;
             $where['id']  = array('between',array($ksid,$endid));
-            $rs=M('cms_phone')->where($where)->getField('videourl',true);
+            $rs=M('cms_phone')->where($where)->getField('id',true);
+            if (!$rs) {
+                $this->error('找不到该区间的文件，请输入正确的ID');
+            }
+            foreach( $rs as $v  ){
+                $images[]="Uploads/ewm/".$v.".png";
+            }
             $zip = new \ZipArchive;
-            $filename = 'Uploads/video/'.time().'.zip';
+            $filename = 'Uploads/ewm/'.time().'.zip';
             //$zip->open($filename,\ZipArchive::OVERWRITE);
             $zip->open($filename, \ZipArchive::CREATE);
-            foreach ($rs as $key => $value) {
+            foreach ($images as $key => $value) {
                 $zip->addFile($value);
             }
             $zip->close();
@@ -191,23 +202,23 @@ class VideoController extends AdminController {
      */
     public function add() {
         if (IS_POST) {
+            $data = I('post.');
             $user_object         = M('cms_phone');
+            $data['videourl']    = 'Uploads/video/'.$data['videoName'];
+            //判断文件是否存在
+            if (!file_exists($data['videourl'])) {
+                $this->error('文件不存在');
+            }
             $data['create_time'] = NOW_TIME;
             $data['update_time'] = NOW_TIME;
-            $data['title']       = I('title');
-            $data['videourl']    = I('videourl');
             $data['uid']         = $this->uid;
             $data['d']           = get_dwz();
             $data['type']        = 2;
             if ($data) {
-                //判断文件是否存在
-                if (!file_exists($data['videourl'])) {
-                    $this->error('文件不存在', $user_object->getError());
-                }
                 $data['huoma']=get_huomaurl($data['d']);                
                 $id = $user_object->add($data);
                 if ($id) {
-                     qrcode($data['huoma'],$id,3);
+                    qrcode($data['huoma'],$id,3);
                     $this->success('新增成功', U('index'));
                 } else {
                     $this->error('新增失败');
@@ -227,27 +238,27 @@ class VideoController extends AdminController {
      */
     public function edit($id) {
         if (IS_POST) {
-            
+            $data = I('post.');
             // 提交数据
             $user_object = D('Phone');
-            $data = $user_object->create();
+            $user_object         = M('cms_phone');
+            $data['videourl']    = 'Uploads/video/'.$data['videoName'];
+            //判断文件是否存在
+            if (!file_exists($data['videourl'])) {
+                $this->error('文件不存在');
+            }
            
             if ($data) {
                 //$data['d']=$this->get_dwz($data['title']);
                 //$data['huoma']=$this->get_huomaurl($data['d']);
-                //$data['huoma']=$this->get_huomaurl($data['d']);
-                //判断文件是否存在
-                if (!file_exists($data['videourl'])) {
-                    $this->error('文件不存在', $user_object->getError());
-                }
-
                 $result = $user_object->save($data);
-                if ($result) {
+
+                if ($result !== false) {
                     // unlink("Uploads/ewm/".$data['id'].'.png');
                     //$this->qrcode($data['huoma'],$data['id']);
                     $this->success('更新成功', U('index'));
                 } else {
-                    $this->error('更新失败', $user_object->getError());
+                    $this->error('更新失败');
                 }
             } else {
                 $this->error($user_object->getError());

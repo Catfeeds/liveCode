@@ -51,6 +51,8 @@ class AccountController extends AdminController {
         $data['uid'] = session('user_auth.uid');
         $info = $mod->where(['id'=>$data['uid'],'status'=>1])->find();
         if (IS_POST) {
+            //判断用户状态是否正常 && 套餐是否过期
+            $this->ifExpired();
             $data['url'] = I('post.url/s');
             if (empty($data['url'])) {
                 $this->error('请输入活码域名！');

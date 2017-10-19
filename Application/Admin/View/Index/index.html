@@ -299,8 +299,12 @@
                     </div>
                 </div>
 <?php else: ?>
-    <div style="margin-left: 10px;font-size: 15px;">欢迎进入爱活码用户管理系统！</div>
+    <p class="bs-example-bg-classes bg-success">欢迎进入爱活码用户管理系统！</p>
+    <?php if($expire_time < time()): ?>
+    <p class="bs-example-bg-classes bg-danger">您的套餐已过期，请在续费管理中选择续费套餐！</p>
+    <?php endif; ?>
 <?php endif; ?>
+
                 
             </div>
         </div>

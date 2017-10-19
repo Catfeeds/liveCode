@@ -21,6 +21,8 @@ class LivecodeController extends AdminController {
 	    parent::_initialize();
         $this->uid = $this->_user_auth['uid'];
         $this->obj = D('Livecode');
+        //判断用户状态是否正常 && 套餐是否过期
+        $this->ifExpired();
 	}
     /**
      * 活码生成列表
@@ -243,8 +245,10 @@ class LivecodeController extends AdminController {
     		// $where['type']=1;
     		$where['id']  = array('between',array($ksid,$endid));
     		$rs=$this->obj->where($where)->getField('id',true);
-    		foreach( $rs as $v  )
-    		{
+            if (!$rs) {
+                $this->error('找不到该区间的文件，请输入正确的ID');
+            }
+    		foreach( $rs as $v  ){
     			$images[]="Uploads/duourl/".$v.".png";
     		}
         		

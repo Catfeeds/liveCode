@@ -61,8 +61,17 @@ class ModuleModel extends Model {
      * 
      */
     public function getAdminMenu() {
+        $where = ['user_type'=>['in',[0,session('user_auth.user_type')]],'user_id'=>['in',[0,session('user_auth.uid')]],'status'=>1];
+        //如果是用户，判断套餐是否过期决定是否显示活码管理菜单
+        if (session('user_auth.user_type') == 2) {
+            $user = D('user')->getUserInfo(session('user_auth.uid'));
+            if ($user['expire_time'] < time()) {
+                $where['pid'] = ['neq',4];
+            }
+        }
         // 获取模块左侧导航
-        $_side_menu_list = M('admin_menu')->field('id,pid,title,icon,url')->where(['user_type'=>['in',[0,session('user_auth.user_type')]],'user_id'=>['in',[0,session('user_auth.uid')]],'status'=>1])->order('create_time')->select();
+        $_side_menu_list = M('admin_menu')->field('id,pid,title,icon,url')->where($where)->order('create_time')->select();
+        // halt(session('user_auth.user_type'));
         // 转换成树结构
         $tree = new tree();
         return $tree->list_to_tree($_side_menu_list);

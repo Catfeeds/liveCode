@@ -164,5 +164,12 @@ class UserModel extends Model {
         // }
     }
 
+    /**
+     * 根据用户id获取用户信息
+     */
+    public function getUserInfo($uid){
+        $user = $this->where(['id'=>$uid])->find();
+        return $user;
+    }
 
 }

@@ -100,13 +100,13 @@
             <div class="row">
                 <div class="col-xs-12">
                     <form action="{:U('edit')}" method="post" class="form-horizontal form form-builder">
-                        <input type="hidden" name="id" value="{$info.id}">
+                        <input type="hidden" id="id" value="{$info.id}">
                         <div class="col-xs-12">
                         <div class="form-group item_title ">
-                                <label class="left control-label">视频文件</label>
+                                <label class="left control-label">视频名称</label>
                                 <div class="right">
                         
-                                    <input type="text" class="form-control input text" name="title" value="{$info.title}" >
+                                    <input type="text" class="form-control input text" id="title" value="{$info.title}" >
                                 
                                 </div>
                             </div>
@@ -114,8 +114,7 @@
                                 <label class="left control-label">视频文件路径</label>
                                 <div class="right">
                         
-                                    <input type="text" class="form-control input text" name="videourl" value="{$info.videourl}" >
-                                    <p>路径：Uploads/video/文件名</p>
+                                    <input type="text" class="form-control input text" name="videourl" value="{$info.videourl}" readonly="true">
                                 </div>
                             </div>
                             <div class="form-group item_title ">
@@ -147,8 +146,8 @@
                         </div>                                              
                         <div class="form-group"></div>
                             <div class="form-group">
-                                <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button>
-                                <button class="btn btn-primary submit ajax-post visible-md-inline visible-lg-inline" type="submit" target-form="form-builder">确定</button>
+                                <!-- <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button> -->
+                                <button class="btn btn-primary submit ajax-post visible-md-inline visible-lg-inline" type="submit">确定</button>
                                 <button class="btn btn-default return visible-md-inline visible-lg-inline" onclick="javascript:history.back(-1);return false;">返回</button>
                             </div>
                         </div>                       
@@ -211,5 +210,30 @@
               $('.progress-bar').css({width:Math.floor(r.progress()*100) + '%'});
             });
         }
+
+        $(".submit").click(function(){
+            var id        = $("#id").val();
+            var title     = $("#title").val();
+            var videoName = $(".resumable-file-name:last").html();
+            if (title == '') {
+                $.alertMessager('请输入视频名称!');return;
+            }
+            if (videoName == null) {
+                $.alertMessager('请上传文件!');return;
+            }
+            $.ajax({
+                url: 'admin.php?s=/admin/video/edit/id/'+id,
+                type: 'POST',
+                data: {id:id,title:title,videoName:videoName},
+                success: function (data) {  
+                    if(data.status == 1){
+                        $.alertMessager('更新成功!','success');
+                        setTimeout(function(){location.href = "admin.php?s=/admin/video/index";},2000);
+                    }else{
+                        $.alertMessager(data.info);return;
+                    }
+                }
+            });
+        });
       </script>
 </block>
