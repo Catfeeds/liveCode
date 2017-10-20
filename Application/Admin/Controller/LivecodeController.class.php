@@ -21,6 +21,8 @@ class LivecodeController extends AdminController {
 	    parent::_initialize();
         $this->uid = $this->_user_auth['uid'];
         $this->obj = D('Livecode');
+        //判断用户状态是否正常 && 套餐是否过期
+        $this->ifExpired();
 	}
     /**
      * 活码生成列表
@@ -40,7 +42,6 @@ class LivecodeController extends AdminController {
                    ->where($where)
                    ->order('id desc')
                    ->select();
-// halt($data_list);
                   
         foreach( $data_list as $k => $v ){
             $data_list[$k]['ewm']     = "Uploads/livecode/".$v['id'].'.png';
@@ -49,10 +50,14 @@ class LivecodeController extends AdminController {
             if ($v['type'] == 1) {
                 $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
             }elseif ($v['type'] == 3) {
-                $data_list[$k]['content']   = json_decode($v['content'],true)['url'];
+                $file = json_decode($v['content'],true)['url'];
+                $ext  = substr(strrchr($file, '.'), 1);
+                $picIcon = getPicType($ext);
+                $data_list[$k]['content']   = '<img class="picture" src="/Public/images/'.$picIcon.'.png">';
             }else{
                 $data_list[$k]['content'] = LC_Substr($v['content'],0,20,"utf-8",true);
             }
+
         }      
           
         $page = new Page(
@@ -102,25 +107,35 @@ class LivecodeController extends AdminController {
      * 
      */
     public function child() {
-        // 搜索
+        $type = I('get.type/d');
+        $where = ['menuId'=>$type,'uid'=>$this->uid];
         $keyword   = I('keyword', '', 'string');
         if ( $keyword ){
-             $map['id|huoma'] = array('like','%'.$keyword.'%');
+             $where['id|title'] = array('like','%'.$keyword.'%');
         }
         // 获取所有用户
-        $map['status'] = array('egt', '0'); // 禁用和正常状态
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
         
         $data_list = $this->obj
                    ->page($p , C('ADMIN_PAGE_ROWS'))
-                   ->where($map)
+                   ->where($where)
                    ->order('id desc')
                    ->select();
                   
-        foreach( $data_list as $k => $v )
-        {
-            $data_list[$k]['ewm']="Uploads/duourl/".$v['id'].'.png';
-            $data_list[$k]['title']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+        foreach( $data_list as $k => $v ){
+            $data_list[$k]['ewm']     = "Uploads/livecode/".$v['id'].'.png';
+            $data_list[$k]['type']    = codeType($v['type']);
+            $data_list[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
+            if ($v['type'] == 1) {
+                $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+            }elseif ($v['type'] == 3) {
+                $file = json_decode($v['content'],true)['url'];
+                $ext  = substr(strrchr($file, '.'), 1);
+                $picIcon = getPicType($ext);
+                $data_list[$k]['content']   = '<img class="picture" src="/Public/images/'.$picIcon.'.png">';
+            }else{
+                $data_list[$k]['content'] = LC_Substr($v['content'],0,20,"utf-8",true);
+            }
         }      
           
         $page = new Page(
@@ -132,33 +147,31 @@ class LivecodeController extends AdminController {
         $attr2['name']  = 'xzewm';
         $attr2['title'] = '下载二维码';
         $attr2['class'] = 'btn btn-primary';
-        $attr2['href']  = U('xzewm',['type'=>I('type/d')]);
-        $attr4['name']  = 'add';
-        $attr4['title'] = '新增';
-        $attr4['class'] = 'btn btn-primary';
-        $attr4['href']  = U('add',['type'=>I('type/d')]);
-        $attr5['name']  = 'view';
-        $attr5['title'] = '数据统计';
-        $attr5['class'] = 'label label-info';
-        $attr5['href']  = U('view',['id'=>'__data_id__','code'=>'1']);
+        $attr2['href']  = U('xzewm',['type'=>$type]);
+        $attr3['name']  = 'view';
+        $attr3['title'] = '数据统计';
+        $attr3['class'] = 'label label-info';
+        $attr3['href']  = U('view',['id'=>'__data_id__','code'=>'1']);
 
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
-                ->addTopButton('addnew', $attr4)  // 添加新增按钮
+                ->addTopButton('addnew', ['href'=>U('add',['type'=>$type])])  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr2)
-                ->setSearch('请输入ID或活码名称', U('child',['type'=>I('type/d')]))
+                ->setSearch('请输入ID或活码名称', U('child',['type'=>$type]))
                 ->addTableColumn('id', 'ID')
-                ->addTableColumn('title', '跳转网址')
-                ->addTableColumn('huoma', '活码地址')
+                ->addTableColumn('title', '活码名称')
+                ->addTableColumn('type', '活码类型')
+                ->addTableColumn('content', '活码内容')
+                ->addTableColumn('count', '扫描次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
-                ->addRightButton('edit', ['href'=>U('edit',['type'=>I('type/d'),'id'=>'__data_id__'])])          // 添加编辑按钮
+                ->addRightButton('edit', ['href'=>U('edit',['type'=>$type,'id'=>'__data_id__'])])          // 添加编辑按钮
                 ->addRightButton('delete')        // 添加删除按钮
-                ->addRightButton('self', $attr5)
+                ->addRightButton('self', $attr3)
                 ->display();
     }
 
@@ -232,17 +245,21 @@ class LivecodeController extends AdminController {
     		if ( !$endid ){
     			$this->error('请输入结束ID');
     		}
-    		// $where['type']=1;
     		$where['id']  = array('between',array($ksid,$endid));
     		$rs=$this->obj->where($where)->getField('id',true);
-    		foreach( $rs as $v  )
-    		{
-    			$images[]="Uploads/duourl/".$v.".png";
+            if (!$rs) {
+                $this->error('找不到该区间的文件，请输入正确的ID');
+            }
+    		foreach( $rs as $v  ){
+    			$images[]="Uploads/livecode/".$v.".png";
     		}
-        		
+            $zipDir = 'Uploads/livecode/'.date('Ymd');
+        	if (!is_dir($zipDir)) {
+                mkdir($zipDir, 0777, true);
+            }
         	$zip = new \ZipArchive;
-            $filename = date('Ymd').'img.zip';
-            $zip->open($filename,\ZipArchive::OVERWRITE);
+            $filename = $zipDir.'/'.time().'.zip';
+            $zip->open($filename,\ZipArchive::CREATE);
             foreach ($images as $key => $value) {
                 $zip->addFile($value);
             }
@@ -302,6 +319,7 @@ class LivecodeController extends AdminController {
             
         } else {
             $this->meta_title = '新增活码';
+            $this->assign('menuId',I('get.type/d'));
             $this->display();
         }
     }
@@ -364,10 +382,10 @@ class LivecodeController extends AdminController {
         if ( $status=='delete' ){
         	if (is_array($ids)) {
                foreach( $ids as $v  ){ 
-               	unlink("Uploads/duourl/".$v.'.png');
+               	unlink("Uploads/livecode/".$v.'.png');
                }
             } else {
-               unlink("Uploads/duourl/".$ids.'.png');
+               unlink("Uploads/livecode/".$ids.'.png');
             }
         }
         parent::setStatus($model);

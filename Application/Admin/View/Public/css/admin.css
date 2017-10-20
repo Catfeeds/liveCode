@@ -151,3 +151,13 @@
     font-size: 11px;
     padding: 0px 10px;
 }
+.bs-example-bg-classes {
+    padding: 15px;
+    margin:10px; 
+}
+.bs-example-bg-classes.bg-danger {
+    background-color: #f14148;
+}
+.bs-example-bg-classes.bg-success {
+    background-color: #41a3f1;
+}

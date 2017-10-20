@@ -61,7 +61,7 @@ class OrderController extends CommonController {
             $year       = I('post.year/d');
             $payMoney   = I('post.money/f');
 
-            $mod = D('Home/Order');
+            $mod = D('Order');
             if (!$mod->create()) {
                 $this->error($mod->getError());
             }else{
@@ -80,7 +80,12 @@ class OrderController extends CommonController {
             }
 
         } else {
-            $mod = D('Home/Order');
+            //判断用户是否是初次购买
+            $user = D('Admin/User')->getUserInfo(session('user_auth.uid'));
+            if ($user['vipId'] != 0) {
+                $this->error('请在续费管理中进行套餐购买');
+            }
+            $mod = D('Order');
             // 获取套餐
             $vips = $mod->getVips();
             // 获取套餐价格
@@ -109,7 +114,7 @@ class OrderController extends CommonController {
             $year       = I('post.year/d');
             $payMoney   = I('post.money/f');
 
-            $mod = D('Home/Order');
+            $mod = D('Order');
             if (!$mod->create()) {
                 $this->error($mod->getError());
             }else{
@@ -129,7 +134,7 @@ class OrderController extends CommonController {
             }
 
         } else {
-            $mod = D('Home/Order');
+            $mod = D('Order');
             // 获取套餐(比现有套餐排序更高的套餐)
             $vips = $mod->getFeeVips();
             if (!$vips) {

@@ -103,19 +103,10 @@
 	                    <div class="form-group item_title ">
                             <label class="left control-label">视频名称</label>
                             <div class="right">
-                    
-                                <input type="text" class="form-control input text" name="title" value="" >
-                            
+                                <input type="text" class="form-control input text" id="title" value="" >
                             </div>
 	                    </div>
-                        <div class="form-group item_title ">
-                            <label class="left control-label">视频文件路径</label>
-                            <div class="right">
-                    
-                                <input type="text" class="form-control input text" name="videourl" value="" >
-                                <p>路径：Uploads/video/文件名</p>
-                            </div>
-                        </div>
+                        
                         <div class="form-group item_title ">
                             <label class="left control-label">上传文件：</label>
                             <div class="right row">
@@ -129,14 +120,14 @@
                                                 <a class="resumable-browse"><u>上传文件</u></a>
                                             </div>  
                                             <ul class="resumable-list"></ul>   
-                                            <!--<div class="resumable-progress">
+                                            <!-- <div class="resumable-progress">
                                                 <table>
                                                 <tr>
                                                     <td width="100%"><div class="progress-container"><div class="progress-bar"></div></div></td>
                                                     <td class="progress-text" nowrap="nowrap"></td>
                                                 </tr>
                                                 </table>
-                                            </div>      -->
+                                            </div>       -->
                                         </div>
                                     </div>            
                                 </div>
@@ -145,8 +136,8 @@
                     </div>                                              
                     <div class="form-group"></div>
                         <div class="form-group">
-                            <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button>
-                            <button class="btn btn-primary submit ajax-post visible-md-inline visible-lg-inline" type="submit" target-form="form-builder">确定</button>
+                            <!-- <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button> -->
+                            <button class="btn btn-primary submit ajax-post visible-md-inline visible-lg-inline" type="submit">确定</button>
                             <button class="btn btn-default return visible-md-inline visible-lg-inline" onclick="javascript:history.back(-1);return false;">返回</button>
                         </div>
                     </div>                       
@@ -210,5 +201,29 @@
               $('.progress-bar').css({width:Math.floor(r.progress()*100) + '%'});
             });
         }
+
+        $(".submit").click(function(){
+            var title   = $("#title").val();
+            var videoName = $(".resumable-file-name:last").html();
+            if (title == '') {
+                $.alertMessager('请输入视频名称!');return;
+            }
+            if (videoName == null) {
+                $.alertMessager('请上传文件!');return;
+            }
+            $.ajax({
+                url: 'admin.php?s=/admin/video/add',
+                type: 'POST',
+                data: {title:title,videoName:videoName},
+                success: function (data) {  
+                    if(data.status == 1){
+                        $.alertMessager('新增成功!','success');
+                        setTimeout(function(){location.href = "admin.php?s=/admin/video/index";},2000);
+                    }else{
+                        $.alertMessager(data.info);return;
+                    }
+                }
+            });
+        });
       </script>
 </block>

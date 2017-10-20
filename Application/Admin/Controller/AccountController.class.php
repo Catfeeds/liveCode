@@ -24,8 +24,8 @@ class AccountController extends AdminController {
             $mod = D('Account');
             $result = $mod->editpass($data);
 
-            if ($result) {
-                $this->success('更新成功', U('editpass'));
+            if ($result !== false) {
+                $this->success('更新成功');
             } else {
                 $this->error($mod->getError());
             }
@@ -40,6 +40,45 @@ class AccountController extends AdminController {
                     ->addFormItem('password2', 'password', '确认密码', '请输入确认密码')
                     ->setFormData()
                     ->display();
+        }
+    }
+    /**
+     * 域名管理
+     * 
+     */
+    public function domain() {
+        $mod = D('user');
+        $data['uid'] = session('user_auth.uid');
+        $info = $mod->where(['id'=>$data['uid'],'status'=>1])->find();
+        if (IS_POST) {
+            //判断用户状态是否正常 && 套餐是否过期
+            $this->ifExpired();
+            $data['url'] = I('post.url/s');
+            if (empty($data['url'])) {
+                $this->error('请输入活码域名！');
+            }
+            if ($info) {
+                if ($info['url_status'] == 1 && $data['url'] == $info['url']) {
+                    $this->success('域名已通过审核');
+                }
+                if ($info['url_status'] == -1 && $data['url'] == $info['url']) {
+                    $this->error('新添加的域名不能和未通过审核的域名一样');
+                }
+
+                $url_status = $info['ifCheck'] == -1 ? 1:0;
+                $res = $mod->where(['id'=>$data['uid']])->save(['url'=>$data['url'],'url_status'=>$url_status]);
+                if ($res !== false) {
+                    $this->success('操作成功');
+                } else {
+                    $this->error('操作失败');
+                }
+            }else{
+                $this->error('用户不存在或被禁用');
+            }
+        } else {
+            $this->meta_title = '域名管理';
+            $this->assign('info',$info);
+            $this->display();
         }
     }
 

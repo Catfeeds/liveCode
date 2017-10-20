@@ -20,6 +20,8 @@ $(function(){
             afterBlur: function(){this.sync();}
         });
     });
+    
+    var menuId  = $("#menuId").val();
     //图文活码
     $("#save_btn").click(function(){
         var editId  = $("#editId").val();
@@ -38,7 +40,7 @@ $(function(){
         $.ajax({
             url: 'admin.php?s=/admin/livecode/add',
             type: 'POST',
-            data: {editId:editId,title:title,content:{picUrl:picUrl,content:content},type:1},
+            data: {editId:editId,menuId:menuId,title:title,content:{picUrl:picUrl,content:content},type:1},
             success: function (data) {  
                 if(data.status == 1){
                     $("#code1 img").attr('src',data.url);
@@ -64,7 +66,7 @@ $(function(){
         $.ajax({
             url: 'admin.php?s=/admin/livecode/add',
             type: 'POST',
-            data: {editId:editId,title:title,content:content,type:2},
+            data: {editId:editId,menuId:menuId,title:title,content:content,type:2},
             success: function (data) {  
                 if(data.status == 1){
                     $("#code2 img").attr('src',data.url);
@@ -88,7 +90,7 @@ $(function(){
         $.ajax({
             url: 'admin.php?s=/admin/livecode/add',
             type: 'POST',
-            data: {editId:editId,title:uploadFileName,content:{url:uploadFileUrl,size:uploadFileSize},type:3},
+            data: {editId:editId,menuId:menuId,title:uploadFileName,content:{url:uploadFileUrl,size:uploadFileSize},type:3},
             success: function (data) {
                 if(data.status == 1){
                     $("#code3 img").attr('src',data.url);
@@ -114,11 +116,41 @@ $(function(){
         $.ajax({
             url: 'admin.php?s=/admin/livecode/add',
             type: 'POST',
-            data: {editId:editId,title:title,content:content,type:4},
+            data: {editId:editId,menuId:menuId,title:title,content:content,type:4},
             success: function (data) {  
                 if(data.status == 1){
                     $("#code4 img").attr('src',data.url);
                     $("#img4").attr('href',data.url);
+                    $.alertMessager('二维码已成功保存!','success');return;
+                }else{
+                    $.alertMessager(data.info);return;
+                }
+            }
+        });
+    });
+    //产品活码
+    $("#save_btn6").click(function(){
+        var editId  = $("#editId6").val();
+        var picUrl  = $("#uploadPicUrl").val();
+        var title   = $("#title6").val();
+        var content = $("#imgtext").val();
+        if (picUrl == '') {
+            $.alertMessager('请上传图片!');return;
+        }
+        if (title == '') {
+            $.alertMessager('请输入产品名称!');return;
+        }
+        if (content == '') {
+            $.alertMessager('请输入内容!');return;
+        }
+        $.ajax({
+            url: 'admin.php?s=/admin/product/add',
+            type: 'POST',
+            data: {editId:editId,menuId:menuId,title:title,content:{picUrl:picUrl,content:content}},
+            success: function (data) {  
+                if(data.status == 1){
+                    $("#code6 img").attr('src',data.url);
+                    $("#img6").attr('href',data.url);
                     $.alertMessager('二维码已成功保存!','success');return;
                 }else{
                     $.alertMessager(data.info);return;

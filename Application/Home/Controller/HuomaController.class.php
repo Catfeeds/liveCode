@@ -18,9 +18,9 @@ class HuomaController extends HomeController{
     public function live(){
         $d    = I('d/s');
         $obj  = M('cms_livecode');
-        $data = $obj->where(['d'=>$d])->find();
+        $data = $obj->where(['d'=>$d,'status'=>1])->find();
         if (!$data) {
-            $this -> error('数据不存在');
+            $this->display('Public/unfined');
         }
         $obj->where(array('d' => $d)) ->setInc('count', 1);
         M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>1]);
@@ -31,7 +31,6 @@ class HuomaController extends HomeController{
                     $data[$key] = $value;
                 }
             }
-
             $this->assign('data',$data);
             $this->display('live_text');
         }elseif ($data['type'] == 3) {      //文件活码
@@ -48,14 +47,36 @@ class HuomaController extends HomeController{
     }
 
     /**
+     * 产品活码跳转
+     */
+    public function product(){
+        $d    = I('d/s');
+        $obj  = M('cms_product');
+        $data = $obj->where(['d'=>$d,'status'=>1])->find();
+        if (!$data) {
+            $this->display('Public/unfined');
+        }
+        $obj->where(array('d' => $d)) ->setInc('count', 1);
+        M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>2]);
+
+        $content = json_decode($data["content"]) ;
+        foreach ($content as $key => $value) {
+            $data[$key] = $value;
+        }
+        $this->assign('data',$data);
+        $this->display('live_text');
+    }
+
+    /**
      * 默认活码跳转（视频活码、网址活码）
      */
     public function index(){
         $d = I('d/s');
-        if (!$d){
-            $this -> error('参数错误');
-        }
         $obj = M('cms_phone');
+        $data = $obj->where(['d'=>$d,'status'=>1])->find();
+        if (!$data) {
+            $this->display('Public/unfined');
+        }
         $type = $obj -> where(array('d' => $d)) -> getField('type');
         $videourl = $obj -> where(array('d' => $d)) -> getField('0,id,title,videourl,huoma');
         $title = $obj -> where(array('d' => $d)) -> getField('videourl');
@@ -84,11 +105,11 @@ class HuomaController extends HomeController{
      */
     public function duo (){
         $d = I('d/s');
-        if (!$d){
-            $this -> error('参数错误');
-        }
         $obj = M('cms_duourl');
-        $rs = $obj -> where(array('d' => $d)) -> find();
+        $rs = $obj->where(['d'=>$d,'status'=>1])->find();
+        if (!$rs) {
+            $this->display('Public/unfined');
+        }
         if ($rs){
             $urlarr = get_duourl_titlearr($rs['title']);
             

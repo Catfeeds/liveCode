@@ -38,6 +38,11 @@ class UserController extends AdminController {
         foreach ($data_list as $k => $v) {
             $data_list[$k]['expire_time'] = $v['expire_time'] ? date('Y-m-d H:i',$v['expire_time']) :'暂未订购';
             $data_list[$k]['name'] = $v['vipId'] ? '<font color="green">'.$v['name'].'用户</font>' :'普通用户';
+            if (!empty($v['url'])) {
+                $data_list[$k]['url_status'] = domainStatus($v['url_status']);
+            }else{
+                $data_list[$k]['url_status'] = '';
+            }
         }
         $page = new Page(
             $mod->where($map)->count(),
@@ -56,7 +61,7 @@ class UserController extends AdminController {
         $attr3['name']  = 'fee';
         $attr3['title'] = '域名管理';
         $attr3['class'] = 'label label-info';
-        $attr3['href']  = U('urlManage');
+        $attr3['href']  = U('domain',['id'=>'__data_id__']);
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('用户列表') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
@@ -65,12 +70,13 @@ class UserController extends AdminController {
                 ->addTopButton('delete')  // 添加删除按钮
                 ->setSearch('请输入ID/用户名', U('index'))
                 ->addTableColumn('id', 'UID')
-               
                 ->addTableColumn('username', '用户名')
                 ->addTableColumn('create_time', '注册时间', 'time')
                 ->addTableColumn('name', '用户类型')
                 ->addTableColumn('expire_time', '有效期至')
                 ->addTableColumn('status', '状态', 'status')
+                ->addTableColumn('url', '活码域名')
+                ->addTableColumn('url_status', '域名状态')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
@@ -80,7 +86,6 @@ class UserController extends AdminController {
                 ->addRightButton('self',$attr)        // 添加删除按钮
                 ->addRightButton('self',$attr2)        // 添加删除按钮
                 ->addRightButton('self',$attr3)        // 添加删除按钮
-
                 ->display();
     }
 
@@ -152,10 +157,8 @@ class UserController extends AdminController {
             $builder->setMetaTitle('编辑用户')  // 设置页面标题
                     ->setPostUrl(U('edit'))    // 设置表单提交地址
                     ->addFormItem('id', 'hidden', 'ID', 'ID')
-                  
-                    ->addFormItem('username', 'text', '用户名', '用户名')
-                    ->addFormItem('password', 'password', '密码', '密码')
-                  
+                    ->addFormItem('username', 'text', '用户名')
+                    ->addFormItem('password', 'password', '密码')
                     ->setFormData($info)
                     ->display();
         }
@@ -261,6 +264,43 @@ class UserController extends AdminController {
             session('user_auth', $auth);
             session('user_auth_sign', $mod->data_auth_sign($auth));
             $this->success('登录成功！', U('Admin/Index/index'));
+        }
+    }
+
+    /**
+     * 用户域名管理
+     * 
+     */
+    public function domain($id) {
+        if (IS_POST) {
+            // 提交数据
+            $mod = D('User');
+            $data = I('post.');
+            if (empty($data['url'])) {
+                $this->error('请输入活码域名！');
+            }
+            if (empty($data['url_status'])) {
+                $this->error('请选择审核结果！');
+            }
+            $result = $mod->save($data);
+            if ($result !== false) {
+                $this->success('操作成功', U('index'));
+            } else {
+                $this->error('操作失败');
+            }
+        } else {
+            // 获取账号信息
+            $info = D('User')->find($id);
+            // 使用FormBuilder快速建立表单页面。
+            $builder = new \Common\Builder\FormBuilder();
+            $builder->setMetaTitle('域名管理')  // 设置页面标题
+                    ->setPostUrl(U('domain'))    // 设置表单提交地址
+                    ->addFormItem('id', 'hidden', 'ID', 'ID')
+                    ->addFormItem('url', 'text', '活码域名')
+                    ->addFormItem('url_status', 'select', '域名审核', '', [1=>'通过',-1=>'不通过'])
+                    ->addFormItem('ifCheck', 'select', '该用户是否需要审核', '', [1=>'需要',-1=>'不需要'])
+                    ->setFormData($info)
+                    ->display();
         }
     }
 
