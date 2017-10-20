@@ -17,5 +17,32 @@
 			<a href="{$data['url']}" download="{$data['url']}" class="down_btn" target="_blank">下载</a>
 			
 		</div>
+		<div class="l_filedown">
+			<img src="//static.clewm.net/static/images/mobile/android_filedown_guide_4187842.png"/>
+		</div>
 	</body>
+
+	<script type="text/javascript">
+			function isWeixin(){
+		        var WxObj=window.navigator.userAgent.toLowerCase();
+		        if(WxObj.match(/microMessenger/i)=='micromessenger'){
+		            return true;
+		        }else{
+		            return false;
+		        }
+		    }
+			window.onload=function(){
+	        	if(isWeixin()){
+		            //是微信打开显示提示信息
+		            // alert('是微信打开');
+		            document.getElementsByClassName('l_filedown')[0].style.display='block';
+		            
+		        }else{
+		            //是非微信打开直接跳转下载地址
+		            // alert('不是微信打开');//这里的‘apk网络下载地址’要改成实际地址 
+		            document.getElementsByClassName('l_filedown')[0].style.display='none';
+		        }
+		        
+		    }
+		</script>
 </html>
