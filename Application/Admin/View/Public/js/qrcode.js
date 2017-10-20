@@ -128,6 +128,36 @@ $(function(){
             }
         });
     });
+    //产品活码
+    $("#save_btn6").click(function(){
+        var editId  = $("#editId6").val();
+        var picUrl  = $("#uploadPicUrl").val();
+        var title   = $("#title6").val();
+        var content = $("#imgtext").val();
+        if (picUrl == '') {
+            $.alertMessager('请上传图片!');return;
+        }
+        if (title == '') {
+            $.alertMessager('请输入产品名称!');return;
+        }
+        if (content == '') {
+            $.alertMessager('请输入内容!');return;
+        }
+        $.ajax({
+            url: 'admin.php?s=/admin/product/add',
+            type: 'POST',
+            data: {editId:editId,menuId:menuId,title:title,content:{picUrl:picUrl,content:content}},
+            success: function (data) {  
+                if(data.status == 1){
+                    $("#code6 img").attr('src',data.url);
+                    $("#img6").attr('href',data.url);
+                    $.alertMessager('二维码已成功保存!','success');return;
+                }else{
+                    $.alertMessager(data.info);return;
+                }
+            }
+        });
+    });
 
 
 })

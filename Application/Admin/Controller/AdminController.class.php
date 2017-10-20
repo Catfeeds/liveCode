@@ -294,4 +294,17 @@ class AdminController extends CommonController {
             }
     }
 
+    /**
+     * 判断用户状态是否正常 && 套餐是否过期
+     */
+    public function ifExpired(){
+        $mod = D('User');
+        $user = $mod->getUserInfo(session('user_auth.uid'));
+        if (!$user || $user['status'] != 1) {
+            $this->error('账号不存在或被禁用');
+        }elseif ($user['expire_time'] < time()) {
+            $this->error('套餐已过期，请在续费管理中选择续费套餐');
+        }
+    }
+
 }

@@ -16,9 +16,10 @@ use Common\Util\Think\Page;
 class DuourlController extends AdminController {
 	protected function _initialize() {
 	    parent::_initialize();
-		$this->uid=$this->_user_auth['uid'];
-		$this->obj=D('Duourl');
-		
+		$this->uid = $this->_user_auth['uid'];
+		$this->obj = D('Duourl');
+		//判断用户状态是否正常 && 套餐是否过期
+        $this->ifExpired();
 	}
     /**
      * 多网址跳转列表
@@ -137,52 +138,55 @@ class DuourlController extends AdminController {
         header('Pragma:public');
         echo $data;
     }
-
-public function xzewm ()
-{
-		if ( IS_POST )
-	    	{
-		$ksid=(int)I('ksid');
-		$endid=(int)I('endid');
-		if ( !$ksid )
-		{
-			$this->error('请输入开始ID');
-		}
-		if ( !$endid )
-		{
-			$this->error('请输入结束ID');
-		}
-		// $where['type']=1;
-		$where['id']  = array('between',array($ksid,$endid));
-		$rs=$this->obj->where($where)->getField('id',true);
-		foreach( $rs as $v  )
-		{
-			$images[]="Uploads/duourl/".$v.".png";
-		}
-		
-	$zip = new \ZipArchive;
-$filename = date('Ymd').'img.zip';
-$zip->open($filename,\ZipArchive::OVERWRITE);
-foreach ($images as $key => $value) {
-    $zip->addFile($value);
-}
-
-$zip->close();
-header('Location:'.$filename);
-die();
-	    	}else{
-		    
-	 // 使用FormBuilder快速建立表单页面。
+    
+    /**
+     * 下载二维码
+     */
+    public function xzewm (){
+        if ( IS_POST ){
+            $ksid=(int)I('ksid');
+            $endid=(int)I('endid');
+            if ( !$ksid ){
+                $this->error('请输入开始ID');
+            }
+            if ( !$endid ){
+                $this->error('请输入结束ID');
+            }
+            // $where['type']=1;
+            $where['id']  = array('between',array($ksid,$endid));
+            $rs=$this->obj->where($where)->getField('id',true);
+            if (!$rs) {
+                $this->error('找不到该区间的文件，请输入正确的ID');
+            }
+            foreach( $rs as $v  ){
+                $images[]="Uploads/duourl/".$v.".png";
+            }
+            $zip = new \ZipArchive;
+            $zipDir = 'Uploads/duourl/'.date('Ymd');
+            if (!is_dir($zipDir)) {
+                mkdir($zipDir, 0777, true);
+            }
+            $zip = new \ZipArchive;
+            $filename = $zipDir.'/'.time().'.zip';
+            $zip->open($filename,\ZipArchive::CREATE);
+            foreach ($images as $key => $value) {
+                $zip->addFile($value);
+            }
+            
+            $zip->close();
+            header('Location:'.$filename);die();
+        }else{
+            // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('下载二维码') //设置页面标题
-                    ->setPostUrl(U('xzewm'))    //设置表单提交地址
-                    ->addFormItem('ksid', 'text', '开始ID')
-                    ->addFormItem('endid', 'text', '结束ID')
-                    ->setAjaxSubmit(false)
-                    ->display();
-	    	}
-	
-}
+            ->setPostUrl(U('xzewm'))    //设置表单提交地址
+            ->addFormItem('ksid', 'text', '开始ID')
+            ->addFormItem('endid', 'text', '结束ID')
+            ->setAjaxSubmit(false)
+            ->display();
+        }
+                    
+    }
     /**
      * 新增多网址跳转
      * 
@@ -275,7 +279,6 @@ die();
             if ($data) {
                 $result = $this->obj->save($data);
                 if ($result) {
-	               
                     $this->success('更新成功', U('index'));
                 } else {
                     $this->error('更新失败', $this->obj->getError());
@@ -292,10 +295,6 @@ die();
             $this->display();
         }
     }
-
-   
-   
-
  
  
   /**
@@ -304,25 +303,16 @@ die();
      */
     public function setStatus($model = CONTROLLER_NAME){
         $ids = I('request.ids');
-        
         $status=I('request.status');
-       
-        if ( $status=='delete' )
-        {
-	      
-        	 if (is_array($ids)) {
-	        	
-           foreach( $ids as $v  )
-           {
-	           
-           	unlink("Uploads/duourl/".$v.'.png');
-           }
-          
-        } else {
-           unlink("Uploads/duourl/".$ids.'.png');
+        if ( $status=='delete' ){
+        	if (is_array($ids)) {	
+                foreach( $ids as $v  ){   
+               	    unlink("Uploads/duourl/".$v.'.png');
+                }
+            } else {
+               unlink("Uploads/duourl/".$ids.'.png');
+            }
         }
-        }
-       
         parent::setStatus($model);
     }
     public function edittzwz ()

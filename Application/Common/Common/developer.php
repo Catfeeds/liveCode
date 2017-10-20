@@ -94,6 +94,12 @@ function get_dwz() {
      return C('HOME_PAGE').'/index.php/huoma/live?d='.$d;
 }
 /**
+ * 返回产品活码地址
+ */
+ function get_producturl ($d=''){
+     return C('HOME_PAGE').'/index.php/huoma/product?d='.$d;
+}
+/**
  * 返回网址活码地址
  */
 function get_huomaurl ($d=''){
@@ -124,6 +130,8 @@ function qrcode($url='',$id=0,$urltype=1){
         $filepath='Uploads/phone/';     //网址跳转
     }elseif ( $urltype==5 ){
         $filepath='Uploads/duourl/';    //多网址跳转
+    }elseif ( $urltype==6 ){
+        $filepath='Uploads/product/';    //多网址跳转
     }
     // 生成的文件名
     $fileName = $filepath.$id.'.png';

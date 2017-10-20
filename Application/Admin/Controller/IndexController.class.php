@@ -26,8 +26,9 @@ class IndexController extends AdminController {
             $link_list = D('Admin/Link')->getAll();
             $this->assign('_link_list', $link_list);  // 后台快捷链接
         }
-
+        $user = D('user')->getUserInfo(session('user_auth.uid'));
         $this->assign('meta_title', "首页");
+        $this->assign('expire_time', $user['expire_time']);
         $this->assign('user_type', session('user_auth.user_type'));
         $this->display();
     }

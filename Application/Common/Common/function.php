@@ -525,3 +525,22 @@ function WSTReturn($msg,$status = -1,$data = []){
     if(!empty($data))$rs['data'] = $data;
     return $rs;
 }
+/**
+ * 返回用户域名状态
+ */
+function domainStatus($url_status){
+    switch ($url_status) {
+        case '0':
+            return '<font color="red">待审核</font>';
+            break;
+        case '1':
+            return '<font color="green">正常</font>';
+            break;
+        case '-1':
+            return '未通过';
+            break;
+        default:
+            return '';
+            break;
+    }
+}

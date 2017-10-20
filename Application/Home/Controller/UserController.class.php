@@ -96,7 +96,7 @@ class UserController extends CommonController {
             // 设置登录状态
             $uid = $mod->auto_login($user_info);
             if ($uid) {
-                if ($user_info['vipId']==0 || $user_info['expire_time']<time()) {
+                if ($user_info['vipId']==0) {
                     $this->success('登录成功！', U('Home/Order/buy'));
                 }else{
                     $this->success('登录成功！', '/admin.php?s=/admin/index/index');
