@@ -162,8 +162,13 @@ class DuourlController extends AdminController {
                 $images[]="Uploads/duourl/".$v.".png";
             }
             $zip = new \ZipArchive;
-            $filename = date('Ymd').'img.zip';
-            $zip->open($filename,\ZipArchive::OVERWRITE);
+            $zipDir = 'Uploads/duourl/'.date('Ymd');
+            if (!is_dir($zipDir)) {
+                mkdir($zipDir, 0777, true);
+            }
+            $zip = new \ZipArchive;
+            $filename = $zipDir.'/'.time().'.zip';
+            $zip->open($filename,\ZipArchive::CREATE);
             foreach ($images as $key => $value) {
                 $zip->addFile($value);
             }
@@ -298,25 +303,16 @@ class DuourlController extends AdminController {
      */
     public function setStatus($model = CONTROLLER_NAME){
         $ids = I('request.ids');
-        
         $status=I('request.status');
-       
-        if ( $status=='delete' )
-        {
-	      
-        	 if (is_array($ids)) {
-	        	
-           foreach( $ids as $v  )
-           {
-	           
-           	unlink("Uploads/duourl/".$v.'.png');
-           }
-          
-        } else {
-           unlink("Uploads/duourl/".$ids.'.png');
+        if ( $status=='delete' ){
+        	if (is_array($ids)) {	
+                foreach( $ids as $v  ){   
+               	    unlink("Uploads/duourl/".$v.'.png');
+                }
+            } else {
+               unlink("Uploads/duourl/".$ids.'.png');
+            }
         }
-        }
-       
         parent::setStatus($model);
     }
     public function edittzwz ()

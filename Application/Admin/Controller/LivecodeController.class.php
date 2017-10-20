@@ -129,7 +129,10 @@ class LivecodeController extends AdminController {
             if ($v['type'] == 1) {
                 $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
             }elseif ($v['type'] == 3) {
-                $data_list[$k]['content']   = json_decode($v['content'],true)['url'];
+                $file = json_decode($v['content'],true)['url'];
+                $ext  = substr(strrchr($file, '.'), 1);
+                $picIcon = getPicType($ext);
+                $data_list[$k]['content']   = '<img class="picture" src="/Public/images/'.$picIcon.'.png">';
             }else{
                 $data_list[$k]['content'] = LC_Substr($v['content'],0,20,"utf-8",true);
             }
@@ -242,19 +245,21 @@ class LivecodeController extends AdminController {
     		if ( !$endid ){
     			$this->error('请输入结束ID');
     		}
-    		// $where['type']=1;
     		$where['id']  = array('between',array($ksid,$endid));
     		$rs=$this->obj->where($where)->getField('id',true);
             if (!$rs) {
                 $this->error('找不到该区间的文件，请输入正确的ID');
             }
     		foreach( $rs as $v  ){
-    			$images[]="Uploads/duourl/".$v.".png";
+    			$images[]="Uploads/livecode/".$v.".png";
     		}
-        		
+            $zipDir = 'Uploads/livecode/'.date('Ymd');
+        	if (!is_dir($zipDir)) {
+                mkdir($zipDir, 0777, true);
+            }
         	$zip = new \ZipArchive;
-            $filename = date('Ymd').'img.zip';
-            $zip->open($filename,\ZipArchive::OVERWRITE);
+            $filename = $zipDir.'/'.time().'.zip';
+            $zip->open($filename,\ZipArchive::CREATE);
             foreach ($images as $key => $value) {
                 $zip->addFile($value);
             }
@@ -377,10 +382,10 @@ class LivecodeController extends AdminController {
         if ( $status=='delete' ){
         	if (is_array($ids)) {
                foreach( $ids as $v  ){ 
-               	unlink("Uploads/duourl/".$v.'.png');
+               	unlink("Uploads/livecode/".$v.'.png');
                }
             } else {
-               unlink("Uploads/duourl/".$ids.'.png');
+               unlink("Uploads/livecode/".$ids.'.png');
             }
         }
         parent::setStatus($model);

@@ -177,7 +177,12 @@ class VideoController extends AdminController {
                 $images[]="Uploads/ewm/".$v.".png";
             }
             $zip = new \ZipArchive;
-            $filename = 'Uploads/ewm/'.time().'.zip';
+            $zipDir = 'Uploads/ewm/'.date('Ymd');
+            if (!is_dir($zipDir)) {
+                mkdir($zipDir, 0777, true);
+            }
+            $zip = new \ZipArchive;
+            $filename = $zipDir.'/'.time().'.zip';
             //$zip->open($filename,\ZipArchive::OVERWRITE);
             $zip->open($filename, \ZipArchive::CREATE);
             foreach ($images as $key => $value) {
@@ -341,10 +346,12 @@ class VideoController extends AdminController {
                 foreach( $ids as $v  ){
                     $videourl = $obj -> where(array('id' => $v)) -> getField('videourl');
                     unlink($videourl);
+                    unlink("Uploads/ewm/".$ids.'.png');
                 }
             } else {
                 $videourl = $obj -> where(array('id' => $ids)) -> getField('videourl');
                 unlink($videourl);
+                unlink("Uploads/ewm/".$ids.'.png');
             }
         }
         parent::setStatus('phone');

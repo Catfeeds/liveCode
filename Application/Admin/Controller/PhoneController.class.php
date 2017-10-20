@@ -200,7 +200,12 @@ title = replace(title, '$ksid', '$endid') ");
     			$images[]="Uploads/phone/".$v.".png";
     		}
     	    $zip = new \ZipArchive;
-            $filename = 'Uploads/phone/'.time().'.zip';
+            $zipDir = 'Uploads/phone/'.date('Ymd');
+            if (!is_dir($zipDir)) {
+                mkdir($zipDir, 0777, true);
+            }
+            $zip = new \ZipArchive;
+            $filename = $zipDir.'/'.time().'.zip';
             $zip->open($filename,\ZipArchive::CREATE);
             foreach ($images as $key => $value) {
                 $zip->addFile($value);
