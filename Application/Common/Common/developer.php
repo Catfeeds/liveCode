@@ -87,30 +87,6 @@ function get_dwz() {
     $onlyid=base_convert($all,10,36);//把10进制转为36进制的唯一ID
     return $onlyid;
 }
-/**
- * 返回活码生成地址
- */
- function get_liveurl ($d=''){
-     return C('HOME_PAGE').'/index.php/huoma/live?d='.$d;
-}
-/**
- * 返回产品活码地址
- */
- function get_producturl ($d=''){
-     return C('HOME_PAGE').'/index.php/huoma/product?d='.$d;
-}
-/**
- * 返回网址活码地址
- */
-function get_huomaurl ($d=''){
-	 return C('HOME_PAGE').'/index.php/huoma/?d='.$d;
-}
-/**
- * 返回多网址活码地址
- */
- function get_huomaurlduo ($d=''){
-	 return C('HOME_PAGE').'/index.php/huoma/duo?d='.$d;
-}
 
 /**
  * 生成二维码
@@ -270,3 +246,38 @@ function createFileFromChunks($temp_dir, $fileName, $chunkSize, $totalSize, $upl
         }
     }
 }
+/**
+ * 生成活码链接地址
+ * codeType 活码类型
+ * d        参数d
+ */
+function setLivecodeUrl($codeType,$d){
+    $site = C('DOMAIN_URL');
+    $mod = D('User');
+    $user = $mod->getUserInfo(session('user_auth.uid'));
+    if ($user['url'] && $user['url_status'] == 1) {
+        $site = $user['url'];
+    }
+    return (is_ssl()?'https://':'http://').$site.'/index.php/huoma/'.$codeType.'?d='.$d;
+}
+
+// /**
+//  * 生成活码链接地址
+//  * codeType 活码类型
+//  * d        参数d
+//  */
+// function setLivecodeUrl($codeType,$d){
+//     //动态访问
+//     return '/index.php/huoma/'.$codeType.'?d='.$d;
+// }
+// /**
+//  * 返回活码对应的用户的域名
+//  */
+// function getLivecodeDomain($uid){
+//     $site = C('DOMAIN_URL');
+//     $user = D('User')->getUserInfo($uid);
+//     if ($user['url'] && $user['url_status'] == 1) {
+//         $site = $user['url'];
+//     }
+//     return (is_ssl()?'https://':'http://').$site;
+// }

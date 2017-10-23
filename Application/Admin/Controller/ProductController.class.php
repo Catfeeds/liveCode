@@ -278,7 +278,7 @@ class ProductController extends AdminController {
             }
             $data['uid']   = $this->uid;
             $data['d']     = get_dwz();
-            $data['huoma'] = get_producturl($data['d']);
+            $data['huoma'] = setLivecodeUrl('product',$data['d']);
             $data['content']   = json_encode($data['content']);
             
             //执行添加

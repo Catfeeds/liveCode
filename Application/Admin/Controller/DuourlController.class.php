@@ -225,13 +225,14 @@ class DuourlController extends AdminController {
                 }
                 $data['title']=implode('|||',$info['title']);
             }
-            $data['name']=$info['name'];
-            $data['create_time']=NOW_TIME;
-            $data['update_time']=NOW_TIME;
-            $data['tztype']=$info['tztype'];
-            $data['uid']=$this->uid;
-            $data['d']=get_dwz();
-            $data['huoma']=get_huomaurlduo($data['d']);
+            $data['name']        = $info['name'];
+            $data['create_time'] = NOW_TIME;
+            $data['update_time'] = NOW_TIME;
+            $data['tztype']      = $info['tztype'];
+            $data['uid']         = $this->uid;
+            $data['d']           = get_dwz();
+            $data['huoma']       = setLivecodeUrl('duo',$data['d']);
+
             if ($data) {
                 $id = $this->obj->add($data);
                 if ($id) {

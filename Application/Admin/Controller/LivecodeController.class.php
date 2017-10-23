@@ -302,7 +302,7 @@ class LivecodeController extends AdminController {
                 }
                 $data['uid']   = $this->uid;
                 $data['d']     = get_dwz();
-                $data['huoma'] = get_liveurl($data['d']);
+                $data['huoma'] = setLivecodeUrl('live',$data['d']);
             }
             //如果是图文或者文件，内容保存为json格式
             if ($type == 1 || $type == 3) {

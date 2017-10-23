@@ -42,8 +42,7 @@ class PhoneController extends AdminController {
                    ->order('id desc')
                    ->select();
                   
-        foreach( $data_list as $k => $v )
-        {
+        foreach( $data_list as $k => $v ){
         	$data_list[$k]['ewm']="Uploads/phone/".$v['id'].'.png';
         }           
         $page = new Page(
@@ -238,7 +237,7 @@ title = replace(title, '$ksid', '$endid') ");
             $data['videourl']    =I('videourl/s');
             $data['uid']         =$this->uid;
             $data['d']           =get_dwz();
-            $data['huoma']       =get_huomaurl($data['d']);
+            $data['huoma']       = setLivecodeUrl('',$data['d']);
 
             if ( !$data['title'] ){
                 $this->error('请输入网址名称');

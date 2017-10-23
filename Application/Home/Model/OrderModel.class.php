@@ -66,9 +66,10 @@ class OrderModel extends Model {
         $vip = $vip_mod->find($order['vipId']);
         //比现在使用套餐排序更高的套餐
         $vips = $vip_mod->alias('v')->field('v.*')->join('__VIP_PRICE__ p on v.id=p.vipId','left')->where(['price'=>['neq',''],'is_show'=>1,'sort'=>['egt',$vip['sort']]])->order('v.sort,p.price desc')->group('v.id')->select();
-        if (!$vips) {
-            $this->error = '您目前使用的套餐已经是最高级别！';return false;
-        }
+        // if (!$vips) {
+        //     $this->error = '您目前使用的套餐已经是最高级别！';return false;
+        // }
+        // halt($vips);
         //是否有推荐套餐,没有则把第一个设为默认推荐
         $have_recommed = 0;
         foreach ($vips as $k => $v) {

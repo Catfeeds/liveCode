@@ -36,7 +36,7 @@ class VideoController extends AdminController {
                    ->select();
                   
         foreach( $data_list as $k => $v ){
-            $data_list[$k]['ewm']="Uploads/ewm/".$v['id'].'.png';
+            $data_list[$k]['ewm']   ="Uploads/ewm/".$v['id'].'.png';
         }           
         $page = new Page(
             $user_object->where($map)->count(),
@@ -220,7 +220,7 @@ class VideoController extends AdminController {
             $data['d']           = get_dwz();
             $data['type']        = 2;
             if ($data) {
-                $data['huoma']=get_huomaurl($data['d']);                
+                $data['huoma'] = setLivecodeUrl('',$data['d']);
                 $id = $user_object->add($data);
                 if ($id) {
                     qrcode($data['huoma'],$id,3);
