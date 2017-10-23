@@ -290,14 +290,26 @@ class LivecodeController extends AdminController {
                 if (!$data) {
                     $this->error($this->obj->getError());exit();
                 }
-                $data['uid']   = $this->uid;
-                $data['d']     = get_dwz();
-                $data['huoma'] = setLivecodeUrl('live',$data['d']);
+                
+            }elseif ($type == 5) {
+                $data['content'] = I('post.params');
+                $data['type'] = $type;
+                $data['menuId'] = 0;
+                $data['title'] = $data['content']['name']['val'].'的名片';
+                $data['create_time'] = time();
+
+
+
             }
+            $data['uid']   = $this->uid;
+            $data['d']     = get_dwz();
+            $data['huoma'] = setLivecodeUrl('live',$data['d']);
             //如果是图文或者文件，内容保存为json格式
-            if ($type == 1 || $type == 3) {
+            if ($type == 1 || $type == 3 || $type == 5) {
                 $data['content']   = json_encode($data['content']);
             }
+                // halt($data['content']);
+
             //执行添加
             $id = $this->obj->add($data);
             if ($id) {
@@ -349,12 +361,14 @@ class LivecodeController extends AdminController {
         } else {
             $this->meta_title = '编辑活码';
             $data = $this->obj->find($id);
-            if ($data['type'] == 1 || $data['type'] == 3) {
-                $content = json_decode($data["content"]) ;
+            if ($data['type'] == 1 || $data['type'] == 3 || $data['type'] == 5) {
+                $content = json_decode($data["content"],true);
                 foreach ($content as $key => $value) {
+                    // halt($value);
                     $data[$key] = $value;
                 }
             }
+            
             // halt($data);
 
             $this->assign('data',$data);

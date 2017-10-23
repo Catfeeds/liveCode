@@ -292,3 +292,10 @@ function export_csv($filename,$data) {
     header('Pragma:public');
     echo $data;
 }
+/**
+ * 切割字符串
+ */
+function getPartStr($str) {
+   $arr = explode(' ', $str);
+   return $arr[1];
+}

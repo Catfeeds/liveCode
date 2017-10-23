@@ -17,7 +17,7 @@
     <div class="wrapper">
 
 <!-- 图文活码S -->
-    	<div class="editor-wrap" style="display: block;">
+    	<div class="editor-wrap">
 	    	<div class="editor_main txt_main lf">
 	    		<div class="edit-left">
 					<div class="upload-img">
@@ -144,21 +144,21 @@
     	</div>
 <!-- 网址导航E -->
 
-    	<div class="editor-wrap">
+<!-- 名片活码S -->
+    	<div class="editor-wrap" style="display: block;">
 	    	<div class="editor_main txt_main lf" >
 	    		<div id="leftwrap">
 	    			<div class="left_box left_basic border-rt-green">
 	    				<div class="bg_wrap basic-bg-wrap green hidden">
-	    					<div class="bg">
-	    						基本信息
-            				</div>
+	    					<div class="bg">基本信息</div>
 	    				</div>
-	    				<div class="vcard_head" style="background-image: url(__PUBLIC__/images/vcardbg7.jpg);">
+	    				<div class="vcard_head" style="background-image: url('__PUBLIC__/images/vcardbg7.jpg');">
 	    					<div class="vcard_face_wrap">
-	    						<div class="vcard_face_bg"></div>
-	    						<div class="vcard_face"></div>
-	    						<div class="vcard_face_lang" >头像</div>
-	    					</div>
+			    				<div class="vcard_face_bg"></div>
+			    				<div class="vcard_face" style="background-image: url('__PUBLIC__/images/vcardbg1.jpg');"></div>
+			    				<div class="vcard_face_lang lang_fake lang" data-lang-key="Avatar">头像</div>
+		    				</div>
+
 	    					<div class="vcard_career_wrap">
 		    					<p id="vcard_data_name" class="lang" data-lang-key="Name" >姓名</p>
 		    					<p class="vcard_data_appointment lang" data-lang-key="Position">职位</p>
@@ -169,20 +169,21 @@
 	    			</div>
 	    			<div class="left_box left_phone">
 	    				<div class="bg_wrap green hidden">
-	    					<div class="bg text-center ">
-	    						联系信息
-	    					</div>
+	    					<div class="bg text-center ">联系信息</div>
 	    				</div>
-	    				<div class="vcard_data_txt b-b">
-	    					<span class="vcard_data_title lang" data-lang-key="Telephone">固定电话</span>
-	    					<span class="vcard_data_value vcard_data_phone"></span>
-	    				</div>
+						<div class="left_addable_wrap" id="">
+		    				<div class="vcard_data_txt b-b">
+		    					<span class="vcard_data_title lang" data-lang-key="Telephone">固定电话</span>
+		    					<span class="vcard_data_value vcard_data_phone"></span>
+		    				</div>
+						</div>
 	    				<div class="left_addable_wrap" id="left_addable_phone">
 	    					<div class="vcard_data_txt b-b">
 	    						<span class="vcard_data_title lang" data-lang-key="Mobile Phone">移动电话</span>
 	    						<span class="vcard_data_value vcard_data_mobile"></span>
 	    					</div>
 	    				</div>
+
 	    				<div class="left_addable_wrap" id="left_addable_fax">
 	    					<div class="vcard_data_txt b-b">
 	    						<span class="vcard_data_title lang" data-lang-key="Fax">传真</span>
@@ -190,7 +191,7 @@
 	    					</div>
 	    				</div>
 	    				<div class="left_addable_wrap" id="left_addable_email">
-	    					<div class="vcard_email vcard_data_txt b-b">
+	    					<div class="vcard_data_txt b-b">
 	    						<span class="vcard_data_title lang" data-lang-key="Email">电子邮箱</span>
 	    						<span class="vcard_data_value vcard_data_email"></span>
 	    					</div>
@@ -198,9 +199,7 @@
 	    			</div>
 	    			<div class="left_box left_internet">
 	    				<div class="bg_wrap green hidden">
-	    					<div class="bg text-center ">
-	    						社交信息
-	    					</div>
+	    					<div class="bg text-center ">社交信息</div>
 	    				</div>
 	    				<div class="left_addable_wrap" id="left_addable_message">
 	    					<div class="vcard_data_txt b-b vcard_message ">
@@ -225,9 +224,7 @@
 	    			</div>
 	    			<div class="left_box left_address">
 	    				<div class="bg_wrap green hidden">
-	    					<div class="bg">
-	    						地址
-            				</div>
+	    					<div class="bg">地址</div>
 	    				</div>
 			            <div class="left_addable_wrap" id="left_addable_address">
 			            	<div class="vcard_address vcard_data_txt b-b">
@@ -444,23 +441,21 @@
 	    			</div>
 	    		</div>
 	    		<div class="clear"></div>
-	    		<!--<div class="card_btn sub_btn">
-    				<a href="#">生成二维码</a>
-    			</div>-->
     		</div>
     		<div class="card_code">
     			<div class="edit_left">
-    				<div class="txt_right">
+    				<div class="txt_right" id="code5">
 	    				<img src="__PUBLIC__/images/nocode.png"/>
 	    			</div>
-	    			<a href="__PUBLIC__/images/nocode.png" download="二维码" class="btn-sm btn_xz" >下载</a>
+	    			<a href="__PUBLIC__/images/nocode.png" download="名片活码" class="btn-sm btn_xz" id="img5">下载</a>
 	    			<div class="create-btn">
-						<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
+						<button id="save_btn5" class="btn-sm green-btn">生成二维码</button>
 					</div>
     			</div>
     		</div>
-    	
     	</div>
+<!-- 名片活码E -->
+
     </div>
  	<div class="theme-popover-mask"></div>
  	<div class="theme-popover">
@@ -468,46 +463,16 @@
  		<div class="select-bg">
  			<input type="hidden" id="sel-bgcolor"  value="">
  			<ul id="bglist">
- 				<li class="simple_bg active">
- 					<img src="__PUBLIC__/images/vcardbg1.jpg"/>
- 					<span></span>
- 				</li>
- 				<li class="simple_bg">
- 					<img src="__PUBLIC__/images/vcardbg2.jpg"/>
- 					<span></span>
- 				</li>
- 				<li class="simple_bg">
- 					<img src="__PUBLIC__/images/vcardbg3.jpg"/>
- 					<span></span>
- 				</li>
- 				<li class="simple_bg">
- 					<img src="__PUBLIC__/images/vcardbg4.jpg"/>
- 					<span></span>
- 				</li>
- 				<li class="simple_bg">
- 					<img src="__PUBLIC__/images/vcardbg5.jpg"/>
- 					<span></span>
- 				</li>
- 				<li class="simple_bg">
- 					<img src="__PUBLIC__/images/vcardbg6.jpg"/>
- 					<span></span>
- 				</li>
- 				<li class="simple_bg">
- 					<img src="__PUBLIC__/images/vcardbg7.jpg"/>
- 					<span></span>
- 				</li>
- 				<li class="simple_bg">
- 					<img src="__PUBLIC__/images/vcardbg8.jpg"/>
- 					<span></span>
- 				</li>
- 				<li class="simple_bg">
- 					<img src="__PUBLIC__/images/vcardbg9.jpg"/>
- 					<span></span>
- 				</li>
- 				<li class="simple_bg">
- 					<img src="__PUBLIC__/images/vcardbg10.jpg"/>
- 					<span></span>
- 				</li>
+ 				<li class="simple_bg active"><img src="__PUBLIC__/images/vcardbg1.jpg"/><span></span></li>
+ 				<li class="simple_bg"><img src="__PUBLIC__/images/vcardbg2.jpg"/><span></span></li>
+ 				<li class="simple_bg"><img src="__PUBLIC__/images/vcardbg3.jpg"/><span></span></li>
+ 				<li class="simple_bg"><img src="__PUBLIC__/images/vcardbg4.jpg"/><span></span></li>
+ 				<li class="simple_bg"><img src="__PUBLIC__/images/vcardbg5.jpg"/><span></span></li>
+ 				<li class="simple_bg"><img src="__PUBLIC__/images/vcardbg6.jpg"/><span></span></li>
+ 				<li class="simple_bg"><img src="__PUBLIC__/images/vcardbg7.jpg"/><span></span></li>
+ 				<li class="simple_bg"><img src="__PUBLIC__/images/vcardbg8.jpg"/><span></span></li>
+ 				<li class="simple_bg"><img src="__PUBLIC__/images/vcardbg9.jpg"/><span></span></li>
+ 				<li class="simple_bg"><img src="__PUBLIC__/images/vcardbg10.jpg"/><span></span></li>
  				<div class="youself_bg"><p>自定义背景</p></div>
 				<div class="bg-upload">
  					<input type="file" name="Filedata" class="uploadfile" id="upload-bg" title="上传封面图">

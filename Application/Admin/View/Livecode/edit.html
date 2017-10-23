@@ -148,109 +148,83 @@
         </div>
 <!-- 网址导航E -->
 
-        <div class="editor-wrap">
+<!-- 名片活码S -->
+        <div class="editor-wrap" <?php if($data['type'] == 5){echo 'style="display: block;"';} ?>>
+            <input type="hidden" id="editId5" value="{$data['id']}">
             <div class="editor_main txt_main lf" >
                 <div id="leftwrap">
                     <div class="left_box left_basic border-rt-green">
                         <div class="bg_wrap basic-bg-wrap green hidden">
-                            <div class="bg">
-                                基本信息
-                            </div>
+                            <div class="bg">基本信息</div>
                         </div>
-                        <div class="vcard_head" style="background-image: url(__PUBLIC__/images/vcardbg7.jpg);">
+                        <div class="vcard_head" style="background-image: url({$data['head']});">
                             <div class="vcard_face_wrap">
                                 <div class="vcard_face_bg"></div>
-                                <div class="vcard_face"></div>
-                                <div class="vcard_face_lang" >头像</div>
+                                <div class="vcard_face" style="background-image: url({$data['face']});"></div>
+                                <div class="vcard_face_lang lang_fake lang" data-lang-key="Avatar">头像</div>
                             </div>
+
                             <div class="vcard_career_wrap">
-                                <p id="vcard_data_name" class="lang" data-lang-key="Name" >姓名</p>
-                                <p class="vcard_data_appointment lang" data-lang-key="Position">职位</p>
-                                <p class="vcard_data_company lang" data-lang-key="Company">公司</p>
+                                <p id="vcard_data_name" class="lang" data-lang-key="Name" >{$data['name']}</p>
+                                <p class="vcard_data_appointment lang" data-lang-key="Position">{$data['appointment']}</p>
+                                <p class="vcard_data_company lang" data-lang-key="Company">{$data['company']}</p>
                                 <div class="clear"></div>
                             </div>
                         </div>
                     </div>
                     <div class="left_box left_phone">
                         <div class="bg_wrap green hidden">
-                            <div class="bg text-center ">
-                                联系信息
-                            </div>
+                            <div class="bg text-center ">联系信息</div>
                         </div>
-                        <div class="vcard_data_txt b-b">
-                            <span class="vcard_data_title lang" data-lang-key="Telephone">固定电话</span>
-                            <span class="vcard_data_value vcard_data_phone"></span>
-                        </div>
-                        <div class="left_addable_wrap" id="left_addable_phone">
+                        <volist name="data['left_phone']" id="vo" key="k">
+                        <div class="left_addable_wrap" id="{$vo.id}">
                             <div class="vcard_data_txt b-b">
-                                <span class="vcard_data_title lang" data-lang-key="Mobile Phone">移动电话</span>
-                                <span class="vcard_data_value vcard_data_mobile"></span>
+                                <span class="vcard_data_title lang" data-lang-key="{$vo.en}">{$vo.ch}</span>
+                                <span class="{$vo.class}">{$vo.val}</span>
                             </div>
                         </div>
-                        <div class="left_addable_wrap" id="left_addable_fax">
-                            <div class="vcard_data_txt b-b">
-                                <span class="vcard_data_title lang" data-lang-key="Fax">传真</span>
-                                <span class="vcard_data_value vcard_data_fax"></span>
-                            </div>
-                        </div>
-                        <div class="left_addable_wrap" id="left_addable_email">
-                            <div class="vcard_email vcard_data_txt b-b">
-                                <span class="vcard_data_title lang" data-lang-key="Email">电子邮箱</span>
-                                <span class="vcard_data_value vcard_data_email"></span>
-                            </div>
-                        </div>
+                        </volist>
                     </div>
                     <div class="left_box left_internet">
                         <div class="bg_wrap green hidden">
-                            <div class="bg text-center ">
-                                社交信息
+                            <div class="bg text-center ">社交信息</div>
+                        </div>
+
+                        <volist name="data['left_internet']" id="vo" key="k">
+                        <div class="left_addable_wrap" id="{$vo.id}">
+                            <div class="vcard_data_txt b-b">
+                                <span class="vcard_data_title lang" data-lang-key="{$vo.en}">{$vo.ch}</span>
+                                <span class="{$vo.class}">{$vo.val}</span>
                             </div>
                         </div>
-                        <div class="left_addable_wrap" id="left_addable_message">
-                            <div class="vcard_data_txt b-b vcard_message ">
-                                <span class="vcard_data_title lang" data-lang-key="Wechat">微信</span>
-                                <span class="vcard_data_value vcard_data_wechat"></span>
-                            </div>
-                        </div>
-                        <div class="left_addable_wrap" id="left_addable_site">
-                            <div class="vcard_site vcard_data_txt b-b">
-                                <span class="vcard_data_title lang" data-lang-key="Website">主页网址</span>
-                                <span class="vcard_data_value vcard_data_site"></span>
-                            </div>
-                        </div>
-                        <div class="vcard_data_txt b-b">
-                            <span class="vcard_data_title lang" data-lang-key="Weibo">微博</span>
-                            <span class="vcard_data_value vcard_data_weibo"></span>
-                        </div>
-                        <div class="vcard_data_txt b-b ">
-                            <span class="vcard_data_title lang" data-lang-key="QQ">QQ</span>
-                            <span class="vcard_data_value vcard_data_qq"></span>
-                        </div>
+                        </volist>
+
                     </div>
+
                     <div class="left_box left_address">
                         <div class="bg_wrap green hidden">
-                            <div class="bg">
-                                地址
-                            </div>
+                            <div class="bg">地址</div>
                         </div>
-                        <div class="left_addable_wrap" id="left_addable_address">
+                        <volist name="data['left_address']" id="vo" key="k">
+                        <div class="left_addable_wrap" id="{$vo.id}">
                             <div class="vcard_address vcard_data_txt b-b">
-                                <span class="vcard_data_title lang" data-lang-key="Address">地址</span>
-                                <span class="vcard_data_value vcard_data_address vcard-mapaddr"></span>
+                                <span class="vcard_data_title lang" data-lang-key="{$vo.en}">{$vo.ch}</span>
+                                <span class="{$vo.class}">{$vo.val}</span>
                             </div>
                         </div>
+                        </volist>
+
                     </div>
                     <div class="left_box left_intro borderlt">
                         <div class="bg_wrap green borderlt hidden">
-                            <div class="bg">
-                                个人说明
-                            </div>
+                            <div class="bg">个人说明</div>
                         </div>
                         <div class="vcard_other vcard_data_txt b-b borderlt">
-                            <span class="vcard_data_title lang" data-lang-key="Self-intro">个人说明</span>
-                            <span class="vcard_data_value vcard_data_introduce"></span>
+                            <span class="vcard_data_title lang" data-lang-key="{$data['left_intro'][0]['en']}">{$data['left_intro'][0]['ch']}</span>
+                            <span class="vcard_data_value vcard_data_introduce">{$data['left_intro'][0]['val']}</span>
                         </div>
                     </div>
+
                     <div class="language">
                         <span>手机显示语言:</span>
                         <label id="lang-cn" for="cn" class="radio-inline">
@@ -290,7 +264,7 @@
                                 </div>
                                 <div id="front_cover" class="parent" style="display: block;">
                                     <div class="preview-size">
-                                        <img width="100%"  class="show_btn bgbtn" src="__PUBLIC__/images/vcardbg7.jpg"/>
+                                        <img width="100%"  class="show_btn bgbtn" src="{$data['head']}"/>
                                         <a href="javascript:;" class="fa fa-close up_close"></a>
                                     </div>
                                 </div>
@@ -298,7 +272,7 @@
                             <div class="form-group">
                                 <label class="form-control-label lang" data-lang-key="Fullname">姓名</label>
                                 <div class="inp_t">
-                                    <input type="text"  maxLength = '50' oninput="listenIn(this,'#vcard_data_name')"  value=""  placeholder="必填"/>
+                                    <input type="text"  maxLength = '50' oninput="listenIn(this,'#vcard_data_name')"  value="{$data['name']}"  placeholder="必填"/>
                                     <span class="length_tip"><font>0</font>/50</span>
                                 </div>
                                 
@@ -306,7 +280,7 @@
                             <div class="form-group">
                                 <label class="form-control-label lang"  data-lang-key="Position">职位</label>
                                 <div class="inp_t">
-                                    <input type="text" maxLength = "100" oninput="listenIn(this,'.vcard_data_appointment')" value="" />
+                                    <input type="text" maxLength = "100" oninput="listenIn(this,'.vcard_data_appointment')" value="{$data['appointment']}" />
                                     <span class="length_tip"><font>0</font>/100</span>
                                 </div>
                             </div>
@@ -314,7 +288,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label lang" data-lang-key="Company">公司</label>
                                     <div class="inp_t">
-                                        <input type="text" maxLength = '50' oninput="listenIn(this,'.vcard_data_company')" value="" />
+                                        <input type="text" maxLength = '50' oninput="listenIn(this,'.vcard_data_company')" value="{$data['company']}" />
                                         <span class="length_tip"><font>0</font>/50</span>
                                     </div>
                                     <a href="javascript:;" class="add_com add_com1 fa fa-plus" val = "0"></a>
@@ -337,100 +311,70 @@
                         <i class="arrowl"></i>
                         <i class="fa fa-close close"></i>
                         <div class="formlist">
-                            <div class="form-group">
-                                <label class="form-control-label lang" data-lang-key="Telephone">固定电话</label>
-                                <div class="inp_t">
-                                    <input type="text"  maxLength = '20' oninput="listenIn(this,'.vcard_data_phone')" value=""/>
-                                    <span class="length_tip"><font>0</font>/20</span>
-                                </div>
-                                
-                            </div>
+
+                        <volist name="data['left_phone']" id="vo" key="k">
                             <div class="addable_wrap">
                                 <div class="form-group">
-                                    <label class="form-control-label lang" data-lang-key="Mobilephone">移动电话</label>
+                                    <label class="form-control-label lang" data-lang-key="{$vo.en}">{$vo.ch}</label>
                                     <div class="inp_t">
-                                        <input type="text" maxLength = '20' oninput="listenIn(this,'.vcard_data_mobile')" value="" />
-                                        <span class="length_tip"><font>0</font>/20</span>
+                                        <input type="text" oninput="listenIn(this,'.{$vo.class|getPartStr}')" value="{$vo.val}"/>
+                                        <!-- <span class="length_tip"><font>0</font>/20</span> -->
                                     </div>
+                                    <?php if($k == 2): ?>
                                     <a href="javascript:;" class="add_com add_mp fa fa-plus" val = "0"></a>
-                                </div>
-                            </div>
-                            <div class="addable_wrap">
-                                <div class="form-group">
-                                    <label class="form-control-label lang" data-lang-key="Fax">传真</label>
-                                    <div class="inp_t">
-                                        <input type="text" maxLength = '20'  oninput="listenIn(this,'.vcard_data_fax')" value="" />
-                                        <span class="length_tip"><font>0</font>/20</span>
-                                    </div>
+                                    <?php elseif($k == 3): ?>
                                     <a href="javascript:;" class="add_com add_fax fa fa-plus" val = "0"></a>
-                                </div>
-                            </div>
-                            <div class="addable_wrap">
-                                <div class="form-group">
-                                    <label class="form-control-label lang" data-lang-key="Email" >电子邮件</label>
-                                    <div class="inp_t">
-                                        <input type="text" maxLength = '50' oninput="listenIn(this,'.vcard_data_email')" value="" />
-                                        <span class="length_tip"><font>0</font>/50</span>
-                                    </div>
+                                    <?php elseif($k == 4): ?>
                                     <a href="javascript:;" class="add_com add_email fa fa-plus" val = "0"></a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
+                        </volist>
+
                         </div>
                     </div>
                     <div class="edit_area">
                         <i class="arrowl"></i>
                         <i class="fa fa-close close"></i>
                         <div class="formlist">
+
+                        <volist name="data['left_internet']" id="vo" key="k">
                             <div class="addable_wrap">
                                 <div class="form-group">
-                                    <label class="form-control-label lang" data-lang-key="Wechat">微信号</label>
+                                    <label class="form-control-label lang" data-lang-key="{$vo.en}">{$vo.ch}</label>
                                     <div class="inp_t">
-                                        <input type="text" oninput="listenIn(this,'.vcard_data_wechat')" value=""/>
+                                        <input type="text" oninput="listenIn(this,'.{$vo.class|getPartStr}')" value="{$vo.val}"/>
+                                        <!-- <span class="length_tip"><font>0</font>/20</span> -->
                                     </div>
+                                    <?php if($k == 1): ?>
                                     <a href="javascript:;" class="add_com add_wechat fa fa-plus" val = "0"></a>
-                                </div>
-                            </div>
-                            <div class="addable_wrap">
-                                <div class="form-group">
-                                    <label class="form-control-label lang" data-lang-key="Website">主页网址</label>
-                                    <div class="inp_t">
-                                        <input type="text" maxLength = '20' oninput="listenIn(this,'.vcard_data_site')" value="" />
-                                        <span class="length_tip"><font>0</font>/200</span>
-                                    </div>
+                                    <?php elseif($k == 2): ?>
                                     <a href="javascript:;" class="add_com add_website fa fa-plus" val = "0"></a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
-                            
-                            <div class="form-group">
-                                <label class="form-control-label lang" data-lang-key="Weibo">微博</label>
-                                <div class="inp_t">
-                                    <input type="text" maxLength = '200'  oninput="listenIn(this,'.vcard_data_weibo')" value="" />
-                                    <span class="length_tip"><font>0</font>/200</span>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-control-label lang" data-lang-key="QQ">QQ</label>
-                                <div class="inp_t">
-                                    <input type="text" maxLength = '50' oninput="listenIn(this,'.vcard_data_qq')" value="" />
-                                </div>
-                            </div>
+                        </volist>
+
                         </div>
                     </div>
                     <div class="edit_area">
                         <i class="arrowl"></i>
                         <i class="fa fa-close close"></i>
                         <div class="formlist">
+
+                            <volist name="data['left_address']" id="vo" key="k">
                             <div class="addable_wrap">
-                                <div class="form-group">
-                                    <label class="form-control-label lang" data-lang-key="Address">地址</label>
-                                    <div class="inp_t">
-                                        <input type="text"  maxLength = '50' oninput="listenIn(this,'.vcard_data_address')"  value=""/>
-                                        <span class="length_tip"><font>0</font>/50</span>
+                                    <div class="form-group">
+                                        <label class="form-control-label lang" data-lang-key="{$vo.en}">{$vo.ch}</label>
+                                        <div class="inp_t">
+                                            <input type="text"  maxLength = '50' oninput="listenIn(this,'.{$vo.class|getPartStr}')"  value="{$vo.val}"/>
+                                            <!-- <span class="length_tip"><font>0</font>/50</span> -->
+                                        </div>
+                                        <a href="javascript:;" class="add_com add_address fa fa-plus" val = "0"></a>
                                     </div>
-                                    <a href="javascript:;" class="add_com add_address fa fa-plus" val = "0"></a>
-                                </div>
                             </div>
+                            </volist>
+                            
                         </div>
                     </div>
                     <div class="edit_area">
@@ -438,33 +382,30 @@
                         <i class="fa fa-close close"></i>
                         <div class="formlist">
                             <div class="form-group">
-                                <label class="form-control-label lang" data-lang-key='Self-intro'>个人说明</label>
+                                <label class="form-control-label lang" data-lang-key="{$data['left_intro'][0]['en']}">{$data['left_intro'][0]['ch']}</label>
                                 <div class="inp_t" style="width: 400px;">
-                                    <textarea id="info-introduce" oninput="listenIn(this,'.vcard_data_introduce')" class="textarea1" maxlength="200" value=""></textarea>
-                                    <span class="length_tip txt_tip"><font>0</font>/200</span>
+                                    <textarea id="info-introduce" oninput="listenIn(this,'.vcard_data_introduce')" class="textarea1" maxlength="200" value="">{$data['left_intro'][0]['val']}</textarea>
+                                    <!-- <span class="length_tip txt_tip"><font>0</font>/200</span> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="clear"></div>
-                <!--<div class="card_btn sub_btn">
-                    <a href="#">生成二维码</a>
-                </div>-->
             </div>
             <div class="card_code">
                 <div class="edit_left">
-                    <div class="txt_right">
+                    <div class="txt_right" id="code5">
                         <img src="__PUBLIC__/images/nocode.png"/>
                     </div>
-                    <a href="__PUBLIC__/images/nocode.png" download="二维码" class="btn-sm btn_xz" >下载</a>
+                    <a href="__PUBLIC__/images/nocode.png" download="名片活码" class="btn-sm btn_xz" id="img5">下载</a>
                     <div class="create-btn">
-                        <button id="save_btn" class="btn-sm green-btn">生成二维码</button>
+                        <button id="save_btn5" class="btn-sm green-btn">生成二维码</button>
                     </div>
                 </div>
             </div>
-        
         </div>
+<!-- 名片活码S -->
     </div>
     <div class="theme-popover-mask"></div>
     <div class="theme-popover">
