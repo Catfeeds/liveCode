@@ -182,8 +182,10 @@
         </div>
     </div>
     <script src="__PUBLIC__/libs/layer/layer.js"></script>
+    
         <script type="text/javascript">
            $(function(){
+           	var html=$(".fa-user").next('.nav-label').addClass('abc');
 	$('.layer').click(function(){
     var url=($(this).attr('href'));
     var layerindex=layer.open({
@@ -210,5 +212,21 @@ layer.full(layerindex);
 	
 	 });
         </script>
+        <style>
+    	span.nav-label.abc{
+    		position: relative;
+    	}
+    	span.nav-label.abc:after {
+		    content: "";
+		    display: inline-block;
+		    width: 6px;
+		    height: 6px;
+		    background: #FF1C20;
+		    border-radius: 50%;
+		    position: absolute;
+		    top: 6px;
+		    left: 65px;
+		}
+    </style>
 </body>
 </html>
