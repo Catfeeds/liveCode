@@ -61,7 +61,7 @@ class LivecodeController extends AdminController {
         }      
           
         $page = new Page(
-            $this->obj->where($map)->count(),
+            $this->obj->where($where)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
@@ -139,7 +139,7 @@ class LivecodeController extends AdminController {
         }      
           
         $page = new Page(
-            $this->obj->where($map)->count(),
+            $this->obj->where($where)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
@@ -151,7 +151,7 @@ class LivecodeController extends AdminController {
         $attr3['name']  = 'view';
         $attr3['title'] = '数据统计';
         $attr3['class'] = 'label label-info';
-        $attr3['href']  = U('view',['id'=>'__data_id__','code'=>'1']);
+        $attr3['href']  = U('view',['type'=>$type,'id'=>'__data_id__','code'=>'1']);
 
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
@@ -220,16 +220,6 @@ class LivecodeController extends AdminController {
                     ->addFormItem('title', 'text', '新建目录名称')
                     ->display();
         }
-    }
-    
-    
-    public function export_csv($filename,$data) {
-        header("Content-type:text/csv");
-        header("Content-Disposition:attachment;filename=".$filename);
-        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
-        header('Expires:0');
-        header('Pragma:public');
-        echo $data;
     }
 
     /**

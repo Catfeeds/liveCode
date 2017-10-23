@@ -27,7 +27,7 @@ $(function(){
     });
 
     //搜索功能
-    $('body').on('click', '.search-btn', function() {
+    $(document).on('click', '.search-btn', function() {
         var url = $(this).closest('form').attr('action');
         var query = $(this).closest('form').serialize();
         query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g, '');
@@ -41,10 +41,10 @@ $(function(){
         return false;
     });
 
-     //回车搜索
-    $(".search-input").keyup(function(e) {
+    //回车搜索
+    $(document).on('keydown', '.search-input', function(e) {
         if (e.keyCode === 13) {
-            $(".search-btn").click();
+            $(this).closest('form').find('.search-btn').click();
             return false;
         }
     });

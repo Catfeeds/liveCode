@@ -94,6 +94,9 @@ class VideoController extends AdminController {
             $where['type']=2;
             $where['id']  = array('between',array($ksid,$endid));
             $rs=M('cms_phone')->where($where)->order('id')->select();
+            if (!$rs) {
+                $this->error('找不到该区间的文件，请输入正确的ID');
+            }
             $str = "id,视频名称,活码地址\n";
             foreach( $rs as $v){
                 $str .= $v['id'].",".$v['title'].",".$v['huoma']."\n";
@@ -101,7 +104,7 @@ class VideoController extends AdminController {
 
             $str = iconv('utf-8','gb2312',$str);
             $filename = date('Ymd').'.csv';
-            $this->export_csv($filename,$str);
+            export_csv($filename,$str);
         }else{
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
@@ -113,17 +116,7 @@ class VideoController extends AdminController {
                     ->display();
         }
     }
-    /**
-     * 执行导出
-     */
-    public function export_csv($filename,$data) {
-        header("Content-type:text/csv");
-        header("Content-Disposition:attachment;filename=".$filename);
-        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
-        header('Expires:0');
-        header('Pragma:public');
-        echo $data;
-    }
+    
     public function edittzwz ()
         {
                 if ( IS_POST )

@@ -34,7 +34,6 @@ class UserController extends AdminController {
                    ->where($map)
                    ->order('u.id desc')
                    ->select();
-// halt($data_list);
         foreach ($data_list as $k => $v) {
             $data_list[$k]['expire_time'] = $v['expire_time'] ? date('Y-m-d H:i',$v['expire_time']) :'暂未订购';
             $data_list[$k]['name'] = $v['vipId'] ? '<font color="green">'.$v['name'].'用户</font>' :'普通用户';
@@ -45,7 +44,7 @@ class UserController extends AdminController {
             }
         }
         $page = new Page(
-            $mod->where($map)->count(),
+            $mod->alias('u')->join('__VIP__ v on u.vipId = v.id','left')->where($map)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
