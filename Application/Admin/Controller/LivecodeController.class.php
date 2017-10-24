@@ -290,16 +290,12 @@ class LivecodeController extends AdminController {
                 if (!$data) {
                     $this->error($this->obj->getError());exit();
                 }
-                
-            }elseif ($type == 5) {
+            }elseif ($type == 5) {                  //名片活码
                 $data['content'] = I('post.params');
                 $data['type'] = $type;
                 $data['menuId'] = 0;
-                $data['title'] = $data['content']['name']['val'].'的名片';
+                $data['title'] = $data['content']['name'].'的名片';
                 $data['create_time'] = time();
-
-
-
             }
             $data['uid']   = $this->uid;
             $data['d']     = get_dwz();
@@ -332,21 +328,24 @@ class LivecodeController extends AdminController {
      */
     public function edit($id) {
         if (IS_POST) {
-            $info=I('post.');
+            $info = I('post.');
             $type = $info['type'];
             if ($type == 1 || $type == 2 || $type == 3 || $type == 4) {    //图文活码 || 文本活码 || 文件活码 || 网址导航
                 $data = $this->obj->create();
                 if (!$data) {
                     $this->error($this->obj->getError());exit();
                 }
-                $data['uid']   = $this->uid;
+            }elseif ($type == 5) {                  //名片活码
+                $data['content'] = $info['params'];
+                $data['title'] = $data['content']['name'].'的名片';
+                $data['update_time'] = time();
             }
             //如果是图文或者文件，内容保存为json格式
-            if ($type == 1 || $type == 3) {
+            if ($type == 1 || $type == 3 || $type == 5) {
                 $data['content']   = json_encode($data['content']);
             }
-            $data['id']=$info['editId'];
-            // halt($data);
+            $data['id']  = $info['editId'];
+            // halt($data['content']);
 
             if ($data) {
                 $result = $this->obj->save($data);
@@ -432,6 +431,7 @@ class LivecodeController extends AdminController {
             $upload->savePath  =     ''; // 设置附件上传（子）目录+
             // 上传文件 
             $info   =   $upload->upload();
+            // halt($info);
             if(!$info) {// 上传错误提示错误信息
                 $this->error('上传失败！');
             }else{// 上传成功

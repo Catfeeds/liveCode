@@ -157,10 +157,10 @@
                         <div class="bg_wrap basic-bg-wrap green hidden">
                             <div class="bg">基本信息</div>
                         </div>
-                        <div class="vcard_head" style="background-image: url({$data['head']});">
+                        <div class="vcard_head <?php if($data['layoutbg'] == '1'): ?>layout-m<?php elseif($data['layoutbg'] == '2'): ?>layout-r<?php endif; ?>" style="background-image: url('{$data['head']}');">
                             <div class="vcard_face_wrap">
                                 <div class="vcard_face_bg"></div>
-                                <div class="vcard_face" style="background-image: url({$data['face']});"></div>
+                                <div class="vcard_face" style="background-image: url('{$data['face']}');"></div>
                                 <div class="vcard_face_lang lang_fake lang" data-lang-key="Avatar">头像</div>
                             </div>
 
@@ -228,12 +228,12 @@
                     <div class="language">
                         <span>手机显示语言:</span>
                         <label id="lang-cn" for="cn" class="radio-inline">
-                            <input name="lang" type="radio" id="cn" value="cn" checked="checked">中文
+                            <input name="lang" type="radio" id="cn" value="cn" <?php if($data['lang'] == 'cn'): ?>checked="checked"<?php endif; ?>>中文
                         </label>
                         <label id="lang-en" for="en" class="radio-inline">
-                            <input name="lang" type="radio" id="en" value="en">英语
+                            <input name="lang" type="radio" id="en" value="en" <?php if($data['lang'] == 'en'): ?>checked="checked"<?php endif; ?>>英语
                         </label>
-                        <input type="hidden" id="lang" value="cn" />
+                        <input type="hidden" id="lang" value="{$data['lang']}" />
                     </div>
                 </div>
                 <div id="rightwrap">
@@ -246,14 +246,14 @@
                                 <div id="avatar-upload">
                                     <div class="up_btn">
                                         <span>上传头像</span>
-                                        <input type="file" title="上传头像" name="Filedata" class="head_upload uploadfile">
+                                        <input type="file" title="上传头像" name="file" class="head_upload uploadfile" id="uploadAvatar">
                                     </div>
                                 </div>
                                 <div id="portraitSubmit" class="parent" style="display: none;">
                                     <div class="preview-size">
                                         <img width="100%" class="head_img" src="__PUBLIC__/images/vcardbg7.jpg"/>
                                         <a href="javascript:;" class="fa fa-close up_close"></a>
-                                        <input type="file" title="上传头像" name="Filedata" class="head_upload uploadfile">
+                                        <input type="file" title="上传头像" name="file" class="head_upload uploadfile">
                                     </div>
                                 </div>
                             </div>
@@ -298,10 +298,10 @@
                                 <label class="form-control-label lang" data-lang-key="Layout">展示位置</label>
                                 <div class="inp_t">
                                     <ul class="field-layout"> 
-                                        <li class="layoutbg1 active"><span></span></li>
-                                        <li class="layoutbg2"><span></span></li>
-                                        <li class="layoutbg3 mr0"><span></span></li>
-                                        <input type="hidden" id="info-layout"  value="0"/>
+                                        <li class="layoutbg1 <?php if($data['layoutbg'] == '0'): ?>active<?php endif; ?>"><span></span></li>
+                                        <li class="layoutbg2 <?php if($data['layoutbg'] == '1'): ?>active<?php endif; ?>"><span></span></li>
+                                        <li class="layoutbg3 mr0  <?php if($data['layoutbg'] == '2'): ?>active<?php endif; ?>"><span></span></li>
+                                        <input type="hidden" id="info-layout"  value="{$data['layoutbg']}"/>
                                     </ul>
                                 </div>
                             </div>
@@ -396,9 +396,9 @@
             <div class="card_code">
                 <div class="edit_left">
                     <div class="txt_right" id="code5">
-                        <img src="__PUBLIC__/images/nocode.png"/>
+                        <img src="/Uploads/livecode/{$data['id']}.png"/>
                     </div>
-                    <a href="__PUBLIC__/images/nocode.png" download="名片活码" class="btn-sm btn_xz" id="img5">下载</a>
+                    <a href="/Uploads/livecode/{$data['id']}.png" download="名片活码" class="btn-sm btn_xz" id="img5">下载</a>
                     <div class="create-btn">
                         <button id="save_btn5" class="btn-sm green-btn">生成二维码</button>
                     </div>
@@ -413,49 +413,19 @@
         <div class="select-bg">
             <input type="hidden" id="sel-bgcolor"  value="">
             <ul id="bglist">
-                <li class="simple_bg active">
-                    <img src="__PUBLIC__/images/vcardbg1.jpg"/>
-                    <span></span>
-                </li>
-                <li class="simple_bg">
-                    <img src="__PUBLIC__/images/vcardbg2.jpg"/>
-                    <span></span>
-                </li>
-                <li class="simple_bg">
-                    <img src="__PUBLIC__/images/vcardbg3.jpg"/>
-                    <span></span>
-                </li>
-                <li class="simple_bg">
-                    <img src="__PUBLIC__/images/vcardbg4.jpg"/>
-                    <span></span>
-                </li>
-                <li class="simple_bg">
-                    <img src="__PUBLIC__/images/vcardbg5.jpg"/>
-                    <span></span>
-                </li>
-                <li class="simple_bg">
-                    <img src="__PUBLIC__/images/vcardbg6.jpg"/>
-                    <span></span>
-                </li>
-                <li class="simple_bg">
-                    <img src="__PUBLIC__/images/vcardbg7.jpg"/>
-                    <span></span>
-                </li>
-                <li class="simple_bg">
-                    <img src="__PUBLIC__/images/vcardbg8.jpg"/>
-                    <span></span>
-                </li>
-                <li class="simple_bg">
-                    <img src="__PUBLIC__/images/vcardbg9.jpg"/>
-                    <span></span>
-                </li>
-                <li class="simple_bg">
-                    <img src="__PUBLIC__/images/vcardbg10.jpg"/>
-                    <span></span>
-                </li>
+                <li class="simple_bg <?php if($data['head'] == '/Public/images/vcardbg1.jpg'): ?>active<?php endif; ?>"><img src="__PUBLIC__/images/vcardbg1.jpg"/><span></span></li>
+                <li class="simple_bg <?php if($data['head'] == '/Public/images/vcardbg2.jpg'): ?>active<?php endif; ?>"><img src="__PUBLIC__/images/vcardbg2.jpg"/><span></span></li>
+                <li class="simple_bg <?php if($data['head'] == '/Public/images/vcardbg3.jpg'): ?>active<?php endif; ?>"><img src="__PUBLIC__/images/vcardbg3.jpg"/><span></span></li>
+                <li class="simple_bg <?php if($data['head'] == '/Public/images/vcardbg4.jpg'): ?>active<?php endif; ?>"><img src="__PUBLIC__/images/vcardbg4.jpg"/><span></span></li>
+                <li class="simple_bg <?php if($data['head'] == '/Public/images/vcardbg5.jpg'): ?>active<?php endif; ?>"><img src="__PUBLIC__/images/vcardbg5.jpg"/><span></span></li>
+                <li class="simple_bg <?php if($data['head'] == '/Public/images/vcardbg6.jpg'): ?>active<?php endif; ?>"><img src="__PUBLIC__/images/vcardbg6.jpg"/><span></span></li>
+                <li class="simple_bg <?php if($data['head'] == '/Public/images/vcardbg7.jpg'): ?>active<?php endif; ?>"><img src="__PUBLIC__/images/vcardbg7.jpg"/><span></span></li>
+                <li class="simple_bg <?php if($data['head'] == '/Public/images/vcardbg8.jpg'): ?>active<?php endif; ?>"><img src="__PUBLIC__/images/vcardbg8.jpg"/><span></span></li>
+                <li class="simple_bg <?php if($data['head'] == '/Public/images/vcardbg9.jpg'): ?>active<?php endif; ?>"><img src="__PUBLIC__/images/vcardbg9.jpg"/><span></span></li>
+                <li class="simple_bg <?php if($data['head'] == '/Public/images/vcardbg10.jpg'): ?>active<?php endif; ?>"><img src="__PUBLIC__/images/vcardbg10.jpg"/><span></span></li>
                 <div class="youself_bg"><p>自定义背景</p></div>
                 <div class="bg-upload">
-                    <input type="file" name="Filedata" class="uploadfile" id="upload-bg" title="上传封面图">
+                    <input type="file" name="file" class="uploadfile" id="upload-bg" title="上传封面图">
                     <span>本地上传</span>
                 </div>
                 <li class="imgShowBox">

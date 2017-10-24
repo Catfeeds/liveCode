@@ -79,7 +79,7 @@ $(function(){
 	    }
 	    ,done: function(res){
 	      //如果上传失败
-	      if(res.code > 0){
+	      if(res.status != 1){
 	        return layer.msg('上传失败');
 	      }else{
 	      	//上传成功
@@ -99,6 +99,57 @@ $(function(){
 	      	  $('#demo1').attr('src', '/Public/images/noimg.png');
 	          demoText.empty();
 	      });
+	    }
+	  });
+
+	  //名片头像上传
+	  var uploadInst2 = upload.render({
+	    elem: '#uploadAvatar'
+	    ,url: 'admin.php?s=/admin/livecode/addfile'
+	    ,before: function(obj){
+	      //预读本地文件示例，不支持ie8
+	      obj.preview(function(index, file, result){
+	        $('.head_img').attr('src', result); //图片链接（base64）
+	      });
+	    }
+	    ,done: function(res){
+	      //如果上传失败
+	      if(res.status != 1){
+	        return layer.msg('上传失败');
+	      }else{
+	      	//上传成功
+	      	$(".vcard_face").css({"background-image":"url("+'Uploads/livecode/file/'+res.info.uploadFileUrl+")"});
+	      }
+	      
+	    }
+	    ,error: function(){
+	    }
+	  });
+	  //名片背景上传
+	  var uploadInst3 = upload.render({
+	    elem: '#upload-bg'
+	    ,url: 'admin.php?s=/admin/livecode/addfile'
+	    ,before: function(obj){
+	      //预读本地文件示例，不支持ie8
+	      obj.preview(function(index, file, result){
+	        $('.imgshow img').attr('src', result); //图片链接（base64）
+	      });
+	    }
+	    ,done: function(res){
+	      //如果上传失败
+	      if(res.status != 1){
+	        return layer.msg('上传失败');
+	      }else{
+	      	//上传成功
+	      	$('#bglist li').addClass('active').siblings('li').removeClass('active');
+			// var imgSrc=$('#bglist li').find('.imgshow img').attr('src');
+			$(".imgShowBox").addClass('active');
+			$('.imgshow img').attr('src', 'Uploads/livecode/file/'+res.info.uploadFileUrl); //图片链接（base64）
+	      	$(".vcard_head").css({"background-image":"url("+'Uploads/livecode/file/'+res.info.uploadFileUrl+")"});
+	      }
+	      
+	    }
+	    ,error: function(){
 	    }
 	  });
 	  	
