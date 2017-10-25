@@ -23,8 +23,9 @@ class VideoController extends AdminController {
         if ( $keyword ){
             $map['id|title'] = array('like','%'.$keyword.'%');
         }
-       
         $map['type'] = 2;
+        $map['uid']  = $this->uid;
+
         // 获取所有用户
         $map['status'] = array('egt', '0'); // 禁用和正常状态
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
@@ -37,7 +38,7 @@ class VideoController extends AdminController {
                   
         foreach( $data_list as $k => $v ){
             $data_list[$k]['ewm']   ="Uploads/ewm/".$v['id'].'.png';
-        }           
+        }
         $page = new Page(
             $user_object->where($map)->count(),
             C('ADMIN_PAGE_ROWS')
@@ -62,7 +63,6 @@ class VideoController extends AdminController {
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr)
                 ->addTopButton('self', $attr2)
-
                 ->setSearch('请输入ID或视频名称', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '视频名称')
@@ -91,8 +91,9 @@ class VideoController extends AdminController {
             if ( !$endid ){
                 $this->error('请输入结束ID');
             }
-            $where['type']=2;
-            $where['id']  = array('between',array($ksid,$endid));
+            $where['type'] = 2;
+            $where['uid']  = $this->uid;
+            $where['id']   = array('between',array($ksid,$endid));
             $rs=M('cms_phone')->where($where)->order('id')->select();
             if (!$rs) {
                 $this->error('找不到该区间的文件，请输入正确的ID');
@@ -148,7 +149,7 @@ class VideoController extends AdminController {
         
     }
     /**
-     * 现在二维码
+     * 下载二维码
      */
     public function xzewm (){
         if ( IS_POST ){
@@ -160,8 +161,9 @@ class VideoController extends AdminController {
             if ( !$endid ){
                 $this->error('请输入结束ID');
             }
-            $where['type']=2;
-            $where['id']  = array('between',array($ksid,$endid));
+            $where['type'] = 2;
+            $where['uid']  = $this->uid;
+            $where['id']   = array('between',array($ksid,$endid));
             $rs=M('cms_phone')->where($where)->getField('id',true);
             if (!$rs) {
                 $this->error('找不到该区间的文件，请输入正确的ID');
@@ -231,7 +233,7 @@ class VideoController extends AdminController {
     }
 
     /**
-     * 编辑用户
+     * 编辑视频跳转
      * 
      */
     public function edit($id) {
@@ -263,7 +265,10 @@ class VideoController extends AdminController {
             }
         } else {
             // 获取账号信息
-            $info = D('Phone')->find($id);
+            $info = D('Phone')->where(['id'=>$id,'type'=>2,'uid'=>$this->uid])->find();
+            if (!$info) {
+                $this->error('数据不存在');
+            }
             $this->assign('info',$info);
             $this->meta_title = '编辑视频活码';
             $this->display();
@@ -326,7 +331,7 @@ class VideoController extends AdminController {
 
  
  
-  /**
+    /**
      * 设置一条或者多条数据的状态
      * 
      */

@@ -30,8 +30,9 @@ class PhoneController extends AdminController {
         if ( $keyword ){
         	$map['id|title'] = array('like','%'.$keyword.'%');
         }
-       
-        $map['type']=1;
+        $map['type'] = 1;
+        $map['uid']  = $this->uid;
+
         // 获取所有用户
         $map['status'] = array('egt', '0'); // 禁用和正常状态
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
@@ -80,7 +81,6 @@ class PhoneController extends AdminController {
                 ->addTopButton('self', $attr2)
                 ->addTopButton('self', $attr3)
                 ->addTopButton('self', $attr4)
-
                 ->setSearch('请输入ID或网址名称', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '网址名称')
@@ -111,8 +111,9 @@ class PhoneController extends AdminController {
     		if ( !$endid ){
     			$this->error('请输入结束ID');
     		}
-    		$where['type']=1;
-    		$where['id']  = array('between',array($ksid,$endid));
+    		$where['type'] = 1;
+            $where['uid']  = $this->uid;
+    		$where['id']   = array('between',array($ksid,$endid));
 	     	$rs=M('cms_phone')->where($where)->order('id')->select();
             if (!$rs) {
                 $this->error('找不到该区间的文件，请输入正确的ID');
@@ -132,7 +133,7 @@ class PhoneController extends AdminController {
                     ->setPostUrl(U('outurl'))    //设置表单提交地址
                     ->addFormItem('ksid', 'text', '开始ID')
                     ->addFormItem('endid', 'text', '结束ID')
-                     ->setAjaxSubmit(false)
+                    ->setAjaxSubmit(false)
                     ->display();
     	}
     }
@@ -180,8 +181,9 @@ title = replace(title, '$ksid', '$endid') ");
     		if ( !$endid ){
     			$this->error('请输入结束ID');
     		}
-    		$where['type']=1;
-    		$where['id']  = array('between',array($ksid,$endid));
+            $where['type'] = 1;
+            $where['uid']  = $this->uid;
+            $where['id']   = array('between',array($ksid,$endid));
     		$rs=M('cms_phone')->where($where)->getField('id',true);
             if (!$rs) {
                 $this->error('找不到该区间的文件，请输入正确的ID');
@@ -259,7 +261,7 @@ title = replace(title, '$ksid', '$endid') ");
     }
 
     /**
-     * 编辑用户
+     * 编辑网址跳转
      * 
      */
     public function edit($id) {
@@ -282,7 +284,10 @@ title = replace(title, '$ksid', '$endid') ");
             }
         } else {
             // 获取账号信息
-            $info = D('Phone')->find($id);
+            $info = D('Phone')->where(['id'=>$id,'type'=>1,'uid'=>$this->uid])->find();
+            if (!$info) {
+                $this->error('数据不存在');
+            }
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('编辑网址跳转')  // 设置页面标题
