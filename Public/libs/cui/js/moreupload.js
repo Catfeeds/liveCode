@@ -118,7 +118,7 @@ $(function(){
 	        return layer.msg('上传失败');
 	      }else{
 	      	//上传成功
-	      	$(".vcard_face").css({"background-image":"url("+'Uploads/livecode/file/'+res.info.uploadFileUrl+")"});
+	      	$(".vcard_face").css({"background-image":"url("+'/Uploads/livecode/file/'+res.info.uploadFileUrl+")"});
 	      }
 	      
 	    }
@@ -144,8 +144,8 @@ $(function(){
 	      	$('#bglist li').addClass('active').siblings('li').removeClass('active');
 			// var imgSrc=$('#bglist li').find('.imgshow img').attr('src');
 			$(".imgShowBox").addClass('active');
-			$('.imgshow img').attr('src', 'Uploads/livecode/file/'+res.info.uploadFileUrl); //图片链接（base64）
-	      	$(".vcard_head").css({"background-image":"url("+'Uploads/livecode/file/'+res.info.uploadFileUrl+")"});
+			$('.imgshow img').attr('src', '/Uploads/livecode/file/'+res.info.uploadFileUrl); //图片链接（base64）
+	      	$(".vcard_head").css({"background-image":"url("+'/Uploads/livecode/file/'+res.info.uploadFileUrl+")"});
 	      }
 	      
 	    }

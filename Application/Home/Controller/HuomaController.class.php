@@ -26,7 +26,7 @@ class HuomaController extends HomeController{
         M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>1]);
         if ($data['type'] == 1 || $data['type'] == 2) {           //文本活码
             if ($data['type'] == 1) {
-                $content = json_decode($data["content"]);
+                $content = json_decode($data["content"],true);
                 foreach ($content as $key => $value) {
                     $data[$key] = $value;
                 }
@@ -43,6 +43,14 @@ class HuomaController extends HomeController{
             $this->display('live_file');
         }elseif ($data['type'] == 4) {      //网址导航
             redirect($data['content']);
+        }elseif ($data['type'] == 5) {      //名片活码
+            $content = json_decode($data["content"],true);
+            foreach ($content as $key => $value) {
+                $data[$key] = $value;
+            }
+            $this->assign('data',$data);
+            $this->display('live_vcard');
+            // halt($data);
         } 
     }
 
