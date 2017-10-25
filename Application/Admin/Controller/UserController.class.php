@@ -149,7 +149,10 @@ class UserController extends AdminController {
             }
         } else {
             // 获取账号信息
-            $info = D('User')->find($id);
+            $info = D('User')->where(['id'=>$id,'user_type'=>2])->find();
+            if (!$info) {
+                $this->error('用户不存在');
+            }
             unset($info['password']);
 
             // 使用FormBuilder快速建立表单页面。
@@ -188,7 +191,7 @@ class UserController extends AdminController {
      */
     public function fee($id) {
         $mod = D('User');
-        $info = $mod->where(['status'=>1,'id'=>$id])->find();
+        $info = $mod->where(['id'=>$id,'status'=>1,'user_type'=>2])->find();
         if (!$info) {
             $this->error('用户不存在或被禁用！');
         }
@@ -251,7 +254,7 @@ class UserController extends AdminController {
         $uid = I('get.id/d');
         $where = array('eq', 1);
         $mod = D('User');
-        $user = $mod->where(['id'=>$uid,'status'=>1])->find(); //查找用户
+        $user = $mod->where(['id'=>$uid,'status'=>1,'user_type'=>2])->find(); //查找用户
         if (!$user) {
              $this->error('用户不存在或被禁用！');
         } else {
@@ -290,7 +293,10 @@ class UserController extends AdminController {
             }
         } else {
             // 获取账号信息
-            $info = D('User')->find($id);
+            $info = D('User')->where(['id'=>$id,'status'=>1,'user_type'=>2])->find(); //查找用户
+            if (!$info) {
+                 $this->error('用户不存在或被禁用！');
+            }
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('域名管理')  // 设置页面标题

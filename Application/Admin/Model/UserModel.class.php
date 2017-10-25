@@ -171,5 +171,12 @@ class UserModel extends Model {
         $user = $this->where(['id'=>$uid])->find();
         return $user;
     }
+    /**
+     * 获取待审核活码域名的用户数量
+     */
+    public function getIfCheckCount(){
+        $count = $this->where(['url'=>['neq',''],'url_status'=>0])->count();
+        return $count;
+    }
 
 }

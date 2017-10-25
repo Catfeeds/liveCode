@@ -43,7 +43,6 @@ class AdminController extends CommonController {
             }
         }
         
-
         // 获取左侧导航
         if (!C('ADMIN_TABS')) {
             $module_object = D('Admin/Module');
@@ -56,11 +55,14 @@ class AdminController extends CommonController {
             
             // $main_menu_list = $module_object->where('status = 1')->field('id,name,title,icon')->order('id asc')->select();
             // $this->assign('_main_menu_list', $main_menu_list);  // 后台主菜单
-           
         }
         $this->order_status=C('ORDER_STATUS');
         $this->assign('_user_auth', session('user_auth'));                // 用户登录信息
         $this->assign('_admin_public_layout', C('ADMIN_PUBLIC_LAYOUT'));  // 页面公共继承模版
+
+        //获取待审核活码域名的用户数量
+        $ifCheckCount = D('User')->getIfCheckCount();
+        $this->assign('ifCheckCount', $ifCheckCount);
     }
 
     /**
