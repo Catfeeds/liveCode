@@ -222,6 +222,7 @@ class ProductController extends AdminController {
             if ( !$endid ){
                 $this->error('请输入结束ID');
             }
+            $where['uid']  = $this->uid;
             $where['id']  = array('between',array($ksid,$endid));
             $rs=$this->obj->where($where)->getField('id',true);
             if (!$rs) {
@@ -324,14 +325,16 @@ class ProductController extends AdminController {
                 $this->error($this->obj->getError());
             }
         } else {
-            $this->meta_title = '编辑产品活码';
-            $data = $this->obj->find($id);
+            $data = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
+            if (!$data) {
+                $this->error('数据不存在');
+            }
             $content = json_decode($data["content"]) ;
             foreach ($content as $key => $value) {
                 $data[$key] = $value;
             }
             // halt($data);
-
+            $this->meta_title = '编辑产品活码';
             $this->assign('data',$data);
             $this->display('add');
         }
@@ -361,7 +364,11 @@ class ProductController extends AdminController {
      */
     public function detail (){
         $id            = I('id/d');
-        $data          = $this->obj->find($id);
+        $data = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
+        if (!$data) {
+            $this->error('数据不存在');
+        }
+
         $content = json_decode($data["content"]) ;
         foreach ($content as $key => $value) {
             $data[$key] = $value;

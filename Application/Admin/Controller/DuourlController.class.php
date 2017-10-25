@@ -31,10 +31,9 @@ class DuourlController extends AdminController {
         if ( $keyword ){
         	 $map['id|name'] = array('like','%'.$keyword.'%');
         }
-       
-        $map['status'] = array('egt', '0'); // 禁用和正常状态
+        $map['uid']  = $this->uid;
+
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
-        
         $data_list = $this->obj
                    ->page($p , C('ADMIN_PAGE_ROWS'))
                    ->where($map)
@@ -102,7 +101,7 @@ class DuourlController extends AdminController {
     		if ( !$id ){
     			$this->error('请输入需要导出的ID');
     		}
-    		$rs=$this->obj->find($id);
+    		$rs=$this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
      		if ( !$rs ){
      			$this->error('没有找到此id的相关信息');
      		}
@@ -139,6 +138,7 @@ class DuourlController extends AdminController {
             if ( !$endid ){
                 $this->error('请输入结束ID');
             }
+            $where['uid'] = $this->uid;
             $where['id']  = array('between',array($ksid,$endid));
             $rs=$this->obj->where($where)->getField('id',true);
             if (!$rs) {
@@ -274,8 +274,11 @@ class DuourlController extends AdminController {
                 $this->error($this->obj->getError());
             }
         } else {
+            $info = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
+            if (!$info) {
+                $this->error('数据不存在');
+            }
             $this->meta_title = '编辑多网址跳转';
-            $info = $this->obj->find($id);
             $info['title']=explode('|||',$info['title']);
             $info['tztime']=explode('|||',$info['tztime']);
             $this->assign('info',$info);
@@ -349,10 +352,12 @@ class DuourlController extends AdminController {
 	        	}
     
     }
-    public function detail ()
-    {
-    	$id=I('id');
-    	$info=$this->obj->find($id);
+    public function detail (){
+    	$id=I('id/d');
+        $info = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
+        if (!$info) {
+            $this->error('数据不存在');
+        }
     	$info['title']=str_replace('|||','</br>',$info['title']);
     	$this->assign('info',$info);
     	$this->display();

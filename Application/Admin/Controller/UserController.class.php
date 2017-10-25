@@ -97,6 +97,7 @@ class UserController extends AdminController {
             $user_object = D('User');
             $data = $user_object->create();
             if ($data) {
+                $data['user_type'] = 2;
                 $id = $user_object->add($data);
                 if ($id) {
                     $this->success('新增成功', U('index'));

@@ -236,6 +236,8 @@ class LivecodeController extends AdminController {
     			$this->error('请输入结束ID');
     		}
     		$where['id']  = array('between',array($ksid,$endid));
+            $where['uid']  = $this->uid;
+
     		$rs=$this->obj->where($where)->getField('id',true);
             if (!$rs) {
                 $this->error('找不到该区间的文件，请输入正确的ID');
@@ -300,11 +302,12 @@ class LivecodeController extends AdminController {
             $data['uid']   = $this->uid;
             $data['d']     = get_dwz();
             $data['huoma'] = setLivecodeUrl('live',$data['d']);
+                // halt($data['content']);
+
             //如果是图文或者文件，内容保存为json格式
             if ($type == 1 || $type == 3 || $type == 5) {
                 $data['content']   = json_encode($data['content']);
             }
-                // halt($data['content']);
 
             //执行添加
             $id = $this->obj->add($data);
@@ -358,8 +361,10 @@ class LivecodeController extends AdminController {
                 $this->error($this->obj->getError());
             }
         } else {
-            $this->meta_title = '编辑活码';
-            $data = $this->obj->find($id);
+            $data = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
+            if (!$data) {
+                $this->error('数据不存在');
+            }
             if ($data['type'] == 1 || $data['type'] == 3 || $data['type'] == 5) {
                 $content = json_decode($data["content"],true);
                 foreach ($content as $key => $value) {
@@ -369,7 +374,7 @@ class LivecodeController extends AdminController {
             }
             
             // halt($data);
-
+            $this->meta_title = '编辑活码';
             $this->assign('data',$data);
             $this->display();
         }
@@ -399,7 +404,10 @@ class LivecodeController extends AdminController {
      */
     public function detail (){
         $id            = I('id/d');
-        $data          = $this->obj->find($id);
+        $data = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
+        if (!$data) {
+            $this->error('数据不存在');
+        }
         $content = json_decode($data["content"]) ;
         foreach ($content as $key => $value) {
             $data[$key] = $value;
