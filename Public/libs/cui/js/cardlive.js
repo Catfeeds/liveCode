@@ -52,7 +52,7 @@ $('.add_mp').click(function(){
 	var html1='<div class="left_addable_wrap" data-class="mobile'+_len+'">';
 		html1+='<div class="vcard_data_txt b-b">';
 		html1+='<span class="vcard_data_title mobilep'+_len+'">家庭电话'+_len+'</span>';
-		html1+='<span class="vcard_data_value vcard_data_mobile mobile'+_len+'"></span>';
+		html1+='<span class="vcard_data_value mobile'+_len+'"></span>';
 		html1+='</div></div>';
 	$('#left_addable_phone').append(html1);
 	move();
@@ -69,7 +69,7 @@ $('.add_fax').click(function(){
 	var html1='<div class="left_addable_wrap" data-class="fax'+_len+'">';
 		html1+='<div class="vcard_data_txt b-b">';
 		html1+='<span class="vcard_data_title faxo'+_len+'">传真'+_len+'</span>';
-		html1+='<span class="vcard_data_value vcard_data_mobile fax'+_len+'"></span>';
+		html1+='<span class="vcard_data_value fax'+_len+'"></span>';
 		html1+='</div></div>';
 	$('#left_addable_fax').append(html1);
 	move();
@@ -86,7 +86,7 @@ $('.add_email').click(function(){
 	var html1='<div class="left_addable_wrap" data-class="email'+_len+'">';
 		html1+='<div class="vcard_data_txt b-b">';
 		html1+='<span class="vcard_data_title emailo'+_len+'">电子邮件'+_len+'</span>';
-		html1+='<span class="vcard_data_value vcard_data_mobile email'+_len+'"></span>';
+		html1+='<span class="vcard_data_value email'+_len+'"></span>';
 		html1+='</div></div>';
 	$('#left_addable_email').append(html1);
 	move();
@@ -103,7 +103,7 @@ $('.add_website').click(function(){
 	var html1='<div class="left_addable_wrap" data-class="website'+_len+'">';
 		html1+='<div class="vcard_data_txt b-b">';
 		html1+='<span class="vcard_data_title websiteo'+_len+'">网址'+_len+'</span>';
-		html1+='<span class="vcard_data_value vcard_data_mobile website'+_len+'"></span>';
+		html1+='<span class="vcard_data_value website'+_len+'"></span>';
 		html1+='</div></div>';
 	$('#left_addable_site').append(html1);
 	move();
@@ -121,7 +121,7 @@ $('.add_wechat').click(function(){
 	var html1='<div class="left_addable_wrap" data-class="wechat'+_len+'">';
 		html1+='<div class="vcard_data_txt b-b">';
 		html1+='<span class="vcard_data_title wechato'+_len+'">即时通讯'+_len+'</span>';
-		html1+='<span class="vcard_data_value vcard_data_mobile wechat'+_len+'"></span>';
+		html1+='<span class="vcard_data_value wechat'+_len+'"></span>';
 		html1+='</div></div>';
 	$('#left_addable_message').append(html1);
 	move();
