@@ -102,7 +102,7 @@
                                     <span class="check-tips text-muted small">如www.baidu.com,不要输入http://</span>
                                 </div>
                             </div>
-                        <?php if($info): ?>
+                        <?php if($info['url']): ?>
     	                    <div class="form-group item_title ">
                                 <label class="left control-label">状态：</label>
                                 <label class="left control-label"><?php if($info['url_status'] == 0): ?><font color="red">审核中</font><?php elseif($info['url_status'] == 1): ?><font color="green">审核已通过</font><?php else: ?><font color="red">未通过审核</font><?php endif; ?></label>
