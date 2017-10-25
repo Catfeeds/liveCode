@@ -324,7 +324,7 @@ class LivecodeController extends AdminController {
 
                     // halt($fax);
 
-                // halt($data['content']['left_phone']);
+                // halt($data['content']);
 
                 $data['type'] = $type;
                 $data['menuId'] = 0;
