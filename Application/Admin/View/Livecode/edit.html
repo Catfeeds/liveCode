@@ -182,15 +182,14 @@
                                 <span class="vcard_data_title lang" data-lang-key="{$vo.en}">{$vo.ch}</span>
                                 <span class="{$vo.class}">{$vo.val}</span>
                             </div>
-
-<!-- 
-                            <div class="left_addable_wrap" data-class="mobile0">
+                            <volist name="vo['child']" id="vo2" key="k2">
+                            <div class="left_addable_wrap" data-class="mobile{$k2}">
                                 <div class="vcard_data_txt b-b">
-                                    <span class="vcard_data_title mobilep0">家庭电话0</span>
-                                    <span class="vcard_data_value vcard_data_mobile mobile0">22222</span>
+                                    <span class="vcard_data_title mobilep{$k2}">{$vo2.ch}</span>
+                                    <span class="vcard_data_value vcard_data_mobile mobile{$k2}">{$vo2.val}</span>
                                 </div>
-                            </div> -->
-
+                            </div>
+                            </volist>
                         </div>
                         </volist>
                     </div>
@@ -330,6 +329,7 @@
                                         <!-- <span class="length_tip"><font>0</font>/20</span> -->
                                     </div>
                                     <?php if($k == 2): ?>
+                                        <!-- <?php var_dump($vo);?> -->
                                     <a href="javascript:;" class="add_com add_mp fa fa-plus" val = "0"></a>
                                     <?php elseif($k == 3): ?>
                                     <a href="javascript:;" class="add_com add_fax fa fa-plus" val = "0"></a>
@@ -337,6 +337,16 @@
                                     <a href="javascript:;" class="add_com add_email fa fa-plus" val = "0"></a>
                                     <?php endif; ?>
                                 </div>
+
+                                <volist name="vo['child']" id="vo2" key="k2">
+                                <div class="form-group">
+                                    <input class="form-control-label input1 noinput" value="{$vo2.ch}" oninput="listenIn(this,'.mobilep{$k2}')" data-class="mobile{$k2}"><div class="inp_t">
+                                    <input type="text" value="{$vo2.val}" oninput="listenIn(this,'.mobile{$k2}')">
+                                    </div>
+                                    <a href="javascript:;" class="fa fa-trash remove_com" onclick="remove(this)"></a>
+                                </div>
+                                </volist>
+
                             </div>
                         </volist>
 

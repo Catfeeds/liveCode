@@ -294,6 +294,38 @@ class LivecodeController extends AdminController {
                 }
             }elseif ($type == 5) {                  //名片活码
                 $data['content'] = I('post.params');
+                $mobile = $fax = $email = [];
+                foreach ($data['content']['left_phone'] as $k => $v) {
+                    if (!$v['en']) {
+                        if (strpos(explode(' ', $v['class'])[2], 'mobile') !== false) {
+                            $v['data-class'] = 'mobile';
+                            $mobile[] = $v;
+                        }elseif (strpos(explode(' ', $v['class'])[2], 'fax') !== false) {
+                            $v['data-class'] = 'fax';
+                            $fax[] = $v;
+                        }elseif (strpos(explode(' ', $v['class'])[2], 'email') !== false) {
+                            $v['data-class'] = 'email';
+                            $email[] = $v;
+                        }
+                        unset($data['content']['left_phone'][$k]);
+                    }
+                }
+                foreach ($data['content']['left_phone'] as $k => $v) {
+                    if ($v['en']) {
+                        if ($v['en'] == 'Mobile') {
+                            $data['content']['left_phone'][$k]['child'] = $mobile;
+                        }elseif ($v['en'] == 'Fax') {
+                            $data['content']['left_phone'][$k]['child'] = $fax;
+                        }elseif ($v['en'] == 'Email') {
+                            $data['content']['left_phone'][$k]['child'] = $email;
+                        }
+                    }
+                }
+
+                    // halt($fax);
+
+                // halt($data['content']['left_phone']);
+
                 $data['type'] = $type;
                 $data['menuId'] = 0;
                 $data['title'] = $data['content']['name'].'的名片';
@@ -302,7 +334,6 @@ class LivecodeController extends AdminController {
             $data['uid']   = $this->uid;
             $data['d']     = get_dwz();
             $data['huoma'] = setLivecodeUrl('live',$data['d']);
-                // halt($data['content']);
 
             //如果是图文或者文件，内容保存为json格式
             if ($type == 1 || $type == 3 || $type == 5) {
