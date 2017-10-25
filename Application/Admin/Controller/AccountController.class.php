@@ -113,7 +113,7 @@ class AccountController extends AdminController {
         }
 
         $page = new Page(
-            $mod->where($map)->count(),
+            $mod->alias('o')->where($map)->join('__ADMIN_USER__ u on u.id = o.userId','left')->join('__VIP__ v on v.id = o.vipId','left')->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
@@ -164,7 +164,7 @@ class AccountController extends AdminController {
         }
 // halt($data_list);
         $page = new Page(
-            $mod->where($map)->count(),
+            $mod->alias('o')->where($map)->join('__ADMIN_USER__ u on u.id = o.userId','left')->join('__VIP__ v on v.id = o.vipId','left')->count(),
             C('ADMIN_PAGE_ROWS')
         );
 

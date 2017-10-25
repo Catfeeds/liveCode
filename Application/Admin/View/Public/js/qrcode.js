@@ -128,6 +128,44 @@ $(function(){
             }
         });
     });
+    //名片活码
+    $("#save_btn5").click(function(){
+        var params           = {};
+        var editId           = $("#editId5").val();
+
+        var head             = $(".vcard_head").attr('style');
+        params.head          = head.slice(23,head.length-3);
+        var face             = $(".vcard_face").attr('style');
+        params.face          = face.slice(23,face.length-3);
+        params.name          = $("#vcard_data_name").html();
+        params.appointment   = $(".vcard_data_appointment").html();
+        params.company       = $(".vcard_data_company").html();
+        params.layoutbg      = $('#info-layout').val();                             //展示位置
+
+        params.left_phone    = getParams('.left_phone .vcard_data_title');          //联系信息
+        params.left_internet = getParams('.left_internet .vcard_data_title');       //社交信息
+        params.left_address  = getParams('.left_address .vcard_data_title');        //地址信息
+        params.left_intro    = getParams('.left_intro .vcard_data_title');          //个人说明
+        params.lang          = $('#lang').val();                                    //语言
+        // console.log(params.left_phone)
+        if (params.name == '姓名' || params.name == 'Name') {
+            $.alertMessager('请输入姓名!');return;
+        }
+        $.ajax({
+            url: 'admin.php?s=/admin/livecode/add',
+            type: 'POST',
+            data: {editId:editId,menuId:menuId,params:params,type:5},
+            success: function (data) {  
+                if(data.status == 1){
+                    $("#code5 img").attr('src',data.url);
+                    $("#img5").attr('href',data.url);
+                    $.alertMessager('二维码已成功保存!','success');return;
+                }else{
+                    $.alertMessager(data.info);return;
+                }
+            }
+        });
+    });
     //产品活码
     $("#save_btn6").click(function(){
         var editId  = $("#editId6").val();
@@ -162,19 +200,14 @@ $(function(){
 
 })
 
-
-$('#file').click(function () {
-    var formdata = new FormData($('#uploadForm')[0]);
-    console.log(formdata)
-    $.ajax({
-        url: 'admin.php?s=/admin/livecode/addfile',
-        type: 'POST',
-        data: formdata,
-        async: false,
-        cache: false,
-        contentType: false,
-        processData: false,
-    }).done(function(data){  
-
-    }); 
-});
+getParams = function(obj){
+    var params = {};
+    var chk = {},s;
+    $(obj).each(function(key){
+        if($(this).html()){
+            params[key] = {ch:$(this).html(),en:$(this).attr('data-lang-key'),val:$(this).next().html(),class:$(this).next('span').attr('class'),id:$(this).parent().parent().attr('id')};
+        }
+    });
+    chk=null,s=null;
+    return params;
+}

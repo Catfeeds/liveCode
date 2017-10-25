@@ -61,7 +61,7 @@ class LivecodeController extends AdminController {
         }      
           
         $page = new Page(
-            $this->obj->where($map)->count(),
+            $this->obj->where($where)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
@@ -139,7 +139,7 @@ class LivecodeController extends AdminController {
         }      
           
         $page = new Page(
-            $this->obj->where($map)->count(),
+            $this->obj->where($where)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
@@ -151,7 +151,7 @@ class LivecodeController extends AdminController {
         $attr3['name']  = 'view';
         $attr3['title'] = '数据统计';
         $attr3['class'] = 'label label-info';
-        $attr3['href']  = U('view',['id'=>'__data_id__','code'=>'1']);
+        $attr3['href']  = U('view',['type'=>$type,'id'=>'__data_id__','code'=>'1']);
 
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
@@ -220,16 +220,6 @@ class LivecodeController extends AdminController {
                     ->addFormItem('title', 'text', '新建目录名称')
                     ->display();
         }
-    }
-    
-    
-    public function export_csv($filename,$data) {
-        header("Content-type:text/csv");
-        header("Content-Disposition:attachment;filename=".$filename);
-        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
-        header('Expires:0');
-        header('Pragma:public');
-        echo $data;
     }
 
     /**
@@ -300,14 +290,22 @@ class LivecodeController extends AdminController {
                 if (!$data) {
                     $this->error($this->obj->getError());exit();
                 }
-                $data['uid']   = $this->uid;
-                $data['d']     = get_dwz();
-                $data['huoma'] = get_liveurl($data['d']);
+            }elseif ($type == 5) {                  //名片活码
+                $data['content'] = I('post.params');
+                $data['type'] = $type;
+                $data['menuId'] = 0;
+                $data['title'] = $data['content']['name'].'的名片';
+                $data['create_time'] = time();
             }
+            $data['uid']   = $this->uid;
+            $data['d']     = get_dwz();
+            $data['huoma'] = setLivecodeUrl('live',$data['d']);
             //如果是图文或者文件，内容保存为json格式
-            if ($type == 1 || $type == 3) {
+            if ($type == 1 || $type == 3 || $type == 5) {
                 $data['content']   = json_encode($data['content']);
             }
+                // halt($data['content']);
+
             //执行添加
             $id = $this->obj->add($data);
             if ($id) {
@@ -330,21 +328,24 @@ class LivecodeController extends AdminController {
      */
     public function edit($id) {
         if (IS_POST) {
-            $info=I('post.');
+            $info = I('post.');
             $type = $info['type'];
             if ($type == 1 || $type == 2 || $type == 3 || $type == 4) {    //图文活码 || 文本活码 || 文件活码 || 网址导航
                 $data = $this->obj->create();
                 if (!$data) {
                     $this->error($this->obj->getError());exit();
                 }
-                $data['uid']   = $this->uid;
+            }elseif ($type == 5) {                  //名片活码
+                $data['content'] = $info['params'];
+                $data['title'] = $data['content']['name'].'的名片';
+                $data['update_time'] = time();
             }
             //如果是图文或者文件，内容保存为json格式
-            if ($type == 1 || $type == 3) {
+            if ($type == 1 || $type == 3 || $type == 5) {
                 $data['content']   = json_encode($data['content']);
             }
-            $data['id']=$info['editId'];
-            // halt($data);
+            $data['id']  = $info['editId'];
+            // halt($data['content']);
 
             if ($data) {
                 $result = $this->obj->save($data);
@@ -359,12 +360,14 @@ class LivecodeController extends AdminController {
         } else {
             $this->meta_title = '编辑活码';
             $data = $this->obj->find($id);
-            if ($data['type'] == 1 || $data['type'] == 3) {
-                $content = json_decode($data["content"]) ;
+            if ($data['type'] == 1 || $data['type'] == 3 || $data['type'] == 5) {
+                $content = json_decode($data["content"],true);
                 foreach ($content as $key => $value) {
+                    // halt($value);
                     $data[$key] = $value;
                 }
             }
+            
             // halt($data);
 
             $this->assign('data',$data);
@@ -428,6 +431,7 @@ class LivecodeController extends AdminController {
             $upload->savePath  =     ''; // 设置附件上传（子）目录+
             // 上传文件 
             $info   =   $upload->upload();
+            // halt($info);
             if(!$info) {// 上传错误提示错误信息
                 $this->error('上传失败！');
             }else{// 上传成功

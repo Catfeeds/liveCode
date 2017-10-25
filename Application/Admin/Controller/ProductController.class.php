@@ -50,7 +50,7 @@ class ProductController extends AdminController {
         }      
           
         $page = new Page(
-            $this->obj->where($map)->count(),
+            $this->obj->where($where)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
@@ -117,7 +117,7 @@ class ProductController extends AdminController {
         }      
           
         $page = new Page(
-            $this->obj->where($map)->count(),
+            $this->obj->where($where)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
@@ -129,7 +129,7 @@ class ProductController extends AdminController {
         $attr3['name']  = 'view';
         $attr3['title'] = '数据统计';
         $attr3['class'] = 'label label-info';
-        $attr3['href']  = U('view',['id'=>'__data_id__','code'=>'2']);
+        $attr3['href']  = U('view',['type'=>$type,'id'=>'__data_id__','code'=>'2']);
 
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('活码列表') // 设置页面标题
@@ -278,7 +278,7 @@ class ProductController extends AdminController {
             }
             $data['uid']   = $this->uid;
             $data['d']     = get_dwz();
-            $data['huoma'] = get_producturl($data['d']);
+            $data['huoma'] = setLivecodeUrl('product',$data['d']);
             $data['content']   = json_encode($data['content']);
             
             //执行添加

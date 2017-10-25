@@ -42,8 +42,7 @@ class PhoneController extends AdminController {
                    ->order('id desc')
                    ->select();
                   
-        foreach( $data_list as $k => $v )
-        {
+        foreach( $data_list as $k => $v ){
         	$data_list[$k]['ewm']="Uploads/phone/".$v['id'].'.png';
         }           
         $page = new Page(
@@ -115,14 +114,17 @@ class PhoneController extends AdminController {
     		$where['type']=1;
     		$where['id']  = array('between',array($ksid,$endid));
 	     	$rs=M('cms_phone')->where($where)->order('id')->select();
-            $str = "id,跳转网址,活码地址\n";
+            if (!$rs) {
+                $this->error('找不到该区间的文件，请输入正确的ID');
+            }
+            $str = "id,网址名称,跳转网址,活码地址\n";
             foreach( $rs as $v){
-            	$str .= $v['id'].",".$v['videourl'].",".$v['huoma']."\n";
+            	$str .= $v['id'].",".$v['title'].",".$v['videourl'].",".$v['huoma']."\n";
             }
 
             $str = iconv('utf-8','gb2312',$str);
             $filename = date('Ymd').'.csv';
-            $this->export_csv($filename,$str);
+            export_csv($filename,$str);
     	}else{
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
@@ -133,20 +135,8 @@ class PhoneController extends AdminController {
                      ->setAjaxSubmit(false)
                     ->display();
     	}
-    
     }
     
-    /**
-     * 执行导出
-     */
-    public function export_csv($filename,$data) {
-        header("Content-type:text/csv");
-        header("Content-Disposition:attachment;filename=".$filename);
-        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
-        header('Expires:0');
-        header('Pragma:public');
-        echo $data;
-    }
  public function edittzwz ()
     {
 	    	if ( IS_POST )
@@ -238,7 +228,7 @@ title = replace(title, '$ksid', '$endid') ");
             $data['videourl']    =I('videourl/s');
             $data['uid']         =$this->uid;
             $data['d']           =get_dwz();
-            $data['huoma']       =get_huomaurl($data['d']);
+            $data['huoma']       = setLivecodeUrl('',$data['d']);
 
             if ( !$data['title'] ){
                 $this->error('请输入网址名称');

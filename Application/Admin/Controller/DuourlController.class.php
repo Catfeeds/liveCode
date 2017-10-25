@@ -107,36 +107,23 @@ class DuourlController extends AdminController {
      			$this->error('没有找到此id的相关信息');
      		}
         	$title=get_duourl_titlearr($rs['title']);
-            $str = "跳转网址,活码地址\n";
+            $str = "网址名称,跳转网址,活码地址\n";
             foreach( $title as $v){
-            	$str .= $v.",".$rs['huoma']."\n";
+            	$str .= $rs['name'].",".$v.",".$rs['huoma']."\n";
             }
-            
             $str = iconv('utf-8','gb2312',$str);
             $filename = date('Ymd').'.csv';
-            $this->export_csv($filename,$str);
+            export_csv($filename,$str);
     	}else{
     	    // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('导出网址') //设置页面标题
                     ->setPostUrl(U('outurl'))    //设置表单提交地址
                     ->addFormItem('id', 'text', '需要导出的ID')
-                   
                      ->setAjaxSubmit(false)
                     ->display();
 	    }
     
-    }
-    /**
-     * 执行导出
-     */
-    public function export_csv($filename,$data) {
-        header("Content-type:text/csv");
-        header("Content-Disposition:attachment;filename=".$filename);
-        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
-        header('Expires:0');
-        header('Pragma:public');
-        echo $data;
     }
     
     /**
@@ -152,7 +139,6 @@ class DuourlController extends AdminController {
             if ( !$endid ){
                 $this->error('请输入结束ID');
             }
-            // $where['type']=1;
             $where['id']  = array('between',array($ksid,$endid));
             $rs=$this->obj->where($where)->getField('id',true);
             if (!$rs) {
@@ -225,13 +211,14 @@ class DuourlController extends AdminController {
                 }
                 $data['title']=implode('|||',$info['title']);
             }
-            $data['name']=$info['name'];
-            $data['create_time']=NOW_TIME;
-            $data['update_time']=NOW_TIME;
-            $data['tztype']=$info['tztype'];
-            $data['uid']=$this->uid;
-            $data['d']=get_dwz();
-            $data['huoma']=get_huomaurlduo($data['d']);
+            $data['name']        = $info['name'];
+            $data['create_time'] = NOW_TIME;
+            $data['update_time'] = NOW_TIME;
+            $data['tztype']      = $info['tztype'];
+            $data['uid']         = $this->uid;
+            $data['d']           = get_dwz();
+            $data['huoma']       = setLivecodeUrl('duo',$data['d']);
+
             if ($data) {
                 $id = $this->obj->add($data);
                 if ($id) {
