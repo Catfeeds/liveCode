@@ -79,9 +79,6 @@ $(".head_upload").change(function(){
 	$(this).parents('#avatar-upload').hide();
 	$('#portraitSubmit').show();
 })
-$(".up_close").click(function(){
-	$(this).parents('.parent').hide().siblings().show();
-})
 $("#upload-bg").change(function(){
 	$('.imgshow').show();
 })
@@ -92,17 +89,24 @@ $(".show_btn").click(function(){
 	$(".theme-popover").fadeIn();
 })
 $(".btn-cancel").click(function(){
+	$("#front_cover").show();
+	$(".form_file").hide();
 	$(".theme-popover-mask").hide();
 	$(".theme-popover").fadeOut();
 	var showImg=$(".bgbtn").attr("src");
 	$(".vcard_head").css({"background-image":"url("+showImg+")"});
 })
 $(".btn-ok").click(function(){
+	$("#front_cover").show();
+	$(".form_file").hide();
 	$(".theme-popover-mask").hide();
 	$(".theme-popover").fadeOut();
 	var imgsrc=$("#bglist li.active").find('img').attr('src');
 	$(".vcard_head").css({"background-image":"url("+imgsrc+")"});
 	$(".bgbtn").attr("src",imgsrc);
+})
+$(".up_close").click(function(){
+	$(this).parents('.parent').hide().siblings().show();
 })
 $("#bglist li").click(function(){
 	$(this).addClass('active').siblings('li').removeClass('active');

@@ -182,10 +182,10 @@
                                 <span class="{$vo.class}">{$vo.val}</span>
                             </div>
                             <volist name="vo['child']" id="vo2" key="k2">
-                            <div class="left_addable_wrap" data-class="mobile{$k2}">
+                            <div class="left_addable_wrap" data-class="e{$vo2.data-class}">
                                 <div class="vcard_data_txt b-b">
-                                    <span class="vcard_data_title mobilep{$k2}">{$vo2.ch}</span>
-                                    <span class="vcard_data_value vcard_data_mobile mobile{$k2}">{$vo2.val}</span>
+                                    <span class="vcard_data_title n{$vo2.data-class}">{$vo2.ch}</span>
+                                    <span class="vcard_data_value e{$vo2.data-class}">{$vo2.val}</span>
                                 </div>
                             </div>
                             </volist>
@@ -339,8 +339,8 @@
 
                                 <volist name="vo['child']" id="vo2" key="k2">
                                 <div class="form-group">
-                                    <input class="form-control-label input1 noinput" value="{$vo2.ch}" oninput="listenIn(this,'.mobilep{$k2}')" data-class="mobile{$k2}"><div class="inp_t">
-                                    <input type="text" value="{$vo2.val}" oninput="listenIn(this,'.mobile{$k2}')">
+                                    <input class="form-control-label input1 noinput" value="{$vo2.ch}" oninput="listenIn(this,'.n{$vo2.data-class}')" data-class="e{$vo2.data-class}"><div class="inp_t">
+                                    <input type="text" value="{$vo2.val}" oninput="listenIn(this,'.e{$vo2.data-class}')">
                                     </div>
                                     <a href="javascript:;" class="fa fa-trash remove_com" onclick="remove(this)"></a>
                                 </div>
