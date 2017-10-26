@@ -140,10 +140,8 @@ function remove(obj){
 }
 //监听事件
 function listenIn(obj,id){
-	$(obj).bind('input propertychange', function(){  
-		var val_con=$(this).val();
-		$(id).html(val_con);
-	});
+	var val_con=$(obj).val();
+	$(id).html(val_con);
 }
 
 function move(){
