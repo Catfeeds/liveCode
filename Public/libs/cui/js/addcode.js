@@ -59,20 +59,16 @@ $(function(){
 	//语言切换
 	$('.language input').each(function(){
 		$(this).click(function(){
+			var check_id=$(this).attr('id');
+			if($('#lang').val()==check_id) return;
 			if($(this).is(":checked")){
-				var check_id=$(this).attr('id');
 				$('#lang').val(check_id);
 			}
 			$('.lang').each(function(){
 				var lang_key=$(this).attr('data-lang-key');
 				var lang_html=$(this).html();
-				if($('#lang').val()=='en'){
-					$(this).attr('data-lang-key',lang_html);
-					$(this).html(lang_key);
-				}else if($('#lang').val()=='cn'){
-					$(this).attr('data-lang-key',lang_html);
-					$(this).html(lang_key);
-				}
+				$(this).attr('data-lang-key',lang_html);
+				$(this).html(lang_key);
 			})
 		})
 	})

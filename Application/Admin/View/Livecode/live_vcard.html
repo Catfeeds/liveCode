@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>{$data['title']}</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{font-family: arial,"微软雅黑";background-color: #f2f2f6;}
+			a{text-decoration: none;}
+			ul li{list-style: none;}
+			.clear{clear: both;}
+			.bus_card{
+				max-width: 640px;
+				min-width: 320px;
+				height: 100%;
+				margin: 0 auto;
+			    padding-bottom: 65px;
+			}
+			.vcard_link{
+			    position: fixed;
+			    bottom: 0;
+			    width: 100%;
+			    z-index: 99;
+			    padding: 10px;
+			    box-sizing: border-box;
+			    -moz-box-sizing: border-box;
+			    -webkit-box-sizing: border-box;
+		        border-top: 1px solid #e5e5e5;
+	            background: #fff;
+			}
+			.weui-panel{
+				width: 100%;
+				position: relative;
+    			overflow: hidden;
+				
+			}
+			.save_btn{
+				width: 100%;
+				height: 45px;
+				line-height: 45px;
+				text-align: center;
+				color: #fff;
+				border-radius: 5px;
+				background:#1aad19;
+				display: block;
+				font-size: 16px;
+			}
+			#vcard_head_panel {
+			    padding-top: 58px;
+			}
+			.weui-media-box{
+				position: relative;
+			}
+			.weui-media_appmsg {
+				position: relative;
+			    padding: 15px;
+			}
+			.vcard_biz_face {
+			    display: block;
+			    border-radius: 50%;
+			    -webkit-border-radius: 50%;
+			    -moz-border-radius: 50%;
+			    position: relative;
+			    z-index: 0;
+			}
+			.face_left, .face_right {
+			    margin-left: 10px;
+			    margin-right: 10px;
+			    width: 88px;
+			    height: 88px;
+			}
+			.face_left{
+				float: left;
+			}
+			.face_right{
+				float: right;
+			}
+			.vcard_biz_face_wrap {
+			    color: #fff;
+			    margin-top: 7px;
+			    width: 72%;
+			    margin-left: 90px;
+			}
+			.vcard_biz_face_wrap p{
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			.vcard_head_orgname {
+			    font-size: 24px;
+			}
+			.vcard_head_orgname {
+			    text-shadow: 0 0 20px rgba(0,0,0,.75);
+			}
+			.vcard_head_orgname, .vcard_head_position {
+			    margin-bottom: 2px;
+			}
+			p {
+			    word-break: break-all;
+			    word-wrap: break-word;
+			}
+			.vcard_head_position {
+			    text-shadow: 0 0 4px rgba(0,0,0,.75);
+			}
+			.vcard_head_position {
+			    font-size: 16px;
+			    line-height: 1.2;
+			}
+			.weui-cells{
+			    line-height:20px;
+			    font-size: 16px;
+			    overflow: hidden;
+			    position: relative;
+			    background: #fff;
+			    margin-bottom:10px;
+			}
+			.weui-cell{
+				padding: 15px;
+			    border-bottom: 1px solid #e5e5e5
+			}
+			.overtext {
+				width: 78px;
+			    color: #8a8d91;
+			    float: left;
+			}
+			.overcon{
+				width: 70%;
+				color: #2c2e32;
+				float: left;
+			}
+			.overcon a{
+				color: #555;
+			}
+			.face_bg_right .weui-media_appmsg img {
+			    float: right;
+			}
+			.face_bg_right .vcard_biz_face_wrap{
+			    margin-right: 90px;
+    			text-align: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="bus_card">
+			<div class="weui-panel" style="background: url('<?php if($data['head']): ?>{$data['head']}<?php else: ?>/Public/images/vcardbg10.jpg<?php endif; ?>') no-repeat center / cover;">
+				<div id="vcard_head_panel" class="face_bg_right">
+					<div class="weui-media_appmsg">
+						<img src="<?php if($data['face']): ?>{$data['face']}<?php else: ?>__PUBLIC__/images/default_face_new.png<?php endif; ?>" class="vcard_biz_face face_left"/>
+						<div class="vcard_biz_face_wrap">
+							<p class="vcard_head_orgname">{$data.name}</p>	                
+							<p class="vcard_head_position">{$data.appointment}</p>	
+							<p class="vcard_head_position">{$data.company}</p>	  
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+			<div class="weui-media-box">
+				<div class="weui-cells"></div>
+				<div class="weui-cells">
+					
+					<volist name="data['left_phone']" id="vo" key="k">
+					<div class="weui-cell">
+						<p class="overtext">{$vo.ch}</p>
+						<p class="overcon">{$vo.val}</p>
+						<div class="clear"></div>
+					</div>
+					</volist>
+				<!-- 	<div class="weui-cell">
+						<p class="overtext">电子邮件</p>
+						<p class="overcon"><a href="mailto:2895425752@qq.com">2895425752@qq.com</a></p>
+						<div class="clear"></div>
+					</div> -->
+                    
+
+				</div>
+				<div class="weui-cells">
+
+					<volist name="data['left_internet']" id="vo" key="k">
+					<div class="weui-cell">
+						<p class="overtext">{$vo.ch}</p>
+						<p class="overcon">{$vo.val}</p>
+						<div class="clear"></div>
+					</div>
+					</volist>
+					<!-- 
+					<div class="weui-cell">
+						<p class="overtext">主页网址</p>
+						<p class="overcon"><a href="http://baidu.com">http://baidu.com</a></p>
+						<div class="clear"></div>
+					</div> -->
+
+				</div>
+				<div class="weui-cells">
+					<volist name="data['left_address']" id="vo" key="k">
+					<div class="weui-cell">
+						<p class="overtext">{$vo.ch}</p>
+						<p class="overcon">{$vo.val}</p>
+						<div class="clear"></div>
+					</div>
+					</volist>
+					
+					<volist name="data['left_intro']" id="vo" key="k">
+					<div class="weui-cell">
+						<p class="overtext">{$vo.ch}</p>
+						<p class="overcon">{$vo.val}</p>
+						<div class="clear"></div>
+					</div>
+					</volist>
+
+				</div>
+			</div>
+		</div>
+		<div class="vcard_link">
+			<a href="javascript:;" class="save_btn">保存到通讯录</a>
+		</div>
+	</body>
+</html>
