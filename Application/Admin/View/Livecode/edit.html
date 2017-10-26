@@ -170,6 +170,16 @@
                                 <div class="clear"></div>
                             </div>
                         </div>
+
+                        <volist name="data['branch']" id="vo" key="k">
+                        <div class="left_addable_wrap" data-class="ebumen{$k}">
+                            <div class="vcard_data_txt b-b basic_info">
+                                <span class="vcard_data_title ebranch{$k}">{$vo.ch}</span>
+                                <span class="vcard_data_value ebumen{$k}">{$vo.val}</span>
+                            </div>
+                        </div>
+                        </volist>
+
                     </div>
                     <div class="left_box left_phone">
                         <div class="bg_wrap green hidden">
@@ -203,6 +213,14 @@
                                 <span class="vcard_data_title lang" data-lang-key="{$vo.en}">{$vo.ch}</span>
                                 <span class="{$vo.class}">{$vo.val}</span>
                             </div>
+                            <volist name="vo['child']" id="vo2" key="k2">
+                            <div class="left_addable_wrap" data-class="e{$vo2.data-class}">
+                                <div class="vcard_data_txt b-b">
+                                    <span class="vcard_data_title n{$vo2.data-class}">{$vo2.ch}</span>
+                                    <span class="vcard_data_value e{$vo2.data-class}">{$vo2.val}</span>
+                                </div>
+                            </div>
+                            </volist>
                         </div>
                         </volist>
 
@@ -218,6 +236,16 @@
                                 <span class="vcard_data_title lang" data-lang-key="{$vo.en}">{$vo.ch}</span>
                                 <span class="{$vo.class}">{$vo.val}</span>
                             </div>
+
+                            <volist name="vo['child']" id="vo2" key="k2">
+                            <div class="left_addable_wrap" data-class="e{$vo2.data-class}">
+                                <div class="vcard_data_txt b-b">
+                                    <span class="vcard_data_title n{$vo2.data-class}">{$vo2.ch}</span>
+                                    <span class="vcard_data_value e{$vo2.data-class}">{$vo2.val}</span>
+                                </div>
+                            </div>
+                            </volist>
+
                         </div>
                         </volist>
 
@@ -300,6 +328,17 @@
                                     </div>
                                     <a href="javascript:;" class="add_com add_com1 fa fa-plus" val = "0"></a>
                                 </div>
+
+                                <volist name="data['branch']" id="vo" key="k">
+                                <div class="form-group">
+                                    <input class="form-control-label input1 noinput" value="{$vo.ch}" oninput="listenIn(this,'.ebranch{$k}')" data-class="ebumen{$k}">
+                                    <div class="inp_t">
+                                        <input type="text" value="{$vo.val}" oninput="listenIn(this,'.ebumen{$k}')">
+                                    </div>
+                                    <a href="javascript:;" class="fa fa-trash remove_com" onclick="remove(this)"></a>
+                                </div>
+                                </volist>
+
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label lang" data-lang-key="Layout">展示位置</label>
@@ -370,6 +409,16 @@
                                     <a href="javascript:;" class="add_com add_website fa fa-plus" val = "0"></a>
                                     <?php endif; ?>
                                 </div>
+
+                                <volist name="vo['child']" id="vo2" key="k2">
+                                <div class="form-group">
+                                    <input class="form-control-label input1 noinput" value="{$vo2.ch}" oninput="listenIn(this,'.n{$vo2.data-class}')" data-class="e{$vo2.data-class}"><div class="inp_t">
+                                    <input type="text" value="{$vo2.val}" oninput="listenIn(this,'.e{$vo2.data-class}')">
+                                    </div>
+                                    <a href="javascript:;" class="fa fa-trash remove_com" onclick="remove(this)"></a>
+                                </div>
+                                </volist>
+
                             </div>
                         </volist>
 
@@ -385,11 +434,21 @@
                                     <div class="form-group">
                                         <label class="form-control-label lang" data-lang-key="{$vo.en}">{$vo.ch}</label>
                                         <div class="inp_t">
-                                            <input type="text"  maxLength = '50' oninput="listenIn(this,'.{$vo.class|getPartStr}')"  value="{$vo.val}"/>
+                                            <input type="text" oninput="listenIn(this,'.{$vo.class|getPartStr}')"  value="{$vo.val}"/>
                                             <!-- <span class="length_tip"><font>0</font>/50</span> -->
                                         </div>
                                         <a href="javascript:;" class="add_com add_address fa fa-plus" val = "0"></a>
                                     </div>
+
+                                    <volist name="vo['child']" id="vo2" key="k2">
+                                    <div class="form-group">
+                                        <input class="form-control-label input1 noinput" value="{$vo2.ch}" oninput="listenIn(this,'.n{$vo2.data-class}')" data-class="e{$vo2.data-class}"><div class="inp_t">
+                                        <input type="text" value="{$vo2.val}" oninput="listenIn(this,'.e{$vo2.data-class}')">
+                                        </div>
+                                        <a href="javascript:;" class="fa fa-trash remove_com" onclick="remove(this)"></a>
+                                    </div>
+                                    </volist>
+                                
                             </div>
                             </volist>
                             

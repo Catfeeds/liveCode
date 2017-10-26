@@ -67,10 +67,11 @@ class HuomaController extends HomeController{
         $obj->where(array('d' => $d)) ->setInc('count', 1);
         M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>2]);
 
-        $content = json_decode($data["content"]) ;
+        $content = json_decode($data["content"]);
         foreach ($content as $key => $value) {
             $data[$key] = $value;
         }
+        $data['type'] = 2;
         $this->assign('data',$data);
         $this->display('live_text');
     }
