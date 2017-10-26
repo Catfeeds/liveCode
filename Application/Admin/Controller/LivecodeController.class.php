@@ -126,7 +126,7 @@ class LivecodeController extends AdminController {
             $data_list[$k]['ewm']     = "Uploads/livecode/".$v['id'].'.png';
             $data_list[$k]['type']    = codeType($v['type']);
             $data_list[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
-            if ($v['type'] == 1) {
+            if ($v['type'] == 1 || $v['type'] == 5) {
                 $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
             }elseif ($v['type'] == 3) {
                 $file = json_decode($v['content'],true)['url'];
@@ -366,10 +366,9 @@ class LivecodeController extends AdminController {
                         }
                     }
                 }
-            // h($data['content']['left_address']);
 
                 $data['type'] = $type;
-                $data['menuId'] = 0;
+                $data['menuId'] = I('post.menuId/d');
                 $data['title'] = $data['content']['name'].'的名片';
                 $data['create_time'] = time();
             }
