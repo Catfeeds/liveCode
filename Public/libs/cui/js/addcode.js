@@ -80,7 +80,7 @@ $(".head_upload").change(function(){
 	$('#portraitSubmit').show();
 })
 $("#upload-bg").change(function(){
-	$('.imgshow').show();
+	$('.imgShowBox').show();
 })
 
 //遮罩层
