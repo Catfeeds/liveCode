@@ -126,7 +126,7 @@ class LivecodeController extends AdminController {
             $data_list[$k]['ewm']     = "Uploads/livecode/".$v['id'].'.png';
             $data_list[$k]['type']    = codeType($v['type']);
             $data_list[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
-            if ($v['type'] == 1) {
+            if ($v['type'] == 1 || $v['type'] == 5) {
                 $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
             }elseif ($v['type'] == 3) {
                 $file = json_decode($v['content'],true)['url'];
@@ -294,17 +294,19 @@ class LivecodeController extends AdminController {
                 }
             }elseif ($type == 5) {                  //名片活码
                 $data['content'] = I('post.params');
+                //联系信息
                 $mobile = $fax = $email = [];
                 foreach ($data['content']['left_phone'] as $k => $v) {
                     if (!$v['en']) {
-                        if (strpos(explode(' ', $v['class'])[2], 'mobile') !== false) {
-                            $v['data-class'] = 'mobile';
+                        $lastClass = explode(' ', $v['class'])[1];
+                        if (strpos($lastClass, 'mobile') !== false) {
+                            $v['data-class'] = $lastClass;
                             $mobile[] = $v;
-                        }elseif (strpos(explode(' ', $v['class'])[2], 'fax') !== false) {
-                            $v['data-class'] = 'fax';
+                        }elseif (strpos($lastClass, 'fax') !== false) {
+                            $v['data-class'] = $lastClass;
                             $fax[] = $v;
-                        }elseif (strpos(explode(' ', $v['class'])[2], 'email') !== false) {
-                            $v['data-class'] = 'email';
+                        }elseif (strpos($lastClass, 'email') !== false) {
+                            $v['data-class'] = $lastClass;
                             $email[] = $v;
                         }
                         unset($data['content']['left_phone'][$k]);
@@ -321,13 +323,52 @@ class LivecodeController extends AdminController {
                         }
                     }
                 }
-
-                    // halt($fax);
-
-                // halt($data['content']);
+                //社交信息
+                $wechat = $website = [];
+                foreach ($data['content']['left_internet'] as $k => $v) {
+                    if (!$v['en']) {
+                        $lastClass = explode(' ', $v['class'])[1];
+                        if (strpos($lastClass, 'wechat') !== false) {
+                            $v['data-class'] = $lastClass;
+                            $wechat[] = $v;
+                        }elseif (strpos($lastClass, 'website') !== false) {
+                            $v['data-class'] = $lastClass;
+                            $website[] = $v;
+                        }
+                        unset($data['content']['left_internet'][$k]);
+                    }
+                }
+                foreach ($data['content']['left_internet'] as $k => $v) {
+                    if ($v['en']) {
+                        if ($v['en'] == 'Wechat') {
+                            $data['content']['left_internet'][$k]['child'] = $wechat;
+                        }elseif ($v['en'] == 'Website') {
+                            $data['content']['left_internet'][$k]['child'] = $website;
+                        }
+                    }
+                }
+                //地址
+                $address = [];
+                foreach ($data['content']['left_address'] as $k => $v) {
+                    if (!$v['en']) {
+                        $lastClass = explode(' ', $v['class'])[1];
+                        if (strpos($lastClass, 'address') !== false) {
+                            $v['data-class'] = $lastClass;
+                            $address[] = $v;
+                        }
+                        unset($data['content']['left_address'][$k]);
+                    }
+                }
+                foreach ($data['content']['left_address'] as $k => $v) {
+                    if ($v['en']) {
+                        if ($v['en'] == 'Address') {
+                            $data['content']['left_address'][$k]['child'] = $address;
+                        }
+                    }
+                }
 
                 $data['type'] = $type;
-                $data['menuId'] = 0;
+                $data['menuId'] = I('post.menuId/d');
                 $data['title'] = $data['content']['name'].'的名片';
                 $data['create_time'] = time();
             }
@@ -371,15 +412,89 @@ class LivecodeController extends AdminController {
                 }
             }elseif ($type == 5) {                  //名片活码
                 $data['content'] = $info['params'];
+                //联系信息
+                $mobile = $fax = $email = [];
+                foreach ($data['content']['left_phone'] as $k => $v) {
+                    if (!$v['en']) {
+                        $lastClass = explode(' ', $v['class'])[1];
+                        if (strpos($lastClass, 'mobile') !== false) {
+                            $v['data-class'] = $lastClass;
+                            $mobile[] = $v;
+                        }elseif (strpos($lastClass, 'fax') !== false) {
+                            $v['data-class'] = $lastClass;
+                            $fax[] = $v;
+                        }elseif (strpos($lastClass, 'email') !== false) {
+                            $v['data-class'] = $lastClass;
+                            $email[] = $v;
+                        }
+                        unset($data['content']['left_phone'][$k]);
+                    }
+                }
+                foreach ($data['content']['left_phone'] as $k => $v) {
+                    if ($v['en']) {
+                        if ($v['en'] == 'Mobile') {
+                            $data['content']['left_phone'][$k]['child'] = $mobile;
+                        }elseif ($v['en'] == 'Fax') {
+                            $data['content']['left_phone'][$k]['child'] = $fax;
+                        }elseif ($v['en'] == 'Email') {
+                            $data['content']['left_phone'][$k]['child'] = $email;
+                        }
+                    }
+                }
+                //社交信息
+                $wechat = $website = [];
+                foreach ($data['content']['left_internet'] as $k => $v) {
+                    if (!$v['en']) {
+                        $lastClass = explode(' ', $v['class'])[1];
+                        if (strpos($lastClass, 'wechat') !== false) {
+                            $v['data-class'] = $lastClass;
+                            $wechat[] = $v;
+                        }elseif (strpos($lastClass, 'website') !== false) {
+                            $v['data-class'] = $lastClass;
+                            $website[] = $v;
+                        }
+                        unset($data['content']['left_internet'][$k]);
+                    }
+                }
+                foreach ($data['content']['left_internet'] as $k => $v) {
+                    if ($v['en']) {
+                        if ($v['en'] == 'Wechat') {
+                            $data['content']['left_internet'][$k]['child'] = $wechat;
+                        }elseif ($v['en'] == 'Website') {
+                            $data['content']['left_internet'][$k]['child'] = $website;
+                        }
+                    }
+                }
+                //地址
+                $address = [];
+                foreach ($data['content']['left_address'] as $k => $v) {
+                    if (!$v['en']) {
+                        $lastClass = explode(' ', $v['class'])[1];
+                        if (strpos($lastClass, 'address') !== false) {
+                            $v['data-class'] = $lastClass;
+                            $address[] = $v;
+                        }
+                        unset($data['content']['left_address'][$k]);
+                    }
+                }
+                foreach ($data['content']['left_address'] as $k => $v) {
+                    if ($v['en']) {
+                        if ($v['en'] == 'Address') {
+                            $data['content']['left_address'][$k]['child'] = $address;
+                        }
+                    }
+                }
+
                 $data['title'] = $data['content']['name'].'的名片';
                 $data['update_time'] = time();
             }
+            // h($data['content']['left_address']);
+
             //如果是图文或者文件，内容保存为json格式
             if ($type == 1 || $type == 3 || $type == 5) {
                 $data['content']   = json_encode($data['content']);
             }
             $data['id']  = $info['editId'];
-            // halt($data);
 
             if ($data) {
                 $result = $this->obj->save($data);

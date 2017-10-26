@@ -13,7 +13,7 @@ $('.add_com1').click(function(){
 	var html1='<div class="left_addable_wrap" data-class="bumen'+_len+'">';
 		html1+='<div class="vcard_data_txt b-b basic_info">';
 		html1+='<span class="vcard_data_title branch'+_len+'" >部门'+_len+'</span>';
-		html1+='<span class="vcard_data_value vcard_data_mobile bumen'+_len+'"></span>';
+		html1+='<span class="vcard_data_value bumen'+_len+'"></span>';
 		html1+='</div></div>';
 	$('.left_box.left_basic').append(html1);
 	
@@ -35,7 +35,7 @@ $('.add_address').click(function(){
 	var html1='<div class="left_addable_wrap" data-class="address'+_len+'">';
 		html1+='<div class="vcard_data_txt b-b">';
 		html1+='<span class="vcard_data_title addresso'+_len+'">地址'+_len+'</span>';
-		html1+='<span class="vcard_data_value vcard_data_mobile address'+_len+'"></span>';
+		html1+='<span class="vcard_data_value address'+_len+'"></span>';
 		html1+='</div></div>';
 	$('.left_box.left_address').append(html1);
 	move();
