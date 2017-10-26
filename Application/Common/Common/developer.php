@@ -299,3 +299,49 @@ function getPartStr($str) {
    $arr = explode(' ', $str);
    return $arr[1];
 }
+/**
+ * 生成浏览器扫码vcf文件
+ */
+function createVcfFile($id,$content){
+     $content = json_decode($content,true);
+
+     date_default_timezone_set('PRC');
+     Vendor('VCardIFL');
+     $arData=array();
+     $arData["fileName"]='vcard'.$id;
+     $arData["saveTo"]='Uploads/livecode/file';
+     $arData["vcard_birtda"]=date('Y-m-d',time());
+     // $arData["vcard_f_name"]='Tom';
+     $arData["vcard_s_name"] = $content['name'];                       //姓名
+     $arData["vcard_compan"] = $content['company'];                    //公司名称
+     $arData["vcard_w_titl"] = $content['appointment'];                //公司职位
+     $arData["vcard_w_phon"] = $content['left_phone'][0]['val'];       //固定电话
+     $arData["vcard_w_addr"] = $content['left_address'][0]['val'];     //地址
+     $arData["vcard_h_mail"] = $content['left_phone'][3]['val'];       //邮件
+     $arData["vcard_w_uri"]  = $content['left_internet'][1]['val'];    //个人网址
+     $arData["vcard_note"]   = $content['left_intro'][0]['val'];       //个人说明
+     $arData["vcard_cellul"] = $content['left_phone'][1]['val'];       //手机号
+     $arData["vcard_w_fax"]  = $content['left_phone'][2]['val'];       //传真号
+
+     // $arData["vcard_uri"]='http://www.jb51.net';
+     // $arData["vcard_nickna"]='Coder';
+     // $arData["vcard_p_pager"]='No';
+     // $arData["vcard_c_mobile"]='1388888888x';
+     // $arData["vcard_h_addr"]='Blue Best Comp';
+     // $arData["vcard_h_city"]='XuZhou';
+     // $arData["vcard_h_coun"]='China';
+     // $arData["vcard_h_fax"]='No';
+     // $arData["vcard_h_phon"]='1388888888x';
+     // $arData["vcard_h_zip"]='jb51';
+     // $arData["vcard_h_uri"]='http://tools.jb51.net';
+     // $arData["vcard_w_city"]='Xuzhou';
+     // $arData["vcard_w_coun"]='China';
+     // $arData["vcard_w_mail"]='StarShine@fmail.com';
+     // $arData["vcard_w_role"]='Boss';
+     // $arData["vcard_w_zip"]='StarZip';
+     $vcfdemo=new \VCardIFL($arData);
+     $vcfdemo->createVcard();
+     $vcfdemo->SaveVcard();
+
+     // echo $vcfdemo->SaveVcard()?'创建成功！':'创建失败！';
+}
