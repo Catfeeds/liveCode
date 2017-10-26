@@ -47,7 +47,7 @@ class LivecodeController extends AdminController {
             $data_list[$k]['ewm']     = "Uploads/livecode/".$v['id'].'.png';
             $data_list[$k]['type']    = codeType($v['type']);
             $data_list[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
-            if ($v['type'] == 1) {
+            if ($v['type'] == 1 || $v['type'] == 5) {
                 $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
             }elseif ($v['type'] == 3) {
                 $file = json_decode($v['content'],true)['url'];
@@ -379,7 +379,7 @@ class LivecodeController extends AdminController {
                 $data['content']   = json_encode($data['content']);
             }
             $data['id']  = $info['editId'];
-            // halt($data['content']);
+            // halt($data);
 
             if ($data) {
                 $result = $this->obj->save($data);
@@ -439,12 +439,16 @@ class LivecodeController extends AdminController {
         if (!$data) {
             $this->error('数据不存在');
         }
-        $content = json_decode($data["content"]) ;
+        $content = json_decode($data["content"],true);
         foreach ($content as $key => $value) {
             $data[$key] = $value;
         }
         $this->assign('data',$data);
-        $this->display('live_text');
+        if ($data['type'] == 1) {
+            $this->display('live_text');    //图文
+        }else{
+            $this->display('live_vcard');   //名片
+        }
     }
 
     /**
