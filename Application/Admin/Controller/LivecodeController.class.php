@@ -503,6 +503,10 @@ class LivecodeController extends AdminController {
             if ($data) {
                 $result = $this->obj->save($data);
                 if ($result) {
+                    //如果是名片活码，需更新vcf文件
+                    if ($type == 5) {
+                        createVcfFile($data['id'],$data['content']);
+                    }
                     $this->success('更新成功', '/Uploads/livecode/'.$data['id'].'.png');
                 } else {
                     $this->error('更新失败', $this->obj->getError());

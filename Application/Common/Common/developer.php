@@ -310,7 +310,7 @@ function createVcfFile($id,$content){
      $arData=array();
      $arData["fileName"]='vcard'.$id;
      $arData["saveTo"]='Uploads/livecode/file';
-     $arData["vcard_birtda"]=date('Y-m-d',time());
+     // $arData["vcard_birtda"]=date('Y-m-d',time());
      // $arData["vcard_f_name"]='Tom';
      $arData["vcard_s_name"] = $content['name'];                       //姓名
      $arData["vcard_compan"] = $content['company'];                    //公司名称
