@@ -142,12 +142,24 @@
 			    margin-right: 90px;
     			text-align: right;
 			}
+			.face_bg_middle{
+				text-align: center;
+				padding-top: 32px!important;
+			}
+			.face_bg_middle .weui-media_appmsg img{
+			    float: none;
+				margin: 0 auto;
+			}
+			.face_bg_middle .vcard_biz_face_wrap{
+				width: 100%;
+				margin-left: 0;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="bus_card">
 			<div class="weui-panel" style="background: url('<?php if($data['head']): ?>{$data['head']}<?php else: ?>/Public/images/vcardbg10.jpg<?php endif; ?>') no-repeat center / cover;">
-				<div id="vcard_head_panel" class="face_bg_right">
+				<div id="vcard_head_panel" <?php if($data['layoutbg'] == 1): ?>class="face_bg_middle"<?php elseif($data['layoutbg'] == 2): ?>class="face_bg_right"<?php endif; ?>>
 					<div class="weui-media_appmsg">
 						<img src="<?php if($data['face']): ?>{$data['face']}<?php else: ?>__PUBLIC__/images/default_face_new.png<?php endif; ?>" class="vcard_biz_face face_left"/>
 						<div class="vcard_biz_face_wrap">
