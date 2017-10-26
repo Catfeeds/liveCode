@@ -142,12 +142,24 @@
 			    margin-right: 90px;
     			text-align: right;
 			}
+			.face_bg_middle{
+				text-align: center;
+				padding-top: 32px!important;
+			}
+			.face_bg_middle .weui-media_appmsg img{
+			    float: none;
+				margin: 0 auto;
+			}
+			.face_bg_middle .vcard_biz_face_wrap{
+				width: 100%;
+				margin-left: 0;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="bus_card">
 			<div class="weui-panel" style="background: url('<?php if($data['head']): ?>{$data['head']}<?php else: ?>/Public/images/vcardbg10.jpg<?php endif; ?>') no-repeat center / cover;">
-				<div id="vcard_head_panel" class="face_bg_right">
+				<div id="vcard_head_panel" <?php if($data['layoutbg'] == 1): ?>class="face_bg_middle"<?php elseif($data['layoutbg'] == 2): ?>class="face_bg_right"<?php endif; ?>>
 					<div class="weui-media_appmsg">
 						<img src="<?php if($data['face']): ?>{$data['face']}<?php else: ?>__PUBLIC__/images/default_face_new.png<?php endif; ?>" class="vcard_biz_face face_left"/>
 						<div class="vcard_biz_face_wrap">
@@ -161,6 +173,17 @@
 			</div>
 			<div class="weui-media-box">
 				<div class="weui-cells"></div>
+			<?php if($data['branch']): ?>
+				<div class="weui-cells">
+					<volist name="data['branch']" id="vo" key="k">
+					<div class="weui-cell">
+						<p class="overtext">{$vo.ch}</p>
+						<p class="overcon">{$vo.val}</p>
+						<div class="clear"></div>
+					</div>
+					</volist>
+				</div>
+			<?php endif; ?>
 				<div class="weui-cells">
 					
 					<volist name="data['left_phone']" id="vo" key="k">
@@ -202,6 +225,13 @@
 						<p class="overcon">{$vo.val}</p>
 						<div class="clear"></div>
 					</div>
+						<volist name="vo['child']" id="vo2" key="k2">
+						<div class="weui-cell">
+							<p class="overtext">{$vo2.ch}</p>
+							<p class="overcon">{$vo2.val}</p>
+							<div class="clear"></div>
+						</div>
+						</volist>
 					</volist>
 					
 					<volist name="data['left_intro']" id="vo" key="k">
@@ -216,7 +246,7 @@
 			</div>
 		</div>
 		<div class="vcard_link">
-			<a href="/Uploads/livecode/file/2017-10-26/1.vcf" class="save_btn">保存到通讯录</a>
+			<a href="javascript:;" class="save_btn">保存到通讯录</a>
 		</div>
 	</body>
 </html>

@@ -173,6 +173,17 @@
 			</div>
 			<div class="weui-media-box">
 				<div class="weui-cells"></div>
+			<?php if($data['branch']): ?>
+				<div class="weui-cells">
+					<volist name="data['branch']" id="vo" key="k">
+					<div class="weui-cell">
+						<p class="overtext">{$vo.ch}</p>
+						<p class="overcon">{$vo.val}</p>
+						<div class="clear"></div>
+					</div>
+					</volist>
+				</div>
+			<?php endif; ?>
 				<div class="weui-cells">
 					
 					<volist name="data['left_phone']" id="vo" key="k">
@@ -214,6 +225,13 @@
 						<p class="overcon">{$vo.val}</p>
 						<div class="clear"></div>
 					</div>
+						<volist name="vo['child']" id="vo2" key="k2">
+						<div class="weui-cell">
+							<p class="overtext">{$vo2.ch}</p>
+							<p class="overcon">{$vo2.val}</p>
+							<div class="clear"></div>
+						</div>
+						</volist>
 					</volist>
 					
 					<volist name="data['left_intro']" id="vo" key="k">
