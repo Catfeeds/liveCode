@@ -140,6 +140,7 @@ $(function(){
         params.name          = $("#vcard_data_name").html();
         params.appointment   = $(".vcard_data_appointment").html();
         params.company       = $(".vcard_data_company").html();
+        params.branch        = getParams('.left_basic .vcard_data_title');          //部门
         params.layoutbg      = $('#info-layout').val();                             //展示位置
 
         params.left_phone    = getParams('.left_phone .vcard_data_title');          //联系信息
