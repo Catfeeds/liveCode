@@ -443,6 +443,7 @@ class LivecodeController extends AdminController {
         foreach ($content as $key => $value) {
             $data[$key] = $value;
         }
+        // h($data);
         $this->assign('data',$data);
         if ($data['type'] == 1) {
             $this->display('live_text');    //图文

@@ -361,7 +361,7 @@ if (!function_exists('getallheaders')) {
 /**
  * 调试输出
  */
-function halt($obj) {
+function h($obj) {
     echo '<pre>';var_dump($obj);exit;
 }
 /*
