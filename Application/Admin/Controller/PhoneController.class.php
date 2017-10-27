@@ -17,6 +17,7 @@ class PhoneController extends AdminController {
 	protected function _initialize() {
 	    parent::_initialize();
 		$this->uid=$this->_user_auth['uid'];
+        $this->obj = D('Phone');
         //判断用户状态是否正常 && 套餐是否过期
         $this->ifExpired();
 	}
@@ -25,19 +26,15 @@ class PhoneController extends AdminController {
      * 
      */
     public function index() {
+        $map = ['uid'=>$this->uid,'type'=>1,'menuId'=>0];
         // 搜索
         $keyword   = I('keyword', '', 'string');
         if ( $keyword ){
         	$map['id|title'] = array('like','%'.$keyword.'%');
         }
-        $map['type'] = 1;
-        $map['uid']  = $this->uid;
 
-        // 获取所有用户
-        $map['status'] = array('egt', '0'); // 禁用和正常状态
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
-        $user_object = D('Phone');
-        $data_list = $user_object
+        $data_list = $this->obj
                    ->page($p , C('ADMIN_PAGE_ROWS'))
                    ->where($map)
                    ->order('id desc')
@@ -47,7 +44,7 @@ class PhoneController extends AdminController {
         	$data_list[$k]['ewm']="Uploads/phone/".$v['id'].'.png';
         }           
         $page = new Page(
-            $user_object->where($map)->count(),
+            $this->obj->where($map)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
@@ -72,7 +69,10 @@ class PhoneController extends AdminController {
         $attr5['title'] = '数据统计';
         $attr5['class'] = 'label label-info';
         $attr5['href']  = U('view',['id'=>'__data_id__','code'=>'4']);
-
+        $attr6['name']  = 'dcurl';
+        $attr6['title'] = '新建目录';
+        $attr6['class'] = 'btn btn-primary';
+        $attr6['href']  = U('addMenu');
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('网址跳转') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
@@ -81,6 +81,7 @@ class PhoneController extends AdminController {
                 ->addTopButton('self', $attr2)
                 ->addTopButton('self', $attr3)
                 ->addTopButton('self', $attr4)
+                ->addTopButton('self', $attr6)
                 ->setSearch('请输入ID或网址名称', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '网址名称')
@@ -96,6 +97,137 @@ class PhoneController extends AdminController {
                 ->addRightButton('delete')        // 添加删除按钮
                 ->addRightButton('self', $attr5)
                 ->display();
+    }
+
+    /**
+     * 网址跳转子目录列表
+     * 
+     */
+    public function child() {
+        $type = I('get.type/d');
+        $map = ['uid'=>$this->uid,'type'=>1,'menuId'=>$type];
+        // 搜索
+        $keyword   = I('keyword', '', 'string');
+        if ( $keyword ){
+            $map['id|title'] = array('like','%'.$keyword.'%');
+        }
+
+        $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
+        $data_list = $this->obj
+                   ->page($p , C('ADMIN_PAGE_ROWS'))
+                   ->where($map)
+                   ->order('id desc')
+                   ->select();
+
+        foreach( $data_list as $k => $v ){
+            $data_list[$k]['ewm']   ="Uploads/phone/".$v['id'].'.png';
+        }
+        $page = new Page(
+            $this->obj->where($map)->count(),
+            C('ADMIN_PAGE_ROWS')
+        );
+
+        // 使用Builder快速建立列表页面。
+        $attr['name']  = 'dcurl';
+        $attr['title'] = '导出网址';
+        $attr['class'] = 'btn btn-primary';
+        $attr['href']  = U('outurl',['type'=>$type]);
+        $attr2['name']  = 'xzewm';
+        $attr2['title'] = '下载二维码';
+        $attr2['class'] = 'btn btn-primary';
+        $attr2['href']  = U('xzewm',['type'=>$type]);
+        $attr3['name']  = 'edittzwz';
+        $attr3['title'] = '批量修改跳转网址';
+        $attr3['class'] = 'btn btn-primary';
+        $attr3['href']  = U('edittzwz',['type'=>$type]);
+        $attr4['name']  = 'edittzwz';
+        $attr4['title'] = '批量导入网址';
+        $attr4['class'] = 'btn btn-primary';
+        $attr4['href']  = U('drurl',['type'=>$type]);
+        $attr5['name']  = 'view';
+        $attr5['title'] = '数据统计';
+        $attr5['class'] = 'label label-info';
+        $attr5['href']  = U('view',['type'=>$type,'id'=>'__data_id__','code'=>'4']);
+        $builder = new \Common\Builder\ListBuilder();
+        $builder->setMetaTitle('网址跳转') // 设置页面标题
+                ->addTopButton('addnew', ['href'=>U('add',['type'=>$type])])  // 添加新增按钮
+                ->addTopButton('delete')  // 添加删除按钮
+                ->addTopButton('self', $attr)
+                ->addTopButton('self', $attr2)
+                ->addTopButton('self', $attr3)
+                ->addTopButton('self', $attr4)
+                ->setSearch('请输入ID或网址名称', U('child',['type'=>$type]))
+                ->addTableColumn('id', 'ID')
+                ->addTableColumn('title', '网址名称')
+                ->addTableColumn('videourl', '跳转网址')
+                ->addTableColumn('huoma', '活码地址')
+                ->addTableColumn('count', '扫码次数')
+                ->addTableColumn('ewm', '二维码', 'img')
+                ->addTableColumn('create_time', '添加时间', 'time')
+                ->addTableColumn('right_button', '操作', 'btn')
+                ->setTableDataList($data_list)    // 数据列表
+                ->setTableDataPage($page->show()) // 数据列表分页
+                ->addRightButton('edit', ['href'=>U('edit',['type'=>$type,'id'=>'__data_id__'])])          // 添加编辑按钮
+                ->addRightButton('delete')        // 添加删除按钮
+                ->addRightButton('self', $attr5)
+                ->display();
+    }
+
+    /**
+     * 新建目录
+    */
+    public function addMenu() {
+        if (IS_POST) {
+            $time = time();
+            $mod  = M('admin_menu');
+            $data['pid']        = $mod->getFieldByTitle('网址跳转','id');
+            $data['user_id']    = session('user_auth.uid');
+            $data['title']      = I('title/s');
+            $data['url']        = 'Admin/Phone/child/type/'.$time;
+            $data['create_time']= time();
+            empty($data['title']) ? $this->error('请输入目录名称') : '';
+            if ($data) {
+                $id = $mod->add($data);
+                if ($id) {
+                    $data['pid'] = $id;
+                    $data['status'] = -1;
+                    $data['title'] = '新增';
+                    $data['url']        = 'Admin/Phone/add/type/'.$time;
+                    $mod->add($data);
+                    $data['title'] = '导出网址';
+                    $data['url']        = 'Admin/Phone/outurl/type/'.$time;
+                    $mod->add($data);
+                    $data['title'] = '下载二维码';
+                    $data['url']        = 'Admin/Phone/xzewm/type/'.$time;
+                    $mod->add($data);
+                    $data['title'] = '批量修改跳转地址';
+                    $data['url']        = 'Admin/Phone/edittzwz/type/'.$time;
+                    $mod->add($data);
+                    $data['title'] = '批量导入';
+                    $data['url']        = 'Admin/Phone/drurl/type/'.$time;
+                    $mod->add($data);
+                    $data['title'] = '编辑';
+                    $data['url']        = 'Admin/Phone/edit/type/'.$time;
+                    $mod->add($data);
+                    $data['title'] = '查看数据统计';
+                    $data['url']        = 'Admin/Phone/view/type/'.$time;
+                    $mod->add($data);
+                    
+                    $this->success('新增成功', U('index'));
+                } else {
+                    $this->error('新增失败');
+                }
+            } else {
+                $this->error($mod->getError());
+            }
+        } else {
+            // 使用FormBuilder快速建立表单页面。
+            $builder = new \Common\Builder\FormBuilder();
+            $builder->setMetaTitle('新建目录') //设置页面标题
+                    ->setPostUrl(U('addMenu'))    //设置表单提交地址
+                    ->addFormItem('title', 'text', '新建目录名称')
+                    ->display();
+        }
     }
 
     /**
@@ -223,15 +355,15 @@ title = replace(title, '$ksid', '$endid') ");
      */
     public function add() {
         if (IS_POST) {
-            $user_object         = M('cms_phone');
             $data['create_time'] =NOW_TIME;
             $data['update_time'] =NOW_TIME;
-            $data['title']       =I('title/s');
-            $data['videourl']    =I('videourl/s');
+            $data['title']       =I('post.title/s');
+            $data['videourl']    =I('post.videourl/s');
             $data['uid']         =$this->uid;
             $data['d']           =get_dwz();
             $data['huoma']       = setLivecodeUrl('',$data['d']);
-
+            $data['menuId']      = I('post.type/d');
+// h($data);
             if ( !$data['title'] ){
                 $this->error('请输入网址名称');
             }
@@ -239,15 +371,18 @@ title = replace(title, '$ksid', '$endid') ");
                 $this->error('请输入跳转网址');
             }
             if ($data) {
-                $id = $user_object->add($data);
+                $id = $this->obj->add($data);
                 if ($id) {
 	                qrcode($data['huoma'],$id,4);
+                    if ($data['menuId']) {
+                       $this->success('新增成功', U('child',['type'=>$data['menuId']]));
+                    }
                     $this->success('新增成功', U('index'));
                 } else {
                     $this->error('新增失败');
                 }
             } else {
-                $this->error($user_object->getError());
+                $this->error($this->obj->getError());
             }
         } else {
             // 使用FormBuilder快速建立表单页面。
@@ -255,7 +390,9 @@ title = replace(title, '$ksid', '$endid') ");
             $builder->setMetaTitle('新增网址跳转') //设置页面标题
                     ->setPostUrl(U('add'))    //设置表单提交地址
                     ->addFormItem('title', 'text', '网址名称')
+                    ->addFormItem('type', 'hidden')
                     ->addFormItem('videourl', 'text', '跳转网址','请在网址前添加http://,确保网址完整！','','',"placeholder='http://'")
+                    ->setFormData(['type'=>I('get.type/d')])
                     ->display();
         }
     }
@@ -267,20 +404,21 @@ title = replace(title, '$ksid', '$endid') ");
     public function edit($id) {
         if (IS_POST) {
             // 提交数据
-            $user_object = D('Phone');
-            $data = $user_object->create();
-           
+            $data = $this->obj->create();   
             if ($data) {
-                $result = $user_object->save($data);
+                $result = $this->obj->save($data);
                 if ($result) {
 	                // unlink("Uploads/ewm/".$data['id'].'.png');
 	                //$this->qrcode($data['huoma'],$data['id']);
+                    if ($data['menuId']) {
+                       $this->success('更新成功', U('child',['type'=>$data['menuId']]));
+                    }
                     $this->success('更新成功', U('index'));
                 } else {
-                    $this->error('更新失败', $user_object->getError());
+                    $this->error('更新失败');
                 }
             } else {
-                $this->error($user_object->getError());
+                $this->error($this->obj->getError());
             }
         } else {
             // 获取账号信息
@@ -293,6 +431,7 @@ title = replace(title, '$ksid', '$endid') ");
             $builder->setMetaTitle('编辑网址跳转')  // 设置页面标题
                     ->setPostUrl(U('edit'))    // 设置表单提交地址
                     ->addFormItem('id', 'hidden', 'ID', 'ID')
+                    ->addFormItem('menuId', 'hidden')
                     ->addFormItem('title', 'text', '网址名称')
                     ->addFormItem('videourl', 'text', '跳转网址','请在网址前添加http://,确保网址完整！','','',"placeholder='http://'")
                     ->setFormData($info)
@@ -319,15 +458,14 @@ title = replace(title, '$ksid', '$endid') ");
 	        	$this->error('读取失败，请确认txt格式是否符合要求');
 	        }
 	       
-            $user_object = M('cms_phone');
-           $data['create_time']=NOW_TIME;
-           $data['update_time']=NOW_TIME;
+            $data['create_time']=NOW_TIME;
+            $data['update_time']=NOW_TIME;
             $data['uid']=$this->uid;
             foreach( $txtarr as $v  )
             {
 	          
 	        $data['title']=$v;
-	         $rs=$user_object->where(array('title'=>$v))->find();
+	        $rs=$this->obj->where(array('title'=>$v))->find();
 	        if ( $rs )
 	        {
 	        /*$data['id']=$rs['id'];
@@ -337,7 +475,7 @@ title = replace(title, '$ksid', '$endid') ");
 		      $data['d']=get_dwz();
 	        $data['huoma']=get_huomaurl($data['d']);
 		     //unset($data['id']);
-		        $ewmid=$user_object->add($data);
+		        $ewmid=$this->obj->add($data);
 		       qrcode($data['huoma'],$ewmid,4);
 		        }    
             }

@@ -133,7 +133,8 @@
                                 </div>
                             </div>
                         </div>        
-                    </div>                                              
+                    </div>                              
+                    <input type="hidden" id="menuId" value="{$menuId}">                                              
                     <div class="form-group"></div>
                         <div class="form-group">
                             <!-- <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button> -->
@@ -203,6 +204,7 @@
         }
 
         $(".submit").click(function(){
+            var menuId   = $("#menuId").val();
             var title   = $("#title").val();
             var videoName = $(".resumable-file-name:last").html();
             if (title == '') {
@@ -210,15 +212,21 @@
             }
             if (videoName == null) {
                 $.alertMessager('请上传文件!');return;
+            }else{
+                videoName = 'Uploads/video/'+videoName;
             }
             $.ajax({
                 url: 'admin.php?s=/admin/video/add',
                 type: 'POST',
-                data: {title:title,videoName:videoName},
+                data: {menuId:menuId,title:title,videourl:videoName},
                 success: function (data) {  
                     if(data.status == 1){
                         $.alertMessager('新增成功!','success');
-                        setTimeout(function(){location.href = "admin.php?s=/admin/video/index";},2000);
+                        if (data.info.type) {
+                            setTimeout(function(){location.href = "admin.php?s=/admin/video/child/type/"+data.info.type;},2000);
+                        }else{
+                            setTimeout(function(){location.href = "admin.php?s=/admin/video/index";},2000);
+                        }
                     }else{
                         $.alertMessager(data.info);return;
                     }

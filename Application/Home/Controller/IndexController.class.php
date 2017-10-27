@@ -21,7 +21,7 @@ class IndexController extends HomeController {
         //用户登录检测
         $uid = is_login();
         if ($uid) {
-            return $uid;
+            redirect('/admin.php?s=/admin/index/index');
         } else {
             if (IS_AJAX) {
                 $return['status']  = 0;

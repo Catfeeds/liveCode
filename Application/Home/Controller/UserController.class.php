@@ -83,6 +83,11 @@ class UserController extends CommonController {
      * 
      */
     public function login() {
+        //用户登录检测
+        $loginUid = is_login();
+        if ($loginUid) {
+            redirect('/admin.php?s=/admin/index/index');
+        }
         if (IS_POST) {
             $username = I('username/s');
             $password = I('password/s');
