@@ -17,8 +17,8 @@ class NoticeModel extends Model {
     private $conf = [
         'WEB_SITE'          => '爱活码',
         'title'             => '爱活码邮箱验证码提醒',
-        'updatePassContent' => '亲,您正在进行爱活码密码找回操作，验证码为【{#验证码#}】。如非本人操作,可不用理会!',
-        'registContent'     => '亲,您正在进行爱活码注册操作，验证码为【{#验证码#}】。如非本人操作,可不用理会!',
+        // 'updatePassContent' => '亲,您正在进行爱活码密码找回操作，验证码为【{#验证码#}】。如非本人操作,可不用理会!',
+        // 'registContent'     => '亲,您正在进行爱活码注册操作，验证码为【{#验证码#}】。如非本人操作,可不用理会!',
     ];
 
     public function email($email){
@@ -29,8 +29,8 @@ class NoticeModel extends Model {
     public function send($msg_type, $tpl = null, $title = null){
         if(is_array($tpl))      $this->conf["emailTpl"]   = $tpl;
         if(is_array($title))    $this->conf['title'] = $title;
-
-        $status = $this->sendEmail($this->conf["title"], $this->conf[$msg_type]);
+        // $status = $this->sendEmail($this->conf["title"], $this->conf[$msg_type]);
+        $status = $this->sendEmail($this->conf["title"], C($msg_type));
         return $status;
     }
 

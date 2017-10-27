@@ -174,7 +174,7 @@ class UserController extends CommonController {
             //注册
             if (!$ifRegist) {
                 $code   = rand(0,999999);
-                $status = $n->email($email)->send('updatePassContent',[$code]);
+                $status = $n->email($email)->send('REGIST_CONTENT',[$code]);
                 if($status){
                     // 绑定的邮箱
                     session('email.val',$email);
@@ -193,7 +193,7 @@ class UserController extends CommonController {
             //忘记密码
             if ($ifRegist) {
                 $code   = rand(0,999999);
-                $status = $n->email($email)->send('updatePassContent',[$code]);
+                $status = $n->email($email)->send('UPDATEPASS_CONTENT',[$code]);
                 // halt()
                 if($status){
                     // 绑定的邮箱
