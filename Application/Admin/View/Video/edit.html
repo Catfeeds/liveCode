@@ -114,7 +114,7 @@
                                 <label class="left control-label">视频文件路径</label>
                                 <div class="right">
                         
-                                    <input type="text" class="form-control input text" name="videourl" value="{$info.videourl}" readonly="true">
+                                    <input type="text" class="form-control input text" id="videourl" value="{$info.videourl}" readonly="true">
                                 </div>
                             </div>
                             <div class="form-group item_title ">
@@ -143,7 +143,9 @@
                                     </div>
                                 </div>
                             </div>         
-                        </div>                                              
+                        </div>  
+                    <input type="hidden" id="menuId" value="{$menuId}">                                              
+
                         <div class="form-group"></div>
                             <div class="form-group">
                                 <!-- <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button> -->
@@ -213,22 +215,30 @@
 
         $(".submit").click(function(){
             var id        = $("#id").val();
+            var menuId    = $("#menuId").val();
             var title     = $("#title").val();
             var videoName = $(".resumable-file-name:last").html();
             if (title == '') {
                 $.alertMessager('请输入视频名称!');return;
             }
             if (videoName == null) {
-                $.alertMessager('请上传文件!');return;
+                videoName = $("#videourl").val();
+            }else{
+                videoName = 'Uploads/video/'+videoName;
             }
+            // alert(videoName)
             $.ajax({
                 url: 'admin.php?s=/admin/video/edit/id/'+id,
                 type: 'POST',
-                data: {id:id,title:title,videoName:videoName},
+                data: {id:id,menuId:menuId,title:title,videourl:videoName},
                 success: function (data) {  
                     if(data.status == 1){
                         $.alertMessager('更新成功!','success');
-                        setTimeout(function(){location.href = "admin.php?s=/admin/video/index";},2000);
+                        if (data.info.type) {
+                            setTimeout(function(){location.href = "admin.php?s=/admin/video/child/type/"+data.info.type;},2000);
+                        }else{
+                            setTimeout(function(){location.href = "admin.php?s=/admin/video/index";},2000);
+                        }
                     }else{
                         $.alertMessager(data.info);return;
                     }

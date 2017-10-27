@@ -72,8 +72,8 @@ class ProductController extends AdminController {
         $builder->setMetaTitle('活码列表') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
-                ->addTopButton('self', $attr)
                 ->addTopButton('self', $attr2)
+                ->addTopButton('self', $attr)
                 ->setSearch('请输入ID或产品名称', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '产品名称')

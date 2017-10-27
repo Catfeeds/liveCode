@@ -10,6 +10,7 @@ class VideoController extends AdminController {
     protected function _initialize() {
         parent::_initialize();
         $this->uid=$this->_user_auth['uid'];
+        $this->obj = D('Phone');
         //判断用户状态是否正常 && 套餐是否过期
         $this->ifExpired();
     }
@@ -18,29 +19,25 @@ class VideoController extends AdminController {
      * 
      */
     public function index() {
+        $map = ['uid'=>$this->uid,'type'=>2,'menuId'=>0];
         // 搜索
         $keyword   = I('keyword', '', 'string');
         if ( $keyword ){
             $map['id|title'] = array('like','%'.$keyword.'%');
         }
-        $map['type'] = 2;
-        $map['uid']  = $this->uid;
 
-        // 获取所有用户
-        $map['status'] = array('egt', '0'); // 禁用和正常状态
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
-        $user_object = D('Phone');
-        $data_list = $user_object
+        $data_list = $this->obj
                    ->page($p , C('ADMIN_PAGE_ROWS'))
                    ->where($map)
                    ->order('id desc')
                    ->select();
-                  
+
         foreach( $data_list as $k => $v ){
             $data_list[$k]['ewm']   ="Uploads/ewm/".$v['id'].'.png';
         }
         $page = new Page(
-            $user_object->where($map)->count(),
+            $this->obj->where($map)->count(),
             C('ADMIN_PAGE_ROWS')
         );
 
@@ -57,12 +54,17 @@ class VideoController extends AdminController {
         $attr3['title'] = '数据统计';
         $attr3['class'] = 'label label-info';
         $attr3['href']  = U('view',['id'=>'__data_id__','code'=>'3']);
+        $attr4['name']  = 'dcurl';
+        $attr4['title'] = '新建目录';
+        $attr4['class'] = 'btn btn-primary';
+        $attr4['href']  = U('addMenu');
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('视频活码') // 设置页面标题
                 ->addTopButton('addnew')  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->addTopButton('self', $attr)
                 ->addTopButton('self', $attr2)
+                ->addTopButton('self', $attr4)
                 ->setSearch('请输入ID或视频名称', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '视频名称')
@@ -78,6 +80,120 @@ class VideoController extends AdminController {
                 ->addRightButton('self', $attr3)
                 ->display();
     }
+
+    /**
+     * 视频活码子目录列表
+     * 
+     */
+    public function child() {
+        $type = I('get.type/d');
+        $map = ['uid'=>$this->uid,'type'=>2,'menuId'=>$type];
+        // 搜索
+        $keyword   = I('keyword', '', 'string');
+        if ( $keyword ){
+            $map['id|title'] = array('like','%'.$keyword.'%');
+        }
+
+        $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
+        $data_list = $this->obj
+                   ->page($p , C('ADMIN_PAGE_ROWS'))
+                   ->where($map)
+                   ->order('id desc')
+                   ->select();
+
+        foreach( $data_list as $k => $v ){
+            $data_list[$k]['ewm']   ="Uploads/ewm/".$v['id'].'.png';
+        }
+        $page = new Page(
+            $this->obj->where($map)->count(),
+            C('ADMIN_PAGE_ROWS')
+        );
+
+        // 使用Builder快速建立列表页面。
+        $attr['name']  = 'dcurl';
+        $attr['title'] = '导出活码地址';
+        $attr['class'] = 'btn btn-primary';
+        $attr['href']  = U('outurl',['type'=>$type]);
+        $attr2['name']  = 'xzewm';
+        $attr2['title'] = '下载二维码';
+        $attr2['class'] = 'btn btn-primary';
+        $attr2['href']  = U('xzewm',['type'=>$type]);
+        $attr3['name']  = 'view';
+        $attr3['title'] = '数据统计';
+        $attr3['class'] = 'label label-info';
+        $attr3['href']  = U('view',['type'=>$type,'id'=>'__data_id__','code'=>'3']);
+        $builder = new \Common\Builder\ListBuilder();
+        $builder->setMetaTitle('视频活码') // 设置页面标题
+                ->addTopButton('addnew', ['href'=>U('add',['type'=>$type])])  // 添加新增按钮
+                ->addTopButton('delete')  // 添加删除按钮
+                ->addTopButton('self', $attr)
+                ->addTopButton('self', $attr2)
+                ->setSearch('请输入ID或视频名称', U('child',['type'=>$type]))
+                ->addTableColumn('id', 'ID')
+                ->addTableColumn('title', '视频名称')
+                ->addTableColumn('huoma', '活码地址')
+                ->addTableColumn('count', '播放次数')
+                ->addTableColumn('ewm', '二维码', 'img')
+                ->addTableColumn('create_time', '添加时间', 'time')
+                ->addTableColumn('right_button', '操作', 'btn')
+                ->setTableDataList($data_list)    // 数据列表
+                ->setTableDataPage($page->show()) // 数据列表分页
+                ->addRightButton('edit', ['href'=>U('edit',['type'=>$type,'id'=>'__data_id__'])])          // 添加编辑按钮
+                ->addRightButton('delete')        // 添加删除按钮
+                ->addRightButton('self', $attr3)
+                ->display();
+    }
+
+    /**
+     * 新建目录
+    */
+    public function addMenu() {
+        if (IS_POST) {
+            $time = time();
+            $mod  = M('admin_menu');
+            $data['pid']        = $mod->getFieldByTitle('视频活码','id');
+            $data['user_id']    = session('user_auth.uid');
+            $data['title']      = I('title/s');
+            $data['url']        = 'Admin/Video/child/type/'.$time;
+            $data['create_time']= time();
+            empty($data['title']) ? $this->error('请输入目录名称') : '';
+            if ($data) {
+                $id = $mod->add($data);
+                if ($id) {
+                    $data['pid'] = $id;
+                    $data['status'] = -1;
+                    $data['title'] = '新增';
+                    $data['url']        = 'Admin/Video/add/type/'.$time;
+                    $mod->add($data);
+                    $data['title'] = '导出';
+                    $data['url']        = 'Admin/Video/outurl/type/'.$time;
+                    $mod->add($data);
+                    $data['title'] = '下载二维码';
+                    $data['url']        = 'Admin/Video/xzewm/type/'.$time;
+                    $mod->add($data);
+                    $data['title'] = '查看数据统计';
+                    $data['url']        = 'Admin/Video/view/type/'.$time;
+                    $mod->add($data);
+                    $data['title'] = '编辑';
+                    $data['url']        = 'Admin/Video/edit/type/'.$time;
+                    $mod->add($data);
+                    $this->success('新增成功', U('index'));
+                } else {
+                    $this->error('新增失败');
+                }
+            } else {
+                $this->error($mod->getError());
+            }
+        } else {
+            // 使用FormBuilder快速建立表单页面。
+            $builder = new \Common\Builder\FormBuilder();
+            $builder->setMetaTitle('新建目录') //设置页面标题
+                    ->setPostUrl(U('addMenu'))    //设置表单提交地址
+                    ->addFormItem('title', 'text', '新建目录名称')
+                    ->display();
+        }
+    }
+
     /**
      * 导出
      */
@@ -203,8 +319,6 @@ class VideoController extends AdminController {
     public function add() {
         if (IS_POST) {
             $data = I('post.');
-            $user_object         = M('cms_phone');
-            $data['videourl']    = 'Uploads/video/'.$data['videoName'];
             //判断文件是否存在
             if (!file_exists($data['videourl'])) {
                 $this->error('文件不存在');
@@ -214,20 +328,22 @@ class VideoController extends AdminController {
             $data['uid']         = $this->uid;
             $data['d']           = get_dwz();
             $data['type']        = 2;
+
             if ($data) {
                 $data['huoma'] = setLivecodeUrl('',$data['d']);
-                $id = $user_object->add($data);
+                $id = $this->obj->add($data);
                 if ($id) {
                     qrcode($data['huoma'],$id,3);
-                    $this->success('新增成功', U('index'));
+                    $this->success(['type'=>$data['menuId']]);
                 } else {
                     $this->error('新增失败');
                 }
             } else {
-                $this->error($user_object->getError());
+                $this->error($this->obj->getError());
             }
         } else {
             $this->meta_title = '新增视频活码';
+            $this->assign('menuId',I('get.type/d'));
             $this->display();
         }
     }
@@ -239,38 +355,35 @@ class VideoController extends AdminController {
     public function edit($id) {
         if (IS_POST) {
             $data = I('post.');
-            // 提交数据
-            $user_object = D('Phone');
-            $user_object         = M('cms_phone');
-            $data['videourl']    = 'Uploads/video/'.$data['videoName'];
             //判断文件是否存在
             if (!file_exists($data['videourl'])) {
                 $this->error('文件不存在');
             }
-           
+
             if ($data) {
                 //$data['d']=$this->get_dwz($data['title']);
                 //$data['huoma']=$this->get_huomaurl($data['d']);
-                $result = $user_object->save($data);
+                $result = $this->obj->save($data);
 
                 if ($result !== false) {
                     // unlink("Uploads/ewm/".$data['id'].'.png');
                     //$this->qrcode($data['huoma'],$data['id']);
-                    $this->success('更新成功', U('index'));
+                    $this->success(['type'=>$data['menuId']]);
                 } else {
                     $this->error('更新失败');
                 }
             } else {
-                $this->error($user_object->getError());
+                $this->error($this->obj->getError());
             }
         } else {
             // 获取账号信息
-            $info = D('Phone')->where(['id'=>$id,'type'=>2,'uid'=>$this->uid])->find();
+            $info = $this->obj->where(['id'=>$id,'type'=>2,'uid'=>$this->uid])->find();
             if (!$info) {
                 $this->error('数据不存在');
             }
             $this->assign('info',$info);
             $this->meta_title = '编辑视频活码';
+            $this->assign('menuId',I('get.type/d'));
             $this->display();
         }
     }
@@ -294,15 +407,14 @@ class VideoController extends AdminController {
                 $this->error('读取失败，请确认txt格式是否符合要求');
             }
            
-            $user_object = M('cms_phone');
-           $data['create_time']=NOW_TIME;
-           $data['update_time']=NOW_TIME;
+            $data['create_time']=NOW_TIME;
+            $data['update_time']=NOW_TIME;
             $data['uid']=$this->uid;
             foreach( $txtarr as $v  )
             {
               
             $data['title']=$v;
-             $rs=$user_object->where(array('title'=>$v))->find();
+             $rs=$this->obj->where(array('title'=>$v))->find();
             if ( $rs )
             {
             /*$data['id']=$rs['id'];
@@ -312,7 +424,7 @@ class VideoController extends AdminController {
               $data['d']=get_dwz();
             $data['huoma']=get_huomaurl($data['d']);
              //unset($data['id']);
-                $ewmid=$user_object->add($data);
+                $ewmid=$this->obj->add($data);
                qrcode($data['huoma'],$ewmid,3);
                 }    
             }
@@ -338,16 +450,15 @@ class VideoController extends AdminController {
     public function setStatus(){
         $ids = I('request.ids');
         $status=I('request.status');
-        $obj = M('cms_phone');
         if ( $status=='delete' ) {
             if (is_array($ids)) {  
-                foreach( $ids as $v  ){
-                    $videourl = $obj -> where(array('id' => $v)) -> getField('videourl');
+                foreach( $ids as $v  ){                    
+                    $videourl = $this->obj -> where(array('id' => $v)) -> getField('videourl');
                     unlink($videourl);
-                    unlink("Uploads/ewm/".$ids.'.png');
+                    unlink("Uploads/ewm/".$v.'.png');
                 }
             } else {
-                $videourl = $obj -> where(array('id' => $ids)) -> getField('videourl');
+                $videourl = $this->obj -> where(array('id' => $ids)) -> getField('videourl');
                 unlink($videourl);
                 unlink("Uploads/ewm/".$ids.'.png');
             }

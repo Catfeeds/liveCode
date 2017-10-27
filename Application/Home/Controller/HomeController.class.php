@@ -66,7 +66,7 @@ class HomeController extends CommonController {
                 $return['login'] = 1;
                 $this->ajaxReturn($return);
             } else {
-                redirect(U('User/User/login', null, true, true));
+                redirect(U('Home/User/login', null, true, true));
             }
         }
     }

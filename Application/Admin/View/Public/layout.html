@@ -114,17 +114,15 @@
                     <?php if($ifCheckCount > 0): ?><i class="{$_ns_second.icon}"></i><?php endif; ?>
                     <span class="nav-label">{$_ns_second.title}</span>
                 </a>
-                <?php if($_ns_second['id'] == 11 || $_ns_second['id'] == 9): ?>
-                    <ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$skey}">
-                        <volist name="_ns_second._child" id="_ns_third" key="skey2">
-                            <li <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?>>
-                                <a href="{:U($_ns_third['url'])}" >
-                                    <span class="nav-label" style="margin-left: 20px;">{$_ns_third.title}</span>
-                                </a>
-                            </li>
-                        </volist>
-                    </ul>
-                <?php endif; ?>
+                <ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$skey}">
+                    <volist name="_ns_second._child" id="_ns_third" key="skey2">
+                        <li <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?>>
+                            <a href="{:U($_ns_third['url'])}" >
+                                <span class="nav-label" style="margin-left: 20px;">{$_ns_third.title}</span>
+                            </a>
+                        </li>
+                    </volist>
+                </ul>
             </li>
         </volist>
     </ul>
