@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2017-10-27 14:04:26
+Date: 2017-10-27 15:24:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -103,7 +103,7 @@ CREATE TABLE `fw_admin_config` (
   `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of fw_admin_config
@@ -124,12 +124,14 @@ INSERT INTO `fw_admin_config` VALUES ('15', '后台主题', 'ADMIN_THEME', 'blue
 INSERT INTO `fw_admin_config` VALUES ('16', '开发模式', 'DEVELOP_MODE', '1', '3', 'select', '1:开启\r\n0:关闭', '开发模式下会显示菜单管理、配置管理、数据字典等开发者工具', '1432393583', '1432393583', '1', '1');
 INSERT INTO `fw_admin_config` VALUES ('17', '是否显示页面Trace', 'SHOW_PAGE_TRACE', '0', '3', 'select', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '2', '1');
 INSERT INTO `fw_admin_config` VALUES ('19', 'URL模式', 'URL_MODEL', '3', '4', 'select', '0:普通模式\r\n1:PATHINFO模式\r\n2:REWRITE模式\r\n3:兼容模式', '', '1438423248', '1438423248', '1', '1');
-INSERT INTO `fw_admin_config` VALUES ('21', '配置分组', 'CONFIG_GROUP_LIST', '1:基本\r\n2:系统\r\n3:开发\r\n4:部署\r\n', '2', 'array', '', '配置分组', '1379228036', '1426930700', '5', '1');
-INSERT INTO `fw_admin_config` VALUES ('35', '邮箱服务器端口', 'EMAIL_PORT', '465', '1', 'text', '', '', '1508375440', '1508375440', '11', '1');
-INSERT INTO `fw_admin_config` VALUES ('36', '邮箱服务器帐号', 'EMAIL_ADDR', '447936059@qq.com', '1', 'text', '', '用于发送注册/忘记密码邮件验证', '1508375570', '1508375570', '12', '1');
-INSERT INTO `fw_admin_config` VALUES ('37', '邮箱服务器密码', 'EMAIL_PASS', 'nclesdomslbrbgce', '1', 'text', '', '', '1508375691', '1508375691', '13', '1');
-INSERT INTO `fw_admin_config` VALUES ('34', '邮箱服务器', 'EMAIL_HOST', 'smtp.qq.com', '1', 'text', '', '', '1508375330', '1508375330', '10', '1');
-INSERT INTO `fw_admin_config` VALUES ('38', '通用活码域名', 'DOMAIN_URL', 'www.livecode.com', '1', 'text', '', '用户未自定义域名的活码将解析到这个地址', '1508375938', '1508375938', '14', '1');
+INSERT INTO `fw_admin_config` VALUES ('21', '配置分组', 'CONFIG_GROUP_LIST', '1:基本\r\n2:系统\r\n3:开发\r\n4:部署\r\n5:运营', '2', 'array', '', '配置分组', '1379228036', '1426930700', '5', '1');
+INSERT INTO `fw_admin_config` VALUES ('35', '邮箱服务器端口', 'EMAIL_PORT', '465', '5', 'text', '', '', '1508375440', '1508375440', '11', '1');
+INSERT INTO `fw_admin_config` VALUES ('36', '邮箱服务器帐号', 'EMAIL_ADDR', '447936059@qq.com', '5', 'text', '', '用于发送注册/忘记密码邮件验证', '1508375570', '1508375570', '12', '1');
+INSERT INTO `fw_admin_config` VALUES ('37', '邮箱服务器密码', 'EMAIL_PASS', 'nclesdomslbrbgce', '5', 'text', '', '', '1508375691', '1508375691', '13', '1');
+INSERT INTO `fw_admin_config` VALUES ('34', '邮箱服务器', 'EMAIL_HOST', 'smtp.qq.com', '5', 'text', '', '', '1508375330', '1508375330', '10', '1');
+INSERT INTO `fw_admin_config` VALUES ('38', '通用活码域名', 'DOMAIN_URL', 'www.livecode.com', '5', 'text', '', '用户未自定义域名的活码将解析到这个地址', '1508375938', '1508375938', '1', '1');
+INSERT INTO `fw_admin_config` VALUES ('39', '找回密码邮件', 'UPDATEPASS_CONTENT', '亲,您正在进行爱活码密码找回操作，验证码为【{#验证码#}】。如非本人操作,可不用理会!', '5', 'textarea', '', '', '1509088008', '1509088128', '15', '1');
+INSERT INTO `fw_admin_config` VALUES ('40', '注册邮件', 'REGIST_CONTENT', '亲,您正在进行爱活码注册操作，验证码为【{#验证码#}】。如非本人操作,可不用理会!', '5', 'textarea', '', '', '1509088188', '1509088188', '14', '1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_group`
