@@ -279,9 +279,9 @@ class UserController extends AdminController {
             // 提交数据
             $mod = D('User');
             $data = I('post.');
-            if (empty($data['url'])) {
-                $this->error('请输入活码域名！');
-            }
+            // if (empty($data['url'])) {
+            //     $this->error('请输入活码域名！');
+            // }
             if (empty($data['url_status'])) {
                 $this->error('请选择审核结果！');
             }
@@ -304,7 +304,7 @@ class UserController extends AdminController {
                     ->addFormItem('id', 'hidden', 'ID', 'ID')
                     ->addFormItem('url', 'text', '活码域名')
                     ->addFormItem('url_status', 'select', '域名审核', '', [1=>'通过',-1=>'不通过'])
-                    ->addFormItem('ifCheck', 'select', '该用户是否需要审核', '', [1=>'需要',-1=>'不需要'])
+                    ->addFormItem('ifCheck', 'select', '该用户活码是否需要审核', '', [1=>'需要',-1=>'不需要'])
                     ->setFormData($info)
                     ->display();
         }

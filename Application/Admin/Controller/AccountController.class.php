@@ -54,9 +54,6 @@ class AccountController extends AdminController {
             //判断用户状态是否正常 && 套餐是否过期
             $this->ifExpired();
             $data['url'] = I('post.url/s');
-            if (empty($data['url'])) {
-                $this->error('请输入活码域名！');
-            }
             if ($info) {
                 if ($info['url_status'] == 1 && $data['url'] == $info['url']) {
                     $this->success('域名已通过审核');

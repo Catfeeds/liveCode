@@ -328,7 +328,8 @@ class VideoController extends AdminController {
             $data['uid']         = $this->uid;
             $data['d']           = get_dwz();
             $data['type']        = 2;
-
+            $user                = D('user')->getUserInfo($this->uid);
+            $data['status']      = ($user['ifCheck'] == -1)?1:0;
             if ($data) {
                 $data['huoma'] = setLivecodeUrl('',$data['d']);
                 $id = $this->obj->add($data);
@@ -361,13 +362,11 @@ class VideoController extends AdminController {
             }
 
             if ($data) {
-                //$data['d']=$this->get_dwz($data['title']);
-                //$data['huoma']=$this->get_huomaurl($data['d']);
-                $result = $this->obj->save($data);
-
+                $user           = D('user')->getUserInfo($this->uid);
+                $data['status'] = ($user['ifCheck'] == -1)?1:0;
+                
+                $result         = $this->obj->save($data);
                 if ($result !== false) {
-                    // unlink("Uploads/ewm/".$data['id'].'.png');
-                    //$this->qrcode($data['huoma'],$data['id']);
                     $this->success(['type'=>$data['menuId']]);
                 } else {
                     $this->error('更新失败');

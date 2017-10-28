@@ -277,11 +277,12 @@ class ProductController extends AdminController {
             if (!$data) {
                 $this->error($this->obj->getError());exit();
             }
-            $data['uid']   = $this->uid;
-            $data['d']     = get_dwz();
-            $data['huoma'] = setLivecodeUrl('product',$data['d']);
-            $data['content']   = json_encode($data['content']);
-            
+            $data['uid']     = $this->uid;
+            $data['d']       = get_dwz();
+            $data['huoma']   = setLivecodeUrl('product',$data['d']);
+            $data['content'] = json_encode($data['content']);
+            $user            = D('user')->getUserInfo($this->uid);
+            $data['status']  = ($user['ifCheck'] == -1)?1:0;
             //执行添加
             $id = $this->obj->add($data);
             if ($id) {
@@ -309,9 +310,11 @@ class ProductController extends AdminController {
             if (!$data) {
                 $this->error($this->obj->getError());exit();
             }
-            $data['uid']   = $this->uid;
-            $data['content']   = json_encode($data['content']);
-            $data['id']=$info['editId'];
+            $data['uid']     = $this->uid;
+            $data['content'] = json_encode($data['content']);
+            $data['id']      = $info['editId'];
+            $user            = D('user')->getUserInfo($this->uid);
+            $data['status']  = ($user['ifCheck'] == -1)?1:0;
             // halt($data);
 
             if ($data) {
