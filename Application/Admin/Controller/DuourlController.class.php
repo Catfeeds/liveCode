@@ -348,7 +348,8 @@ class DuourlController extends AdminController {
             $data['uid']         = $this->uid;
             $data['d']           = get_dwz();
             $data['huoma']       = setLivecodeUrl('duo',$data['d']);
-
+            $user                = D('user')->getUserInfo($this->uid);
+            $data['status']      = ($user['ifCheck'] == -1)?1:0;
             if ($data) {
                 $id = $this->obj->add($data);
                 if ($id) {
@@ -392,12 +393,14 @@ class DuourlController extends AdminController {
 	        	}
 	            $data['tztime']=implode('|||',$info['tztime']);
 	        }
-            $data['title']       =implode('|||',$info['title']);
-            $data['name']        =$info['name'];
+            $data['title']       = implode('|||',$info['title']);
+            $data['name']        = $info['name'];
             $data['menuId']      = $info['menuId'];
-            $data['update_time'] =NOW_TIME;
-            $data['id']          =$info['id'];
-            $data['tztype']      =$info['tztype'];
+            $data['update_time'] = NOW_TIME;
+            $data['id']          = $info['id'];
+            $data['tztype']      = $info['tztype'];
+            $user                = D('user')->getUserInfo($this->uid);
+            $data['status']      = ($user['ifCheck'] == -1)?1:0;
             if ($data) {
                 $result = $this->obj->save($data);
                 if ($result) {

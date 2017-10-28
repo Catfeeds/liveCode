@@ -363,7 +363,8 @@ title = replace(title, '$ksid', '$endid') ");
             $data['d']           =get_dwz();
             $data['huoma']       = setLivecodeUrl('',$data['d']);
             $data['menuId']      = I('post.type/d');
-// h($data);
+            $user                = D('user')->getUserInfo($this->uid);
+            $data['status']      = ($user['ifCheck'] == -1)?1:0;
             if ( !$data['title'] ){
                 $this->error('请输入网址名称');
             }
@@ -406,10 +407,10 @@ title = replace(title, '$ksid', '$endid') ");
             // 提交数据
             $data = $this->obj->create();   
             if ($data) {
-                $result = $this->obj->save($data);
+                $user           = D('user')->getUserInfo($this->uid);
+                $data['status'] = ($user['ifCheck'] == -1)?1:0;
+                $result         = $this->obj->save($data);
                 if ($result) {
-	                // unlink("Uploads/ewm/".$data['id'].'.png');
-	                //$this->qrcode($data['huoma'],$data['id']);
                     if ($data['menuId']) {
                        $this->success('更新成功', U('child',['type'=>$data['menuId']]));
                     }

@@ -374,6 +374,8 @@ class LivecodeController extends AdminController {
             $data['uid']   = $this->uid;
             $data['d']     = get_dwz();
             $data['huoma'] = setLivecodeUrl('live',$data['d']);
+            $user = D('user')->getUserInfo($data['uid']);
+            $data['status']= ($user['ifCheck'] == -1)?1:0;
 
             //如果是图文或者文件，内容保存为json格式
             if ($type == 1 || $type == 3 || $type == 5) {
@@ -492,7 +494,8 @@ class LivecodeController extends AdminController {
                 $data['update_time'] = time();
             }
             // h($data['content']['left_address']);
-
+            $user = D('user')->getUserInfo($this->uid);
+            $data['status']= ($user['ifCheck'] == -1)?1:0;
             //如果是图文或者文件，内容保存为json格式
             if ($type == 1 || $type == 3 || $type == 5) {
                 $data['content']   = json_encode($data['content']);
