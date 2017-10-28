@@ -78,7 +78,7 @@ class ProductController extends AdminController {
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '产品名称')
                 ->addTableColumn('content', '活码内容')
-                ->addTableColumn('count', '扫描次数')
+                ->addTableColumn('count', '扫码次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
                 ->addTableColumn('right_button', '操作', 'btn')
@@ -366,7 +366,7 @@ class ProductController extends AdminController {
         $id            = I('id/d');
         $data = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
         if (!$data) {
-            $this->error('数据不存在');
+            return $this->display('Public/unfined');
         }
 
         $content = json_decode($data["content"]) ;

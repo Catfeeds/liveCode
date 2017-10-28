@@ -495,7 +495,7 @@ class DuourlController extends AdminController {
     	$id=I('id/d');
         $info = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
         if (!$info) {
-            $this->error('数据不存在');
+            return $this->display('Public/unfined');
         }
     	$info['title']=str_replace('|||','</br>',$info['title']);
     	$this->assign('info',$info);

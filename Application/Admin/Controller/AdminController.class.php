@@ -148,6 +148,25 @@ class AdminController extends CommonController {
                     $this->error('删除失败');
                 }
                 break;
+            case 'passFail' :  // 审核不通过条目
+                $data = array('status' => -1);
+                $this->editRow(
+                    $model,
+                    $data,
+                    $map,
+                    array('success'=>'审核成功','error'=>'审核失败')
+                );
+                break;
+            case 'passSuccess' :  // 审核通过条目
+                $data = array('status' => 1);
+                $map  = array_merge(array('status' => ['in',['0','-1']]), $map);
+                $this->editRow(
+                    $model,
+                    $data,
+                    $map,
+                    array('success'=>'审核成功','error'=>'审核失败')
+                );
+                break;
             default :
                 $this->error('参数错误');
                 break;
