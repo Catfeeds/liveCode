@@ -69,7 +69,7 @@ class VideoController extends AdminController {
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '视频名称')
                 ->addTableColumn('huoma', '活码地址')
-                ->addTableColumn('count', '播放次数')
+                ->addTableColumn('count', '扫码次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
                 ->addTableColumn('right_button', '操作', 'btn')

@@ -82,9 +82,9 @@ class UserController extends AdminController {
                 ->addRightButton('edit')          // 添加编辑按钮
                 ->addRightButton('forbid')        // 添加禁用/启用按钮
                 ->addRightButton('delete')        // 添加删除按钮
-                ->addRightButton('self',$attr)        // 添加删除按钮
-                ->addRightButton('self',$attr2)        // 添加删除按钮
-                ->addRightButton('self',$attr3)        // 添加删除按钮
+                ->addRightButton('self',$attr)
+                ->addRightButton('self',$attr2)
+                ->addRightButton('self',$attr3)
                 ->display();
     }
 
@@ -142,7 +142,7 @@ class UserController extends AdminController {
                 if ($result) {
                     $this->success('更新成功', U('index'));
                 } else {
-                    $this->error('更新失败', $user_object->getError());
+                    $this->error('更新失败');
                 }
             } else {
                 $this->error($user_object->getError());

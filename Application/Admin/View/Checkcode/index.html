@@ -1,0 +1,141 @@
+<extend name="$_admin_public_layout" />
+<block name="style">
+    <style type="text/css">
+        .builder .builder-container .builder-data-empty {margin-bottom: 20px;background-color: #f9f9f9;}
+        .builder .builder-container .builder-data-empty .empty-info {padding: 130px 0;color: #555;}
+    </style>
+</block>
+<block name="main">
+    <div class="tab-content ct-tab-content">                         
+    <div class="builder listbuilder-box panel-body">
+    <!-- Tab导航 -->
+    <div class="builder-tabs">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="nav nav-tabs">
+                    <li <?php if($codeType == 1){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>1])}">活码生成</a></li>
+                    <li <?php if($codeType == 2){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>2])}">产品活码</a></li>
+                    <li <?php if($codeType == 3){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>3])}">视频活码</a></li>
+                    <li <?php if($codeType == 4){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>4])}">网址跳转</a></li>
+                    <li <?php if($codeType == 5){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>5])}">多网址跳转</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        <div class="form-group"></div>
+    <!-- 顶部工具栏按钮 -->
+    <div class="builder-toolbar">
+        <div class="row">
+            <!-- 工具栏按钮 -->
+            <div class="col-xs-12 col-sm-9 button-list clearfix">
+                <div class="form-group">
+                    <a title="删除" target-form="ids" class="btn btn-danger ajax-post confirm" href="{:U('Admin/Checkcode/setstatus/',['status'=>'delete','model'=>$modelName])}">删除</a>&nbsp;
+                    <a title="审核通过" target-form="ids" class="btn btn-success ajax-post confirm" href="{:U('Admin/Checkcode/setstatus/',['status'=>'passSuccess','model'=>$modelName])}">审核通过</a>&nbsp;
+                    <a title="审核不通过" target-form="ids" class="btn btn-warning ajax-post confirm" href="{:U('Admin/Checkcode/setstatus/',['status'=>'passFail','model'=>$modelName])}">审核不通过</a>&nbsp;  
+                    <?php if($status): ?>
+                    <a title="返回待审核记录" target-form="ids" class="btn btn-primary" name="dcurl" href="{:U('Admin/Checkcode/index/',['codeType'=>$codeType])}">返回待审核记录</a>
+                    <?php else: ?>
+                    <a title="查看已审核记录" target-form="ids" class="btn btn-primary" name="dcurl" href="{:U('Admin/Checkcode/index/',['codeType'=>$codeType,status=>'history'])}">查看已审核记录</a>                
+                    <?php endif; ?>      
+                </div>
+            </div>
+            <!-- 搜索框 -->
+            <div class="col-xs-12 col-sm-3 clearfix">
+                <form class="form" method="get" action="/admin.php?s=/admin/checkcode/index.html">
+                    <div class="form-group">
+                        <div class="input-group search-form">
+                            <input type="text" name="keyword" class="search-input form-control" value="{$keyword}" placeholder="请输入ID或活码名称">
+                            <span class="input-group-btn"><a class="btn btn-default search-btn"><i class="fa fa-search"></i></a></span>
+                        </div>
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="builder-container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="builder-table">
+                    <div class="panel panel-default table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th><input class="check-all" type="checkbox"></th><th>ID</th>
+                                <?php if($codeType == 1): ?>
+                                    <th>活码名称</th><th>活码类型</th><th>活码内容</th>
+                                <?php elseif($codeType == 3): ?>
+                                    <th>视频名称</th><th>活码地址</th>
+                                <?php elseif($codeType == 4): ?>
+                                    <th>网址名称</th><th>跳转网址</th><th>活码地址</th>
+                                <?php else: ?>
+                                    <th>活码名称</th><th>活码内容</th>
+                                <?php endif; ?>
+                                    <th>用户名</th><th>二维码</th><th>添加时间</th><th>审核状态</th><th>操作</th>                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php if($data_count > 0): ?>
+                                <volist name="data" id="vo">
+                                <tr>
+                                    <td><input class="ids" type="checkbox" value="{$vo.id}" name="ids[]"></td>
+                                    <td>{$vo.id}</td>
+                                <?php if($codeType == 1): ?>
+                                    <td>{$vo.title}</td>
+                                    <td>{$vo.type}</td>
+                                    <td>{$vo.content}</td>
+                                <?php elseif($codeType == 3): ?>
+                                    <td>{$vo.title}</td>
+                                    <td>{$vo.huoma}</td>
+                                <?php elseif($codeType == 4): ?>
+                                    <td>{$vo.title}</td>
+                                    <td>{$vo.videourl}</td>
+                                    <td>{$vo.huoma}</td>
+                                <?php else: ?>
+                                    <td>{$vo.title}</td>
+                                    <td>{$vo.content}</td>
+                                <?php endif; ?>
+                                    <td>{$vo.username}</td>
+                                    <td><img style="width:40px;height:40px;" src="{$vo.ewm}"></td>
+                                    <td>{$vo.create_time|date="Y-m-d H:i",###}</td>
+                                    <td>{$vo.status|getLivecodeStatus}</td>
+                                    <td>
+                                        <a title="编辑" class="label label-primary" href="{:U('Admin/Checkcode/edit/',['codeType'=>$codeType,'id'=>$vo['id']])}">编辑</a> 
+                                        <a title="删除" class="label label-danger ajax-get confirm" href="{:U('Admin/Checkcode/setstatus/',['ids'=>$vo['id'],'status'=>'delete','model'=>$modelName])}">删除</a> 
+                                    <?php if($vo['status'] == 1): ?>
+                                        <a title="审核不通过" class="label label-warning ajax-get confirm" href="{:U('Admin/Checkcode/setstatus/',['ids'=>$vo['id'],'status'=>'passFail','model'=>$modelName])}">审核不通过</a> 
+                                    <?php else: ?>
+                                        <a title="审核通过" class="label label-success ajax-get confirm" href="{:U('Admin/Checkcode/setstatus/',['ids'=>$vo['id'],'status'=>'passSuccess','model'=>$modelName])}">审核通过</a>
+                                    <?php endif; ?>
+                                    </td>                                    
+                                </tr>
+                                </volist>
+                            <?php else: ?>
+                                <tr class="builder-data-empty"><td class="text-center empty-info" colspan="12"><i class="fa fa-database"></i> 暂时没有数据<br></td></tr>
+                            <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <?php if($data_count > 0): ?><ul class="pagination">{$table_data_page}</ul><?php endif; ?>            
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 额外功能代码 -->
+</div>
+</div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        $(function(){
+
+            // $(".nav-tabs li").click(function() {
+            //     $(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
+            //     $(this).addClass('active');                            // 添加当前元素的样式
+            // });
+
+        });
+    </script>
+</block>
