@@ -578,3 +578,28 @@ function getModelObj($codeType){
             break;
     }
 }
+/**
+ * 根据活码类型返回二维码所在文件夹
+ */
+function getEwmFileName($codeType){
+    switch ($codeType) {
+        case '1':
+            return 'livecode';
+            break;
+        case '2':
+            return 'product';
+            break;
+        case '3':
+            return 'ewm';
+            break;
+        case '4':
+            return 'phone';
+            break;
+        case '5':
+            return 'duourl';
+            break;
+        default:
+            return 'livecode';
+            break;
+    }
+}
