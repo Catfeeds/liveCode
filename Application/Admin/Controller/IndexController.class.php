@@ -28,7 +28,7 @@ class IndexController extends AdminController {
         }
         $user = D('user')->getUserInfo(session('user_auth.uid'));
         $this->assign('meta_title', "首页");
-        $this->assign('expire_time', $user['expire_time']);
+        $this->assign('user', $user);
         $this->assign('user_type', session('user_auth.user_type'));
         $this->display();
     }

@@ -300,11 +300,12 @@
                 </div>
 <?php else: ?>
     <p class="bs-example-bg-classes bg-success">欢迎进入爱活码用户管理系统！</p>
-    <?php if($expire_time < time()): ?>
-    <p class="bs-example-bg-classes bg-danger">您的套餐已过期，请在续费管理中选择续费套餐！</p>
+    <?php if($user['vipId'] == 0): ?>
+    <p class="bs-example-bg-classes bg-danger">功能受限，请在购买套餐后重新进入本页使用活码管理功能！&nbsp;&nbsp;&nbsp;<a href="/index.php?s=/home/order/buy"><font color="white">立即购买>>></font></a></p>
+    <?php elseif($user['expire_time'] < time()): ?>
+    <p class="bs-example-bg-classes bg-danger">您的套餐已过期，请在续费管理中选择续费套餐！&nbsp;&nbsp;&nbsp;<a href="/index.php?s=/home/order/fee"><font color="white">立即续费>>></font></a></p>
     <?php endif; ?>
 <?php endif; ?>
-
                 
             </div>
         </div>
