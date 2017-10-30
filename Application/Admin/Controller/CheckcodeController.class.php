@@ -97,7 +97,6 @@ class CheckcodeController extends AdminController {
             'keyword'         => $keyword,
             'status'          => I('get.status/s'),
             'modelName'       => $modelName,
-
         ]);
         $this->display();
 

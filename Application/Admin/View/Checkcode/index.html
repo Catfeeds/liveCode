@@ -42,8 +42,8 @@
             <div class="col-xs-12 col-sm-9 button-list clearfix">
                 <div class="form-group">
                     <a title="删除" target-form="ids" class="btn btn-danger ajax-post confirm" href="{:U('Admin/Checkcode/setstatus/',['status'=>'delete','codeType'=>$codeType])}">删除</a>&nbsp;
-                    <a title="审核通过" target-form="ids" class="btn btn-success ajax-post confirm" href="{:U('Admin/Checkcode/setstatus/',['status'=>'passSuccess','model'=>$modelName])}">审核通过</a>&nbsp;
-                    <a title="审核不通过" target-form="ids" class="btn btn-warning ajax-post confirm" href="{:U('Admin/Checkcode/setstatus/',['status'=>'passFail','model'=>$modelName])}">审核不通过</a>&nbsp;  
+                    <a title="审核通过" target-form="ids" class="btn btn-success ajax-post confirm" href="{:U('Admin/Checkcode/setstatus/',['status'=>'passSuccess','codeType'=>$codeType])}">审核通过</a>&nbsp;
+                    <a title="审核不通过" target-form="ids" class="btn btn-warning ajax-post confirm" href="{:U('Admin/Checkcode/setstatus/',['status'=>'passFail','codeType'=>$codeType])}">审核不通过</a>&nbsp;  
                     <?php if($status): ?>
                     <a title="返回待审核记录" target-form="ids" class="btn btn-primary" name="dcurl" href="{:U('Admin/Checkcode/index/',['codeType'=>$codeType])}">返回待审核记录</a>
                     <?php else: ?>
@@ -115,9 +115,9 @@
                                         <a title="编辑" class="label label-primary" href="{:U('Admin/Checkcode/edit/',['codeType'=>$codeType,'id'=>$vo['id']])}">编辑</a> 
                                         <a title="删除" class="label label-danger ajax-get confirm" href="{:U('Admin/Checkcode/setstatus/',['ids'=>$vo['id'],'status'=>'delete','codeType'=>$codeType])}">删除</a> 
                                     <?php if($vo['status'] == 1): ?>
-                                        <a title="审核不通过" class="label label-warning ajax-get confirm" href="{:U('Admin/Checkcode/setstatus/',['ids'=>$vo['id'],'status'=>'passFail','model'=>$modelName])}">审核不通过</a> 
+                                        <a title="审核不通过" class="label label-warning ajax-get confirm" href="{:U('Admin/Checkcode/setstatus/',['ids'=>$vo['id'],'status'=>'passFail','codeType'=>$codeType])}">审核不通过</a> 
                                     <?php else: ?>
-                                        <a title="审核通过" class="label label-success ajax-get confirm" href="{:U('Admin/Checkcode/setstatus/',['ids'=>$vo['id'],'status'=>'passSuccess','model'=>$modelName])}">审核通过</a>
+                                        <a title="审核通过" class="label label-success ajax-get confirm" href="{:U('Admin/Checkcode/setstatus/',['ids'=>$vo['id'],'status'=>'passSuccess','codeType'=>$codeType])}">审核通过</a>
                                     <?php endif; ?>
                                     </td>                                    
                                 </tr>
