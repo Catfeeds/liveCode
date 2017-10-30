@@ -93,20 +93,21 @@
         }
     }
 </style>
+<input type="hidden" id="menuId" value="{$menuId}">                                              
+<input type="hidden" id="codeType" value="{$data['codeType']}">
+
 	<div class="builder formbuilder-box panel-body">
-    
-    
         <div class="builder-container">
             <div class="row">
                 <div class="col-xs-12">
                     <form action="{:U('edit')}" method="post" class="form-horizontal form form-builder">
-                        <input type="hidden" id="id" value="{$info.id}">
+                        <input type="hidden" id="id" value="{$data.id}">
                         <div class="col-xs-12">
                         <div class="form-group item_title ">
                                 <label class="left control-label">视频名称</label>
                                 <div class="right">
                         
-                                    <input type="text" class="form-control input text" id="title" value="{$info.title}" >
+                                    <input type="text" class="form-control input text" id="title" value="{$data.title}" >
                                 
                                 </div>
                             </div>
@@ -114,7 +115,7 @@
                                 <label class="left control-label">视频文件路径</label>
                                 <div class="right">
                         
-                                    <input type="text" class="form-control input text" id="videourl" value="{$info.videourl}" readonly="true">
+                                    <input type="text" class="form-control input text" id="videourl" value="{$data.videourl}" readonly="true">
                                 </div>
                             </div>
                             <div class="form-group item_title ">
@@ -144,8 +145,6 @@
                                 </div>
                             </div>         
                         </div>  
-                    <input type="hidden" id="menuId" value="{$menuId}">                                              
-
                         <div class="form-group"></div>
                             <div class="form-group">
                                 <!-- <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button> -->
@@ -218,6 +217,11 @@
             var menuId    = $("#menuId").val();
             var title     = $("#title").val();
             var videoName = $(".resumable-file-name:last").html();
+            var codeType= $("#codeType").val();     //管理员审核编辑
+            var postUrl = 'admin.php?s=/admin/video/edit/id/'+id;
+            if (codeType != '') {
+                postUrl = 'admin.php?s=/admin/checkcode/edit/codeType/'+codeType+'/id/'+id;
+            }
             if (title == '') {
                 $.alertMessager('请输入视频名称!');return;
             }
@@ -226,19 +230,25 @@
             }else{
                 videoName = 'Uploads/video/'+videoName;
             }
-            // alert(videoName)
+
             $.ajax({
-                url: 'admin.php?s=/admin/video/edit/id/'+id,
+                url: postUrl,
                 type: 'POST',
                 data: {id:id,menuId:menuId,title:title,videourl:videoName},
                 success: function (data) {  
                     if(data.status == 1){
                         $.alertMessager('更新成功!','success');
-                        if (data.info.type) {
-                            setTimeout(function(){location.href = "admin.php?s=/admin/video/child/type/"+data.info.type;},2000);
+                        if (data.info.site) {
+                            // setTimeout(function(){location.href = 'admin.php?s=/admin/checkcode/index/codeType/3';},2000);
+                            setTimeout(function(){self.location=document.referrer;},2000);
                         }else{
-                            setTimeout(function(){location.href = "admin.php?s=/admin/video/index";},2000);
+                            if (data.info.type) {
+                                setTimeout(function(){location.href = "admin.php?s=/admin/video/child/type/"+data.info.type;},2000);
+                            }else{
+                                setTimeout(function(){location.href = "admin.php?s=/admin/video/index";},2000);
+                            }
                         }
+                        
                     }else{
                         $.alertMessager(data.info);return;
                     }

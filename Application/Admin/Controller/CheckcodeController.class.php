@@ -108,7 +108,7 @@ class CheckcodeController extends AdminController {
      * 编辑活码
      * 
      */
-    public function edit($codeType,$id) {
+    public function edit($codeType,$id,$jumpUrl='') {
         $modelName = getModelObj($codeType);
         $obj       = D($modelName);
 
@@ -129,39 +129,77 @@ class CheckcodeController extends AdminController {
                 } else {
                     $this->error('更新失败');
                 }
+            }elseif ($codeType == 3) {
+                $data = I('post.');
+                //判断文件是否存在
+                if (!file_exists($data['videourl'])) {
+                    $this->error('文件不存在');
+                }
+                $result = $obj->save($data);
+                if ($result !== false) {
+                    $this->success(['type'=>$data['menuId'],'site'=>'admin']);
+                } else {
+                    $this->error('更新失败');
+                }
+            }elseif ($codeType == 4) {
+                $data = $obj->create();
+                if ($data) {
+                    $result = $obj->save($data);
+                    if ($result) {
+                        $this->success('更新成功',urldecode($jumpUrl));
+                    } else {
+                        $this->error('更新失败');
+                    }
+                } else {
+                    $this->error($obj->getError());
+                }
             }
             
 
         } else {
-            $data = $obj->where(['id'=>$id])->find();
-            if (!$data) {
-                $this->error('数据不存在');
-            }
-            $data['codeType'] = $codeType;
-
-            if ($codeType == 2) {
-                $content = json_decode($data["content"]) ;
-                foreach ($content as $key => $value) {
-                    $data[$key] = $value;
+            if ($codeType == 4) {
+                $info = $obj->where(['id'=>$id,'type'=>1])->find();
+                if (!$info) {
+                    $this->error('数据不存在');
                 }
-                $meta_title = '编辑产品活码';
-                $html       = 'Product/add';
-                $this->assign('menuId',$data['menuId']);
+                // 使用FormBuilder快速建立表单页面。
+                $builder = new \Common\Builder\FormBuilder();
+                $builder->setMetaTitle('编辑网址跳转')  // 设置页面标题
+                        ->setPostUrl(U('edit',['codeType'=>$codeType,'id'=>$id,'jumpUrl'=>urlencode($_SERVER["HTTP_REFERER"])]))    // 设置表单提交地址
+                        ->addFormItem('id', 'hidden', 'ID', 'ID')
+                        ->addFormItem('menuId', 'hidden')
+                        ->addFormItem('title', 'text', '网址名称')
+                        ->addFormItem('videourl', 'text', '跳转网址','请在网址前添加http://,确保网址完整！','','',"placeholder='http://'")
+                        ->setFormData($info)
+                        ->display();
+            }else{
+                $data = $obj->where(['id'=>$id])->find();
+                if (!$data) {
+                    $this->error('数据不存在');
+                }
+                $data['codeType'] = $codeType;
 
-            }elseif ($codeType == 3) {
-                $meta_title = '编辑视频活码';
-                $html       = 'Product/add';
-                $this->assign('menuId',$data['menuId']);
-                # code...
+                if ($codeType == 2) {
+                    $content = json_decode($data["content"]) ;
+                    foreach ($content as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                    $meta_title = '编辑产品活码';
+                    $html       = 'Product/add';
+                }elseif ($codeType == 3) {
+                    $meta_title = '编辑视频活码';
+                    $html       = 'Video/edit';
+                }
+
+                // halt($data);
+                $this->assign([
+                    'meta_title' => $meta_title,
+                    'data'       => $data,
+                    'menuId'     => $data['menuId'],
+                ]);
+                $this->display($html);
             }
-            // halt($codeType);
-
-            // halt($data);
-            $this->assign([
-                'meta_title' => $meta_title,
-                'data'       => $data,
-            ]);
-            $this->display($html);
+            
         }
     }
 
@@ -230,6 +268,73 @@ class CheckcodeController extends AdminController {
             }
         }
         
+    }
+
+    /**
+     * 上传视频
+     */
+    public function addfile() {
+        $REQUEST_METHOD=$_SERVER['REQUEST_METHOD'];
+        $uploads_dir="Uploads/video/";
+        if($REQUEST_METHOD == "GET")
+        {
+            if(count($_GET)>0)
+            {
+                $chunkNumber = $_GET['resumableChunkNumber'];
+                $chunkSize = $_GET['resumableChunkSize'];
+                $totalSize = $_GET['resumableTotalSize'];
+                $identifier = $_GET['resumableIdentifier'];
+                $filename = iconv ( 'UTF-8', 'GB2312', $_GET ['resumableFilename'] );
+                if(validateRequest($chunkNumber, $chunkSize, $totalSize, $identifier, $filename)=='valid')
+                {
+                    $chunkFilename = getChunkFilename($chunkNumber, $identifier,$filename,$uploads_dir);
+                    {
+                        if(file_exists($chunkFilename)){
+                            header("HTTP/1.0 200 Found");
+                        } else {
+                            header("HTTP/1.0 404 Not Found");
+                           
+                        }
+                    }
+                }
+                else
+                {
+                    header("HTTP/1.0 404 Not Found");
+                    
+                }}
+        }
+
+        if($REQUEST_METHOD == "POST"){
+            if(count($_POST)>0)
+            {
+                $resumableFilename = iconv ( 'UTF-8', 'GB2312', $_POST ['resumableFilename'] );
+                $resumableIdentifier=$_POST['resumableIdentifier'];
+                $resumableChunkNumber=$_POST['resumableChunkNumber'];
+                $resumableTotalSize=$_POST['resumableTotalSize'];
+                $resumableChunkSize=$_POST['resumableChunkSize'];
+                if (!empty($_FILES)) foreach ($_FILES as $file) {
+                    
+                    if ($file['error'] != 0) {
+                        _log('error '.$file['error'].' in file '.$resumableFilename);
+                        continue;
+                    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                    $temp_dir = $uploads_dir.'/'.$resumableIdentifier;
+                    $dest_file = $temp_dir.'/'.$resumableFilename.'.part'.$resumableChunkNumber;
+                    
+                    if (!is_dir($temp_dir)) {
+                        mkdir($temp_dir, 0777, true);
+                    }
+                    
+                    if (!move_uploaded_file($file['tmp_name'], $dest_file)) {
+                        _log('Error saving (move_uploaded_file) chunk '.$resumableChunkNumber.' for file '.$resumableFilename);
+                    } else {
+                        
+                        createFileFromChunks($temp_dir, $resumableFilename,$resumableChunkSize, $resumableTotalSize, $uploads_dir);
+                    }
+                }
+            }
+        }
     }
 
 

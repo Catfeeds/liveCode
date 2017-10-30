@@ -422,7 +422,6 @@ title = replace(title, '$ksid', '$endid') ");
                 $this->error($this->obj->getError());
             }
         } else {
-            // 获取账号信息
             $info = D('Phone')->where(['id'=>$id,'type'=>1,'uid'=>$this->uid])->find();
             if (!$info) {
                 $this->error('数据不存在');

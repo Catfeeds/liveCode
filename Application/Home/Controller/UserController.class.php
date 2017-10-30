@@ -107,7 +107,7 @@ class UserController extends CommonController {
                     $this->success('登录成功！', '/admin.php?s=/admin/index/index');
                 }
             } else {
-                $this->logout();
+                $this->error('登录失败');
             }
         } else {
             $this->assign('meta_title', '用户登录');
