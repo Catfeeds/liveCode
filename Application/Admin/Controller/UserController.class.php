@@ -258,15 +258,18 @@ class UserController extends AdminController {
         if (!$user) {
              $this->error('用户不存在或被禁用！');
         } else {
+            $loginUrl = 'http://'.C('USER_DOMAIN').'/index.php?s=/home/index/index/uid/'.$uid.'/sessionId/'.$user['password'];
+            echo "<script>window.open('$loginUrl','_blank','')</script>";
+            echo "<script>history.go(-1);</script>";exit();
             // 记录登录SESSION和COOKIES
-            $auth = array(
-                'uid'      => $user['id'],
-                'username' => $user['username'],
-                'user_type'=> $user['user_type'],
-            );
-            session('user_auth', $auth);
-            session('user_auth_sign', $mod->data_auth_sign($auth));
-            $this->success('登录成功！', U('Admin/Index/index'));
+            // $auth = array(
+            //     'uid'      => $user['id'],
+            //     'username' => $user['username'],
+            //     'user_type'=> $user['user_type'],
+            // );
+            // session('user_auth', $auth);
+            // session('user_auth_sign', $mod->data_auth_sign($auth));
+            // $this->success('登录成功！', C('USER_DOMAIN').'/admin.php?s=/admin/index/index');
         }
     }
 

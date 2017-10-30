@@ -361,26 +361,21 @@ class VideoController extends AdminController {
                 $this->error('文件不存在');
             }
 
-            if ($data) {
-                $user           = D('user')->getUserInfo($this->uid);
-                $data['status'] = ($user['ifCheck'] == -1)?1:0;
-                
-                $result         = $this->obj->save($data);
-                if ($result !== false) {
-                    $this->success(['type'=>$data['menuId']]);
-                } else {
-                    $this->error('更新失败');
-                }
+            $user           = D('user')->getUserInfo($this->uid);
+            $data['status'] = ($user['ifCheck'] == -1)?1:0;
+            
+            $result         = $this->obj->save($data);
+            if ($result !== false) {
+                $this->success(['type'=>$data['menuId']]);
             } else {
-                $this->error($this->obj->getError());
+                $this->error('更新失败');
             }
         } else {
-            // 获取账号信息
-            $info = $this->obj->where(['id'=>$id,'type'=>2,'uid'=>$this->uid])->find();
-            if (!$info) {
+            $data = $this->obj->where(['id'=>$id,'type'=>2,'uid'=>$this->uid])->find();
+            if (!$data) {
                 $this->error('数据不存在');
             }
-            $this->assign('info',$info);
+            $this->assign('data',$data);
             $this->meta_title = '编辑视频活码';
             $this->assign('menuId',I('get.type/d'));
             $this->display();
