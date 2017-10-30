@@ -310,6 +310,7 @@ class ProductController extends AdminController {
             if (!$data) {
                 $this->error($this->obj->getError());exit();
             }
+
             $data['uid']     = $this->uid;
             $data['content'] = json_encode($data['content']);
             $data['id']      = $info['editId'];
@@ -317,15 +318,11 @@ class ProductController extends AdminController {
             $data['status']  = ($user['ifCheck'] == -1)?1:0;
             // halt($data);
 
-            if ($data) {
-                $result = $this->obj->save($data);
-                if ($result) {
-                    $this->success('更新成功', '/Uploads/product/'.$data['id'].'.png');
-                } else {
-                    $this->error('更新失败', $this->obj->getError());
-                }
+            $result = $this->obj->save($data);
+            if ($result) {
+                $this->success('更新成功', '/Uploads/product/'.$data['id'].'.png');
             } else {
-                $this->error($this->obj->getError());
+                $this->error('更新失败');
             }
         } else {
             $data = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
@@ -336,8 +333,9 @@ class ProductController extends AdminController {
             foreach ($content as $key => $value) {
                 $data[$key] = $value;
             }
-            // halt($data);
+
             $this->meta_title = '编辑产品活码';
+            $this->assign('menuId',I('get.type/d'));
             $this->assign('data',$data);
             $this->display('add');
         }

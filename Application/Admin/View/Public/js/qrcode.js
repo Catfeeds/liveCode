@@ -170,9 +170,13 @@ $(function(){
     //产品活码
     $("#save_btn6").click(function(){
         var editId  = $("#editId6").val();
+        var menuId  = $("#menuId").val();
+        var codeType= $("#codeType").val();     //管理员审核编辑
         var picUrl  = $("#uploadPicUrl").val();
         var title   = $("#title6").val();
         var content = $("#imgtext").val();
+        var postUrl = 'admin.php?s=/admin/product/add';
+
         if (picUrl == '') {
             $.alertMessager('请上传图片!');return;
         }
@@ -182,8 +186,12 @@ $(function(){
         if (content == '') {
             $.alertMessager('请输入内容!');return;
         }
+        if (codeType != '') {
+            postUrl = 'admin.php?s=/admin/checkcode/edit/codeType/'+codeType+'/id/'+editId;
+        }
+
         $.ajax({
-            url: 'admin.php?s=/admin/product/add',
+            url: postUrl,
             type: 'POST',
             data: {editId:editId,menuId:menuId,title:title,content:{picUrl:picUrl,content:content}},
             success: function (data) {  

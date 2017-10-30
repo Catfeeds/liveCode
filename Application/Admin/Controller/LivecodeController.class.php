@@ -501,20 +501,16 @@ class LivecodeController extends AdminController {
                 $data['content']   = json_encode($data['content']);
             }
             $data['id']  = $info['editId'];
-
-            if ($data) {
-                $result = $this->obj->save($data);
-                if ($result) {
-                    //如果是名片活码，需更新vcf文件
-                    if ($type == 5) {
-                        createVcfFile($data['id'],$data['content']);
-                    }
-                    $this->success('更新成功', '/Uploads/livecode/'.$data['id'].'.png');
-                } else {
-                    $this->error('更新失败', $this->obj->getError());
+            
+            $result = $this->obj->save($data);
+            if ($result) {
+                //如果是名片活码，需更新vcf文件
+                if ($type == 5) {
+                    createVcfFile($data['id'],$data['content']);
                 }
+                $this->success('更新成功', '/Uploads/livecode/'.$data['id'].'.png');
             } else {
-                $this->error($this->obj->getError());
+                $this->error('更新失败');
             }
         } else {
             $data = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
@@ -524,12 +520,10 @@ class LivecodeController extends AdminController {
             if ($data['type'] == 1 || $data['type'] == 3 || $data['type'] == 5) {
                 $content = json_decode($data["content"],true);
                 foreach ($content as $key => $value) {
-                    // halt($value);
                     $data[$key] = $value;
                 }
             }
             
-            // halt($data);
             $this->meta_title = '编辑活码';
             $this->assign('data',$data);
             $this->display();

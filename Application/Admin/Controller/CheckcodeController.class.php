@@ -105,22 +105,90 @@ class CheckcodeController extends AdminController {
     }
 
     /**
+     * 编辑活码
+     * 
+     */
+    public function edit($codeType,$id) {
+        $modelName = getModelObj($codeType);
+        $obj       = D($modelName);
+
+        if (IS_POST) {
+            // halt($codeType);
+            if ($codeType == 2) {
+                $info = I('post.');
+                $data = $obj->create();
+                if (!$data) {
+                    $this->error($obj->getError());exit();
+                }
+                $data['content'] = json_encode($data['content']);
+                $data['id']      = $info['editId'];
+
+                $result = $obj->save($data);
+                if ($result) {
+                    $this->success('更新成功', '/Uploads/product/'.$data['id'].'.png');
+                } else {
+                    $this->error('更新失败');
+                }
+            }
+            
+
+        } else {
+            $data = $obj->where(['id'=>$id])->find();
+            if (!$data) {
+                $this->error('数据不存在');
+            }
+            $data['codeType'] = $codeType;
+
+            if ($codeType == 2) {
+                $content = json_decode($data["content"]) ;
+                foreach ($content as $key => $value) {
+                    $data[$key] = $value;
+                }
+                $meta_title = '编辑产品活码';
+                $html       = 'Product/add';
+                $this->assign('menuId',$data['menuId']);
+
+            }elseif ($codeType == 3) {
+                $meta_title = '编辑视频活码';
+                $html       = 'Product/add';
+                $this->assign('menuId',$data['menuId']);
+                # code...
+            }
+            // halt($codeType);
+
+            // halt($data);
+            $this->assign([
+                'meta_title' => $meta_title,
+                'data'       => $data,
+            ]);
+            $this->display($html);
+        }
+    }
+
+    /**
      * 设置一条或者多条数据的状态
      * 
      */
-    public function setStatus($model = 'Livecode'){
-                // h(I());
-        $ids = I('request.ids');
-        $status=I('request.status');
-        // halt($model);
-
-        if ( $status=='delete' ){
+    public function setStatus($codeType = 1){
+        $model    = getModelObj($codeType);
+        $ids      = I('request.ids');
+        $status   = I('request.status');
+        $fileName = getEwmFileName($codeType);
+        if ($status=='delete'){
             if (is_array($ids)) {
-               foreach( $ids as $v  ){ 
-                unlink("Uploads/livecode/".$v.'.png');
-               }
+                foreach( $ids as $v  ){ 
+                    if ($codeType = 3) {
+                        $videourl = D($model) -> where(array('id' => $v)) -> getField('videourl');
+                        unlink($videourl);
+                    }
+                    unlink('Uploads/'.$fileName.'/'.$v.'.png');
+                }
             } else {
-               unlink("Uploads/livecode/".$ids.'.png');
+                if ($codeType = 3) {
+                    $videourl = D($model) -> where(array('id' => $ids)) -> getField('videourl');
+                    unlink($videourl);
+                }
+                unlink('Uploads/'.$fileName.'/'.$ids.'.png');
             }
         }
         parent::setStatus($model);
@@ -163,66 +231,6 @@ class CheckcodeController extends AdminController {
         }
         
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * 编辑活码
-     * 
-     */
-    public function edit($id) {
-        if (IS_POST) {
-            // 密码为空表示不修改密码
-            if ($_POST['password'] === '') {
-                unset($_POST['password']);
-            }
-
-            // 提交数据
-            $user_object = D('User');
-            $data = $user_object->create();
-           
-            if ($data) {
-                $result = $user_object
-                        ->field('id,username,password,email,mobile,update_time,vipId')
-                        ->save($data);
-                if ($result) {
-                    $this->success('更新成功', U('index'));
-                } else {
-                    $this->error('更新失败', $user_object->getError());
-                }
-            } else {
-                $this->error($user_object->getError());
-            }
-        } else {
-            // 获取账号信息
-            $info = D('User')->where(['id'=>$id,'user_type'=>2])->find();
-            // if (!$info) {
-            //     $this->error('用户不存在');
-            // }
-            unset($info['password']);
-
-            // 使用FormBuilder快速建立表单页面。
-            $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('编辑用户')  // 设置页面标题
-                    ->setPostUrl(U('edit'))    // 设置表单提交地址
-                    ->addFormItem('id', 'hidden', 'ID', 'ID')
-                    ->addFormItem('username', 'text', '用户名')
-                    ->addFormItem('password', 'password', '密码')
-                    ->setFormData($info)
-                    ->display();
-        }
-    }
-
-    
 
 
 }
