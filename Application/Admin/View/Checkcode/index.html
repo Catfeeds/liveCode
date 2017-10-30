@@ -3,6 +3,18 @@
     <style type="text/css">
         .builder .builder-container .builder-data-empty {margin-bottom: 20px;background-color: #f9f9f9;}
         .builder .builder-container .builder-data-empty .empty-info {padding: 130px 0;color: #555;}
+        .xs_lis li{position: relative;}
+    	.xs_lis li i {
+		    content: "";
+		    display: inline-block;
+		    width: 6px;
+		    height: 6px;
+		    background: #FF1C20;
+		    border-radius: 50%;
+		    position: absolute;
+		    top: 10px;
+		    left: 85px;
+		}
     </style>
 </block>
 <block name="main">
@@ -12,12 +24,12 @@
     <div class="builder-tabs">
         <div class="row">
             <div class="col-xs-12">
-                <ul class="nav nav-tabs">
-                    <li <?php if($codeType == 1){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>1])}">活码生成</a></li>
-                    <li <?php if($codeType == 2){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>2])}">产品活码</a></li>
-                    <li <?php if($codeType == 3){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>3])}">视频活码</a></li>
-                    <li <?php if($codeType == 4){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>4])}">网址跳转</a></li>
-                    <li <?php if($codeType == 5){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>5])}">多网址跳转</a></li>
+                <ul class="nav nav-tabs xs_lis">
+                    <li <?php if($codeType == 1){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>1])}">活码生成</a><i></i></li>
+                    <li <?php if($codeType == 2){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>2])}">产品活码</a><i></i></li>
+                    <li <?php if($codeType == 3){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>3])}">视频活码</a><i></i></li>
+                    <li <?php if($codeType == 4){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>4])}">网址跳转</a><i></i></li>
+                    <li <?php if($codeType == 5){echo 'class="active"';} ?>><a href="{:U('Admin/Checkcode/index/',['codeType'=>5])}">多网址跳转</a><i></i></li>
                 </ul>
             </div>
         </div>
