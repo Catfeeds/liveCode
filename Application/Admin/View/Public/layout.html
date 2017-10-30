@@ -184,30 +184,32 @@
         <script type="text/javascript">
            $(function(){
            	var html=$(".fa-user").next('.nav-label').addClass('abc');
-	$('.layer').click(function(){
-    var url=($(this).attr('href'));
-    var layerindex=layer.open({
-    type: 2,
-    area: ['50%', '90%'],
-    fix: true, //不固定
-    maxmin: true,
-    content: url
-});
-layer.full(layerindex);
-    return false;
-});
-		$('.layer2').click(function(){
-	    var url=($(this).attr('href'));
-	    layer.open({
-	    type: 2,
-	    area: ['60%', '90%'],
-	    fix: true, //不固定
-	    maxmin: true,
-	    content: url
-	});
-	    return false;
-	});
-	
+           	$(".fa-th").next('.nav-label').addClass('abc');
+           	
+				$('.layer').click(function(){
+				    var url=($(this).attr('href'));
+				    var layerindex=layer.open({
+					    type: 2,
+					    area: ['50%', '90%'],
+					    fix: true, //不固定
+					    maxmin: true,
+					    content: url
+					});
+				layer.full(layerindex);
+				    return false;
+			});
+			$('.layer2').click(function(){
+			    var url=($(this).attr('href'));
+			    layer.open({
+				    type: 2,
+				    area: ['60%', '90%'],
+				    fix: true, //不固定
+				    maxmin: true,
+				    content: url
+				});
+			    return false;
+			});
+			
 	 });
         </script>
         <style>
