@@ -108,12 +108,12 @@ class CheckcodeController extends AdminController {
      * 编辑活码
      * 
      */
-    public function edit($codeType,$id,$jumpUrl='') {
+    public function edit($codeType=1,$id=0,$jumpUrl='') {
         $modelName = getModelObj($codeType);
         $obj       = D($modelName);
 
         if (IS_POST) {
-            // halt($codeType);
+            //提交数据
             if ($codeType == 2) {
                 $info = I('post.');
                 $data = $obj->create();
@@ -153,10 +153,39 @@ class CheckcodeController extends AdminController {
                 } else {
                     $this->error($obj->getError());
                 }
+            }elseif ($codeType == 5) {
+                $info=I('post.');
+                $info['title']=array_filter($info['title']);
+                $info['tztime']=array_filter($info['tztime']);
+                if ( !$info['name'] ){
+                    $this->error('请输入网址名称');
+                }
+                if ( !$info['title'] ){
+                    $this->error('请输入跳转网址');
+                }  
+                if ( $info['tztype']==3 ){
+                    if ( count($info['title'])!=count($info['tztime']) ){
+                        $this->error('请确认对应跳转网址是否完整输入跳转时间');
+                    }
+                    $data['tztime']=implode('|||',$info['tztime']);
+                }
+                $data['title']       = implode('|||',$info['title']);
+                $data['name']        = $info['name'];
+                $data['menuId']      = $info['menuId'];
+                $data['update_time'] = NOW_TIME;
+                $data['id']          = $info['id'];
+                $data['tztype']      = $info['tztype'];
+                $result = $obj->save($data);
+                if ($result) {
+                    $this->success('更新成功',urldecode($jumpUrl));
+                } else {
+                    $this->error('更新失败');
+                }
             }
             
 
         } else {
+            //模板显示
             if ($codeType == 4) {
                 $info = $obj->where(['id'=>$id,'type'=>1])->find();
                 if (!$info) {
@@ -189,6 +218,12 @@ class CheckcodeController extends AdminController {
                 }elseif ($codeType == 3) {
                     $meta_title = '编辑视频活码';
                     $html       = 'Video/edit';
+                }elseif ($codeType == 5) {
+                    $data['title']   = explode('|||',$data['title']);
+                    $data['tztime']  = explode('|||',$data['tztime']);
+                    $data['jumpUrl'] = urlencode($_SERVER["HTTP_REFERER"]);
+                    $meta_title      = '编辑多网址跳转';
+                    $html            = 'Duourl/edit';
                 }
 
                 // halt($data);

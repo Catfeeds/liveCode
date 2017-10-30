@@ -401,28 +401,25 @@ class DuourlController extends AdminController {
             $data['tztype']      = $info['tztype'];
             $user                = D('user')->getUserInfo($this->uid);
             $data['status']      = ($user['ifCheck'] == -1)?1:0;
-            if ($data) {
-                $result = $this->obj->save($data);
-                if ($result) {
-                    if ($data['menuId']) {
-                       $this->success('更新成功', U('child',['type'=>$data['menuId']]));
-                    }
-                    $this->success('更新成功', U('index'));
-                } else {
-                    $this->error('更新失败');
+
+            $result = $this->obj->save($data);
+            if ($result) {
+                if ($data['menuId']) {
+                   $this->success('更新成功', U('child',['type'=>$data['menuId']]));
                 }
+                $this->success('更新成功', U('index'));
             } else {
-                $this->error($this->obj->getError());
+                $this->error('更新失败');
             }
         } else {
-            $info = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
-            if (!$info) {
+            $data = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
+            if (!$data) {
                 $this->error('数据不存在');
             }
             $this->meta_title = '编辑多网址跳转';
-            $info['title']=explode('|||',$info['title']);
-            $info['tztime']=explode('|||',$info['tztime']);
-            $this->assign('info',$info);
+            $data['title']    = explode('|||',$data['title']);
+            $data['tztime']   = explode('|||',$data['tztime']);
+            $this->assign('data',$data);
             $this->assign('menuId',I('get.type/d'));
             $this->display();
         }

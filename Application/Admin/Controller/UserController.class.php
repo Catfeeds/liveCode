@@ -114,6 +114,8 @@ class UserController extends AdminController {
                     ->setPostUrl(U('add'))    //设置表单提交地址
                     ->addFormItem('reg_type', 'hidden', '注册方式', '注册方式')
                     ->addFormItem('username', 'text', '用户名', '用户名')
+                    ->addFormItem('mobile', 'text', '手机号', '手机号')
+                    ->addFormItem('email', 'text', '邮箱', '邮箱')
                     ->addFormItem('password', 'password', '密码', '密码')
                     ->setFormData(array('reg_type' => 'admin'))
                     ->display();
@@ -136,9 +138,7 @@ class UserController extends AdminController {
             $data = $user_object->create();
            
             if ($data) {
-                $result = $user_object
-                        ->field('id,username,password,email,mobile,update_time,vipId')
-                        ->save($data);
+                $result = $user_object->save($data);
                 if ($result) {
                     $this->success('更新成功', U('index'));
                 } else {
@@ -161,6 +161,8 @@ class UserController extends AdminController {
                     ->setPostUrl(U('edit'))    // 设置表单提交地址
                     ->addFormItem('id', 'hidden', 'ID', 'ID')
                     ->addFormItem('username', 'text', '用户名')
+                    ->addFormItem('mobile', 'text', '手机号')
+                    ->addFormItem('email', 'text', '邮箱')
                     ->addFormItem('password', 'password', '密码')
                     ->setFormData($info)
                     ->display();
