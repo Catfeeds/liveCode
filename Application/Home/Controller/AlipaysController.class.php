@@ -19,9 +19,6 @@ class AlipaysController extends CommonController {
      */
     private $aliPayConfig;
     public function _initialize() {
-        // if (!session('user_auth.uid')) {
-        //     $this->error('请先登录', U('Home/User/login'));
-        // }
         $this->aliPayConfig = array();
         $m = D('Payments');
         $this->aliPayConfig = $m->getPayment("alipays");
@@ -51,7 +48,7 @@ class AlipaysController extends CommonController {
         
         if($data["status"]==1){
             $return_url = U("Home/Alipays/response","",true,true);
-            $notify_url = C('USER_DOMAIN').'/index.php/home/alipays/alinotify.html';    //注意，支付宝回调url不支持兼容模式，坑爹啊！！！
+            $notify_url = C('USER_DOMAIN').'/index.php/home/alipays/alinotify.html';    //注意，支付宝回调url不支持兼容模式！！！
 
             $parameter = array(
                     'extra_common_param'=> $extra_common_param,
@@ -99,7 +96,7 @@ class AlipaysController extends CommonController {
         unset($request['_URL_']);
         $payRes = self::notify($request);
         if($payRes['status']){
-            redirect(U("Home/Order/completePay", null, true, true));
+            redirect(U("Home/Order/paySuccess", null, true, true));
         }else{
             $this->error('支付失败');
         }
@@ -110,19 +107,6 @@ class AlipaysController extends CommonController {
      */
     public function aliNotify(){
         // $this->logResult('调试写文件');exit();
-        // $extras = explode("@",'70@3');
-        // $obj = array();
-        // $obj["userId"]  = $extras[1];
-        // $obj["orderId"] = $extras[0];
-        // $obj["payType"] = 0;
-        // $obj["tradeNo"] = '2017103121001004060263015931';
-            
-        //     //支付成功业务逻辑
-        // $m = D('order');
-
-        //     $rs = $m->complatePay($obj);exit;
-
-
 
         $m = D('order');
         $request = $_POST;
@@ -148,14 +132,14 @@ class AlipaysController extends CommonController {
             echo 'fail';
         }
     }
-    //调试用
-    public function logResult($word='') {
-        $fp = fopen("log.txt","a");
-        flock($fp, LOCK_EX) ;
-        fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time())."\n".$word."\n");
-        flock($fp, LOCK_UN);
-        fclose($fp);
-    }
+    // //调试用
+    // public function logResult($word='') {
+    //     $fp = fopen("log.txt","a");
+    //     flock($fp, LOCK_EX) ;
+    //     fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time())."\n".$word."\n");
+    //     flock($fp, LOCK_UN);
+    //     fclose($fp);
+    // }
     
     /**
      * 支付回调接口

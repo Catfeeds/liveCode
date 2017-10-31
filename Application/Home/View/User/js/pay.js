@@ -19,9 +19,8 @@ function getPayUrl(){
             }else{
                 window.open(data.url);
             }
+        }else{
+            $.alertMessager('您的订单已支付!');setTimeout("location.href='/admin.php?s=/admin/index/index';", 2000); 
         }
-        // else{
-        //     $.alertMessager('您的订单已支付!');setTimeout("location.href='/admin.php?s=/admin/index/index';", 2000); 
-        // }
     });
 }

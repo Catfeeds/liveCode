@@ -47,7 +47,6 @@
 			qr.make();
 		$(".wst-qrcode").html(qr.createImgTag());
 
-
 		setInterval(function(){
 			var params = {};
 				params.trade_no = "{$out_trade_no}";
@@ -58,7 +57,7 @@
 				dataType:"json",
 				success:function(data){
 					if(data.status==1){
-						location.href = '/index.php?s=/Home/Order/completePay';
+						location.href = '/index.php?s=/Home/Order/paySuccess';
 					}
 				}
 			});
