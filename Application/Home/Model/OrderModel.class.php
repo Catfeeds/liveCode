@@ -131,35 +131,40 @@ class OrderModel extends Model {
     }
 
     /**
-     * 用户支付
+     * 完成支付
      * 
      */
     public function complatePay($obj) {
-echo 222222222222;exit;
         $userId  = $obj["userId"];
         $orderId  = $obj["orderId"];
         $payType  = $obj["payType"];
         $tradeNo  = $obj["tradeNo"];
-        $pay_time = $obj["pay_time"];
 
-        $user = D('User')->find(session('user_auth.uid'));
-        $isNew = $user['vipId'] ? 0:1;
-        $this->startTrans();
-        $result = $this->where(['orderId'=>$orderId,'userId'=>$userId])->save(['orderStatus'=>1,'tradeNo'=>$tradeNo,'pay_time'=>$pay_time,'payType'=>$payType,'isNew'=>$isNew]);
-        if($result){
-            $expire_time = time()+$order['year']*365*86400;
-            $user_action = M('admin_user')->where(['id'=>session('user_auth.uid')])->save(['vipId'=>$order['vipId'],'expire_time'=>$expire_time]);
-            if (!$user_action) {
+        $order = $this->where(['orderId'=>$orderId,'userId'=>$userId])->find();
+        if ($order) {
+            $user = D('User')->find($userId);
+            $isNew = $user['vipId'] ? 0:1;
+
+            $this->startTrans();
+            $result = $this->where(['orderId'=>$orderId,'userId'=>$userId])->save(['orderStatus'=>1,'tradeNo'=>$tradeNo,'pay_time'=>time(),'payType'=>$payType,'isNew'=>$isNew]);
+            if($result){
+                $expire_time = time()+$order['year']*365*86400;
+                $user_action = M('admin_user')->where(['id'=>$userId])->save(['vipId'=>$order['vipId'],'expire_time'=>$expire_time]);
+                if (!$user_action) {
+                    $this->rollback();
+                    $this->error = '支付失败！';return false;
+                }
+                // 提交事务
+                $this->commit();
+                return true;
+            }else{
                 $this->rollback();
                 $this->error = '支付失败！';return false;
-            }
-            // 提交事务
-            $this->commit();
-            return true;
+            } 
         }else{
-            $this->rollback();
-            $this->error = '支付失败！';return false;
-        } 
+            $this->error = '无效订单';return false;
+        }
+        
         
     }
     
