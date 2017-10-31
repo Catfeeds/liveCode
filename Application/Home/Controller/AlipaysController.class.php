@@ -112,20 +112,19 @@ class AlipaysController extends CommonController {
         // $this->logResult('调试写文件');exit();
 
         $m = D('order');
-        $request = I('get.');
-        $json = json_encode($request);
-        $this->logResult($json);exit();
+        $request = $_POST;
 
-        h($request);
         $payRes = self::notify($request);
+        $this->logResult($payRes);$this->logResult(json_encode($request));exit();
+
         if($payRes['status']){
+            $extras = explode("@",$_POST['extra_common_param']);
             $rs = array();
             $obj = array();
-            $obj["userId"] = session('user_auth.uid');
-            $obj["orderId"] = $request['extra_common_param'];
+            $obj["userId"] = $extras[1];
+            $obj["orderId"] = $extras[0];
             $obj["payType"] = 0;
             $obj["tradeNo"] = $request['outTradeNo'];
-            $obj["pay_time"] = time();
             
             //支付成功业务逻辑
             $rs = $m->complatePay($obj);
