@@ -44,11 +44,9 @@ class AlipaysController extends CommonController {
             $obj["orderId"]     = I("orderId/d");
             $obj["userId"]      = (int)session('user_auth.uid');
             $order              = $m->getPayOrder($obj);
-            $orderAmount        = (float)$order["needPay"];
-            $out_trade_no       = '150941898943283564_1';
-            $extra_common_param = 'orderPay@27@1';
-            $subject = '支付套餐费用'.$orderAmount.'元';
-            $body = '支付订单费用';
+            $orderAmount        = $order["needPay"];
+            $out_trade_no       = $order['orderNo'].'_'.$order['orderId'];
+            $extra_common_param = $obj["orderId"];
         }
         
         if($data["status"]==1){
@@ -64,8 +62,8 @@ class AlipaysController extends CommonController {
                     'notify_url'        => $notify_url,
                     'return_url'        => $return_url,
                     /* 业务参数 */
-                    'subject'           => $subject,
-                    'body'              => $body,
+                    'subject'           => '支付套餐费用'.$orderAmount.'元',
+                    'body'              => '支付订单费用',
                     'out_trade_no'      => $out_trade_no,
                     'total_fee'         => $orderAmount,
                     'quantity'          => 1,
@@ -77,7 +75,6 @@ class AlipaysController extends CommonController {
                     /* 买卖双方信息 */
                     'seller_email'      => $this->aliPayConfig['payAccount']
             );
-// var_dump($parameter);exit();
 
             ksort($parameter);
             reset($parameter);
@@ -88,10 +85,10 @@ class AlipaysController extends CommonController {
                 $sign  .= "$key=$val&";
             }
             $param = substr($param, 0, -1);
-            $sign  = substr($sign, 0, -1). $this->aliPayConfig['parterKey'];     
-
+            $sign  = substr($sign, 0, -1). $this->aliPayConfig['parterKey'];            
             $url = 'https://mapi.alipay.com/gateway.do?'.$param. '&sign='.md5($sign).'&sign_type=MD5';
         }
+
         $this->success('',$url);
     }
 
@@ -120,7 +117,7 @@ class AlipaysController extends CommonController {
      * 支付结果异步回调
      */
     public function aliNotify(){
-        $this->logResult('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');exit;
+        $this->logResult('2222222222222222222');
 
         // halt(I(''));
         $m = D('order');
