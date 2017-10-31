@@ -51,8 +51,7 @@ class AlipaysController extends CommonController {
         
         if($data["status"]==1){
             $return_url = U("Home/Alipays/response","",true,true);
-            $notify_url = U("Home/Alipays/aliNotify","",true,true);
-            // $notify_url = 'http://10.10.1.133/liveCode2/index.php?s=/home/Alipays/aliNotify';
+            $notify_url = C('USER_DOMAIN').'/index.php/home/alipays/alinotify.html';
 
             $parameter = array(
                     'extra_common_param'=> $extra_common_param,
@@ -117,8 +116,8 @@ class AlipaysController extends CommonController {
      * 支付结果异步回调
      */
     public function aliNotify(){
-        $this->logResult('2222222222222222222');
- echo 'fail';
+        $this->logResult('2222222222222222222');exit();
+ // echo 'fail';
         // halt(I(''));
         // $m = D('order');
         // $request = I('post.');
