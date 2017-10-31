@@ -184,7 +184,7 @@
         <script type="text/javascript">
            $(function(){
            	var html=$(".fa-user").next('.nav-label').addClass('abc');
-           	$(".fa-th").next('.nav-label').addClass('abc');
+           	$(".fa-th").next('.nav-label').addClass('drop');
            	
 				$('.layer').click(function(){
 				    var url=($(this).attr('href'));
@@ -213,7 +213,7 @@
 	 });
         </script>
         <style>
-    	span.nav-label.abc{
+    	span.nav-label.abc,span.nav-label.drop{
     		position: relative;
     	}
     	span.nav-label.abc:after {
@@ -226,6 +226,17 @@
 		    position: absolute;
 		    top: 6px;
 		    left: 65px;
+		}
+    	span.nav-label.drop:after {
+		    content: "";
+		    display: inline-block;
+		    width: 6px;
+		    height: 6px;
+		    background: #FF1C20;
+		    border-radius: 50%;
+		    position: absolute;
+		    top: 6px;
+		    left: 62px;
 		}
     </style>
 </body>
