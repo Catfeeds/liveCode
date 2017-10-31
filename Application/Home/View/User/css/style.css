@@ -535,8 +535,8 @@ body {
 	width: 100%;
 	margin: 0 auto;
 	text-align: right;
-	height: 30px;
-    line-height: 30px;
+	height: 40px;
+    line-height: 40px;
 }
 .headfr li{
 	width: auto;
@@ -545,8 +545,8 @@ body {
 	margin: 0 4px;
 }
 .user_plugins {
-    height: 50px;
-    line-height: 50px;
+    height: 40px;
+    line-height: 40px;
     text-align: center;
     position: relative;
 }
@@ -555,7 +555,7 @@ body {
 }
 .user_name_box{
 	display: inline-block;
-    height: 50px;
+    height: 40px;
     position: relative;
     box-sizing: border-box;
     float: left;
