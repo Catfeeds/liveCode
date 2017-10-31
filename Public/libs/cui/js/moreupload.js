@@ -1,11 +1,17 @@
 $(function(){
+	var postUrl = 'admin.php?s=/admin/livecode/addfile';
+	var codeType= $("#codeType").val();     //管理员审核编辑
+    if (codeType != '') {
+        postUrl = 'admin.php?s=/admin/checkcode/addLivecodeFile';
+    }
+
 	layui.use('upload', function(){
 	  var $ = layui.jquery,upload = layui.upload;
 	  //多文件列表示例
 	  var demoListView = $('#demoList')
 	  uploadListIns = upload.render({
 	    elem: '#testList'
-	    ,url: 'admin.php?s=/admin/livecode/addfile'
+	    ,url: postUrl
 	    ,accept: 'file'
         ,exts: "doc|docx|pdf|xls|xlsx|ppt|pptx|wps|txt|zip|rar|gz|bz2|7z|gif|jpg|jpeg|png|bmp"
         ,size: 10240
@@ -70,7 +76,7 @@ $(function(){
 	  //普通图片上传
 	  var uploadInst = upload.render({
 	    elem: '#test1'
-	    ,url: 'admin.php?s=/admin/livecode/addfile'
+	    ,url: postUrl
 	    ,before: function(obj){
 	      //预读本地文件示例，不支持ie8
 	      obj.preview(function(index, file, result){
@@ -105,7 +111,7 @@ $(function(){
 	  //名片头像上传
 	  var uploadInst2 = upload.render({
 	    elem: '#uploadAvatar'
-	    ,url: 'admin.php?s=/admin/livecode/addfile'
+	    ,url: postUrl
 	    ,before: function(obj){
 	      //预读本地文件示例，不支持ie8
 	      obj.preview(function(index, file, result){
@@ -128,7 +134,7 @@ $(function(){
 	  //名片背景上传
 	  var uploadInst3 = upload.render({
 	    elem: '#upload-bg'
-	    ,url: 'admin.php?s=/admin/livecode/addfile'
+	    ,url: postUrl
 	    ,before: function(obj){
 	      //预读本地文件示例，不支持ie8
 	      obj.preview(function(index, file, result){

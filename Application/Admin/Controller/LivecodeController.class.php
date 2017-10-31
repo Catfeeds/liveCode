@@ -501,14 +501,17 @@ class LivecodeController extends AdminController {
                 $data['content']   = json_encode($data['content']);
             }
             $data['id']  = $info['editId'];
-            
+            // h($data);
             $result = $this->obj->save($data);
             if ($result) {
                 //如果是名片活码，需更新vcf文件
                 if ($type == 5) {
                     createVcfFile($data['id'],$data['content']);
                 }
-                $this->success('更新成功', '/Uploads/livecode/'.$data['id'].'.png');
+                if ($data['menuId']) {
+                    $this->success(['type'=>$data['menuId']], '/Uploads/livecode/'.$data['id'].'.png');
+                }
+                $this->success('', '/Uploads/livecode/'.$data['id'].'.png');
             } else {
                 $this->error('更新失败');
             }
@@ -523,7 +526,6 @@ class LivecodeController extends AdminController {
                     $data[$key] = $value;
                 }
             }
-            
             $this->meta_title = '编辑活码';
             $this->assign('data',$data);
             $this->display();

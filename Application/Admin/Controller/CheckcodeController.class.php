@@ -97,7 +97,6 @@ class CheckcodeController extends AdminController {
             'keyword'         => $keyword,
             'status'          => I('get.status/s'),
             'modelName'       => $modelName,
-
         ]);
         $this->display();
 
@@ -114,7 +113,109 @@ class CheckcodeController extends AdminController {
 
         if (IS_POST) {
             //提交数据
-            if ($codeType == 2) {
+            if ($codeType == 1) {
+                $info = I('post.');
+                $type = $info['type'];
+                if ($type == 1 || $type == 2 || $type == 3 || $type == 4) {    //图文活码 || 文本活码 || 文件活码 || 网址导航
+                    $data = $obj->create();
+                    if (!$data) {
+                        $this->error($obj->getError());exit();
+                    }
+                }elseif ($type == 5) {                  //名片活码
+                    $data['content'] = $info['params'];
+                    //联系信息
+                    $mobile = $fax = $email = [];
+                    foreach ($data['content']['left_phone'] as $k => $v) {
+                        if (!$v['en']) {
+                            $lastClass = explode(' ', $v['class'])[1];
+                            if (strpos($lastClass, 'mobile') !== false) {
+                                $v['data-class'] = $lastClass;
+                                $mobile[] = $v;
+                            }elseif (strpos($lastClass, 'fax') !== false) {
+                                $v['data-class'] = $lastClass;
+                                $fax[] = $v;
+                            }elseif (strpos($lastClass, 'email') !== false) {
+                                $v['data-class'] = $lastClass;
+                                $email[] = $v;
+                            }
+                            unset($data['content']['left_phone'][$k]);
+                        }
+                    }
+                    foreach ($data['content']['left_phone'] as $k => $v) {
+                        if ($v['en']) {
+                            if ($v['en'] == 'Mobile') {
+                                $data['content']['left_phone'][$k]['child'] = $mobile;
+                            }elseif ($v['en'] == 'Fax') {
+                                $data['content']['left_phone'][$k]['child'] = $fax;
+                            }elseif ($v['en'] == 'Email') {
+                                $data['content']['left_phone'][$k]['child'] = $email;
+                            }
+                        }
+                    }
+                    //社交信息
+                    $wechat = $website = [];
+                    foreach ($data['content']['left_internet'] as $k => $v) {
+                        if (!$v['en']) {
+                            $lastClass = explode(' ', $v['class'])[1];
+                            if (strpos($lastClass, 'wechat') !== false) {
+                                $v['data-class'] = $lastClass;
+                                $wechat[] = $v;
+                            }elseif (strpos($lastClass, 'website') !== false) {
+                                $v['data-class'] = $lastClass;
+                                $website[] = $v;
+                            }
+                            unset($data['content']['left_internet'][$k]);
+                        }
+                    }
+                    foreach ($data['content']['left_internet'] as $k => $v) {
+                        if ($v['en']) {
+                            if ($v['en'] == 'Wechat') {
+                                $data['content']['left_internet'][$k]['child'] = $wechat;
+                            }elseif ($v['en'] == 'Website') {
+                                $data['content']['left_internet'][$k]['child'] = $website;
+                            }
+                        }
+                    }
+                    //地址
+                    $address = [];
+                    foreach ($data['content']['left_address'] as $k => $v) {
+                        if (!$v['en']) {
+                            $lastClass = explode(' ', $v['class'])[1];
+                            if (strpos($lastClass, 'address') !== false) {
+                                $v['data-class'] = $lastClass;
+                                $address[] = $v;
+                            }
+                            unset($data['content']['left_address'][$k]);
+                        }
+                    }
+                    foreach ($data['content']['left_address'] as $k => $v) {
+                        if ($v['en']) {
+                            if ($v['en'] == 'Address') {
+                                $data['content']['left_address'][$k]['child'] = $address;
+                            }
+                        }
+                    }
+
+                    $data['title'] = $data['content']['name'].'的名片';
+                    $data['update_time'] = time();
+                }
+                //如果是图文或者文件，内容保存为json格式
+                if ($type == 1 || $type == 3 || $type == 5) {
+                    $data['content']   = json_encode($data['content']);
+                }
+                $data['id']  = $info['editId'];
+                
+                $result = $obj->save($data);
+                if ($result) {
+                    //如果是名片活码，需更新vcf文件
+                    if ($type == 5) {
+                        createVcfFile($data['id'],$data['content']);
+                    }
+                    $this->success(['site'=>'admin'], '/Uploads/livecode/'.$data['id'].'.png');
+                } else {
+                    $this->error('更新失败');
+                }
+            }elseif ($codeType == 2) {
                 $info = I('post.');
                 $data = $obj->create();
                 if (!$data) {
@@ -186,12 +287,29 @@ class CheckcodeController extends AdminController {
 
         } else {
             //模板显示
-            if ($codeType == 4) {
-                $info = $obj->where(['id'=>$id,'type'=>1])->find();
-                if (!$info) {
-                    $this->error('数据不存在');
+            $data = $obj->where(['id'=>$id])->find();
+            if (!$data) {$this->error('数据不存在');}
+
+            if ($codeType == 1) {
+                if ($data['type'] == 1 || $data['type'] == 3 || $data['type'] == 5) {
+                    $content = json_decode($data["content"],true);
+                    foreach ($content as $key => $value) {
+                        $data[$key] = $value;
+                    }
                 }
-                // 使用FormBuilder快速建立表单页面。
+                $meta_title = '编辑活码';
+                $html       = 'Livecode/edit';
+            }elseif ($codeType == 2) {
+                $content = json_decode($data["content"]) ;
+                foreach ($content as $key => $value) {
+                    $data[$key] = $value;
+                }
+                $meta_title = '编辑产品活码';
+                $html       = 'Product/add';
+            }elseif ($codeType == 3) {
+                $meta_title = '编辑视频活码';
+                $html       = 'Video/edit';
+            }elseif ($codeType == 4) {   //网址跳转
                 $builder = new \Common\Builder\FormBuilder();
                 $builder->setMetaTitle('编辑网址跳转')  // 设置页面标题
                         ->setPostUrl(U('edit',['codeType'=>$codeType,'id'=>$id,'jumpUrl'=>urlencode($_SERVER["HTTP_REFERER"])]))    // 设置表单提交地址
@@ -199,42 +317,24 @@ class CheckcodeController extends AdminController {
                         ->addFormItem('menuId', 'hidden')
                         ->addFormItem('title', 'text', '网址名称')
                         ->addFormItem('videourl', 'text', '跳转网址','请在网址前添加http://,确保网址完整！','','',"placeholder='http://'")
-                        ->setFormData($info)
+                        ->setFormData($data)
                         ->display();
-            }else{
-                $data = $obj->where(['id'=>$id])->find();
-                if (!$data) {
-                    $this->error('数据不存在');
-                }
-                $data['codeType'] = $codeType;
-
-                if ($codeType == 2) {
-                    $content = json_decode($data["content"]) ;
-                    foreach ($content as $key => $value) {
-                        $data[$key] = $value;
-                    }
-                    $meta_title = '编辑产品活码';
-                    $html       = 'Product/add';
-                }elseif ($codeType == 3) {
-                    $meta_title = '编辑视频活码';
-                    $html       = 'Video/edit';
-                }elseif ($codeType == 5) {
-                    $data['title']   = explode('|||',$data['title']);
-                    $data['tztime']  = explode('|||',$data['tztime']);
-                    $data['jumpUrl'] = urlencode($_SERVER["HTTP_REFERER"]);
-                    $meta_title      = '编辑多网址跳转';
-                    $html            = 'Duourl/edit';
-                }
-
-                // halt($data);
-                $this->assign([
-                    'meta_title' => $meta_title,
-                    'data'       => $data,
-                    'menuId'     => $data['menuId'],
-                ]);
-                $this->display($html);
+            }elseif ($codeType == 5) {
+                $data['title']   = explode('|||',$data['title']);
+                $data['tztime']  = explode('|||',$data['tztime']);
+                $data['jumpUrl'] = urlencode($_SERVER["HTTP_REFERER"]);
+                $meta_title      = '编辑多网址跳转';
+                $html            = 'Duourl/edit';
             }
-            
+
+            $data['codeType'] = $codeType;
+            // halt($data);
+            $this->assign([
+                'meta_title' => $meta_title,
+                'data'       => $data,
+                'menuId'     => $data['menuId'],
+            ]);
+            $this->display($html);
         }
     }
 
@@ -303,6 +403,27 @@ class CheckcodeController extends AdminController {
             }
         }
         
+    }
+
+    /**
+     * 上传活码生成文件
+     */
+    public function addLivecodeFile() {
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->rootPath  =     'Uploads/livecode/file/'; // 设置附件上传根目录
+            $upload->savePath  =     ''; // 设置附件上传（子）目录+
+            // 上传文件 
+            $info   =   $upload->upload();
+            // halt($info);
+            if(!$info) {// 上传错误提示错误信息
+                $this->error('上传失败！');
+            }else{// 上传成功
+                $size = getFilesize($info['file']['size']);
+                $url  = $info['file']['savepath'].$info['file']['savename'];
+                $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
+            }
+        }
     }
 
     /**

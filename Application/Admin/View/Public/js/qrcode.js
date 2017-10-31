@@ -21,10 +21,16 @@ $(function(){
         });
     });
     
-    var menuId  = $("#menuId").val();
+    var editId  = $("#editId").val();
+    var menuId   = $("#menuId").val();
+    var postUrl  = 'admin.php?s=/admin/livecode/add';
+    var codeType= $("#codeType").val();     //管理员审核编辑
+    if (codeType != '') {
+        postUrl = 'admin.php?s=/admin/checkcode/edit/codeType/'+codeType+'/id/'+editId;
+    }
+
     //图文活码
     $("#save_btn").click(function(){
-        var editId  = $("#editId").val();
         var picUrl  = $("#uploadPicUrl").val();
         var title   = $("#title").val();
         var content = $("#imgtext").val();
@@ -38,14 +44,14 @@ $(function(){
             $.alertMessager('请输入内容!');return;
         }
         $.ajax({
-            url: 'admin.php?s=/admin/livecode/add',
+            url: postUrl,
             type: 'POST',
             data: {editId:editId,menuId:menuId,title:title,content:{picUrl:picUrl,content:content},type:1},
             success: function (data) {  
                 if(data.status == 1){
                     $("#code1 img").attr('src',data.url);
                     $("#img1").attr('href',data.url);
-                    $.alertMessager('二维码已成功保存!','success');return;
+                    returnSuccessInfo(data);
                 }else{
                     $.alertMessager(data.info);return;
                 }
@@ -54,7 +60,6 @@ $(function(){
     });
     //文本活码
     $("#save_btn2").click(function(){
-        var editId  = $("#editId2").val();
         var title   = $("#title2").val();
         var content = $("#content2").val();
         if (title == '') {
@@ -64,14 +69,14 @@ $(function(){
             $.alertMessager('请输入内容!');return;
         }
         $.ajax({
-            url: 'admin.php?s=/admin/livecode/add',
+            url: postUrl,
             type: 'POST',
             data: {editId:editId,menuId:menuId,title:title,content:content,type:2},
             success: function (data) {  
                 if(data.status == 1){
                     $("#code2 img").attr('src',data.url);
                     $("#img2").attr('href',data.url);
-                    $.alertMessager('二维码已成功保存!','success');return;
+                    returnSuccessInfo(data);
                 }else{
                     $.alertMessager(data.info);return;
                 }
@@ -80,7 +85,6 @@ $(function(){
     });
     //文件活码
     $("#save_btn3").click(function(){
-        var editId         = $("#editId3").val();
         var uploadFileName = $("#uploadFileName").val();
         var uploadFileSize = $("#uploadFileSize").val();
         var uploadFileUrl  = $("#uploadFileUrl").val();
@@ -88,14 +92,14 @@ $(function(){
             $.alertMessager('请先上传文件!');return;
         }
         $.ajax({
-            url: 'admin.php?s=/admin/livecode/add',
+            url: postUrl,
             type: 'POST',
             data: {editId:editId,menuId:menuId,title:uploadFileName,content:{url:uploadFileUrl,size:uploadFileSize},type:3},
             success: function (data) {
                 if(data.status == 1){
                     $("#code3 img").attr('src',data.url);
                     $("#img3").attr('href',data.url);
-                    $.alertMessager('二维码已成功保存!','success');return;
+                    returnSuccessInfo(data);
                 }else{
                     $.alertMessager(data.info);return;
                 }
@@ -104,7 +108,6 @@ $(function(){
     });
     //网址导航
     $("#save_btn4").click(function(){
-        var editId  = $("#editId4").val();
         var title   = $("#title4").val();
         var content = $("#url").val();
         if (title == '') {
@@ -114,14 +117,14 @@ $(function(){
             $.alertMessager('请输入网址!');return;
         }
         $.ajax({
-            url: 'admin.php?s=/admin/livecode/add',
+            url: postUrl,
             type: 'POST',
             data: {editId:editId,menuId:menuId,title:title,content:content,type:4},
             success: function (data) {  
                 if(data.status == 1){
                     $("#code4 img").attr('src',data.url);
                     $("#img4").attr('href',data.url);
-                    $.alertMessager('二维码已成功保存!','success');return;
+                    returnSuccessInfo(data);
                 }else{
                     $.alertMessager(data.info);return;
                 }
@@ -131,8 +134,6 @@ $(function(){
     //名片活码
     $("#save_btn5").click(function(){
         var params           = {};
-        var editId           = $("#editId5").val();
-
         var head             = $(".vcard_head").attr('style');
         params.head          = head.slice(23,head.length-3);
         var face             = $(".vcard_face").attr('style');
@@ -153,14 +154,14 @@ $(function(){
             $.alertMessager('请输入姓名!');return;
         }
         $.ajax({
-            url: 'admin.php?s=/admin/livecode/add',
+            url: postUrl,
             type: 'POST',
             data: {editId:editId,menuId:menuId,params:params,type:5},
             success: function (data) {  
                 if(data.status == 1){
                     $("#code5 img").attr('src',data.url);
                     $("#img5").attr('href',data.url);
-                    $.alertMessager('二维码已成功保存!','success');return;
+                    returnSuccessInfo(data);
                 }else{
                     $.alertMessager(data.info);return;
                 }
@@ -170,7 +171,6 @@ $(function(){
     //产品活码
     $("#save_btn6").click(function(){
         var editId  = $("#editId6").val();
-        var menuId  = $("#menuId").val();
         var codeType= $("#codeType").val();     //管理员审核编辑
         var picUrl  = $("#uploadPicUrl").val();
         var title   = $("#title6").val();
@@ -219,4 +219,16 @@ getParams = function(obj){
     });
     chk=null,s=null;
     return params;
+}
+returnSuccessInfo = function(data){
+    $.alertMessager('二维码已成功保存!','success');
+    if (data.info.site) {
+        setTimeout(function(){self.location=document.referrer;},2000);
+    }else{
+        if (data.info.type) {
+            setTimeout(function(){location.href = "admin.php?s=/admin/livecode/child/type/"+data.info.type;},2000);
+        }else{
+            setTimeout(function(){location.href = "admin.php?s=/admin/livecode/index";},2000);
+        }
+    }
 }
