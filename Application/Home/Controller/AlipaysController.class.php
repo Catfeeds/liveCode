@@ -46,12 +46,12 @@ class AlipaysController extends CommonController {
             $order              = $m->getPayOrder($obj);
             $orderAmount        = $order["needPay"];
             $out_trade_no       = $order['orderNo'].'_'.$order['orderId'];
-            $extra_common_param = $obj["orderId"];
+            $extra_common_param = $obj["orderId"]."@".$obj["userId"];
         }
         
         if($data["status"]==1){
             $return_url = U("Home/Alipays/response","",true,true);
-            $notify_url = C('USER_DOMAIN').'/index.php/home/alipays/alinotify.html';
+            $notify_url = C('USER_DOMAIN').'/index.php/home/alipays/alinotify.html';    //注意，支付宝回调url不支持兼容模式，坑爹啊！！！
 
             $parameter = array(
                     'extra_common_param'=> $extra_common_param,
@@ -104,45 +104,48 @@ class AlipaysController extends CommonController {
             $this->error('支付失败');
         }
     }
+    
+    /**
+     * 支付结果异步回调
+     */
+    public function aliNotify(){
+        // $this->logResult('调试写文件');exit();
+
+        $m = D('order');
+        $request = I('get.');
+        $json = json_encode($request);
+        $this->logResult($json);exit();
+
+        h($request);
+        $payRes = self::notify($request);
+        if($payRes['status']){
+            $rs = array();
+            $obj = array();
+            $obj["userId"] = session('user_auth.uid');
+            $obj["orderId"] = $request['extra_common_param'];
+            $obj["payType"] = 0;
+            $obj["tradeNo"] = $request['outTradeNo'];
+            $obj["pay_time"] = time();
+            
+            //支付成功业务逻辑
+            $rs = $m->complatePay($obj);
+            
+            if($rs){
+                echo 'success';
+            }else{
+                echo 'fail';
+            }
+        }else{
+            echo 'fail';
+        }
+    }
+    //调试用
     public function logResult($word='') {
         $fp = fopen("log.txt","a");
         flock($fp, LOCK_EX) ;
         fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time())."\n".$word."\n");
         flock($fp, LOCK_UN);
         fclose($fp);
-    }
-    
-    /**
-     * 支付结果异步回调
-     */
-    public function aliNotify(){
-        $this->logResult('2222222222222222222');exit();
- // echo 'fail';
-        // halt(I(''));
-        // $m = D('order');
-        // $request = I('post.');
-        // halt($request);
-        // $payRes = self::notify($request);
-        // if($payRes['status']){
-        //     $rs = array();
-        //     $obj = array();
-        //     $obj["userId"] = session('user_auth.uid');
-        //     $obj["orderId"] = $request['extra_common_param'];
-        //     $obj["payType"] = 0;
-        //     $obj["tradeNo"] = $request['outTradeNo'];
-        //     $obj["pay_time"] = time();
-            
-        //     //支付成功业务逻辑
-        //     $rs = $m->complatePay($obj);
-            
-        //     if($rs){
-        //         echo 'success';
-        //     }else{
-        //         echo 'fail';
-        //     }
-        // }else{
-        //     echo 'fail';
-        // }
     }
     
     /**
