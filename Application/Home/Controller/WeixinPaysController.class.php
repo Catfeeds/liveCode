@@ -60,7 +60,7 @@ class WeixinPaysController extends CommonController {
         $data = $m->checkOrderPay();
         if($data["status"]==1){
             $orderId = I('orderId/d');
-            $pkey    = $payObj."@".$userId."@".$orderId."@2";
+            $pkey    = $orderId."@".$userId;
         }
 
         $url = U('Home/WeixinPays/createQrcode',array("pkey"=>base64_encode($pkey)));
@@ -99,7 +99,7 @@ class WeixinPaysController extends CommonController {
             $wxQrcodePay->setParameter ( "body", $body ); // 商品描述
             
             $wxQrcodePay->setParameter ( "out_trade_no", $out_trade_no ); // 商户订单号
-            $wxQrcodePay->setParameter ( "total_fee", $needPay * 100 ); // 总金额
+            $wxQrcodePay->setParameter ( "total_fee", $needPay * 100); // 总金额
             $wxQrcodePay->setParameter ( "notify_url", $this->wxpayConfig['notifyurl'] ); // 通知地址
             $wxQrcodePay->setParameter ( "trade_type", "NATIVE" ); // 交易类型
             $wxQrcodePay->setParameter ( "attach", "$pkey" ); // 附加数据
@@ -166,21 +166,15 @@ class WeixinPaysController extends CommonController {
             } else {
                 // 此处应该更新一下订单状态，商户自行增删操作
                 $order = $wxQrcodePay->getData ();
-                $json = json_encode($order);
-        $this->logResult($json);exit();
-
                 $trade_no = $order["transaction_id"];
                 $total_fee = $order ["total_fee"];
                 $pkey = $order ["attach"] ;
                 $pkeys = explode ( "@", $pkey );
-                $out_trade_no = 0;
-
-                $userId = (int)$pkeys [1];
-                $out_trade_no = $pkeys[2];
-                $isBatch = (int)$pkeys[3];
+                $out_trade_no = $order ["out_trade_no"];
                 // 商户订单
                 $obj = array ();
-                $obj["userId"] = $userId;
+                $obj["orderId"] = $pkeys [0];
+                $obj["userId"]  = $pkeys [1];
                 $obj["payType"] = 1;
 
                 $obj["trade_no"] = $trade_no;
@@ -194,7 +188,6 @@ class WeixinPaysController extends CommonController {
                 if($rs["status"]==1){
                     $file = new \Common\Util\File();
                     $file->cache("$out_trade_no",$total_fee);
-                    // session("total_fee",$total_fee);
                     echo "SUCCESS";
                 }else{
                     echo "FAIL";

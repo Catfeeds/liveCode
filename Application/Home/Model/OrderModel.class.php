@@ -135,7 +135,7 @@ class OrderModel extends Model {
      * 
      */
     public function complatePay($obj) {
-        $userId  = $obj["userId"];
+        $userId   = $obj["userId"];
         $orderId  = $obj["orderId"];
         $payType  = $obj["payType"];
         $tradeNo  = $obj["tradeNo"];
