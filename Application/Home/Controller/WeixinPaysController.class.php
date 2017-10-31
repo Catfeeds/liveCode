@@ -144,7 +144,7 @@ class WeixinPaysController extends CommonController {
      * 微信异步通知
      */
     public function wxNotify() {
-        $this->logResult('调试写文件');
+        // $this->logResult('调试写文件');
         // 使用通用通知接口
         $wxQrcodePay = new \WxQrcodePay ();
         // 存储微信的回调
@@ -166,6 +166,9 @@ class WeixinPaysController extends CommonController {
             } else {
                 // 此处应该更新一下订单状态，商户自行增删操作
                 $order = $wxQrcodePay->getData ();
+                $json = json_encode($order);
+        $this->logResult($json);exit();
+
                 $trade_no = $order["transaction_id"];
                 $total_fee = $order ["total_fee"];
                 $pkey = $order ["attach"] ;
@@ -218,7 +221,7 @@ class WeixinPaysController extends CommonController {
         }else{// 检查缓存是否存在，存在说明支付成功
             $data["status"] = -1;
         }
-        return $data;
+        echo $data["status"];
     }
 
     //调试用

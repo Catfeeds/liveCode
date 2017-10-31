@@ -528,19 +528,55 @@ body {
 /*头部*/
 .ahm-header{
     width: 100%;
-    height: 30px;
-    line-height: 30px;
     border-bottom: 1px solid #eee;
     background: #fafafa;
 }
 .headfr{
-	width: 1000px;
+	width: 100%;
 	margin: 0 auto;
 	text-align: right;
+	height: 40px;
+    line-height: 40px;
 }
 .headfr li{
 	width: auto;
 	float: right;
 	cursor: pointer;
 	margin: 0 4px;
+}
+.user_plugins {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    position: relative;
+}
+.fr {
+    float: right;
+}
+.user_name_box{
+	display: inline-block;
+    height: 40px;
+    position: relative;
+    box-sizing: border-box;
+    float: left;
+    cursor: pointer;
+}
+.user_info_link{
+	color: #212121;
+	margin-left:15px;
+}
+.user_info_link:hover{
+	color:#0088cf;
+	text-decoration: none;
+}
+.user_name{
+    display: inline-block;
+    float: left;
+    margin-left: 10px;
+    background-position: 0 -19px;
+    padding-right: 0;
+    color: #212121!important;
+}
+.dropdown-menu{
+	left: 15px;
 }
