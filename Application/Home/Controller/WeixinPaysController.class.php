@@ -77,14 +77,13 @@ class WeixinPaysController extends CommonController {
         $needPay      = 0;
         $out_trade_no = 0;
         $trade_no     = 0;
-
-        if(count($pkeys)!= 4){
+        if(count($pkeys)!= 2){
             $this->assign('out_trade_no', "");
         }else{
             $userId         = (int)session('user_auth.uid');
             $obj            = array();
             $obj["userId"]  = $userId;
-            $obj["orderId"] = $pkeys[2];
+            $obj["orderId"] = $pkeys[0];
             $m              = D('order');
             $order          = $m->getPayOrder($obj);
             $needPay        = $order["needPay"];
@@ -204,9 +203,9 @@ class WeixinPaysController extends CommonController {
     public function getPayStatus() {
         $out_trade_no = I('out_trade_no/s');
         $file = new \Common\Util\File();
-        // h($file->cache('haha'));
-
         $total_fee = $file->cache( $out_trade_no );
+        // h($total_fee);
+
         $data = array("status"=>-1);
         if($total_fee>0){
             $file->cache( $out_trade_no, null );
