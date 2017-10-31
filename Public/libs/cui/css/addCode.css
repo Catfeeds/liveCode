@@ -777,3 +777,43 @@ a:hover{
 #demoText{
 	margin-top: 5px;
 }
+/*网址导航*/
+.row.no-gutter{
+    margin-left: 0;
+    margin-right: 0;
+}
+.row.no-gutter [class*=col-] {
+    padding-left: 0;
+    padding-right: 0;
+}
+.url-desc{
+	border-right: 0;
+}
+.url-border:focus {
+    border-color: rgba(120,130,140,.3);
+    box-shadow: none;
+}
+.url-border{
+	min-height:40px;
+}
+.url-icon {
+	width: 32px;
+    height: 32px;
+    margin-top: 3px;
+    border: 1px solid rgba(120,130,140,.25);
+    border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+    line-height: 32px;
+    cursor: pointer;
+    margin-left: 8px;
+    float: left;
+}
+.m-b{
+	margin-bottom: 1rem;
+}
+#add_url_btn{
+	width:auto;
+	margin: 0 0 10px;
+	padding: 0 8px;
+}

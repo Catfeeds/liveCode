@@ -20,9 +20,6 @@ class WeixinPaysController extends CommonController {
     private $wxpayConfig;
     private $wxpay;
     public function _initialize() {
-        // if (!session('user_auth.uid')) {
-        //     $this->error('请先登录', U('Home/User/login'));
-        // }
         header ("Content-type: text/html; charset=utf-8");
         Vendor('wxpay.WxPayConf');
         Vendor('wxpay.WxQrcodePay');
@@ -34,7 +31,7 @@ class WeixinPaysController extends CommonController {
         $this->wxpayConfig['appsecret'] = $this->wxpay['appsecret']; // JSAPI接口中获取openid
         $this->wxpayConfig['mchid'] = $this->wxpay['mchId']; // 受理商ID
         $this->wxpayConfig['key'] = $this->wxpay['apiKey']; // 商户支付密钥Key
-        $this->wxpayConfig['notifyurl'] = U("Home/WeixinPays/wxNotify","",true,true);
+        $this->wxpayConfig['notifyurl'] = C('USER_DOMAIN').'/index.php/home/weixinpays/wxnotify.html';
         $this->wxpayConfig['curl_timeout'] = 30;
         $this->wxpayConfig['returnurl'] = "";
         // 初始化WxPayConf_pub
@@ -74,7 +71,6 @@ class WeixinPaysController extends CommonController {
      * 生成支付二维码
      */
     public function createQrcode() {
-        D('User')->add(['user_type'=>1]);
         $pkey         = base64_decode(I("pkey"));
         $pkeys        = explode("@", $pkey );
         $flag         = true;
@@ -138,23 +134,17 @@ class WeixinPaysController extends CommonController {
             return $this->display('order/wxpay');
         }else{
             $this->assign('meta_title','支付成功');
-            return $this->fetch('order/completepay');
+            $this->assign('jumpUrl',C('USER_DOAIM').'/admin.php?s=/admin/index/index');
+            return $this->display('order/paySuccess');
         }
     
-    }
-    public function logResult($word='fdfasfads') {
-        $fp = fopen("log.txt","a");
-        flock($fp, LOCK_EX) ;
-        fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time())."\n".$word."\n");
-        flock($fp, LOCK_UN);
-        fclose($fp);
     }
     
     /**
      * 微信异步通知
      */
     public function wxNotify() {
-        $this->logResult('111111111111111');
+        $this->logResult('调试写文件');
         // 使用通用通知接口
         $wxQrcodePay = new \WxQrcodePay ();
         // 存储微信的回调
@@ -199,7 +189,8 @@ class WeixinPaysController extends CommonController {
                 $rs = $m->complatePay ( $obj );
 
                 if($rs["status"]==1){
-                    session("total_fee",$total_fee);
+                    cache("$out_trade_no",$total_fee);
+                    // session("total_fee",$total_fee);
                     echo "SUCCESS";
                 }else{
                     echo "FAIL";
@@ -215,7 +206,9 @@ class WeixinPaysController extends CommonController {
      */
     public function getPayStatus() {
         $trade_no = I('trade_no/s');
-        $total_fee = (float)session("total_fee");
+        $total_fee = cache( $trade_no );
+
+        // $total_fee = (float)session("total_fee");
         // halt($total_fee);
         $data = array("status"=>-1);
         if($total_fee>0){
@@ -227,11 +220,14 @@ class WeixinPaysController extends CommonController {
         return $data;
     }
 
-    /**
-     * 支付完成
-     */
-    public function paySuccess() {
-        return $this->fetch('completepay');
+    //调试用
+    public function logResult($word='') {
+        $fp = fopen("log.txt","a");
+        flock($fp, LOCK_EX) ;
+        fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time())."\n".$word."\n");
+        flock($fp, LOCK_UN);
+        fclose($fp);
     }
+    
 
 }

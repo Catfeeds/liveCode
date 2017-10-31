@@ -119,7 +119,7 @@ class OrderModel extends Model {
     public function getPayOrder ($obj){
         $userId  = (int)session('user_auth.uid');
         $orderId = $obj['orderId'];
-        $where   = ['orderId'=>$orderId,"userId"=>$userId,"orderStatus"=>-1,"status"=>1,"payType"=>0];
+        $where   = ['orderId'=>$orderId,"userId"=>$userId,"orderStatus"=>-1,"status"=>1];
         $order   = $this->where($where)->find();
 
         $data = array();

@@ -162,16 +162,16 @@ class OrderController extends CommonController {
     public function pay() {
         if (IS_POST) {
             halt(I());
-            //支付操作
-            $orderId = I('post.orderId/d');
-            $payType = I('post.payType/d');
-            $mod = D('Home/Order');
-            $result = $mod->complatePay($orderId,$payType);
-            if ($result) {
-                $this->success('支付成功！', '/admin.php?s=/admin/index/index');
-            }else{
-                $this->error($mod->getError());
-            }
+            // //支付操作
+            // $orderId = I('post.orderId/d');
+            // $payType = I('post.payType/d');
+            // $mod = D('Home/Order');
+            // $result = $mod->complatePay($orderId,$payType);
+            // if ($result) {
+            //     $this->success('支付成功！', '/admin.php?s=/admin/index/index');
+            // }else{
+            //     $this->error($mod->getError());
+            // }
             
         } else {
             $mod = D('Home/Order');
@@ -200,8 +200,9 @@ class OrderController extends CommonController {
      * 支付成功页
      * 
      */
-    public function completePay() {
+    public function paySuccess() {
         $this->assign('meta_title','支付成功');
+        $this->assign('jumpUrl',C('USER_DOAIM').'/admin.php?s=/admin/index/index');
         $this->display();
     }
     
