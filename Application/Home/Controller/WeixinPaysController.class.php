@@ -31,7 +31,7 @@ class WeixinPaysController extends CommonController {
         $this->wxpayConfig['appsecret'] = $this->wxpay['appsecret']; // JSAPI接口中获取openid
         $this->wxpayConfig['mchid'] = $this->wxpay['mchId']; // 受理商ID
         $this->wxpayConfig['key'] = $this->wxpay['apiKey']; // 商户支付密钥Key
-        $this->wxpayConfig['notifyurl'] = C('USER_DOMAIN').'/index.php/home/weixinpays/wxnotify.html';
+        $this->wxpayConfig['notifyurl'] = C('USER_DOMAIN').'/index.php/home/weixin_pays/wxnotify.html';
         $this->wxpayConfig['curl_timeout'] = 30;
         $this->wxpayConfig['returnurl'] = "";
         // 初始化WxPayConf_pub
@@ -124,7 +124,7 @@ class WeixinPaysController extends CommonController {
             $this->assign ( 'code_url', $code_url );
             $this->assign ( 'wxQrcodePayResult', $wxQrcodePayResult );
             $this->assign ( 'needPay', $needPay );
-            // halt($needPay);
+            // halt($out_trade_no);
         }else{
             $flag = false;
         }
@@ -189,7 +189,8 @@ class WeixinPaysController extends CommonController {
                 $rs = $m->complatePay ( $obj );
 
                 if($rs["status"]==1){
-                    cache("$out_trade_no",$total_fee);
+                    $file = new \Common\Util\File();
+                    $file->cache("$out_trade_no",$total_fee);
                     // session("total_fee",$total_fee);
                     echo "SUCCESS";
                 }else{
@@ -205,14 +206,14 @@ class WeixinPaysController extends CommonController {
      * 检查支付结果
      */
     public function getPayStatus() {
-        $trade_no = I('trade_no/s');
-        $total_fee = cache( $trade_no );
+        $out_trade_no = I('out_trade_no/s');
+        $file = new \Common\Util\File();
+        // h($file->cache('haha'));
 
-        // $total_fee = (float)session("total_fee");
-        // halt($total_fee);
+        $total_fee = $file->cache( $out_trade_no );
         $data = array("status"=>-1);
         if($total_fee>0){
-            cache( $trade_no, null );
+            $file->cache( $out_trade_no, null );
             $data["status"] = 1;
         }else{// 检查缓存是否存在，存在说明支付成功
             $data["status"] = -1;
