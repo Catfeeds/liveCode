@@ -47,6 +47,8 @@ class AlipaysController extends CommonController {
             $orderAmount        = $order["needPay"];
             $out_trade_no       = $order['orderNo'].'_'.$order['orderId'];
             $extra_common_param = $obj["orderId"];
+            $subject = '支付套餐费用'.$orderAmount.'元';
+            $body = '支付订单费用';
         }
         
         if($data["status"]==1){
@@ -62,8 +64,8 @@ class AlipaysController extends CommonController {
                     'notify_url'        => $notify_url,
                     'return_url'        => $return_url,
                     /* 业务参数 */
-                    'subject'           => '支付套餐费用'.$orderAmount.'元',
-                    'body'              => '支付订单费用',
+                    'subject'           => $subject,
+                    'body'              => $body,
                     'out_trade_no'      => $out_trade_no,
                     'total_fee'         => $orderAmount,
                     'quantity'          => 1,
@@ -85,10 +87,13 @@ class AlipaysController extends CommonController {
                 $sign  .= "$key=$val&";
             }
             $param = substr($param, 0, -1);
-            $sign  = substr($sign, 0, -1). $this->aliPayConfig['parterKey'];            
-            $url = 'https://mapi.alipay.com/gateway.do?'.$param. '&sign='.md5($sign).'&sign_type=MD5';
-        }
+            $sign  = substr($sign, 0, -1). $this->aliPayConfig['parterKey'];     
 
+            // $url = 'https://mapi.alipay.com/gateway.do?'.$param. '&sign='.md5($sign).'&sign_type=MD5';
+            $url = 'https://mapi.alipay.com/gateway.do?_input_charset=utf-8&amp;body=%E6%94%AF%E4%BB%98%E8%AE%A2%E5%8D%95%E8%B4%B9%E7%94%A8&amp;extra_common_param=orderPay%4027%401&amp;logistics_fee=0&amp;logistics_payment=BUYER_PAY_AFTER_RECEIVE&amp;logistics_type=EXPRESS&amp;notify_url=http%3A%2F%2Fhuoma.edeyun.cn%2Findex.php%3Fs%3D%2Fhome%2Falipays%2Falinotify.html&amp;out_trade_no=150941855954415813_1&amp;partner=2088002910880484&amp;payment_type=1&amp;quantity=1&amp;return_url=http%3A%2F%2Fhuoma.edeyun.cn%2Findex.php%3Fs%3D%2Fhome%2Falipays%2Fresponse.html&amp;seller_email=xiazezhong%40foxmail.com&amp;service=create_direct_pay_by_user&amp;subject=%E6%94%AF%E4%BB%98%E8%B4%AD%E4%B9%B0%E5%95%86%E5%93%81%E8%B4%B9%E7%94%A80.01%E5%85%83&amp;total_fee=0.01&amp;sign=42075836d977b26e976e62d92eeefa8e&amp;sign_type=MD5';
+            
+        }
+// halt($url);
         $this->success('',$url);
     }
 
