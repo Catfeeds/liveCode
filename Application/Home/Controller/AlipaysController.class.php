@@ -105,7 +105,7 @@ class AlipaysController extends CommonController {
             $this->error('支付失败');
         }
     }
-    public function logResult($word='fdfasfads') {
+    public function logResult($word='') {
         $fp = fopen("log.txt","a");
         flock($fp, LOCK_EX) ;
         fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time())."\n".$word."\n");
@@ -117,7 +117,7 @@ class AlipaysController extends CommonController {
      * 支付结果异步回调
      */
     public function aliNotify(){
-        $this->logResult('2222222222222222222');
+        $this->logResult('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');exit;
 
         // halt(I(''));
         $m = D('order');
