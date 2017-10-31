@@ -118,32 +118,32 @@ class AlipaysController extends CommonController {
      */
     public function aliNotify(){
         $this->logResult('2222222222222222222');
-
+ echo 'fail';
         // halt(I(''));
-        $m = D('order');
-        $request = I('post.');
-        halt($request);
-        $payRes = self::notify($request);
-        if($payRes['status']){
-            $rs = array();
-            $obj = array();
-            $obj["userId"] = session('user_auth.uid');
-            $obj["orderId"] = $request['extra_common_param'];
-            $obj["payType"] = 0;
-            $obj["tradeNo"] = $request['outTradeNo'];
-            $obj["pay_time"] = time();
+        // $m = D('order');
+        // $request = I('post.');
+        // halt($request);
+        // $payRes = self::notify($request);
+        // if($payRes['status']){
+        //     $rs = array();
+        //     $obj = array();
+        //     $obj["userId"] = session('user_auth.uid');
+        //     $obj["orderId"] = $request['extra_common_param'];
+        //     $obj["payType"] = 0;
+        //     $obj["tradeNo"] = $request['outTradeNo'];
+        //     $obj["pay_time"] = time();
             
-            //支付成功业务逻辑
-            $rs = $m->complatePay($obj);
+        //     //支付成功业务逻辑
+        //     $rs = $m->complatePay($obj);
             
-            if($rs){
-                echo 'success';
-            }else{
-                echo 'fail';
-            }
-        }else{
-            echo 'fail';
-        }
+        //     if($rs){
+        //         echo 'success';
+        //     }else{
+        //         echo 'fail';
+        //     }
+        // }else{
+        //     echo 'fail';
+        // }
     }
     
     /**
