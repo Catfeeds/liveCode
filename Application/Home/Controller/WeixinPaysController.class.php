@@ -176,7 +176,7 @@ class WeixinPaysController extends CommonController {
                 $obj["userId"]  = $pkeys [1];
                 $obj["payType"] = 1;
 
-                $obj["trade_no"] = $trade_no;
+                $obj["tradeNo"] = $trade_no;
                 $obj["out_trade_no"] = $out_trade_no;
                 $obj["total_fee"] = (float)$total_fee/100;
                 // halt($obj);
@@ -184,7 +184,7 @@ class WeixinPaysController extends CommonController {
                 $m = D('order');
                 $rs = $m->complatePay ( $obj );
 
-                if($rs["status"]==1){
+                if($rs){
                     $file = new \Common\Util\File();
                     $file->cache("$out_trade_no",$total_fee);
                     echo "SUCCESS";
