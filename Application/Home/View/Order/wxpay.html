@@ -49,7 +49,7 @@
 
 		setInterval(function(){
 			var params = {};
-				params.trade_no = "{$out_trade_no}";
+				params.out_trade_no = "{$out_trade_no}";
 			$.ajax({
 				url:'/index.php?s=/Home/WeixinPays/getPayStatus',
 				data:params,
