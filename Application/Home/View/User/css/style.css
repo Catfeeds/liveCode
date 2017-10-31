@@ -173,7 +173,7 @@ body {
 .buy_btn{
 	width: 120px;
 	height: 45px;
-	line-height: 40px;
+	line-height: 45px;
 	display: inline-block;
 	border-radius: 5px;
 	text-align: center;
@@ -183,6 +183,10 @@ body {
 	font-size: 16px;
     border: none;
     outline: none;
+}
+.buy_btn:hover{
+	color: #fff;
+	text-decoration: none;
 }
 .contrast_tab{
 	width: 100%;
