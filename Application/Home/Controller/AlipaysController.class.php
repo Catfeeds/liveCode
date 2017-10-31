@@ -119,17 +119,14 @@ class AlipaysController extends CommonController {
             
         //     //支付成功业务逻辑
         // $m = D('order');
-        
+
         //     $rs = $m->complatePay($obj);exit;
 
 
 
         $m = D('order');
         $request = $_POST;
-
         $payRes = self::notify($request);
-        $this->logResult($payRes);$this->logResult(json_encode($request));exit();
-
         if($payRes['status']){
             $extras = explode("@",$_POST['extra_common_param']);
             $rs = array();
