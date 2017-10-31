@@ -114,7 +114,8 @@
                     <?php if($ifCheckCount > 0): ?><i class="{$_ns_second.icon}"></i><?php endif; ?>
                     <span class="nav-label">{$_ns_second.title}</span>
                 </a>
-                <ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$skey}">
+                <!--<ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$skey}">-->
+                <ul class="nav navside-nav navside-second collapse in">
                     <volist name="_ns_second._child" id="_ns_third" key="skey2">
                         <li <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?>>
                             <a href="{:U($_ns_third['url'])}" >
