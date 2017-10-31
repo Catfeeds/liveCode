@@ -30,10 +30,6 @@ $(function(){
 		$(".theme-popover").fadeIn();
 	})
 	
-	//前台点击用户，出现退出
-	$(document).on('click','.user_name',function(){
-		$(this).find('.dropdown-menu').toggle();
-	})
 	
 	// 刷新验证码
     $(".code-img").on('click', function() {

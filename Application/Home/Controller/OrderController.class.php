@@ -160,41 +160,26 @@ class OrderController extends CommonController {
      * 
      */
     public function pay() {
-        if (IS_POST) {
-            halt(I());
-            // //支付操作
-            // $orderId = I('post.orderId/d');
-            // $payType = I('post.payType/d');
-            // $mod = D('Home/Order');
-            // $result = $mod->complatePay($orderId,$payType);
-            // if ($result) {
-            //     $this->success('支付成功！', '/admin.php?s=/admin/index/index');
-            // }else{
-            //     $this->error($mod->getError());
-            // }
-            
-        } else {
-            $mod = D('Home/Order');
-            $orderId = I('get.orderId/d');
-            $order = $mod->where(['orderId'=>$orderId,'userId'=>session('user_auth.uid'),'orderStatus'=>-1,'status'=>1])->find();
-            if (!$order) {
-                $this->error('订单不存在');
-            }
-            if ($order['orderStatus'] == 1) {
-                $this->success('订单已支付成功','/admin.php?s=/admin/index/index');
-            }
-            // halt($order);
-            $vip = M('vip')->getFieldById($order['vipId'],'name');
-            //汇款账号
-            $banks = M('admin_banks')->where(['status'=>1])->order('create_time desc')->select();
-            $this->assign([
-                'meta_title'    => '订单支付',
-                'vip'           => $vip,
-                'order'         => $order,
-                'banks'         => $banks,
-            ]);
-            $this->display();
+        $mod = D('Home/Order');
+        $orderId = I('get.orderId/d');
+        $order = $mod->where(['orderId'=>$orderId,'userId'=>session('user_auth.uid'),'orderStatus'=>-1,'status'=>1])->find();
+        if (!$order) {
+            $this->error('订单不存在');
         }
+        if ($order['orderStatus'] == 1) {
+            $this->success('订单已支付成功','/admin.php?s=/admin/index/index');
+        }
+        // halt($order);
+        $vip = M('vip')->getFieldById($order['vipId'],'name');
+        //汇款账号
+        $banks = M('admin_banks')->where(['status'=>1])->order('create_time desc')->select();
+        $this->assign([
+            'meta_title'    => '订单支付',
+            'vip'           => $vip,
+            'order'         => $order,
+            'banks'         => $banks,
+        ]);
+        $this->display();
     }
     /**
      * 支付成功页
