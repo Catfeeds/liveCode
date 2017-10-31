@@ -15,6 +15,21 @@ $(function(){
 		$(".regist,.get-back").hide();
 		$(".login").fadeIn();
 	})
+	
+	//点击登录、注册弹窗
+	$(document).on('click','.denglu',function(){
+		$(".login").fadeIn();
+		$(".regist,.get-back").hide();
+		$(".theme-popover-mask").fadeIn();
+		$(".theme-popover").fadeIn();
+	})
+	$(document).on('click','.zhuce',function(){
+		$(".regist").fadeIn();
+		$(".login,.get-back").hide();
+		$(".theme-popover-mask").fadeIn();
+		$(".theme-popover").fadeIn();
+	})
+	
 	// 刷新验证码
     $(".code-img").on('click', function() {
         var verifyimg = $(".verifyimg").attr("src");

@@ -151,3 +151,50 @@ function move(){
 		$(this).addClass('noinput');
 	})
 }
+
+//添加网址
+$(function(){
+	$("#add_url_btn").click(function(){
+		var html="";
+			html+='<div class="url-row row no-gutter m-b">';
+			html+='<div class="col-md-3">';
+			html+='<input type="text" placeholder="文字说明" class="form-control url-border url-desc " value=""></div>';
+			html+='<div class="col-md-6">';
+			html+='<input type="text" placeholder="链接地址http://" class="form-control url-border url-link" value=""></div>';
+			html+='<div class="col-md-3">';
+			html+='<i class="fa fa-arrow-up url-icon url-up"></i>';
+			html+='<i class="fa fa-arrow-down  url-icon url-down"></i>';
+			html+='<i class="fa fa-trash url-icon delicon"></i></div></div>';
+		$(this).before(html);
+		var e=$(".url-row").length;
+		$(".url-row:last").attr("num",e-1);
+	})
+	//删除网址
+	function Up_or_Down(e, t) {
+		var i = e.parent().parent(),
+			o = e.parent().parent().prev(".url-row"),
+			a = e.parent().parent().next(".url-row");
+		if ("up" == t) {
+			if (void 0 === o[0]) return !1;
+			o.before(i)
+		}
+		if ("down" == t) {
+			if (void 0 === a[0]) return !1;
+			a.after(i)
+		}
+	}
+	$(document).on("click",".fa-arrow-up",function(){
+		Up_or_Down($(this),"up")
+	});
+	$(document).on("click",".fa-arrow-down",function(){
+		Up_or_Down($(this),"down")
+	})
+	$(document).on("click",".delicon",function(){
+		var e=$(".url-row").length;
+		if(e==1){
+			return;
+		}else{
+			$(this).parents('.no-gutter').remove();
+		}
+	})
+})
