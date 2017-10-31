@@ -215,7 +215,7 @@ class CheckcodeController extends AdminController {
                 } else {
                     $this->error('更新失败');
                 }
-            }elseif ($codeType == 2) {
+            }elseif ($codeType == 2) {          //产品活码
                 $info = I('post.');
                 $data = $obj->create();
                 if (!$data) {
@@ -226,7 +226,7 @@ class CheckcodeController extends AdminController {
 
                 $result = $obj->save($data);
                 if ($result) {
-                    $this->success('更新成功', '/Uploads/product/'.$data['id'].'.png');
+                    $this->success(['site'=>'admin'], '/Uploads/product/'.$data['id'].'.png');
                 } else {
                     $this->error('更新失败');
                 }

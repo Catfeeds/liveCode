@@ -320,7 +320,10 @@ class ProductController extends AdminController {
 
             $result = $this->obj->save($data);
             if ($result) {
-                $this->success('更新成功', '/Uploads/product/'.$data['id'].'.png');
+                if ($data['menuId']) {
+                    $this->success(['type'=>$data['menuId']], '/Uploads/product/'.$data['id'].'.png');
+                }
+                $this->success('', '/Uploads/product/'.$data['id'].'.png');
             } else {
                 $this->error('更新失败');
             }

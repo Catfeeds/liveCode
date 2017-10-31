@@ -198,7 +198,16 @@ $(function(){
                 if(data.status == 1){
                     $("#code6 img").attr('src',data.url);
                     $("#img6").attr('href',data.url);
-                    $.alertMessager('二维码已成功保存!','success');return;
+                    $.alertMessager('二维码已成功保存!','success');
+                    if (data.info.site) {
+                        setTimeout(function(){self.location=document.referrer;},2000);
+                    }else{
+                        if (data.info.type) {
+                            setTimeout(function(){location.href = "admin.php?s=/admin/product/child/type/"+data.info.type;},2000);
+                        }else{
+                            setTimeout(function(){location.href = "admin.php?s=/admin/product/index";},2000);
+                        }
+                    }
                 }else{
                     $.alertMessager(data.info);return;
                 }
