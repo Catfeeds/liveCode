@@ -109,12 +109,18 @@ $(function(){
     //网址导航
     $("#save_btn4").click(function(){
         var title   = $("#title4").val();
-        var content = $("#url").val();
+        var desc = $(".url-desc").val();
+        var link = $(".url-link").val();
+        var content = getUrlParams('.url-desc');
+
         if (title == '') {
             $.alertMessager('请输入标题名称!');return;
         }
-        if (content == '') {
-            $.alertMessager('请输入网址!');return;
+        if (desc == '') {
+            $.alertMessager('请输入文字说明!');return;
+        }
+        if (link == '') {
+            $.alertMessager('请输入链接地址!');return;
         }
         $.ajax({
             url: postUrl,
@@ -149,7 +155,7 @@ $(function(){
         params.left_address  = getParams('.left_address .vcard_data_title');        //地址信息
         params.left_intro    = getParams('.left_intro .vcard_data_title');          //个人说明
         params.lang          = $('#lang').val();                                    //语言
-        // console.log(params.left_phone)
+
         if (params.name == '姓名' || params.name == 'Name') {
             $.alertMessager('请输入姓名!');return;
         }
@@ -227,6 +233,16 @@ getParams = function(obj){
         }
     });
     chk=null,s=null;
+    return params;
+}
+//网址活码
+getUrlParams = function(obj){
+    var params = {};
+    $(obj).each(function(key){
+        if($(this).val() && $(this).parents('.no-gutter').find('.url-link').val()){
+            params[key] = {desc:$(this).val(),link:$(this).parents('.no-gutter').find('.url-link').val()};
+        }
+    });
     return params;
 }
 returnSuccessInfo = function(data){
