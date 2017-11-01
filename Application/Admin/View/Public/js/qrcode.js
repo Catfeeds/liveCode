@@ -25,7 +25,7 @@ $(function(){
     var menuId   = $("#menuId").val();
     var postUrl  = 'admin.php?s=/admin/livecode/add';
     var codeType= $("#codeType").val();     //管理员审核编辑
-    if (codeType != '') {
+    if (codeType) {
         postUrl = 'admin.php?s=/admin/checkcode/edit/codeType/'+codeType+'/id/'+editId;
     }
 
@@ -186,7 +186,7 @@ $(function(){
         if (content == '') {
             $.alertMessager('请输入内容!');return;
         }
-        if (codeType != '') {
+        if (codeType) {
             postUrl = 'admin.php?s=/admin/checkcode/edit/codeType/'+codeType+'/id/'+editId;
         }
 
