@@ -188,10 +188,10 @@ class UserController extends AdminController {
     }
 
     /**
-     * 续费
+     * 续费(orderId不为空则是订单中心点击跳转选择管理员支付)
      * 
      */
-    public function fee($id) {
+    public function fee($id,$orderId='') {
         $mod = D('User');
         $info = $mod->where(['id'=>$id,'status'=>1,'user_type'=>2])->find();
         if (!$info) {
@@ -205,45 +205,64 @@ class UserController extends AdminController {
             //找到对应的套餐明细
             $vip_price = M('vip_price')->find($post['vip']);
 
-            $data['orderNo'] = createOrderNo();
-            $data['userId'] = $id;
-            $data['orderStatus'] = 1;
-            $data['vipId'] = $vip_price['vipId'];
-            $data['year'] = $vip_price['year'];
-            $data['isNew'] = $info['vipId'] ? 0:1;
-            $data['payType'] = 2;
-            $data['payMoney'] = $vip_price['price'];
-            $data['create_time'] = time();
-            $data['pay_time'] = time();
-            //创建订单
-            $result = M('orders')->add($data);
+            $data['isNew']       = $info['vipId'] ? 0:1;
+            $data['year']        = $vip_price['year'];
+            $data['vipId']       = $vip_price['vipId'];
+
+            if ($orderId) {
+                $result = D('Order')->where(['orderId'=>$orderId,'userId'=>$id])->save(['orderStatus'=>1,'pay_time'=>time(),'payType'=>2,'isNew'=>$data['isNew']]);
+            }else{
+                $data['orderNo']     = createOrderNo();
+                $data['userId']      = $id;
+                $data['orderStatus'] = 1;
+                $data['payType']     = 2;
+                $data['payMoney']    = $vip_price['price'];
+                $data['create_time'] = time();
+                $data['pay_time']    = time();
+                //创建订单
+                $result = D('Order')->add($data);
+            }
+
             if ($result) {
                 $expire_time = time()+$data['year']*365*86400;
                 //修改用户数据
-                $res = $mod->where(['status'=>1,'id'=>$id])->save(['vipId'=>$data['vipId'],'expire_time'=>$expire_time]);
+                $res = $mod->where(['id'=>$id])->save(['vipId'=>$data['vipId'],'expire_time'=>$expire_time]);
                 if ($res) {
                     $this->success('操作成功', U('index'));
                 }
             }
             $this->error('操作失败');
-
-        } else {
+        } else {            
             //账号的套餐信息
+            $where = ['o.userId'=>$id,'o.orderStatus'=>1];
+            if ($orderId) {
+                $where = ['o.userId'=>$id,'o.orderId'=>$orderId];
+            }
             $order = M('orders')->alias('o')->field('o.orderId,o.year,v.id AS vipId')
                     ->join('__VIP__ v on o.vipId = v.id')
-                    ->where(['o.userId'=>$id,'o.orderStatus'=>1])
+                    ->where($where)
                     ->order('pay_time desc')
                     ->find();
+
             if ($order) {
                 $vip = M('vip_price')->where(['vipId'=>$order['vipId'],'year'=>$order['year']])->find();
+                if (!$vip) {
+                   $this->error('套餐不存在');
+                }
             }
+
             //所有套餐
             $allVersions = M('vip_price')->alias('p')->field('p.*,v.name')
                         ->join('__VIP__ v on p.vipId = v.id')
                         ->where(['v.is_show'=>1])
                         ->select();
-            // halt($vip);
-            $this->assign(['vip'=>$vip,'allVersions'=>$allVersions,'id'=>$id,'meta_title'=>'续费']);
+            $this->assign([
+                'meta_title'  =>'选择套餐',
+                'vip'         =>$vip,
+                'allVersions' =>$allVersions,
+                'id'          =>$id,
+                'orderId'     =>$orderId,
+            ]);
             $this->display();
         }
     }

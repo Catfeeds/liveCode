@@ -1,0 +1,21 @@
+.senior_bg{
+	position:fixed;
+	top:0;
+	z-index:99999;
+	background:rgba(0,0,0,0.7);
+	filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#80000000,endColorstr=#80000000);/*Filter for older IEs */
+	width:100%;
+	height:100%;
+	left:0;
+}
+#iframe{
+	width:1000px;
+	position:fixed;
+	height:610px;
+	left:50%;
+	margin-left:-500px;
+	top:50%;
+	margin-top:-305px;
+	z-index:9999999;
+	background: #fff;
+}

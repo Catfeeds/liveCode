@@ -1,0 +1,314 @@
+body{
+	margin:0;
+	width:100%;
+	height: 100%;
+	padding:0;
+	background-color: #d5d5d5;
+}
+a{
+	color:#333;
+	text-decoration: none;
+}
+
+ul{ 
+	padding: 0; 
+	margin: 0 0 10px 25px;
+}
+li{  
+	line-height: 20px; 
+	list-style: none;
+	padding: 0;
+	color:#666;
+}
+fieldset { 
+	padding: 0; 
+	margin: 0;
+	border: 0;
+}
+
+.header{
+	height:50px;
+	width:100%;
+	background-color: white;
+	font-family: 'Microsoft Yahei';
+	border-bottom: 1px solid #dcdcdc;
+	position:absolute;
+    top:0;
+    left:0;
+}
+#close{
+	width: 50px;
+	height: 50px;
+	float: right;
+	border:none;
+	background-image: url("images/close-btn-edit.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor: pointer;
+}
+.cli-title{
+	margin-left:20px;
+	float:left;
+	font-size:18px;
+	color: #666;
+	line-height: 50px;
+}
+.save-btn{
+	float:right;
+	line-height: 30px;
+	background-color: #56a848;
+	border-radius: 3px;
+	color: white;
+	padding:0 30px;
+	font-size: 16px;
+	margin-top: 10px;
+	margin-right: 30px;
+	text-align: center;
+	cursor: pointer;
+}
+.save-btn:hover{
+	background:#009000;
+}
+.row{
+	background-color: #f4f4f4;
+	font-family:'Microsoft Yahei';
+	position: relative;
+	width: 100%;
+}
+.span7{
+	overflow: hidden;
+	position: fixed;
+	top: 51px;
+	left: 512px;
+	bottom: 0;
+	border-right:1px solid #dedede;
+	min-width: 384px;
+}
+#edui1{	
+	position: absolute;
+	top:0;
+	left: 0;
+	bottom:0;
+}
+
+.list-title-left{
+	width: 80px;
+	position: fixed;
+	top: 51px;
+	bottom: 0;
+	left: 0;
+	background-color: white;
+}
+.blankdiv{
+	width: 80px;
+	line-height: 60px;
+	color:white;
+	text-align: center;
+	background-color: #303237;
+	font-size: 18px;
+}
+.nav{
+	margin:0;
+	padding:0;
+}
+.nav li{
+	width: 77px;
+	border-left:3px solid #3e4045;
+	margin:0;
+	padding:0;
+	color: #fff;
+	text-align: center;
+	font-size: 16px;
+	line-height: 50px;
+	cursor: pointer;
+	background-color: #3e4045;
+}
+.nav .last{
+	height: 900px;
+}
+.nav .type-title-list-li:hover{
+	background-color: #34363c;
+	color:#56a848;
+	border-left:3px solid #34363c;
+}
+
+.nav .current{
+	background-color: #34363c;
+	color:#56a848;
+	border-left:3px solid #56a848;
+}
+.nav .current:hover{
+	background-color: #34363c;
+	color:#56a848;
+	border-left:3px solid #56a848;
+}
+.nav li .type-icon{
+	border:none;
+	width:40px;
+	margin-left: 20px;
+}
+.style-show-box-middle{
+	width: 370px;
+	position: fixed;
+	top:51px;
+	bottom: 0;
+	left: 81px;
+	border-right: 1px solid #dedede;
+}
+.show-box{
+	width: 369px;
+	line-height:60px;	
+	background-color: #303237;
+	border-left:1px solid #606165;
+	color: #fff;
+	font-size: 16px;
+	text-align: center;
+}
+.show-box-tip{
+	padding:12px 12px;
+	line-height: 40px;
+}
+.show-box-tip img{
+	margin:0;
+	padding:0;
+}
+.span5{
+	position: fixed;
+	top: 111px;
+	left:80px;
+	bottom: 0;
+	width: 371px;
+	background-color: #fff;
+	overflow-y: auto !important;
+}
+.otf-poptools span { 
+	margin: 0 5px; 
+	cursor: pointer;
+}
+
+#templateTab{ 
+	margin-bottom: 0;
+}
+.template-list{ 
+	list-style-type: none;
+	padding: 10px; 
+	margin: 0;
+	overflow: hidden;
+}
+.template-content{ 
+	background-color: #fff; 
+}
+.template-list li{ 
+	padding:15px 6px; 
+	margin:3px 0; 
+	margin-top: 10px;
+	cursor: pointer;
+	border:1px solid #fff;
+}
+.template-list li .img-div{
+	margin:0;
+	padding:0;
+	position: relative;
+}
+.template-list .tpl_list{
+	float: left;
+	padding:0;
+	margin-left:15px;
+	margin-top: 10px;
+	border:1px solid #ddd;
+}
+.active .template-list li:hover{
+	border:1px solid #fff;
+	border-radius: 3px;
+	-moz-box-shadow: 0px 0px 8px #ccc;
+	-webkit-box-shadow: 0px 0px 8px #ccc;
+	box-shadow: 0px 0px 8px #ccc;
+	background-color: white;
+}
+.template-list .img-div:hover .bgd-div{
+	display: block;
+	width:152px ;
+	line-height: 30px;
+	font-size: 12px;
+	color:white;
+	text-align: center;
+	display:block;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin-left: -1px;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 999;
+}
+.template-list .img-div .bgd-div{
+	display: none;
+	z-index: 999;
+}
+.template-content div{ 
+	display: none;
+}
+.template-content .active{ 
+	display: block;
+}
+.img-icon{
+	float: left;
+	padding: 0 20px;
+	margin-left: 30px;
+}
+#edui97_body{
+	display: none;
+}
+
+/* 20161221 */
+.edui-body-container {
+	width: auto !important;
+	min-height: 643px !important;
+	height: 643px;
+}
+
+/*带表格的模版 鼠标hover 添加&删除 操作*/
+.table-operation-box {
+    width: 55px;
+    height: 100%;
+    padding: 0 10px;
+    background: #666;
+    border-radius: 4px;
+    }
+
+/* 电话 */
+.edui-default .edui-editor-toolbarboxouter {
+	background-image: none !important;
+    box-shadow: none !important;
+    padding: 0 5px;
+}
+.editor-btn-phone {
+	position: absolute;
+    z-index: 999;
+    top: 32px;
+    left: 400px;
+	cursor: pointer;
+	}
+	.edui-icon-phone {
+		border: 1px solid transparent;
+		width: 20px;
+	    height: 20px;
+	    margin: 0;
+	    padding: 0;
+	    background-repeat: no-repeat;
+	    background-image: url(../../static_edit/cli/umeditor/themes/default/images/icons.png);
+		background-position: -726px -100px;
+		}
+		.editor-btn-phone.editor-hover .edui-icon-phone{
+			background-color: #ffe69f;
+		    padding: 0;
+		    border: 1px solid #dcac6c;
+		}
+.editor-tooltip-phone {
+	display: none;
+	position: relative;
+	left: -19px;
+	top: 7px;
+	}
+	.editor-tooltip-phone .edui-tooltip-arrow {
+		top: -5px !important;
+	}

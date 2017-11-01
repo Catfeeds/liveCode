@@ -100,6 +100,11 @@
             <div class="col-xs-12">
                 <form action="{:U('fee')}" method="post" class="form-horizontal form form-builder">
 	                <input type="hidden" name="id" value="{$id}">
+                    <?php if($orderId): ?>
+                    <input type="hidden" name="orderId" value="{$orderId}">
+                    <input type="hidden" name="vip" value="{$vip['id']}">
+                    <?php endif; ?>
+
                     <div class="col-xs-12">
                         <div class="sdtj" >
                         	 <div class="form-group item_title " >
@@ -111,10 +116,10 @@
                             <div class="form-group item_title tzljmb" >
                                 <label class="left control-label">选择套餐:</label>
                                 <div class="right">
-                                    <select name="vip" class="form-control cui-select select">
+                                    <select name="vip" class="form-control cui-select select" <?php if($orderId){echo 'disabled="disabled"';} ?>>
                                         <option value="">请选择</option>
                                         <volist name="allVersions" id="vo">
-                                            <option value="{$vo.id}" <?php if($vo['id'] == $vip['id']){echo 'selected';} ?>>{$vo.name}---{$vo.price}元/年---{$vo.year}年</option>
+                                            <option value="{$vo.id}" <?php if($vo['id'] == $vip['id']){echo 'selected';} ?> >{$vo.name}---{$vo.price}元/年---{$vo.year}年</option>
                                         </volist>
                                     </select>
                                 </div>

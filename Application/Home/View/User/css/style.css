@@ -553,14 +553,6 @@ body {
 .fr {
     float: right;
 }
-.user_name_box{
-	display: inline-block;
-    height: 40px;
-    position: relative;
-    box-sizing: border-box;
-    float: left;
-    cursor: pointer;
-}
 .user_info_link{
 	color: #212121;
 	margin-left:15px;
@@ -576,7 +568,4 @@ body {
     background-position: 0 -19px;
     padding-right: 0;
     color: #212121!important;
-}
-.dropdown-menu{
-	left: 15px;
 }
