@@ -36,12 +36,12 @@ class CheckcodeController extends AdminController {
         }
         $modelName = getModelObj($codeType);
         $obj = D($modelName);
-        // h($obj);
         //数据列表
         $data = $obj->where($where)->page($p , C('ADMIN_PAGE_ROWS'))->order('id desc')->select();
-        $data_count = $obj->where($where)->count();
+        $data_count['totalCount'] = $obj->where($where)->count();
+
         //数据分页
-        $page = new Page($data_count,C('ADMIN_PAGE_ROWS'));
+        $page = new Page($data_count['totalCount'],C('ADMIN_PAGE_ROWS'));
         if ($data) {
             if (!$codeType || $codeType == 1) {     //活码生成
                 foreach( $data as $k => $v ){
@@ -87,6 +87,11 @@ class CheckcodeController extends AdminController {
                 } 
             }
         }
+        $data_count['unCheckCount1'] = D('Livecode')->where(['status'=>0])->count();
+        $data_count['unCheckCount2'] = D('Product')->where(['status'=>0])->count();
+        $data_count['unCheckCount3'] = D('phone')->where(['type'=>2,'status'=>0])->count();
+        $data_count['unCheckCount4'] = D('phone')->where(['type'=>1,'status'=>0])->count();
+        $data_count['unCheckCount5'] = D('Duourl')->where(['status'=>0])->count();
 
         $this->assign([
             'meta_title'      => '活码管理',
