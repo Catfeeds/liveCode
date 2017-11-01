@@ -318,6 +318,7 @@ class UserController extends AdminController {
         } else {
             // 获取账号信息
             $info = D('User')->where(['id'=>$id,'status'=>1,'user_type'=>2])->find(); //查找用户
+            // h($info);
             if (!$info) {
                  $this->error('用户不存在或被禁用！');
             }
@@ -329,6 +330,7 @@ class UserController extends AdminController {
                     ->addFormItem('url', 'text', '活码域名')
                     ->addFormItem('url_status', 'select', '域名审核', '', [1=>'通过',-1=>'不通过'])
                     ->addFormItem('ifCheck', 'select', '该用户活码是否需要审核', '', [1=>'需要',-1=>'不需要'])
+                    ->addFormItem('limitCount', 'text', '活码访问限制次数','默认为空则不限制，否则访问次数达到填写数字后将无法访问！')
                     ->setFormData($info)
                     ->display();
         }
