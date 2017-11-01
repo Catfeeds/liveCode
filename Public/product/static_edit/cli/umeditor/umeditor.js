@@ -11180,7 +11180,8 @@ UM.registerUI('tellink',
         var $btn = $.eduibutton({
             icon : name,
             click : function(){
-                $("#modal-tellink").modal("show");
+//              $("#modal-tellink").modal("show");
+				$("#modal-tellink").fadeIn();
                 $(".modal-backdrop").hide();
                 $(".maskmodal").show();
             }
@@ -11188,13 +11189,15 @@ UM.registerUI('tellink',
         $("#modal-tellink-confirm").click(function(){
         	$(".maskmodal").hide();
             href = $("#modal-tellink-input").val();
-            $("#modal-tellink").modal("hide");
+//          $("#modal-tellink").modal("hide");
+			$("#modal-tellink").fadeOut();
             $(".empty_placeholder").remove();
             me.execCommand("inserthtml","<a href='tel:"+href+"' _href='tel:"+href+"' target='_self'>"+href+"</a>","needFilter");
         });
         //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
         	$(".maskmodal").hide();
+        	$("#modal-tellink").fadeOut();
         })
         this.addListener('selectionchange',function(){
             var state = this.queryCommandState(name);
