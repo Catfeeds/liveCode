@@ -49,7 +49,12 @@ class HuomaController extends HomeController{
             $this->assign('data',$data);
             $this->display('live_file');
         }elseif ($data['type'] == 4) {      //网址导航
-            redirect($data['content']);
+            $content = json_decode($data["content"],true);
+            foreach ($content as $key => $value) {
+                $data['url'][$key] = $value;
+            }
+            $this->assign('data',$data);
+            $this->display('live_url');
         }elseif ($data['type'] == 5) {      //名片活码
             $content = json_decode($data["content"],true);
             foreach ($content as $key => $value) {
@@ -57,7 +62,6 @@ class HuomaController extends HomeController{
             }
             $this->assign('data',$data);
             $this->display('live_vcard');
-            // halt($data);
         } 
     }
 
