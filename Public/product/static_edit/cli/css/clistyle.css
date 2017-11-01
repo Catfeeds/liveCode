@@ -1,0 +1,137 @@
+.clistyle-wrapper {
+	position:fixed;
+	left:-285px;
+	width:305px;
+	bottom:0;
+	background:#fff;
+	transition:left .5s linear;
+	-webkit-transition:-webkit-transform 0.3s;
+	transition:transform 0.3s;
+	box-shadow:0 2px 4px rgba(0,0,0,0.1),0 -1px 0px rgba(0,0,0,0.02);
+}
+.clistyle-wrapper.show {
+	transform:translateX(285px);
+	transition:transform 0.3s;
+}
+.clistyle-header {
+	font-size:16px;
+	background:#fff;
+	height:52px;
+	padding:10px 15px;
+	line-height:32px;
+}
+.clistyle-close {
+	position:absolute;
+	right:15px;
+	top:15px;
+	font-size:20px;
+	line-height:1;
+	color:#000;
+	text-shadow:0 1px 0 #fff;
+	opacity:.2;
+	cursor:pointer;
+}
+.clistyle-close:hover {
+	opacity:.3;
+}
+.clistyle-colorpicker-wrapper {
+	height:57px;
+	padding:15px;
+	border-top:1px solid #eee;
+	background:#fafafa;
+}
+.activeinsert-type-title {
+	position: relative;
+	top: -2px;
+}
+.activeinsert-type-dropdown {
+	position: relative;
+	top: -3px;
+}
+.clistyle-wrapper .sp-replacer {
+	float:right;
+	margin-right:5px;
+}
+.clistyle-colorpicker-wrapper .btn-group > .btn {
+	border:1px solid #ddd;
+}
+.clistyle-colorpicker-wrapper .btn-group > .btn.active,.clistyle-colorpicker-wrapper .btn-group > .btn:hover,.clistyle-colorpicker-wrapper .btn-group > .btn:focus {
+	box-shadow:none;
+	background:#fff;
+}
+.clistyle-colorpicker-wrapper .fa-refresh {
+    position: relative;
+    margin-left: 8px;
+    top: -2px;
+    padding: 8px;
+}
+.clistyle-template-list {
+	position:fixed;
+	left:0;
+	bottom:0;
+	width:305px;
+	padding:25px 15px;
+	border-top:1px solid #eee;
+	overflow-y:auto;
+}
+.clistyle-template-list li {
+	padding:10px;
+	margin-bottom:25px;
+	cursor:pointer;
+	border:1px solid #fff;
+}
+.clistyle-template-list li:hover {
+	box-shadow:0 0 5px 1px #eee;
+}
+.activeinsert-template-list {
+	position:fixed;
+	left:0;
+	bottom:0;
+	width:305px;
+	padding:25px 15px;
+	border-top:1px solid #eee;
+	overflow-y:auto;
+}
+.activeinsert-template-list .active-text-content {
+	border: 1px solid #f8f8f8;
+}
+.activeinsert-template-list li {
+	padding: 0;
+	margin-bottom: 36px;
+	cursor: pointer;
+    border: none;
+}
+.activeinsert-template-list li:hover .active-text-content {
+	border: 1px solid #4caf50;
+}
+.activeinsert-template-list .show-more {
+	width: 100%;
+}
+.ball-clip-rotate > div {
+	background-color:#fff;
+	width:20px;
+	height:20px;
+	border-radius:100%;
+	-webkit-animation-fill-mode:both;
+	animation-fill-mode:both;
+	border:2px solid #aaa;
+	border-bottom-color:transparent;
+	background:transparent !important;
+	display:inline-block;
+	-webkit-animation:rotate 0.75s 0s linear infinite;
+	animation:rotate 0.75s 0s linear infinite;
+}
+@keyframes rotate {
+	0% {
+	-webkit-transform:rotate(0deg);
+	transform:rotate(0deg);
+}
+50% {
+	-webkit-transform:rotate(180deg);
+	transform:rotate(180deg);
+}
+100% {
+	-webkit-transform:rotate(360deg);
+	transform:rotate(360deg)
+}
+}

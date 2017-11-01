@@ -1,0 +1,111 @@
+.tip_plugin_bg{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top:0;
+	left:0;
+	z-index:99999;
+	font-family: Micorsoft Yahei;
+	background:rgba(0,0,0,0.6);
+	filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#80000000,endColorstr=#80000000);/*Filter for older IEs */
+}
+.tip_plugin_box{
+	width:440px;
+	height: 218px;
+	background: #fff;
+	position: absolute;
+	top:40px;
+	left: 50%;
+	margin-left: -220px;
+	border-radius: 4px;
+	text-align: center;
+}
+.tip_plugin_top{
+	width:100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom:1px solid #ccc;
+	background: #fcfcfc;
+	color: #656565;
+	font-size: 16px;
+}
+.tip_plugin_top_icon{
+	display: inline-block;
+	width: 18px;
+	height: 16px;
+	background: url('../images/tip_plugin_icon.png') 0 0;
+	margin-right: 5px;
+	margin-top: -3px;
+	vertical-align: middle;
+}
+.tip_plugin_ie_icon{
+	display: inline-block;
+	width: 18px;
+	height: 16px;
+	background: url('../images/tip_plugin_icon.png') -76px 0;
+	vertical-align: middle;
+	margin-top:-3px;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+.tip_plugin_chrome_icon{
+	display: inline-block;
+	width: 18px;
+	height: 16px;
+	background: url('../images/tip_plugin_icon.png') -150px 0;
+	vertical-align: middle;
+	margin-top:-3px;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+.tip_plugin_firefox_icon{
+	display: inline-block;
+	width: 18px;
+	height: 16px;
+	background: url('../images/tip_plugin_icon.png') -222px 0;
+	vertical-align: middle;
+	margin-top:-3px;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+.tip_plugin_main p{
+	font-size: 14px;
+	color: #323232;
+	line-height: 25px;
+	margin-top: 25px;
+}
+.tip_plugin_link{
+	display: inline-block;
+	font-weight: bold;
+	color: #323232;
+	font-size: 14px;
+}
+.tip_plugin_link:hover{
+	color: #6cc788;
+}
+.tip_plugin_link:hover .tip_plugin_ie_icon{
+	background-position: -76px -24px;
+}
+.tip_plugin_link:hover .tip_plugin_chrome_icon{
+	background-position: -150px -24px;
+}
+.tip_plugin_link:hover .tip_plugin_firefox_icon{
+	background-position: -222px -25px;
+}
+.close_tip_plugin{
+	display: inline-block;
+	margin:0 auto;
+	margin-top: 35px;
+	font-size: 14px;
+	color: #fff;
+	width: 94px;
+	height: 32px;
+	line-height: 32px;
+	text-align: center;
+	background: #6cc788;
+	border-radius: 4px;
+}
+.close_tip_plugin:hover{
+	color: #fff;
+	background: #76bf8d;
+}
