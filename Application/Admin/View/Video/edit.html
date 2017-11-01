@@ -219,7 +219,7 @@
             var videoName = $(".resumable-file-name:last").html();
             var codeType= $("#codeType").val();     //管理员审核编辑
             var postUrl = 'admin.php?s=/admin/video/edit/id/'+id;
-            if (codeType != '') {
+            if (codeType) {
                 postUrl = 'admin.php?s=/admin/checkcode/edit/codeType/'+codeType+'/id/'+id;
             }
             if (title == '') {
