@@ -294,7 +294,7 @@
 			<a href="/Uploads/livecode/file/vcard{$data['id']}.vcf" class="save_btn">保存到通讯录</a>
 		</div>
 		<div class="l_filedown" >
-			<img src="https://qr.api.cli.im/qr?data=http%3A%2F%2Fqr23.cn%2FM7bgAG&level=H&transparent=&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=2&logourl=&size=220&kid=vcardcliim&time=1509593112&key=00e3b5ba7af96e49c495e332dda3340e"/>
+			<img src="" id="wx_ewm" />
 			<p>长按二维码，选择识别图中二维码</p>
 			<span>X</span>
 		</div>
@@ -312,7 +312,16 @@
 				$(".save_btn").click(function(){
 					if(isWeixin()){
 			    		//是微信打开显示提示信息
-			            $(".l_filedown").show();
+			            var url = "{:U('Home/Huoma/getvcard')}";
+						var id = {$data['id']};
+						$.post(url, {id:id}, function (result) {
+							if (result.status == 1) {
+								$(".l_filedown img").attr('src',result.info);
+								$(".l_filedown").show();
+							}else{
+								alert(result.info);
+							}
+		                });
 			        }else{
 			            //是非微信打开直接跳转下载地址
 			            $(".l_filedown").hide();

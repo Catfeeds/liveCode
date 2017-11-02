@@ -572,7 +572,7 @@ class LivecodeController extends AdminController {
                 $data[$key] = $value;
             }
         }
-        // h($data);
+
         $this->assign('data',$data);
         if ($data['type'] == 1) {
             $this->display('live_text');    //图文
@@ -606,7 +606,6 @@ class LivecodeController extends AdminController {
             $upload->savePath  =     ''; // 设置附件上传（子）目录+
             // 上传文件 
             $info   =   $upload->upload();
-            // halt($info);
             if(!$info) {// 上传错误提示错误信息
                 $this->error('上传失败！');
             }else{// 上传成功
@@ -615,40 +614,6 @@ class LivecodeController extends AdminController {
                 $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
             }
         }
-    }
-
-    /**
-     * 生成微信名片
-     */
-    public function getvcard(){
-        $name = '你大爷';
-        $username = '你大爷';
-        $company = '你大爷';
-        $position = '你大爷';
-        $tell = '13333333333';
-        $phone = '13333333333';
-        $email = '你大爷';
-
-        Vendor('phpqrcode.phpqrcode');
-        //生成二维码图片
-        $object = new \QRcode();
-        $url='BEGIN:VCARD
-        VERSION:3.0
-        FN:'.$name.'
-        NICKNAME:'.$username.'
-        ORG:'.$company.'
-        TITLE:'.$position.'
-        TEL;TYPE=work:'.$tell.'
-        TEL:'.$phone.'
-        EMAIL:'.$email.'
-        END:VCARD';
-        $level='M';
-        $size=4;
-        $errorCorrectionLevel =intval($level) ;//容错级别
-        $matrixPointSize = intval($size);//生成图片大小
-        //$object->png($url,"vcardimg/b.png");
-        h($object->png($url, 'Uploads/ewm/'.$uid.'.png', $errorCorrectionLevel, $matrixPointSize,2));
-        $object->png($url, 'Uploads/ewm/'.$uid.'.png', $errorCorrectionLevel, $matrixPointSize,2);    //vcardimg为保存目录
     }
 
 }

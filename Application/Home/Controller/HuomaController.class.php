@@ -207,4 +207,58 @@ class HuomaController extends HomeController{
         return $urlarr[array_rand($urlarr)];
     }
 
+    /**
+     * 如果微信打开名片活码，生成微信名片
+     */
+    public function getvcard(){
+        $id = I('post.id/d');
+        $data = M('cms_livecode')->where(['id'=>$id])->find();
+        if (!$data) {
+            $this->error('获取文件失败！');
+        }
+        $content = json_decode($data["content"],true);
+        foreach ($content as $key => $value) {
+            $data[$key] = $value;
+        }
+
+        $name     = $data['title'];
+        $username = $data['name'];
+        $company  = $data['company'];
+        $position = $data['appointment'];
+        $tell     = $data['left_phone'][0]['val'];
+        $phone    = $data['left_phone'][1]['val'];
+        $email    = $data['left_phone'][3]['val'];
+
+        Vendor('phpqrcode.phpqrcode');
+        //生成二维码图片
+        $object = new \QRcode();
+        $url='BEGIN:VCARD
+            VERSION:3.0
+            FN:'.$name.'
+            NICKNAME:'.$username.'
+            ORG:'.$company.'
+            TITLE:'.$position.'
+            TEL;TYPE=work:'.$tell.'
+            TEL:'.$phone.'
+            EMAIL:'.$email.'
+            END:VCARD';
+        $level='M';
+        $size=4;
+        $errorCorrectionLevel =intval($level) ;//容错级别
+        $matrixPointSize = intval($size);//生成图片大小
+        //$object->png($url,"vcardimg/b.png");
+        $dir = 'Uploads/'.date('Y-m');
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+        if (!file_exists($dir.'/'.$id.'.png')) {
+            $res = $object->png($url, $dir.'/'.$id.'.png', $errorCorrectionLevel, $matrixPointSize,2);    //vcardimg为保存目录
+            if (!$res) {
+                $this->error('获取文件失败！');
+            }
+        }
+        $this->success('/'.$dir.'/'.$id.'.png');
+
+    }
+
 }
