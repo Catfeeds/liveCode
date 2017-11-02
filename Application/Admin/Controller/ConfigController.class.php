@@ -88,7 +88,7 @@ class ConfigController extends AdminController {
             if ($data) {
                 if ($config_object->add($data)) {
                     S('DB_CONFIG_DATA',null);
-                    $this->success('新增成功', U('index'));
+                    $this->success('新增成功');
                 } else {
                     $this->error('新增失败');
                 }

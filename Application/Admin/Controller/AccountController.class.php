@@ -102,9 +102,13 @@ class AccountController extends AdminController {
             foreach ($data_list as $key => $v) {
                 $data_list[$key]['name']   = $v['name'].'-'.$v['year'].'年';
                 $data_list[$key]['isNew']  = ($v['isNew']==1)?'新开':'续费';
-                $data_list[$key]['orderStatus']  = ($v['orderStatus']==1)?'完成':'<font color="red">待支付</font>';
+                $data_list[$key]['orderStatus']  = ($v['orderStatus']==1)?'完成':"<a href=index.php?s=/home/order/pay/orderId/$v[orderId].html><font color='red'>待支付</font></a>";
                 $data_list[$key]['create_time'] = date('Y-m-d H:i',$v['create_time']);
-                $data_list[$key]['payInfo'] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.payType($v['payType']).'<br>'.$v['tradeNo'];
+                if ($v['orderStatus'] == 1) {
+                    $data_list[$key]['payInfo'] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.payType($v['payType']).'<br>'.$v['tradeNo'];
+                }else{
+                    $data_list[$key]['payInfo'] = '';
+                }
             }
         }
 
@@ -145,20 +149,21 @@ class AccountController extends AdminController {
         $map = ['o.orderStatus'=>1,'o.status'=>1,'o.userId'=>session('user_auth.uid')];
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
         $mod = D('Order');
-        $data_list = $mod->alias('o')->field('o.*,u.username,v.name')
+        $data = $mod->alias('o')->field('o.*,u.username,v.name')
                    ->where($map)
                    ->join('__ADMIN_USER__ u on u.id = o.userId','left')
                    ->join('__VIP__ v on v.id = o.vipId','left')
                    ->page($p, C('ADMIN_PAGE_ROWS'))
                    ->order('create_time desc')
                    ->select();
+        $data_list[] = $data[0];
         if (!empty($data_list)) {
             foreach ($data_list as $key => $v) {
                 $data_list[$key]['name']   = $v['name'].'-'.$v['year'].'年';
                 $data_list[$key]['expire_time']   = $v['year']*365*86400+$v['pay_time'];
             }
         }
-// halt($data_list);
+
         $page = new Page(
             $mod->alias('o')->where($map)->join('__ADMIN_USER__ u on u.id = o.userId','left')->join('__VIP__ v on v.id = o.vipId','left')->count(),
             C('ADMIN_PAGE_ROWS')

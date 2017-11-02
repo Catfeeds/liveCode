@@ -46,7 +46,7 @@ class LivecodeController extends AdminController {
             $data_list[$k]['ewm']     = "Uploads/livecode/".$v['id'].'.png';
             $data_list[$k]['type']    = codeType($v['type']);
             $data_list[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
-            if ($v['type'] == 1 || $v['type'] == 5) {
+            if ($v['type'] == 1 || $v['type'] == 4 || $v['type'] == 5) {
                 $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
             }elseif ($v['type'] == 3) {
                 $file = json_decode($v['content'],true)['url'];
@@ -125,7 +125,7 @@ class LivecodeController extends AdminController {
             $data_list[$k]['ewm']     = "Uploads/livecode/".$v['id'].'.png';
             $data_list[$k]['type']    = codeType($v['type']);
             $data_list[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
-            if ($v['type'] == 1 || $v['type'] == 5) {
+            if ($v['type'] == 1 || $v['type'] == 4 || $v['type'] == 5) {
                 $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
             }elseif ($v['type'] == 3) {
                 $file = json_decode($v['content'],true)['url'];
@@ -378,7 +378,7 @@ class LivecodeController extends AdminController {
             $data['status']= ($user['ifCheck'] == -1)?1:0;
 
             //如果是图文或者文件，内容保存为json格式
-            if ($type == 1 || $type == 3 || $type == 5) {
+            if ($type == 1 || $type == 3 || $type == 4 || $type == 5) {
                 $data['content']   = json_encode($data['content']);
             }
 
@@ -497,7 +497,7 @@ class LivecodeController extends AdminController {
             $user = D('user')->getUserInfo($this->uid);
             $data['status']= ($user['ifCheck'] == -1)?1:0;
             //如果是图文或者文件，内容保存为json格式
-            if ($type == 1 || $type == 3 || $type == 5) {
+            if ($type == 1 || $type == 3 || $data['type'] == 4 || $type == 5) {
                 $data['content']   = json_encode($data['content']);
             }
             $data['id']  = $info['editId'];
@@ -520,10 +520,14 @@ class LivecodeController extends AdminController {
             if (!$data) {
                 $this->error('数据不存在');
             }
-            if ($data['type'] == 1 || $data['type'] == 3 || $data['type'] == 5) {
+            if ($data['type'] == 1 || $data['type'] == 3 || $data['type'] == 4 || $data['type'] == 5) {
                 $content = json_decode($data["content"],true);
                 foreach ($content as $key => $value) {
-                    $data[$key] = $value;
+                    if ($data['type'] == 4) {
+                        $data['url'][$key] = $value;
+                    }else{
+                        $data[$key] = $value;
+                    }
                 }
             }
             $this->meta_title = '编辑活码';
@@ -562,12 +566,18 @@ class LivecodeController extends AdminController {
         }
         $content = json_decode($data["content"],true);
         foreach ($content as $key => $value) {
-            $data[$key] = $value;
+            if ($data['type'] == 4) {
+                $data['url'][$key] = $value;
+            }else{
+                $data[$key] = $value;
+            }
         }
         // h($data);
         $this->assign('data',$data);
         if ($data['type'] == 1) {
             $this->display('live_text');    //图文
+        }elseif ($data['type'] == 4) {
+            $this->display('live_url');     //网址
         }else{
             $this->display('live_vcard');   //名片
         }

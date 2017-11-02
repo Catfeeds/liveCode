@@ -1,7 +1,7 @@
 $(function(){
 	var postUrl = 'admin.php?s=/admin/livecode/addfile';
 	var codeType= $("#codeType").val();     //管理员审核编辑
-    if (codeType != '') {
+    if (codeType) {
         postUrl = 'admin.php?s=/admin/checkcode/addLivecodeFile';
     }
 

@@ -37,11 +37,15 @@ class OrderController extends AdminController {
             foreach ($data_list as $key => $v) {
                 $data_list[$key]['name']   = $v['name'].'-'.$v['year'].'年';
                 $data_list[$key]['isNew']  = ($v['isNew']==1)?'新开':'续费';
-                $data_list[$key]['orderStatus']  = ($v['orderStatus']==1)?'完成':'<font color="red">待支付</font>';
-                $data_list[$key]['payInfo'] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.payType($v['payType']).'<br>'.$v['tradeNo'];
+                $payUrl = U('Admin/User/fee',['id'=>$v['userId'],'orderId'=>$v['orderId']]);
+                $data_list[$key]['orderStatus']  = ($v['orderStatus']==1)?'完成':"<a href=$payUrl target='_blank' title='点击选择管理员支付'><font color='red'>待支付</font></a>";
+                if ($v['orderStatus'] == 1) {
+                    $data_list[$key]['payInfo'] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.payType($v['payType']).'<br>'.$v['tradeNo'];
+                }else{
+                    $data_list[$key]['payInfo'] = '';
+                }
             }
         }
-// halt($data_list);
         $page = new Page(
             $mod->alias('o')->where($map)->join('__ADMIN_USER__ u on u.id = o.userId','left')->join('__VIP__ v on v.id = o.vipId','left')->count(),
             C('ADMIN_PAGE_ROWS')
@@ -59,7 +63,7 @@ class OrderController extends AdminController {
         $builder->setMetaTitle('订单中心')  // 设置页面标题
                 ->setTabNav($tab_list, $orderStatus)  // 设置页面Tab导航
                 ->addTableColumn('orderNo', '订单编号')
-                ->addTableColumn('pay_time', '订购时间','time')
+                ->addTableColumn('create_time', '订购时间','time')
                 ->addTableColumn('name', '套餐名称')
                 ->addTableColumn('username', '下单用户')
                 ->addTableColumn('payMoney', '费用(元)')

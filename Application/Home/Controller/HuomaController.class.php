@@ -22,7 +22,14 @@ class HuomaController extends HomeController{
         if (!$data) {
             return $this->display('Public/unfined');
         }
-        $obj->where(array('d' => $d)) ->setInc('count', 1);
+        $userMod = D('User');
+        $user = $userMod->find($data['uid']);
+        if ($user['limitCount'] != 0 && $user['visitCount'] >= $user['limitCount']) {
+            return $this->display('Public/unfined');
+        }
+        $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
+        $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+
         M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>1]);
         if ($data['type'] == 1 || $data['type'] == 2) {           //文本活码
             if ($data['type'] == 1) {
@@ -42,7 +49,12 @@ class HuomaController extends HomeController{
             $this->assign('data',$data);
             $this->display('live_file');
         }elseif ($data['type'] == 4) {      //网址导航
-            redirect($data['content']);
+            $content = json_decode($data["content"],true);
+            foreach ($content as $key => $value) {
+                $data['url'][$key] = $value;
+            }
+            $this->assign('data',$data);
+            $this->display('live_url');
         }elseif ($data['type'] == 5) {      //名片活码
             $content = json_decode($data["content"],true);
             foreach ($content as $key => $value) {
@@ -50,7 +62,6 @@ class HuomaController extends HomeController{
             }
             $this->assign('data',$data);
             $this->display('live_vcard');
-            // halt($data);
         } 
     }
 
@@ -64,7 +75,14 @@ class HuomaController extends HomeController{
         if (!$data) {
             return $this->display('Public/unfined');
         }
-        $obj->where(array('d' => $d)) ->setInc('count', 1);
+        $userMod = D('User');
+        $user = $userMod->find($data['uid']);
+        if ($user['limitCount'] != 0 && $user['visitCount'] >= $user['limitCount']) {
+            return $this->display('Public/unfined');
+        }
+        $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
+        $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+
         M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>2]);
 
         $content = json_decode($data["content"]);
@@ -86,12 +104,19 @@ class HuomaController extends HomeController{
         if (!$data) {
             return $this->display('Public/unfined');
         }
+        $userMod = D('User');
+        $user = $userMod->find($data['uid']);
+        if ($user['limitCount'] != 0 && $user['visitCount'] >= $user['limitCount']) {
+            return $this->display('Public/unfined');
+        }
+        $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
+        $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+
         $type = $obj -> where(array('d' => $d)) -> getField('type');
         $videourl = $obj -> where(array('d' => $d)) -> getField('0,id,title,videourl,huoma');
         $url = $obj -> where(array('d' => $d)) -> getField('videourl');
         if ($type == 2 && $videourl){
             //视频活码跳转
-            $obj->where(array('d' => $d)) ->setInc('count', 1);
             M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d'),'type'=>3]);
             //$huoma = $obj -> where(array('d' => $d)) -> getField('huoma');
             $videoTitle = '{"mediaTitle": "'.$videourl[0]['title'].'"}';
@@ -103,7 +128,6 @@ class HuomaController extends HomeController{
             $this->display();
         }elseif ($type == 1 && $url){
             //网址活码跳转
-            $obj->where(array('d' => $d)) ->setInc('count', 1);
             M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d'),'type'=>4]);
             redirect($url);
         }else{
@@ -120,31 +144,33 @@ class HuomaController extends HomeController{
         if (!$rs) {
             return $this->display('Public/unfined');
         }
-        if ($rs){
-            $urlarr = get_duourl_titlearr($rs['title']);
-            
-            if (!is_array($urlarr)){
-                $this -> error('参数错误');
-            }
-            switch ($rs['tztype']){
-             case 2:
-                 $tzurl = $this -> orderjump($urlarr, $rs);
-                 break;
-             case 3:
-                 $timearr = get_duourl_tztimearr($rs['tztime']);
-                 $tzurl = $this -> timejump($urlarr, $timearr);
-                 break;
-             default:
-                 $tzurl = $this -> randjump($urlarr);
-                 break;
-            }
-            if ($tzurl){
-                $obj->where(array('d' => $d)) ->setInc('count', 1);
-                M('echarts_data')->add(['codeId'=>$rs['id'],'createTime'=>date('Y-m-d'),'type'=>5]);
-                redirect($tzurl);
-            }else{
-                $this -> error('参数错误');
-            }
+        $userMod = D('User');
+        $user = $userMod->find($rs['uid']);
+        if ($user['limitCount'] != 0 && $user['visitCount'] >= $user['limitCount']) {
+            return $this->display('Public/unfined');
+        }
+        $userMod->where(['id'=>$rs['uid']])->setInc('visitCount', 1);
+
+        $urlarr = get_duourl_titlearr($rs['title']);
+        if (!is_array($urlarr)){
+            $this -> error('参数错误');
+        }
+        switch ($rs['tztype']){
+         case 2:
+             $tzurl = $this -> orderjump($urlarr, $rs);
+             break;
+         case 3:
+             $timearr = get_duourl_tztimearr($rs['tztime']);
+             $tzurl = $this -> timejump($urlarr, $timearr);
+             break;
+         default:
+             $tzurl = $this -> randjump($urlarr);
+             break;
+        }
+        if ($tzurl){
+            $obj->where(array('d' => $d)) ->setInc('count', 1);
+            M('echarts_data')->add(['codeId'=>$rs['id'],'createTime'=>date('Y-m-d'),'type'=>5]);
+            redirect($tzurl);
         }else{
             $this -> error('参数错误');
         }
