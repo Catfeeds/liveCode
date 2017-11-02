@@ -76,77 +76,77 @@
                             </div>
                         </div>
                     </div>
-                    <neq name="info.id" value="1">
-                        <div id="tab2" class="tab-pane">
-                            <div class="form-group"></div>
-                            <div class="form-group">
-                                <div class="auth">
-                                    <volist name="all_module_menu_list" id="vo1">
-                                        <?php $module_name = $key; ?>
-                                        <div class="{$module_name}">
-                                            <div class="cui-control cui-checkbox">
-                                                <label class="checkbox-label checkbox-inline">
-                                                    <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo1['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo1.id}">
-                                                    <span class="cui-control-indicator"></span>
-                                                    <span> {$vo1.title}</span>
-                                                </label>
-                                                <div class="auth{$vo1.id}" style="padding-left: 25px;margin-top: 10px;">
-                                                    <volist name="vo1._child" id="vo2">
-                                                        <label class="checkbox-label checkbox-inline">
-                                                            <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo2['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo2.id}">
-                                                            <span class="cui-control-indicator"></span>
-                                                            <span> {$vo2.title}</span>
-                                                        </label>
-                                                        <div class="auth{$vo2.id}" style="padding-left: 25px;margin-top: 10px;">
-                                                            <foreach name="vo2._child" item="vo3">
-                                                                <label class="checkbox-label checkbox-inline">
-                                                                    <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo3['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo3.id}">
-                                                                    <span class="cui-control-indicator"></span>
-                                                                    <span> {$vo3.title}</span>
-                                                                </label>
-                                                                <notempty name="vo3._child">
-                                                                    <div class="auth{$vo3.id}" style="padding-left: 25px;margin-top: 10px;margin-bottom: 10px;">
-                                                                        <volist name="vo3._child" id="vo4">
-                                                                            <notempty name="vo4._child">
-                                                                                <label class="checkbox-inline" style="display: block;margin-top: 10px;margin-left: 0px;">
-                                                                                    <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo4['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo4.id}">
-                                                                                    <span class="cui-control-indicator"></span>
-                                                                                    <span> {$vo4.title}</span>
-                                                                                </label>
-                                                                            <else />
-                                                                                 <label class="checkbox-inline">
-                                                                                    <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo4['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo4.id}">
-                                                                                    <span class="cui-control-indicator"></span>
-                                                                                    <span> {$vo4.title}</span>
-                                                                                </label>
-                                                                            </notempty>
-                                                                            <notempty name="vo4._child">
-                                                                                <div class="auth{$vo4.id}" style="padding-left: 25px;margin-top: 10px;margin-bottom: 10px;">
-                                                                                    <foreach name="vo4._child" item="vo5">
-                                                                                        <label class="checkbox-inline">
-                                                                                            <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo5['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo5.id}">
-                                                                                            <span class="cui-control-indicator"></span>
-                                                                                            <span> {$vo5.title}</span>
-                                                                                        </label>
-                                                                                    </foreach>
-                                                                                </div>
-                                                                            </notempty>
-                                                                        </volist>
-                                                                    </div>
-                                                                </notempty>
-                                                            </foreach>
-                                                        </div>
+<neq name="info.id" value="1">
+    <div id="tab2" class="tab-pane">
+        <div class="form-group"></div>
+        <div class="form-group">
+            <div class="auth">
+                <volist name="all_module_menu_list" id="vo1">
+                    <?php $module_name = $key; ?>
+                    <div class="{$module_name}">
+                        <div class="cui-control cui-checkbox">
+                            <label class="checkbox-label checkbox-inline">
+                                <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo1['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo1.id}">
+                                <span class="cui-control-indicator"></span>
+                                <span> {$vo1.title}</span>
+                            </label>
+                            <div class="auth{$vo1.id}" style="padding-left: 25px;margin-top: 10px;">
+                                <volist name="vo1._child" id="vo2">
+                                    <label class="checkbox-label checkbox-inline">
+                                        <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo2['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo2.id}">
+                                        <span class="cui-control-indicator"></span>
+                                        <span> {$vo2.title}</span>
+                                    </label>
+                                    <div class="auth{$vo2.id}" style="padding-left: 25px;margin-top: 10px;">
+                                        <foreach name="vo2._child" item="vo3">
+                                            <label class="checkbox-label checkbox-inline">
+                                                <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo3['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo3.id}">
+                                                <span class="cui-control-indicator"></span>
+                                                <span> {$vo3.title}</span>
+                                            </label>
+                                            <notempty name="vo3._child">
+                                                <div class="auth{$vo3.id}" style="padding-left: 25px;margin-top: 10px;margin-bottom: 10px;">
+                                                    <volist name="vo3._child" id="vo4">
+                                                        <notempty name="vo4._child">
+                                                            <label class="checkbox-inline" style="display: block;margin-top: 10px;margin-left: 0px;">
+                                                                <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo4['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo4.id}">
+                                                                <span class="cui-control-indicator"></span>
+                                                                <span> {$vo4.title}</span>
+                                                            </label>
+                                                        <else />
+                                                             <label class="checkbox-inline">
+                                                                <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo4['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo4.id}">
+                                                                <span class="cui-control-indicator"></span>
+                                                                <span> {$vo4.title}</span>
+                                                            </label>
+                                                        </notempty>
+                                                        <notempty name="vo4._child">
+                                                            <div class="auth{$vo4.id}" style="padding-left: 25px;margin-top: 10px;margin-bottom: 10px;">
+                                                                <foreach name="vo4._child" item="vo5">
+                                                                    <label class="checkbox-inline">
+                                                                        <input type="checkbox" name="menu_auth[{$module_name}][]" data-module-name="{$module_name}" <php>if(in_array($vo5['id'], $info['menu_auth'][$module_name])) echo "checked";</php> value="{$vo5.id}">
+                                                                        <span class="cui-control-indicator"></span>
+                                                                        <span> {$vo5.title}</span>
+                                                                    </label>
+                                                                </foreach>
+                                                            </div>
+                                                        </notempty>
                                                     </volist>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                    </volist>
-                                </div>
+                                            </notempty>
+                                        </foreach>
+                                    </div>
+                                </volist>
                             </div>
-                            <div class="form-group"></div>
                         </div>
-                    </neq>
+                    </div>
+                    <hr>
+                </volist>
+            </div>
+        </div>
+        <div class="form-group"></div>
+    </div>
+</neq>
                 </div>
                 <div class="form-group"></div>
                 <div class="form-group">

@@ -222,7 +222,6 @@ class HuomaController extends HomeController{
         }
 
         $name     = $data['name'];
-        // $username = $data['name'];
         $company  = $data['company'];
         $position = $data['appointment'];
         $tell     = $data['left_phone'][0]['val'];
@@ -236,7 +235,6 @@ class HuomaController extends HomeController{
         $url='BEGIN:VCARD
             VERSION:3.0
             FN:'.$name.'
-            NICKNAME:'.$username.'
             ORG:'.$company.'
             TITLE:'.$position.'
             TEL;TYPE=work:'.$tell.'
