@@ -310,7 +310,7 @@
 			}
 			$(function(){
 				$(".save_btn").click(function(){
-					if(isWeixin()){
+					if(!isWeixin()){
 			    		//是微信打开显示提示信息
 			            var url = "{:U('Home/Huoma/getvcard')}";
 						var id = {$data['id']};

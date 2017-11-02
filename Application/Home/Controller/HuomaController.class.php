@@ -220,7 +220,7 @@ class HuomaController extends HomeController{
         foreach ($content as $key => $value) {
             $data[$key] = $value;
         }
-// h($data);
+
         $name     = $data['name'];
         // $username = $data['name'];
         $company  = $data['company'];
@@ -229,7 +229,6 @@ class HuomaController extends HomeController{
         $phone    = $data['left_phone'][1]['val'];
         $email    = $data['left_phone'][3]['val'];
         $addr     = $data['left_address'][0]['val'];
-
 
         Vendor('phpqrcode.phpqrcode');
         //生成二维码图片
@@ -243,7 +242,7 @@ class HuomaController extends HomeController{
             TEL;TYPE=work:'.$tell.'
             TEL:'.$phone.'
             EMAIL:'.$email.'
-            ADR:'.$email.'
+            ADR:'.$addr.'
             END:VCARD';
         $level='M';
         $size=4;
@@ -254,11 +253,9 @@ class HuomaController extends HomeController{
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
-        if (!file_exists($dir.'/'.$id.'.png')) {
-            $res = $object->png($url, $dir.'/'.$id.'.png', $errorCorrectionLevel, $matrixPointSize,2);    //vcardimg为保存目录
-            if (!$res) {
-                $this->error('获取文件失败！');
-            }
+        $res = $object->png($url, $dir.'/'.$id.'.png', $errorCorrectionLevel, $matrixPointSize,2);    //vcardimg为保存目录
+        if ($res === 'false') {
+            $this->error('获取文件失败！');
         }
         $this->success('/'.$dir.'/'.$id.'.png');
 
