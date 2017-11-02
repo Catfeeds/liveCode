@@ -60,8 +60,11 @@ class ModuleModel extends Model {
      * 获取模块菜单
      * 
      */
-    public function getAdminMenu() {
-        $where = ['user_type'=>['in',[0,session('user_auth.user_type')]],'user_id'=>['in',[0,session('user_auth.uid')]],'status'=>1];
+    public function getAdminMenu($adminEdit='0') {
+        $where = ['user_type'=>['in',[0,session('user_auth.user_type')]],'user_id'=>['in',[0,session('user_auth.uid')]]];
+        if (!$adminEdit) {
+            $where['status'] = 1;
+        }
         //如果是用户，判断套餐是否过期决定是否显示活码管理菜单
         if (session('user_auth.user_type') == 2) {
             $user = D('user')->getUserInfo(session('user_auth.uid'));

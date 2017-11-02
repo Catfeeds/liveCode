@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2017-11-02 11:45:59
+Date: 2017-11-02 17:09:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `fw_admin_access` (
 -- ----------------------------
 INSERT INTO `fw_admin_access` VALUES ('1', '1', '1', '1438651748', '1509588361', '0', '1');
 INSERT INTO `fw_admin_access` VALUES ('3', '2', '3', '1505118943', '1509588112', '0', '1');
-INSERT INTO `fw_admin_access` VALUES ('14', '22', '3', '1509591147', '1509591147', '0', '1');
+INSERT INTO `fw_admin_access` VALUES ('14', '22', '8', '1509591147', '1509612956', '0', '1');
 INSERT INTO `fw_admin_access` VALUES ('16', '23', '7', '1509592257', '1509594300', '0', '1');
 
 -- ----------------------------
@@ -154,15 +154,16 @@ CREATE TABLE `fw_admin_group` (
   `sort` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序（同级有效）',
   `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='部门信息表';
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='部门信息表';
 
 -- ----------------------------
 -- Records of fw_admin_group
 -- ----------------------------
 INSERT INTO `fw_admin_group` VALUES ('1', '0', '超级管理员', '', '', '1426881003', '1427552428', '0', '1');
-INSERT INTO `fw_admin_group` VALUES ('3', '0', '会员管理', '', '\"\"', '1496210172', '1509587828', '1', '1');
-INSERT INTO `fw_admin_group` VALUES ('7', '0', '支付管理', '', '\"\"', '1509588024', '1509588024', '4', '1');
-INSERT INTO `fw_admin_group` VALUES ('5', '0', '活码管理', '', '\"\"', '1496210230', '1509587874', '2', '1');
+INSERT INTO `fw_admin_group` VALUES ('3', '0', '会员管理', '', '[[\"14\",\"62\",\"63\",\"66\",\"115\",\"161\",\"162\"]]', '1496210172', '1509613537', '1', '1');
+INSERT INTO `fw_admin_group` VALUES ('7', '0', '支付管理', '', '[[\"50\",\"51\",\"52\",\"53\",\"64\",\"65\",\"167\",\"54\",\"55\",\"56\",\"168\"]]', '1509588024', '1509613578', '4', '1');
+INSERT INTO `fw_admin_group` VALUES ('8', '0', '随便来个', '', '[[\"51\"]]', '1509612562', '1509613511', '0', '1');
+INSERT INTO `fw_admin_group` VALUES ('5', '0', '活码管理', '', '[[\"152\",\"160\",\"163\"]]', '1496210230', '1509613551', '2', '1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_hook`
@@ -228,7 +229,7 @@ CREATE TABLE `fw_admin_menu` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `status` tinyint(3) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=160 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=169 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of fw_admin_menu
@@ -268,18 +269,18 @@ INSERT INTO `fw_admin_menu` VALUES ('51', '50', '0', '支付宝', '1', 'Admin/Pa
 INSERT INTO `fw_admin_menu` VALUES ('52', '50', '0', '微信', '1', 'Admin/Payconf/wechat', 'fa fa-credit-card', '0', '1505554695', '1');
 INSERT INTO `fw_admin_menu` VALUES ('53', '50', '0', '汇款账号', '1', 'Admin/Payconf/bank', 'fa fa-credit-card', '0', '1505554725', '1');
 INSERT INTO `fw_admin_menu` VALUES ('54', '50', '0', '套餐价格', '1', 'Admin/Vip/index', 'fa fa-credit-card', '0', '1505554792', '1');
-INSERT INTO `fw_admin_menu` VALUES ('55', '54', '0', '新增套餐', '1', 'Admin/Vip/add', '', '0', '1505805835', '-1');
-INSERT INTO `fw_admin_menu` VALUES ('56', '54', '0', '编辑套餐', '1', 'Admin/Vip/edit', '', '0', '1505805956', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('55', '54', '0', '新增', '1', 'Admin/Vip/add', '', '0', '1505805835', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('56', '54', '0', '编辑', '1', 'Admin/Vip/edit', '', '0', '1505805956', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('57', '1', '0', '账号管理', '2', '', 'fa fa-folder-open-o', '0', '1505814677', '1');
 INSERT INTO `fw_admin_menu` VALUES ('58', '1', '0', '财务管理', '2', '', 'fa fa-folder-open-o', '0', '1505814780', '1');
 INSERT INTO `fw_admin_menu` VALUES ('59', '57', '0', '密码修改', '2', 'Admin/Account/editPass', 'fa fa-list', '0', '1505815020', '1');
 INSERT INTO `fw_admin_menu` VALUES ('60', '57', '0', '续费管理', '2', 'Admin/Account/fee', 'fa fa-list', '0', '1505815097', '1');
 INSERT INTO `fw_admin_menu` VALUES ('61', '58', '0', '订单中心', '2', 'Admin/Account/order', 'fa fa-list', '0', '1505815175', '1');
-INSERT INTO `fw_admin_menu` VALUES ('62', '14', '0', '新增用户', '1', 'Admin/User/add', '', '0', '1505899117', '-1');
-INSERT INTO `fw_admin_menu` VALUES ('63', '14', '0', '编辑用户', '1', 'Admin/User/edit', '', '0', '1505899659', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('62', '14', '0', '新增', '1', 'Admin/User/add', '', '0', '1505899117', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('63', '14', '0', '编辑', '1', 'Admin/User/edit', '', '0', '1505899659', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('64', '53', '0', '新增汇款账号', '1', 'Admin/Payconf/add', '', '0', '1505959361', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('65', '53', '0', '编辑汇款账号', '1', 'Admin/Payconf/edit', '', '0', '1505959443', '-1');
-INSERT INTO `fw_admin_menu` VALUES ('66', '14', '0', '选择套餐', '1', 'Admin/User/fee', '', '0', '1505976986', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('66', '14', '0', '续费', '1', 'Admin/User/fee', '', '0', '1505976986', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('67', '11', '3', '第二个', '2', 'Admin/Livecode/child/type/1506064330', '', '0', '1506064330', '1');
 INSERT INTO `fw_admin_menu` VALUES ('68', '67', '3', '新增活码', '2', 'Admin/Livecode/add/type/1506064330', '', '0', '1506064330', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('69', '67', '3', '下载二维码', '2', 'Admin/Livecode/xzewm/type/1506064330', '', '0', '1506064330', '-1');
@@ -316,7 +317,7 @@ INSERT INTO `fw_admin_menu` VALUES ('105', '10', '0', '下载', '2', 'Admin/Vide
 INSERT INTO `fw_admin_menu` VALUES ('106', '7', '0', '数据统计', '2', 'Admin/Phone/view', '', '0', '1506416316', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('107', '8', '0', '数据统计', '2', 'Admin/Duourl/view', '', '0', '1506566192', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('108', '10', '0', '数据统计', '2', 'Admin/Video/view', '', '0', '1506568502', '-1');
-INSERT INTO `fw_admin_menu` VALUES ('115', '14', '0', '域名管理', '2', 'Admin/User/domain', '', '0', '1508381295', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('115', '14', '0', '域名管理', '1', 'Admin/User/domain', '', '0', '1508381295', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('110', '109', '3', '新增活码', '2', 'Admin/Livecode/add/type/1508229488', '', '0', '1508229488', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('111', '109', '3', '下载二维码', '2', 'Admin/Livecode/xzewm/type/1508229488', '', '0', '1508229488', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('112', '109', '3', '查看数据统计', '2', 'Admin/Livecode/view/type/1508229488', '', '0', '1508229488', '-1');
@@ -354,12 +355,20 @@ INSERT INTO `fw_admin_menu` VALUES ('149', '145', '3', '批量修改跳转地址
 INSERT INTO `fw_admin_menu` VALUES ('150', '145', '3', '编辑', '2', 'Admin/Duourl/edit/type/1509082742', '', '0', '1509082742', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('151', '145', '3', '查看数据统计', '2', 'Admin/Duourl/view/type/1509082742', '', '0', '1509082742', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('152', '6', '0', '活码管理', '1', 'Admin/Checkcode/index', 'fa fa-th', '0', '1505210035', '1');
+INSERT INTO `fw_admin_menu` VALUES ('162', '14', '0', '后台管理', '1', 'Admin/User/adminmanage', '', '0', '1509611265', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('153', '6', '0', '管理员管理', '1', 'Admin/Access/index', 'fa fa-lock', '0', '1509586641', '1');
 INSERT INTO `fw_admin_menu` VALUES ('154', '6', '0', '用户组管理', '1', 'Admin/Group/index', 'fa fa-sitemap', '0', '1509586895', '1');
 INSERT INTO `fw_admin_menu` VALUES ('156', '154', '0', '新增', '1', 'Admin/Group/add', '', '0', '1509587609', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('157', '154', '0', '编辑', '1', 'Admin/Group/edit', '', '0', '1509587646', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('158', '153', '0', '编辑', '1', 'Admin/Access/edit', '', '0', '1509587706', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('159', '153', '0', '新增', '1', 'Admin/Access/add', '', '0', '1509587748', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('160', '152', '0', '编辑', '1', 'Admin/Checkcode/edit', '', '0', '1509610489', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('161', '14', '0', '设置状态', '1', 'Admin/User/setStatus', '', '0', '1509610839', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('163', '152', '0', '设置状态', '1', 'Admin/Checkcode/setStatus', '', '0', '1509611415', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('165', '153', '0', '设置状态', '1', 'Admin/Access/setStatus', '', '0', '1509611530', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('166', '154', '0', '设置状态', '1', 'Admin/Group/setStatus', '', '0', '1509611566', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('167', '53', '0', '设置状态', '1', 'Admin/Payconf/setStatus', '', '0', '1509611652', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('168', '54', '0', '设置状态', '1', 'Admin/Vip/setStatus', '', '0', '1509611682', '-1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_module`
@@ -518,7 +527,7 @@ CREATE TABLE `fw_admin_user` (
 -- ----------------------------
 INSERT INTO `fw_admin_user` VALUES ('1', '1', 'admin', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', '0', '', '1438651748', '1501578198', '1', '0', '0', '1', '', '0', '0', '0');
 INSERT INTO `fw_admin_user` VALUES ('2', '1', 'admin2', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', '0', 'admin', '1496210259', '1505898727', '1', '0', '0', '1', '', '0', '0', '0');
-INSERT INTO `fw_admin_user` VALUES ('3', '2', '哈哈哈', 'b7aebc807e9844d9148e5cb32c6ff885', '11111@163.com', '18121029523', '2130706433', 'admin', '1505117796', '1501898740', '1', '3', '1572573977', '1', '1211', '0', '30', '30');
+INSERT INTO `fw_admin_user` VALUES ('3', '2', '哈哈哈', 'b7aebc807e9844d9148e5cb32c6ff885', '11111@163.com', '18121029523', '2130706433', 'admin', '1505117796', '1501898740', '1', '3', '1572573977', '1', '1', '0', '0', '163');
 INSERT INTO `fw_admin_user` VALUES ('13', '2', '随便来个', 'b7aebc807e9844d9148e5cb32c6ff885', '发的发的发', 'fasdfsdf', '0', '', '0', '1505812506', '1', '0', '0', '1', '', '0', '0', '0');
 INSERT INTO `fw_admin_user` VALUES ('14', '2', '哈哈哈小号', 'b7aebc807e9844d9148e5cb32c6ff885', '111@qq.com', '13333333333', '0', '', '1505548436', '0', '1', '2', '1604115396', '-1', 'www.livecode21.com', '1', '0', '0');
 INSERT INTO `fw_admin_user` VALUES ('15', '2', '15555555555', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@qq.com', '15555555555', '0', '', '1508201855', '1508384205', '1', '0', '0', '1', 'www.51kiwi.cn111', '-1', '0', '0');
@@ -622,7 +631,7 @@ INSERT INTO `fw_cms_livecode` VALUES ('143', '4', '1506064330', '3', '子目录�
 INSERT INTO `fw_cms_livecode` VALUES ('130', '5', '0', '3', '我是一个姓名的名片', '{\"head\":\"\\/Public\\/images\\/vcardbg10.jpg\",\"face\":\"\\/Public\\/images\\/default_face_new.png\",\"name\":\"\\u6211\\u662f\\u4e00\\u4e2a\\u59d3\\u540d\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\\u6211\\u662f\\u516c\\u53f8\\u540d\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"181210299999\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"66668888\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"447936059@qq.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_weibo\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u83b2\\u82b1\\u8def\\u83b2\\u82b1\\u7535\\u5546\\u4ea7\\u4e1a\\u56ed\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\uff0c\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=hs6xizher', 'hs6xizher', '1509007075', '0', '1');
 INSERT INTO `fw_cms_livecode` VALUES ('131', '5', '0', '3', '我是一个姓名的名片', '{\"head\":\"\\/Public\\/images\\/vcardbg10.jpg\",\"face\":\"\\/Public\\/images\\/default_face_new.png\",\"name\":\"\\u6211\\u662f\\u4e00\\u4e2a\\u59d3\\u540d\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\\u6211\\u662f\\u516c\\u53f8\\u540d\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"181210299999\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"66668888\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"447936059@qq.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_weibo\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u83b2\\u82b1\\u8def\\u83b2\\u82b1\\u7535\\u5546\\u4ea7\\u4e1a\\u56ed\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\uff0c\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=ur2rm4xyi', 'ur2rm4xyi', '1509007082', '0', '1');
 INSERT INTO `fw_cms_livecode` VALUES ('132', '5', '0', '3', '我是一个姓名的名片', '{\"head\":\"\\/Public\\/images\\/vcardbg10.jpg\",\"face\":\"\\/Public\\/images\\/default_face_new.png\",\"name\":\"\\u6211\\u662f\\u4e00\\u4e2a\\u59d3\\u540d\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\\u6211\\u662f\\u516c\\u53f8\\u540d\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"181210299999\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"66668888\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"447936059@qq.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_weibo\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u83b2\\u82b1\\u8def\\u83b2\\u82b1\\u7535\\u5546\\u4ea7\\u4e1a\\u56ed\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\uff0c\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=8boxhpxun', '8boxhpxun', '1509007519', '0', '-1');
-INSERT INTO `fw_cms_livecode` VALUES ('133', '5', '0', '3', '我是一个牛逼的名片', '{\"head\":\"\\/Uploads\\/livecode\\/file\\/2017-10-30\\/59f6ffda8f5cf.jpg\",\"face\":\"\\/Uploads\\/livecode\\/file\\/2017-10-30\\/59f6ffd15209a.jpg\",\"name\":\"\\u6211\\u662f\\u4e00\\u4e2a\\u725b\\u903c\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\\u6211\\u662f\\u516c\\u53f8\\u540d\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"181210299999\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"66668888\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"447936059@qq.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_weibo\",\"id\":\"\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\",\"id\":\"\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u83b2\\u82b1\\u8def\\u83b2\\u82b1\\u7535\\u5546\\u4ea7\\u4e1a\\u56ed111\\u53f7\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\uff0c\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b922222222222\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '14', 'http://www.livecode.com/index.php/huoma/live?d=mq7h0t2tb', 'mq7h0t2tb', '1509007743', '1509359581', '1');
+INSERT INTO `fw_cms_livecode` VALUES ('133', '5', '0', '3', '我是一个牛逼的名片', '{\"head\":\"\\/Uploads\\/livecode\\/file\\/2017-10-30\\/59f6ffda8f5cf.jpg\",\"face\":\"\\/Uploads\\/livecode\\/file\\/2017-10-30\\/59f6ffd15209a.jpg\",\"name\":\"\\u6211\\u662f\\u4e00\\u4e2a\\u725b\\u903c\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\\u6211\\u662f\\u516c\\u53f8\\u540d\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"181210299999\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"66668888\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"447936059@qq.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_weibo\",\"id\":\"\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\",\"id\":\"\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u83b2\\u82b1\\u8def\\u83b2\\u82b1\\u7535\\u5546\\u4ea7\\u4e1a\\u56ed111\\u53f7\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\uff0c\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b922222222222\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '147', 'http://www.livecode.com/index.php/huoma/live?d=mq7h0t2tb', 'mq7h0t2tb', '1509007743', '1509359581', '1');
 INSERT INTO `fw_cms_livecode` VALUES ('137', '3', '1506064362', '3', '2634.jpg', '{\"url\":\"2017-10-30\\/59f6f95cd10a1.jpg\",\"size\":\"439.437 KB\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=ktozl17dk', 'ktozl17dk', '1509358884', '1509358884', '0');
 
 -- ----------------------------
@@ -715,7 +724,7 @@ CREATE TABLE `fw_echarts_data` (
   `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1活码生成2产品3视频4网址5多网址',
   PRIMARY KEY (`id`),
   KEY `codeId` (`codeId`)
-) ENGINE=MyISAM AUTO_INCREMENT=366 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=499 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_echarts_data
@@ -1056,6 +1065,139 @@ INSERT INTO `fw_echarts_data` VALUES ('362', '10', '2017-11-01 00:00:00', '5');
 INSERT INTO `fw_echarts_data` VALUES ('363', '10', '2017-11-01 00:00:00', '5');
 INSERT INTO `fw_echarts_data` VALUES ('364', '10', '2017-11-01 00:00:00', '5');
 INSERT INTO `fw_echarts_data` VALUES ('365', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('366', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('367', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('368', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('369', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('370', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('371', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('372', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('373', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('374', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('375', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('376', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('377', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('378', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('379', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('380', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('381', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('382', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('383', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('384', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('385', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('386', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('387', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('388', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('389', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('390', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('391', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('392', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('393', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('394', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('395', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('396', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('397', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('398', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('399', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('400', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('401', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('402', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('403', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('404', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('405', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('406', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('407', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('408', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('409', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('410', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('411', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('412', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('413', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('414', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('415', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('416', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('417', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('418', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('419', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('420', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('421', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('422', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('423', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('424', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('425', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('426', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('427', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('428', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('429', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('430', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('431', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('432', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('433', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('434', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('435', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('436', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('437', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('438', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('439', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('440', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('441', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('442', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('443', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('444', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('445', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('446', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('447', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('448', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('449', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('450', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('451', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('452', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('453', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('454', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('455', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('456', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('457', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('458', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('459', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('460', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('461', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('462', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('463', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('464', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('465', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('466', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('467', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('468', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('469', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('470', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('471', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('472', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('473', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('474', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('475', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('476', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('477', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('478', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('479', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('480', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('481', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('482', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('483', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('484', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('485', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('486', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('487', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('488', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('489', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('490', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('491', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('492', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('493', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('494', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('495', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('496', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('497', '133', '2017-11-02 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('498', '133', '2017-11-02 00:00:00', '1');
 
 -- ----------------------------
 -- Table structure for `fw_orders`
@@ -1078,7 +1220,7 @@ CREATE TABLE `fw_orders` (
   PRIMARY KEY (`orderId`),
   KEY `userId` (`userId`),
   KEY `orderStatus` (`orderStatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_orders
@@ -1107,6 +1249,7 @@ INSERT INTO `fw_orders` VALUES ('70', '2017110115095069794428', '14', '1', '2', 
 INSERT INTO `fw_orders` VALUES ('71', '2017110115095070085491', '14', '1', '1', '1', '0', '2', '0.01', null, '1509507008', '1509507008', '1');
 INSERT INTO `fw_orders` VALUES ('72', '2017110115095075681027', '14', '-1', '2', '3', '1', '0', '8400.00', null, '1509507568', '0', '1');
 INSERT INTO `fw_orders` VALUES ('73', '2017110115095317154482', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509531715', '0', '1');
+INSERT INTO `fw_orders` VALUES ('74', '2017110215095987392145', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509598739', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_payments`

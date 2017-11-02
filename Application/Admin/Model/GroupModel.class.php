@@ -47,11 +47,13 @@ class GroupModel extends Model {
     public function checkMenuAuth() {
         $current_menu = D('Admin/Module')->getCurrentMenu(); // 当前菜单
         $user_group = D('Admin/Access')->getFieldByUid(session('user_auth.uid'), 'group');  // 获得当前登录用户信息
+
         if ($user_group !== '1') {
             $group_info = $this->find($user_group);
+
             // 获得当前登录用户所属部门的权限列表
             $group_auth = json_decode($group_info['menu_auth'], true);
-            if (in_array($current_menu['id'], $group_auth[MODULE_NAME])) {
+            if (in_array($current_menu['id'], $group_auth[0])) {
                 return true;
             }
         } else {

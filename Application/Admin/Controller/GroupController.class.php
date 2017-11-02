@@ -48,7 +48,6 @@ class GroupController extends AdminController {
                 ->setSearch('请输入ID/部门名称', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title_show', '标题')
-                ->addTableColumn('icon', '图标', 'icon')
                 ->addTableColumn('sort', '排序')
                 ->addTableColumn('status', '状态', 'status')
                 ->addTableColumn('right_button', '操作', 'btn')
@@ -72,6 +71,8 @@ class GroupController extends AdminController {
             $group_object = D('Group');
             $_POST['menu_auth']= json_encode(I('post.menu_auth'));
             $data = $group_object->create();
+            // h($data);
+            
             if ($data) {
                 $id = $group_object->add($data);
                 if ($id) {
@@ -87,17 +88,8 @@ class GroupController extends AdminController {
             $map['status'] = array('egt', 0);
             $all_group = select_list_as_tree('Group', $map, '顶级部门');
 
-            // 获取功能模块的后台菜单列表
-            $tree = new Tree();
-            $moule_list = D('Module')
-                        ->where(array('status' => 1))
-                        ->select();  // 获取所有安装并启用的功能模块
-            $all_module_menu_list = array();
-            foreach ($moule_list as $key => $val) {
-                $temp = json_decode($val['admin_menu'], true);
-                $menu_list_item = $tree->list_to_tree($temp);
-                $all_module_menu_list[$val['name']] = $menu_list_item[0];
-            }
+            $all_module_menu_list = D('Module')->getAdminMenu(1);
+            // h($all_module_menu_list);
 
             $this->assign('all_module_menu_list', $all_module_menu_list);
             $this->assign('all_group', $all_group);
@@ -133,20 +125,8 @@ class GroupController extends AdminController {
             $map['status'] = array('egt', 0);
             $all_group = select_list_as_tree('Group', $map, '顶级部门');
 
-            // 获取所有安装并启用的功能模块
-            $moule_list = D('Module')
-                        ->where(array('status' => 1))
-                        ->select();
-
-            // 获取功能模块的后台菜单列表
-            $tree = new Tree();
-            $all_module_menu_list = array();
-            foreach ($moule_list as $key => $val) {
-                $temp = json_decode($val['admin_menu'], true);
-                $menu_list_item = $tree->list_to_tree($temp);
-                $all_module_menu_list[$val['name']] = $menu_list_item[0];
-            }
-
+            $all_module_menu_list = D('Module')->getAdminMenu(1);
+            // h($info);
             $this->assign('info', $info);
             $this->assign('all_module_menu_list', $all_module_menu_list);
             $this->assign('all_group', $all_group);
