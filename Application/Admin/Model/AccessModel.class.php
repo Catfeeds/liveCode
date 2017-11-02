@@ -27,6 +27,7 @@ class AccessModel extends Model {
         array('uid', 'require', 'UID不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('group', 'require', '部门不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('uid', 'checkUser', '该用户不存在', self::MUST_VALIDATE, 'callback', self::MODEL_BOTH),
+        array('uid', 'checkUserIfVip', '该用户已购买套餐，请勿添加为管理员', self::MUST_VALIDATE, 'callback', self::MODEL_BOTH),
     );
 
     /**
@@ -47,6 +48,17 @@ class AccessModel extends Model {
     protected function checkUser($uid){
         $user_info = D('User')->find($uid);
         if($user_info){
+            return true;
+        }
+        return false;
+    }
+    /**
+     * 检查用户是否存在
+     * 
+     */
+    protected function checkUserIfVip($uid){
+        $user_info = D('User')->find($uid);
+        if($user_info['vipId'] == 0){
             return true;
         }
         return false;

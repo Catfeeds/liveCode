@@ -89,7 +89,7 @@ class HuomaController extends HomeController{
         foreach ($content as $key => $value) {
             $data[$key] = $value;
         }
-        $data['type'] = 2;
+        $data['type'] = 6;
         $this->assign('data',$data);
         $this->display('live_text');
     }
