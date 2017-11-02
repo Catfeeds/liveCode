@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2017-11-01 09:07:31
+Date: 2017-11-02 11:45:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,14 +28,15 @@ CREATE TABLE `fw_admin_access` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='后台管理员与用户组对应关系表';
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='后台管理员与用户组对应关系表';
 
 -- ----------------------------
 -- Records of fw_admin_access
 -- ----------------------------
-INSERT INTO `fw_admin_access` VALUES ('1', '1', '1', '1438651748', '1438651748', '0', '1');
-INSERT INTO `fw_admin_access` VALUES ('3', '2', '1', '1505118943', '1505119057', '0', '1');
-INSERT INTO `fw_admin_access` VALUES ('4', '13', '1', '1506048686', '1506048686', '0', '1');
+INSERT INTO `fw_admin_access` VALUES ('1', '1', '1', '1438651748', '1509588361', '0', '1');
+INSERT INTO `fw_admin_access` VALUES ('3', '2', '3', '1505118943', '1509588112', '0', '1');
+INSERT INTO `fw_admin_access` VALUES ('14', '22', '3', '1509591147', '1509591147', '0', '1');
+INSERT INTO `fw_admin_access` VALUES ('16', '23', '7', '1509592257', '1509594300', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_addon`
@@ -103,7 +104,7 @@ CREATE TABLE `fw_admin_config` (
   `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of fw_admin_config
@@ -124,16 +125,19 @@ INSERT INTO `fw_admin_config` VALUES ('15', '后台主题', 'ADMIN_THEME', 'blue
 INSERT INTO `fw_admin_config` VALUES ('16', '开发模式', 'DEVELOP_MODE', '1', '3', 'select', '1:开启\r\n0:关闭', '开发模式下会显示菜单管理、配置管理、数据字典等开发者工具', '1432393583', '1432393583', '1', '1');
 INSERT INTO `fw_admin_config` VALUES ('17', '是否显示页面Trace', 'SHOW_PAGE_TRACE', '0', '3', 'select', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '2', '1');
 INSERT INTO `fw_admin_config` VALUES ('19', 'URL模式', 'URL_MODEL', '3', '4', 'select', '0:普通模式\r\n1:PATHINFO模式\r\n2:REWRITE模式\r\n3:兼容模式', '', '1438423248', '1438423248', '1', '1');
-INSERT INTO `fw_admin_config` VALUES ('21', '配置分组', 'CONFIG_GROUP_LIST', '1:基本\r\n2:系统\r\n3:开发\r\n4:部署\r\n5:运营', '2', 'array', '', '配置分组', '1379228036', '1426930700', '5', '1');
+INSERT INTO `fw_admin_config` VALUES ('21', '配置分组', 'CONFIG_GROUP_LIST', '1:基本\r\n2:系统\r\n3:开发\r\n5:运营', '2', 'array', '', '配置分组', '1379228036', '1426930700', '5', '1');
 INSERT INTO `fw_admin_config` VALUES ('35', '邮箱服务器端口', 'EMAIL_PORT', '465', '5', 'text', '', '', '1508375440', '1508375440', '11', '1');
 INSERT INTO `fw_admin_config` VALUES ('36', '邮箱服务器帐号', 'EMAIL_ADDR', '447936059@qq.com', '5', 'text', '', '用于发送注册/忘记密码邮件验证', '1508375570', '1508375570', '12', '1');
 INSERT INTO `fw_admin_config` VALUES ('37', '邮箱服务器密码', 'EMAIL_PASS', 'nclesdomslbrbgce', '5', 'text', '', '', '1508375691', '1508375691', '13', '1');
 INSERT INTO `fw_admin_config` VALUES ('34', '邮箱服务器', 'EMAIL_HOST', 'smtp.qq.com', '5', 'text', '', '', '1508375330', '1508375330', '10', '1');
 INSERT INTO `fw_admin_config` VALUES ('38', '通用活码域名', 'DOMAIN_URL', 'www.livecode.com', '5', 'text', '', '用户未自定义域名的活码将解析到这个地址', '1508375938', '1508375938', '1', '1');
+INSERT INTO `fw_admin_config` VALUES ('43', '首页联系电话', 'KEFU_TEL', '111', '5', 'text', '', '', '1509530579', '1509530579', '16', '1');
 INSERT INTO `fw_admin_config` VALUES ('39', '找回密码邮件', 'UPDATEPASS_CONTENT', '亲,您正在进行爱活码密码找回操作，验证码为【{#验证码#}】。如非本人操作,可不用理会!', '5', 'textarea', '', '', '1509088008', '1509088128', '15', '1');
 INSERT INTO `fw_admin_config` VALUES ('40', '注册邮件', 'REGIST_CONTENT', '亲,您正在进行爱活码注册操作，验证码为【{#验证码#}】。如非本人操作,可不用理会!', '5', 'textarea', '', '', '1509088188', '1509088188', '14', '1');
 INSERT INTO `fw_admin_config` VALUES ('41', '用户端域名', 'USER_DOMAIN', 'www.livecode.com', '5', 'text', '', '', '1509342287', '1509342287', '2', '1');
 INSERT INTO `fw_admin_config` VALUES ('42', '管理员后台域名', 'ADMIN_DOMAIN', '2.livecode.com', '5', 'text', '', '', '1509342361', '1509342361', '3', '1');
+INSERT INTO `fw_admin_config` VALUES ('44', '首页联系邮箱', 'KEFU_EMAIL', '222', '5', 'text', '', '', '1509530656', '1509530656', '17', '1');
+INSERT INTO `fw_admin_config` VALUES ('45', '首页联系QQ', 'KEFU_QQ', '1072357480', '5', 'text', '', '', '1509530704', '1509530704', '18', '1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_group`
@@ -150,16 +154,15 @@ CREATE TABLE `fw_admin_group` (
   `sort` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序（同级有效）',
   `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='部门信息表';
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='部门信息表';
 
 -- ----------------------------
 -- Records of fw_admin_group
 -- ----------------------------
 INSERT INTO `fw_admin_group` VALUES ('1', '0', '超级管理员', '', '', '1426881003', '1427552428', '0', '1');
-INSERT INTO `fw_admin_group` VALUES ('3', '0', '网址跳转', '', '{\"Admin\":[\"59\",\"61\",\"63\",\"60\",\"62\",\"64\",\"65\",\"67\",\"66\"]}', '1496210172', '1505117600', '0', '1');
-INSERT INTO `fw_admin_group` VALUES ('4', '0', '多网址跳转', '', '{\"Admin\":[\"68\",\"69\",\"70\",\"71\",\"72\",\"73\",\"74\",\"75\"]}', '1496210208', '1505117571', '0', '1');
-INSERT INTO `fw_admin_group` VALUES ('5', '0', '活码管理', '', '{\"Admin\":[\"58\",\"59\",\"61\",\"63\",\"60\",\"62\",\"64\",\"65\",\"67\",\"66\",\"68\",\"69\",\"70\",\"71\",\"72\",\"73\",\"74\",\"75\"]}', '1496210230', '1496210240', '0', '1');
-INSERT INTO `fw_admin_group` VALUES ('6', '0', '发送发生的发生的发生的', 'fa-search', '{\"Admin\":[\"1\",\"58\",\"59\",\"61\",\"63\",\"60\",\"62\",\"64\",\"65\",\"67\",\"66\",\"68\",\"69\",\"70\",\"71\",\"72\",\"73\",\"74\",\"75\",\"2\",\"3\",\"4\",\"23\",\"24\",\"25\",\"26\",\"27\",\"28\",\"29\",\"30\",\"31\",\"32\",\"33\",\"34\",\"35\",\"36\",\"44\",\"45\",\"46\",\"47\",\"48\"]}', '1505117366', '1505117550', '1', '1');
+INSERT INTO `fw_admin_group` VALUES ('3', '0', '会员管理', '', '\"\"', '1496210172', '1509587828', '1', '1');
+INSERT INTO `fw_admin_group` VALUES ('7', '0', '支付管理', '', '\"\"', '1509588024', '1509588024', '4', '1');
+INSERT INTO `fw_admin_group` VALUES ('5', '0', '活码管理', '', '\"\"', '1496210230', '1509587874', '2', '1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_hook`
@@ -225,7 +228,7 @@ CREATE TABLE `fw_admin_menu` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `status` tinyint(3) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=153 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=160 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of fw_admin_menu
@@ -276,7 +279,7 @@ INSERT INTO `fw_admin_menu` VALUES ('62', '14', '0', '新增用户', '1', 'Admin
 INSERT INTO `fw_admin_menu` VALUES ('63', '14', '0', '编辑用户', '1', 'Admin/User/edit', '', '0', '1505899659', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('64', '53', '0', '新增汇款账号', '1', 'Admin/Payconf/add', '', '0', '1505959361', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('65', '53', '0', '编辑汇款账号', '1', 'Admin/Payconf/edit', '', '0', '1505959443', '-1');
-INSERT INTO `fw_admin_menu` VALUES ('66', '14', '0', '续费', '1', 'Admin/User/fee', '', '0', '1505976986', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('66', '14', '0', '选择套餐', '1', 'Admin/User/fee', '', '0', '1505976986', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('67', '11', '3', '第二个', '2', 'Admin/Livecode/child/type/1506064330', '', '0', '1506064330', '1');
 INSERT INTO `fw_admin_menu` VALUES ('68', '67', '3', '新增活码', '2', 'Admin/Livecode/add/type/1506064330', '', '0', '1506064330', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('69', '67', '3', '下载二维码', '2', 'Admin/Livecode/xzewm/type/1506064330', '', '0', '1506064330', '-1');
@@ -351,6 +354,12 @@ INSERT INTO `fw_admin_menu` VALUES ('149', '145', '3', '批量修改跳转地址
 INSERT INTO `fw_admin_menu` VALUES ('150', '145', '3', '编辑', '2', 'Admin/Duourl/edit/type/1509082742', '', '0', '1509082742', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('151', '145', '3', '查看数据统计', '2', 'Admin/Duourl/view/type/1509082742', '', '0', '1509082742', '-1');
 INSERT INTO `fw_admin_menu` VALUES ('152', '6', '0', '活码管理', '1', 'Admin/Checkcode/index', 'fa fa-th', '0', '1505210035', '1');
+INSERT INTO `fw_admin_menu` VALUES ('153', '6', '0', '管理员管理', '1', 'Admin/Access/index', 'fa fa-lock', '0', '1509586641', '1');
+INSERT INTO `fw_admin_menu` VALUES ('154', '6', '0', '用户组管理', '1', 'Admin/Group/index', 'fa fa-sitemap', '0', '1509586895', '1');
+INSERT INTO `fw_admin_menu` VALUES ('156', '154', '0', '新增', '1', 'Admin/Group/add', '', '0', '1509587609', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('157', '154', '0', '编辑', '1', 'Admin/Group/edit', '', '0', '1509587646', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('158', '153', '0', '编辑', '1', 'Admin/Access/edit', '', '0', '1509587706', '-1');
+INSERT INTO `fw_admin_menu` VALUES ('159', '153', '0', '新增', '1', 'Admin/Access/add', '', '0', '1509587748', '-1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_module`
@@ -498,22 +507,27 @@ CREATE TABLE `fw_admin_user` (
   `ifCheck` tinyint(4) NOT NULL DEFAULT '1' COMMENT '新增活码时是否需要审核',
   `url` varchar(255) NOT NULL,
   `url_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0域名待审核，1审核通过',
+  `limitCount` int(11) NOT NULL DEFAULT '0' COMMENT '活码限制访问次数，默认0不限制',
+  `visitCount` int(11) NOT NULL DEFAULT '0' COMMENT '活码已访问次数',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='用户账号表';
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='用户账号表';
 
 -- ----------------------------
 -- Records of fw_admin_user
 -- ----------------------------
-INSERT INTO `fw_admin_user` VALUES ('1', '1', 'admin', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', '0', '', '1438651748', '1501578198', '1', '0', '0', '1', '', '0');
-INSERT INTO `fw_admin_user` VALUES ('2', '1', 'admin2', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', '0', 'admin', '1496210259', '1505898727', '1', '0', '0', '1', '', '0');
-INSERT INTO `fw_admin_user` VALUES ('3', '2', '哈哈哈', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@163.com', '18121029523', '2130706433', 'admin', '1505117796', '1501898740', '1', '1', '1537607827', '1', '1', '1');
-INSERT INTO `fw_admin_user` VALUES ('13', '2', '我师父', 'b7aebc807e9844d9148e5cb32c6ff885', '发的发的发', 'fasdfsdf', '0', '', '0', '1505812506', '0', '0', '0', '1', '', '0');
-INSERT INTO `fw_admin_user` VALUES ('14', '2', '哈哈哈小号', 'b7aebc807e9844d9148e5cb32c6ff885', '447936059@qq.com', '13333333333', '0', '', '1505548436', '0', '0', '2', '1537607827', '-1', 'www.livecode21.com', '1');
-INSERT INTO `fw_admin_user` VALUES ('15', '2', '15555555555', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@qq.com', '15555555555', '0', '', '1508201855', '1508384205', '1', '0', '0', '1', 'www.51kiwi.cn111', '-1');
-INSERT INTO `fw_admin_user` VALUES ('17', '2', 'admin111', '309f9d036cf5de9f735225753d64c06d', '', '', '2130706433', 'admin', '1508899697', '1508899697', '1', '0', '0', '1', '', '0');
-INSERT INTO `fw_admin_user` VALUES ('18', '2', '嘿嘿嘿', 'b7aebc807e9844d9148e5cb32c6ff885', '', '11111111111', '2130706433', 'admin', '1508899926', '1509344998', '1', '0', '0', '1', '', '0');
-INSERT INTO `fw_admin_user` VALUES ('19', '2', '新增用户', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@1631.com', '18121029511', '2130706433', 'admin', '1509348543', '1509348823', '1', '0', '0', '1', '', '0');
+INSERT INTO `fw_admin_user` VALUES ('1', '1', 'admin', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', '0', '', '1438651748', '1501578198', '1', '0', '0', '1', '', '0', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('2', '1', 'admin2', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', '0', 'admin', '1496210259', '1505898727', '1', '0', '0', '1', '', '0', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('3', '2', '哈哈哈', 'b7aebc807e9844d9148e5cb32c6ff885', '11111@163.com', '18121029523', '2130706433', 'admin', '1505117796', '1501898740', '1', '3', '1572573977', '1', '1211', '0', '30', '30');
+INSERT INTO `fw_admin_user` VALUES ('13', '2', '随便来个', 'b7aebc807e9844d9148e5cb32c6ff885', '发的发的发', 'fasdfsdf', '0', '', '0', '1505812506', '1', '0', '0', '1', '', '0', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('14', '2', '哈哈哈小号', 'b7aebc807e9844d9148e5cb32c6ff885', '111@qq.com', '13333333333', '0', '', '1505548436', '0', '1', '2', '1604115396', '-1', 'www.livecode21.com', '1', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('15', '2', '15555555555', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@qq.com', '15555555555', '0', '', '1508201855', '1508384205', '1', '0', '0', '1', 'www.51kiwi.cn111', '-1', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('17', '2', 'admin111', '309f9d036cf5de9f735225753d64c06d', '', '', '2130706433', 'admin', '1508899697', '1508899697', '1', '0', '0', '1', '', '0', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('18', '2', '嘿嘿嘿', 'b7aebc807e9844d9148e5cb32c6ff885', '', '11111111111', '2130706433', 'admin', '1508899926', '1509344998', '0', '0', '0', '1', '', '0', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('19', '2', '新增用户', 'b7aebc807e9844d9148e5cb32c6ff885', '222@1631.com', '18121029511', '2130706433', 'admin', '1509348543', '1509348823', '1', '0', '0', '1', '', '0', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('21', '2', '看一看', 'b7aebc807e9844d9148e5cb32c6ff885', '111@163.com', '18888888888', '2130706433', 'admin', '1509587181', '1509593285', '1', '0', '0', '1', '', '0', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('22', '1', 'newAdmin', 'b7aebc807e9844d9148e5cb32c6ff885', '13311112222@qq.com', '13311112222', '2130706433', 'admin', '1509588748', '1509588748', '1', '0', '0', '1', '', '0', '0', '0');
+INSERT INTO `fw_admin_user` VALUES ('23', '1', 'newAdmin2', 'bf24dcaa99b03559a8a148b8018a3f0b', '13311113333@qq.com', '13311113333', '2130706433', 'admin', '1509592241', '1509592241', '1', '0', '0', '1', '', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for `fw_cms_duourl`
@@ -542,7 +556,7 @@ CREATE TABLE `fw_cms_duourl` (
 -- Records of fw_cms_duourl
 -- ----------------------------
 INSERT INTO `fw_cms_duourl` VALUES ('11', '2', '0', '3', '看一看瞧一瞧', 'https://daily.zhihu.com/|||http://english.ctrip.com/?allianceid=16875&sid=441318&ouid=000401app-2WJZ1LNoM0ZmVlw&utm_medium=&utm_campaign=&utm_source=&isctrip=', null, '1506565137', '1506565137', '/index.php/huoma/duo?d=wbq0io6qa', 'wbq0io6qa', '1', '1', '1');
-INSERT INTO `fw_cms_duourl` VALUES ('10', '2', '0', '3', '妈的再来个', 'http://www.qq.com/|||http://www.taobao.com/', null, '1506405851', '1509410980', '/index.php/huoma/duo?d=b9tpf8dzv', 'b9tpf8dzv', '1', '2', '0');
+INSERT INTO `fw_cms_duourl` VALUES ('10', '2', '0', '3', '妈的再来个', 'http://www.qq.com/|||http://www.taobao.com/', null, '1506405851', '1509410980', 'http://www.livecode.com//index.php/huoma/duo?d=b9tpf8dzv', 'b9tpf8dzv', '1', '13', '1');
 INSERT INTO `fw_cms_duourl` VALUES ('15', '2', '0', '14', '141414', '', null, '1508482186', '1508482186', '/index.php/huoma/duo?d=r4194d1u2', 'r4194d1u2', '1', '0', '0');
 INSERT INTO `fw_cms_duourl` VALUES ('17', '2', '0', '3', '111', '', null, '1509083071', '1509083071', 'http://www.livecode.com/index.php/huoma/duo?d=xig2cxewv', 'xig2cxewv', '1', '0', '0');
 INSERT INTO `fw_cms_duourl` VALUES ('19', '2', '0', '3', '22222', '辅导辅导', null, '1509083335', '1509084121', 'http://www.livecode.com/index.php/huoma/duo?d=ht6ayuchz', 'ht6ayuchz', '1', '0', '1');
@@ -567,7 +581,7 @@ CREATE TABLE `fw_cms_livecode` (
   `status` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=138 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=144 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_cms_livecode
@@ -576,7 +590,7 @@ INSERT INTO `fw_cms_livecode` VALUES ('65', '1', '1505457893', '3', '发生的�
 INSERT INTO `fw_cms_livecode` VALUES ('66', '1', '0', '3', '来个图文的标题', '{\"picUrl\":\"2017-10-17\\/59e591caa56c4.jpg\",\"content\":\"<p>\\n\\t\\u53d1\\u751f\\u7684\\u8303\\u5fb7\\u8428\\u6cd5\\u6492\\u65e6\\u6cd5\\n<\\/p>\\n<p>\\n\\t<img src=\\\"\\/Uploads\\/2017-09\\/59cca7adcc047.jpg\\\" alt=\\\"\\\" \\/>\\n<\\/p>\\n<p>\\n\\t<strong><span style=\\\"font-size:24px;\\\">\\u6cd5\\u6492\\u65e6\\u6cd5\\u8bf4\\u7684<\\/span><\\/strong>\\n<\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=cst8fnmr5', 'cst8fnmr5', '1508217329', '1508217329', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('63', '1', '0', '3', '我是图文', '', '0', 'http://www.livecode.com/index.php/huoma/live?d=cox4aiyw7', 'cox4aiyw7', '1508209959', '1508209959', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('68', '1', '0', '3', '标题111范德萨发的', '{\"picUrl\":\"2017-10-17\\/59e598a774a82.jpg\",\"content\":\"<p>\\n\\t<span style=\\\"font-size:32px;\\\">12\\u997f\\u6cd5\\u6492\\u65e6\\u6cd51<\\/span>\\n<\\/p>\\n<p>\\n\\t<span style=\\\"font-size:32px;color:#9933E5;\\\">\\u5149\\u7535\\u80a1\\u4efd\\u80a1\\u4efd<\\/span>\\n<\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=5a8pkwk0a', '5a8pkwk0a', '1508221770', '1508221770', '0');
-INSERT INTO `fw_cms_livecode` VALUES ('44', '4', '0', '3', '百度111111', 'https://www.baidu.com/?tn=59046333_1_dg', '7', 'http://www.livecode.com/index.php/huoma/live?d=svsdtm5mu', 'svsdtm5mu', '1508223238', '1508223238', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('44', '4', '0', '3', '百度111111', 'https://www.baidu.com/?tn=59046333_1_dg', '7', 'http://www.livecode.com/index.php/huoma/live?d=svsdtm5mu', 'svsdtm5mu', '1509522688', '1509522688', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('43', '2', '1505457893', '3', '牛不舒服', '发大发顺丰是的范德萨', '44', 'http://www.livecode.com/index.php/huoma/live?d=wjplf0ssg', 'wjplf0ssg', '1506755264', '1506755264', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('51', '3', '0', '3', '2937.jpg', '{\"url\":\"2017-10-10\\/59dc8f73a31f0.jpg\",\"size\":\"497.006 KB\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=hudhj5cvq', 'hudhj5cvq', '1507626870', '1507626870', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('49', '3', '0', '3', 'ThinkPHP 5 简明开发手册.pdf', '{\"url\":\"2017-10-10\\/59dc70fc8eec1.pdf\",\"size\":\"1.422 MB\"}', '62', 'http://www.livecode.com/index.php/huoma/live?d=8yd9st9tp', '8yd9st9tp', '1507619069', '1507619069', '0');
@@ -587,23 +601,28 @@ INSERT INTO `fw_cms_livecode` VALUES ('58', '2', '0', '3', '1212', '132222222222
 INSERT INTO `fw_cms_livecode` VALUES ('67', '1', '0', '3', '1', '{\"picUrl\":\"2017-10-17\\/59e598a774a82.jpg\",\"content\":\"2\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=efb3ewh48', 'efb3ewh48', '1508219048', '1508219048', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('64', '1', '0', '3', '我是图文', '', '0', 'http://www.livecode.com/index.php/huoma/live?d=nxvims21v', 'nxvims21v', '1508210019', '1508210019', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('69', '3', '0', '3', 'ThinkPHP 5 简明开发手册.pdf', '{\"url\":\"2017-10-17\\/59e5a77488fe7.pdf\",\"size\":\"1.422 MB\"}', '1', 'http://www.livecode.com/index.php/huoma/live?d=yargjq16f', 'yargjq16f', '1508222839', '1508222839', '0');
-INSERT INTO `fw_cms_livecode` VALUES ('70', '1', '0', '3', '发送法撒旦法', '{\"picUrl\":\"2017-10-18\\/59e6f5216e098.jpg\",\"content\":\"<span style=\\\"background-color:#E53333;\\\">\\u7c89\\u8272\\u53d1\\u591a\\u5c11<\\/span>\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=3k0pgg7ql', '3k0pgg7ql', '1508308632', '1508308632', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('70', '1', '0', '3', '发送法撒旦法', '{\"picUrl\":\"2017-10-18\\/59e6f5216e098.jpg\",\"content\":\"<span style=\\\"background-color:#E53333;\\\">\\u7c89\\u8272\\u53d1\\u591a\\u5c11<\\/span>\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=3k0pgg7ql', '3k0pgg7ql', '1508308632', '1508308632', '1');
 INSERT INTO `fw_cms_livecode` VALUES ('71', '1', '0', '3', '发送法撒旦法', '{\"picUrl\":\"2017-10-18\\/59e6f5216e098.jpg\",\"content\":\"<span style=\\\"background-color:#E53333;\\\">\\u7c89\\u8272\\u53d1\\u591a\\u5c11<\\/span>\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=b7snvvczt', 'b7snvvczt', '1508308617', '1508308617', '-1');
 INSERT INTO `fw_cms_livecode` VALUES ('72', '1', '0', '3', '1111', '{\"picUrl\":\"2017-10-18\\/59e6f6a179a99.jpg\",\"content\":\"2\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=5ajqhxpkc', '5ajqhxpkc', '1509359385', '1509359385', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('73', '1', '0', '3', '121', '{\"picUrl\":\"2017-10-18\\/59e6f6ba926e9.jpg\",\"content\":\"22\"}', '8', 'http://www.livecode.com/index.php/huoma/live?d=ddcuw53uk', 'ddcuw53uk', '1509359131', '1509359131', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('74', '2', '0', '3', 'fds ', 'fdfddd', '0', 'http://www.livecode.com/index.php/huoma/live?d=tx1ta9xv3', 'tx1ta9xv3', '1508311983', '1508311983', '1');
-INSERT INTO `fw_cms_livecode` VALUES ('78', '2', '0', '3', '3', '4', '0', 'http://www.livecode.com/index.php/huoma/live?d=d6c6wcfxy', 'd6c6wcfxy', '1508314038', '1508314038', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('78', '2', '0', '3', '31', '4', '0', 'http://www.livecode.com/index.php/huoma/live?d=d6c6wcfxy', 'd6c6wcfxy', '1509522526', '1509522526', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('79', '3', '0', '3', '1.txt', '{\"url\":\"2017-10-19\\/59e837f2219fa.txt\",\"size\":\"16 bytes\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=f0p1e4pnj', 'f0p1e4pnj', '1508466494', '1508466494', '1');
 INSERT INTO `fw_cms_livecode` VALUES ('81', '3', '1505457893', '3', '2937.jpg', '{\"url\":\"2017-10-20\\/59e961862107e.jpg\",\"size\":\"497.006 KB\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=lpme2pjlz', 'lpme2pjlz', '1508467079', '1508467079', '1');
-INSERT INTO `fw_cms_livecode` VALUES ('85', '2', '1505457893', '3', '2', '3', '0', 'http://huoma.edeyun.cn/index.php/huoma/live?d=4ypf2xx0i', '4ypf2xx0i', '1509358722', '1509358722', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('138', '1', '0', '3', '123', '{\"picUrl\":\"2017-11-01\\/59f97e6fee53f.jpg\",\"content\":\"123\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=cnho1ef02', 'cnho1ef02', '1509523082', '1509523082', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('106', '3', '0', '3', 'infinityWallpaper.jpg', '{\"url\":\"2017-10-25\\/59efee9d10c62.jpg\",\"size\":\"270.241 KB\"}', '0', 'http://huoma.edeyun.cn/index.php/huoma/live?d=qo5rn4m8t', 'qo5rn4m8t', '1508896413', '1508896413', '1');
 INSERT INTO `fw_cms_livecode` VALUES ('126', '5', '0', '3', '哈哈哈哈的名片', '{\"head\":\"\\/Uploads\\/livecode\\/file\\/2017-10-26\\/59f17aed28382.jpg\",\"face\":\"\\/Uploads\\/livecode\\/file\\/2017-10-26\\/59f17adf83482.jpg\",\"name\":\"\\u54c8\\u54c8\\u54c8\\u54c8\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\",\"branch\":[{\"ch\":\"\\u90e8\\u95e80\",\"val\":\"222\",\"class\":\"vcard_data_value ebumen1\"},{\"ch\":\"\\u90e8\\u95e81\",\"val\":\"3\",\"class\":\"vcard_data_value ebumen2\"}],\"layoutbg\":\"0\",\"left_phone\":{\"0\":{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},\"1\":{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"13333333333\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[{\"ch\":\"\\u5bb6\\u5ead\\u7535\\u8bdd0\",\"val\":\"1555555555\",\"class\":\"vcard_data_value mobile0\",\"data-class\":\"mobile0\"}]},\"3\":{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"\\u6211\\u662f\\u4f20\\u771f\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[{\"ch\":\"\\u4f20\\u771f2\\u53f7\",\"val\":\"\\u6211\\u662f\\u4f20\\u771f2\",\"class\":\"vcard_data_value fax0\",\"data-class\":\"fax0\"}]},\"5\":{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"newbie91521@163.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}},\"left_internet\":{\"0\":{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[{\"ch\":\"\\u5fae\\u4fe12\\u53f7\",\"val\":\"\\u5fae\\u4fe12\\u53f7111\",\"class\":\"vcard_data_value wechat0\",\"data-class\":\"wechat0\"}]},\"2\":{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},\"3\":{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"\\u6211\\u7684\\u5fae\\u535a\",\"class\":\"vcard_data_value vcard_data_weibo\",\"id\":\"\"},\"4\":{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\",\"id\":\"\"}},\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"1111\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[{\"ch\":\"\\u5730\\u5740222\",\"val\":\"3333\",\"class\":\"vcard_data_value eeeaddress0\",\"data-class\":\"eeeaddress0\"}]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u6211\\u662f\\u4e2a\\u4eba\\u8bf4\\u660e\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '2', 'http://www.livecode.com/index.php/huoma/live?d=4ojqp9apy', '4ojqp9apy', '1508996486', '1508998000', '1');
 INSERT INTO `fw_cms_livecode` VALUES ('128', '5', '1505457893', '3', '子目录名片的名片', '{\"head\":\"\\/Public\\/images\\/vcardbg10.jpg\",\"face\":\"\\/Public\\/images\\/default_face_new.png\",\"name\":\"\\u5b50\\u76ee\\u5f55\\u540d\\u7247\",\"appointment\":\"\\u804c\\u4f4d\",\"company\":\"\\u516c\\u53f8\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"\",\"class\":\"vcard_data_value vcard_data_weibo\",\"id\":\"\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"\",\"class\":\"vcard_data_value vcard_data_qq\",\"id\":\"\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=kasmjnwbs', 'kasmjnwbs', '1508998248', '1508998270', '-1');
-INSERT INTO `fw_cms_livecode` VALUES ('136', '2', '0', '3', '333', '444', '0', 'http://www.livecode.com/index.php/huoma/live?d=ptvmkd6mv', 'ptvmkd6mv', '1509359463', '1509359463', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('136', '2', '0', '3', '333', '4441', '0', 'http://www.livecode.com/index.php/huoma/live?d=ptvmkd6mv', 'ptvmkd6mv', '1509522714', '1509522714', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('139', '4', '0', '3', '1', '', '0', 'http://www.livecode.com/index.php/huoma/live?d=hsieznb4q', 'hsieznb4q', '1509523226', '1509523226', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('140', '4', '0', '3', '1', '', '0', 'http://www.livecode.com/index.php/huoma/live?d=5c4p9233d', '5c4p9233d', '1509523241', '1509523241', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('141', '3', '0', '3', '3418.jpg', '{\"url\":\"2017-11-01\\/59f98cf258a7e.jpg\",\"size\":\"491.457 KB\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=xig2d6x9v', 'xig2d6x9v', '1509526771', '1509526771', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('142', '4', '0', '3', '全新跳转1', '[{\"desc\":\"\\u817e\\u8baf1\",\"link\":\"http:\\/\\/www.qq.com\\/\"},{\"desc\":\"\\u6dd8\\u5b9d2\",\"link\":\"https:\\/\\/www.taobao.com\\/\"},{\"desc\":\"\\u4eac\\u4e1c3\",\"link\":\"https:\\/\\/www.jd.com\\/\"},{\"desc\":\"\\u5c0f\\u7c734\",\"link\":\"https:\\/\\/www.mi.com\\/\"}]', '0', 'http://www.livecode.com/index.php/huoma/live?d=463x1vskq', '463x1vskq', '1509585376', '1509585376', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('143', '4', '1506064330', '3', '子目录网址', '[{\"desc\":\"\\u9524\\u5b50\",\"link\":\"http:\\/\\/www.smartisan.com\\/#\\/\"},{\"desc\":\"\\u7231\\u6d3b\\u7801\",\"link\":\"http:\\/\\/huoma.edeyun.cn\"},{\"desc\":\"1\",\"link\":\"2\"}]', '0', 'http://www.livecode.com/index.php/huoma/live?d=ndyv3vj3w', 'ndyv3vj3w', '1509585364', '1509585364', '0');
 INSERT INTO `fw_cms_livecode` VALUES ('130', '5', '0', '3', '我是一个姓名的名片', '{\"head\":\"\\/Public\\/images\\/vcardbg10.jpg\",\"face\":\"\\/Public\\/images\\/default_face_new.png\",\"name\":\"\\u6211\\u662f\\u4e00\\u4e2a\\u59d3\\u540d\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\\u6211\\u662f\\u516c\\u53f8\\u540d\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"181210299999\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"66668888\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"447936059@qq.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_weibo\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u83b2\\u82b1\\u8def\\u83b2\\u82b1\\u7535\\u5546\\u4ea7\\u4e1a\\u56ed\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\uff0c\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=hs6xizher', 'hs6xizher', '1509007075', '0', '1');
 INSERT INTO `fw_cms_livecode` VALUES ('131', '5', '0', '3', '我是一个姓名的名片', '{\"head\":\"\\/Public\\/images\\/vcardbg10.jpg\",\"face\":\"\\/Public\\/images\\/default_face_new.png\",\"name\":\"\\u6211\\u662f\\u4e00\\u4e2a\\u59d3\\u540d\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\\u6211\\u662f\\u516c\\u53f8\\u540d\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"181210299999\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"66668888\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"447936059@qq.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_weibo\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u83b2\\u82b1\\u8def\\u83b2\\u82b1\\u7535\\u5546\\u4ea7\\u4e1a\\u56ed\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\uff0c\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=ur2rm4xyi', 'ur2rm4xyi', '1509007082', '0', '1');
 INSERT INTO `fw_cms_livecode` VALUES ('132', '5', '0', '3', '我是一个姓名的名片', '{\"head\":\"\\/Public\\/images\\/vcardbg10.jpg\",\"face\":\"\\/Public\\/images\\/default_face_new.png\",\"name\":\"\\u6211\\u662f\\u4e00\\u4e2a\\u59d3\\u540d\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\\u6211\\u662f\\u516c\\u53f8\\u540d\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"181210299999\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"66668888\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"447936059@qq.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_weibo\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u83b2\\u82b1\\u8def\\u83b2\\u82b1\\u7535\\u5546\\u4ea7\\u4e1a\\u56ed\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\uff0c\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=8boxhpxun', '8boxhpxun', '1509007519', '0', '-1');
-INSERT INTO `fw_cms_livecode` VALUES ('133', '5', '0', '3', '我是一个牛逼的名片', '{\"head\":\"\\/Uploads\\/livecode\\/file\\/2017-10-30\\/59f6ffda8f5cf.jpg\",\"face\":\"\\/Uploads\\/livecode\\/file\\/2017-10-30\\/59f6ffd15209a.jpg\",\"name\":\"\\u6211\\u662f\\u4e00\\u4e2a\\u725b\\u903c\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\\u6211\\u662f\\u516c\\u53f8\\u540d\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"181210299999\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"66668888\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"447936059@qq.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_weibo\",\"id\":\"\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\",\"id\":\"\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u83b2\\u82b1\\u8def\\u83b2\\u82b1\\u7535\\u5546\\u4ea7\\u4e1a\\u56ed111\\u53f7\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\uff0c\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b922222222222\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '3', 'http://www.livecode.com/index.php/huoma/live?d=mq7h0t2tb', 'mq7h0t2tb', '1509007743', '1509359581', '1');
+INSERT INTO `fw_cms_livecode` VALUES ('133', '5', '0', '3', '我是一个牛逼的名片', '{\"head\":\"\\/Uploads\\/livecode\\/file\\/2017-10-30\\/59f6ffda8f5cf.jpg\",\"face\":\"\\/Uploads\\/livecode\\/file\\/2017-10-30\\/59f6ffd15209a.jpg\",\"name\":\"\\u6211\\u662f\\u4e00\\u4e2a\\u725b\\u903c\",\"appointment\":\"\\u6211\\u662f\\u804c\\u4f4d\",\"company\":\"\\u6211\\u662f\\u516c\\u53f8\\u540d\",\"layoutbg\":\"0\",\"left_phone\":[{\"ch\":\"\\u56fa\\u5b9a\\u7535\\u8bdd\",\"en\":\"Telephone\",\"val\":\"0566-8222222\",\"class\":\"vcard_data_value vcard_data_phone\",\"id\":\"\"},{\"ch\":\"\\u79fb\\u52a8\\u7535\\u8bdd\",\"en\":\"Mobile\",\"val\":\"181210299999\",\"class\":\"vcard_data_value vcard_data_mobile\",\"id\":\"left_addable_phone\",\"child\":[]},{\"ch\":\"\\u4f20\\u771f\",\"en\":\"Fax\",\"val\":\"66668888\",\"class\":\"vcard_data_value vcard_data_fax\",\"id\":\"left_addable_fax\",\"child\":[]},{\"ch\":\"\\u7535\\u5b50\\u90ae\\u4ef6\",\"en\":\"Email\",\"val\":\"447936059@qq.com\",\"class\":\"vcard_data_value vcard_data_email\",\"id\":\"left_addable_email\",\"child\":[]}],\"left_internet\":[{\"ch\":\"\\u5fae\\u4fe1\",\"en\":\"Wechat\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_wechat\",\"id\":\"left_addable_message\",\"child\":[]},{\"ch\":\"\\u4e3b\\u9875\\u7f51\\u5740\",\"en\":\"Website\",\"val\":\"www.51kiwi.cn\",\"class\":\"vcard_data_value vcard_data_site\",\"id\":\"left_addable_site\",\"child\":[]},{\"ch\":\"\\u5fae\\u535a\",\"en\":\"Weibo\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_weibo\",\"id\":\"\"},{\"ch\":\"QQ\",\"en\":\"QQ\",\"val\":\"447936059\",\"class\":\"vcard_data_value vcard_data_qq\",\"id\":\"\"}],\"left_address\":[{\"ch\":\"\\u5730\\u5740\",\"en\":\"Address\",\"val\":\"\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u83b2\\u82b1\\u8def\\u83b2\\u82b1\\u7535\\u5546\\u4ea7\\u4e1a\\u56ed111\\u53f7\",\"class\":\"vcard_data_value vcard_data_address vcard-mapaddr\",\"id\":\"left_addable_address\",\"child\":[]}],\"left_intro\":[{\"ch\":\"\\u4e2a\\u4eba\\u8bf4\\u660e\",\"en\":\"Self-intro\",\"val\":\"\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\uff0c\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b9\\u4e2a\\u4eba\\u8bf4\\u660e\\u968f\\u4fbf\\u6765\\u70b922222222222\",\"class\":\"vcard_data_value vcard_data_introduce\"}],\"lang\":\"cn\"}', '14', 'http://www.livecode.com/index.php/huoma/live?d=mq7h0t2tb', 'mq7h0t2tb', '1509007743', '1509359581', '1');
 INSERT INTO `fw_cms_livecode` VALUES ('137', '3', '1506064362', '3', '2634.jpg', '{\"url\":\"2017-10-30\\/59f6f95cd10a1.jpg\",\"size\":\"439.437 KB\"}', '0', 'http://www.livecode.com/index.php/huoma/live?d=ktozl17dk', 'ktozl17dk', '1509358884', '1509358884', '0');
 
 -- ----------------------------
@@ -635,9 +654,9 @@ CREATE TABLE `fw_cms_phone` (
 INSERT INTO `fw_cms_phone` VALUES ('47', '2', '0', '3', '一个视频h', 'Uploads/video/music1.mp4', '1508910658', '1508910658', 'http://huoma.edeyun.cn/index.php/huoma/?d=fj75r03sy', 'fj75r03sy', '1', '0', '1');
 INSERT INTO `fw_cms_phone` VALUES ('46', '1', '0', '3', '腾讯', 'http://www.qq.com/', '1508722555', '1508722555', 'http://huoma.edeyun.cn/index.php/huoma/?d=auyihowhn', 'auyihowhn', '1', '0', '1');
 INSERT INTO `fw_cms_phone` VALUES ('45', '2', '0', '3', '33331', 'Uploads/video/infinityWallpaper.jpg', '1508722462', '1508722462', 'http://huoma.edeyun.cn/index.php/huoma/?d=u9gce82la', 'u9gce82la', '1', '0', '0');
-INSERT INTO `fw_cms_phone` VALUES ('42', '1', '0', '14', '1', '1', '1508485696', '1509350529', 'http://www.livecode21.com/index.php/huoma/?d=hnqlp33nk', 'hnqlp33nk', '1', '0', '0');
+INSERT INTO `fw_cms_phone` VALUES ('42', '1', '0', '14', '1', '1', '1508485696', '1509350529', 'http://www.livecode21.com/index.php/huoma/?d=hnqlp33nk', 'hnqlp33nk', '1', '0', '1');
 INSERT INTO `fw_cms_phone` VALUES ('40', '2', '0', '14', '牛逼1', 'http://www.niubi.com', '1508484566', '1508900581', 'http://www.livecode.com/index.php/huoma/?d=v7rnj961i', 'v7rnj961i', '1', '1', '0');
-INSERT INTO `fw_cms_phone` VALUES ('41', '1', '0', '14', '111', '2', '1508484631', '1509341900', 'http://huoma.edeyun.cn/index.php/huoma/?d=mj4ibtqfr', 'mj4ibtqfr', '1', '0', '0');
+INSERT INTO `fw_cms_phone` VALUES ('41', '1', '0', '14', '111', '2', '1508484631', '1509341900', 'http://huoma.edeyun.cn/index.php/huoma/?d=mj4ibtqfr', 'mj4ibtqfr', '1', '0', '1');
 INSERT INTO `fw_cms_phone` VALUES ('43', '1', '0', '3', '1', '2', '1508721257', '1508721257', 'http://huoma.edeyun.cn/index.php/huoma/?d=mocuzdppl', 'mocuzdppl', '1', '0', '1');
 INSERT INTO `fw_cms_phone` VALUES ('44', '2', '0', '3', '11', 'Uploads/video/music1.mp4', '1508722420', '1508722420', 'http://huoma.edeyun.cn/index.php/huoma/?d=byj3d0xys', 'byj3d0xys', '1', '0', '1');
 INSERT INTO `fw_cms_phone` VALUES ('50', '2', '1509071017', '3', 'music1的MP4', 'Uploads/video/music1.mp4', '1509071029', '1509071029', 'http://www.livecode.com/index.php/huoma/?d=447guuwmt', '447guuwmt', '1', '0', '1');
@@ -646,8 +665,8 @@ INSERT INTO `fw_cms_phone` VALUES ('53', '2', '1509071017', '3', '看看12', 'Up
 INSERT INTO `fw_cms_phone` VALUES ('72', '1', '1509076466', '3', '1222', '2', '1509081632', '1509082152', 'http://www.livecode.com/index.php/huoma/?d=gvy1kh3xc', 'gvy1kh3xc', '1', '0', '1');
 INSERT INTO `fw_cms_phone` VALUES ('73', '1', '0', '3', '333', '322', '1509081641', '1509082162', 'http://www.livecode.com/index.php/huoma/?d=oswaxxjjd', 'oswaxxjjd', '1', '0', '1');
 INSERT INTO `fw_cms_phone` VALUES ('71', '1', '1509076466', '3', '163', 'http://www.163.com/', '1509081546', '1509081546', 'http://www.livecode.com/index.php/huoma/?d=v3vjehgi2', 'v3vjehgi2', '1', '0', '1');
-INSERT INTO `fw_cms_phone` VALUES ('70', '1', '0', '3', '虎嗅', 'https://www.huxiu.com/', '1509080740', '1509350418', 'http://www.livecode.com/index.php/huoma/?d=9avxrr63o', '9avxrr63o', '1', '0', '0');
-INSERT INTO `fw_cms_phone` VALUES ('59', '2', '0', '3', '厉害的视频', 'Uploads/video/55797c0709a1f.avi', '1509071795', '1509071795', 'http://www.livecode.com/index.php/huoma/?d=yd84fg1bn', 'yd84fg1bn', '1', '0', '-1');
+INSERT INTO `fw_cms_phone` VALUES ('70', '1', '0', '3', '虎嗅', 'https://www.huxiu.com/', '1509080740', '1509350418', 'http://www.livecode.com/index.php/huoma/?d=9avxrr63o', '9avxrr63o', '1', '0', '1');
+INSERT INTO `fw_cms_phone` VALUES ('59', '2', '0', '3', '厉害的视频', 'Uploads/video/55797c0709a1f.avi', '1509071795', '1509071795', 'http://www.livecode.com/index.php/huoma/?d=yd84fg1bn', 'yd84fg1bn', '1', '4', '1');
 INSERT INTO `fw_cms_phone` VALUES ('60', '2', '1509071017', '3', '1', 'Uploads/video/infinityWallpaper.jpg', '1509071954', '1509071954', 'http://www.livecode.com/index.php/huoma/?d=qvxzxhe1e', 'qvxzxhe1e', '1', '0', '1');
 INSERT INTO `fw_cms_phone` VALUES ('61', '2', '1509071017', '3', '1222', 'Uploads/video/2937.jpg', '1509072117', '1509072117', 'http://www.livecode.com/index.php/huoma/?d=xnnygym7q', 'xnnygym7q', '1', '0', '0');
 INSERT INTO `fw_cms_phone` VALUES ('74', '1', '0', '3', '36氪', 'http://36kr.com/', '1509173123', '1509341211', 'http://www.livecode.com/index.php/huoma/?d=bbici9t37', 'bbici9t37', '1', '0', '1');
@@ -682,7 +701,7 @@ INSERT INTO `fw_cms_product` VALUES ('92', '1506065776', '3', '子目录产品11
 INSERT INTO `fw_cms_product` VALUES ('101', '0', '3', '211', '{\"picUrl\":\"2017-10-28\\/59f443488d465.jpg\",\"content\":\"3\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=4v4seg0nk', '4v4seg0nk', '1509411419', '1509411419', '0');
 INSERT INTO `fw_cms_product` VALUES ('97', '0', '3', '一个产品11', '{\"picUrl\":\"2017-10-28\\/59f422ae69c05.jpg\",\"content\":\"<h1>\\n\\t<span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span>\\n<\\/h1>\\n<p>\\n\\t<span style=\\\"color:#E53333;\\\"><img src=\\\"http:\\/\\/api.map.baidu.com\\/staticimage?center=121.473704%2C31.230393&zoom=11&width=558&height=360&markers=121.473704%2C31.230393&markerStyles=l%2CA\\\" alt=\\\"\\\" \\/><br \\/>\\n<\\/span>\\n<\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=dqt251j8m', 'dqt251j8m', '1509172402', '1509172402', '0');
 INSERT INTO `fw_cms_product` VALUES ('98', '0', '3', '一个产品2', '{\"picUrl\":\"2017-10-31\\/59f7c95f32956.jpg\",\"content\":\"<h1>\\n\\t<span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span>\\n<\\/h1>\\n<p>\\n\\t<span style=\\\"color:#E53333;\\\"><img src=\\\"http:\\/\\/api.map.baidu.com\\/staticimage?center=121.473704%2C31.230393&zoom=11&width=558&height=360&markers=121.473704%2C31.230393&markerStyles=l%2CA\\\" alt=\\\"\\\" \\/><br \\/>\\n<\\/span>\\n<\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=ay1oqiena', 'ay1oqiena', '1509411265', '1509411265', '0');
-INSERT INTO `fw_cms_product` VALUES ('99', '0', '3', '一个产品', '{\"picUrl\":\"2017-10-28\\/59f422ae69c05.jpg\",\"content\":\"<h1>\\n\\t<span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span>\\n<\\/h1>\\n<p>\\n\\t<span style=\\\"color:#E53333;\\\"><img src=\\\"http:\\/\\/api.map.baidu.com\\/staticimage?center=121.473704%2C31.230393&zoom=11&width=558&height=360&markers=121.473704%2C31.230393&markerStyles=l%2CA\\\" alt=\\\"\\\" \\/><br \\/>\\n<\\/span>\\n<\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=jnvjzqlk7', 'jnvjzqlk7', '1509172391', '1509172391', '1');
+INSERT INTO `fw_cms_product` VALUES ('99', '0', '3', '一个产品', '{\"picUrl\":\"2017-10-28\\/59f422ae69c05.jpg\",\"content\":\"<h1>\\n\\t<span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span>\\n<\\/h1>\\n<p>\\n\\t<span style=\\\"color:#E53333;\\\"><img src=\\\"http:\\/\\/api.map.baidu.com\\/staticimage?center=121.473704%2C31.230393&zoom=11&width=558&height=360&markers=121.473704%2C31.230393&markerStyles=l%2CA\\\" alt=\\\"\\\" \\/><br \\/>\\n<\\/span>\\n<\\/p>\"}', '9', 'http://www.livecode.com/index.php/huoma/product?d=jnvjzqlk7', 'jnvjzqlk7', '1509172391', '1509172391', '1');
 INSERT INTO `fw_cms_product` VALUES ('100', '0', '3', '产品3', '{\"picUrl\":\"2017-10-28\\/59f422ae69c05.jpg\",\"content\":\"<h1>\\n\\t<span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span><span style=\\\"color:#E53333;\\\">\\u4e00\\u4e2a\\u4ea7\\u54c1<\\/span>\\n<\\/h1>\\n<p>\\n\\t<span style=\\\"color:#E53333;\\\"><img src=\\\"http:\\/\\/api.map.baidu.com\\/staticimage?center=121.473704%2C31.230393&zoom=11&width=558&height=360&markers=121.473704%2C31.230393&markerStyles=l%2CA\\\" alt=\\\"\\\" \\/><br \\/>\\n<\\/span>\\n<\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=d3ej4smg7', 'd3ej4smg7', '1509411302', '1509411302', '0');
 
 -- ----------------------------
@@ -696,7 +715,7 @@ CREATE TABLE `fw_echarts_data` (
   `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1活码生成2产品3视频4网址5多网址',
   PRIMARY KEY (`id`),
   KEY `codeId` (`codeId`)
-) ENGINE=MyISAM AUTO_INCREMENT=332 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=366 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_echarts_data
@@ -1003,6 +1022,40 @@ INSERT INTO `fw_echarts_data` VALUES ('328', '126', '2017-10-26 00:00:00', '1');
 INSERT INTO `fw_echarts_data` VALUES ('329', '133', '2017-10-26 00:00:00', '1');
 INSERT INTO `fw_echarts_data` VALUES ('330', '133', '2017-10-26 00:00:00', '1');
 INSERT INTO `fw_echarts_data` VALUES ('331', '133', '2017-10-26 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('332', '133', '2017-11-01 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('333', '133', '2017-11-01 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('334', '133', '2017-11-01 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('335', '133', '2017-11-01 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('336', '133', '2017-11-01 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('337', '133', '2017-11-01 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('338', '133', '2017-11-01 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('339', '133', '2017-11-01 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('340', '133', '2017-11-01 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('341', '133', '2017-11-01 00:00:00', '1');
+INSERT INTO `fw_echarts_data` VALUES ('342', '99', '2017-11-01 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('343', '99', '2017-11-01 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('344', '99', '2017-11-01 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('345', '99', '2017-11-01 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('346', '99', '2017-11-01 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('347', '99', '2017-11-01 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('348', '99', '2017-11-01 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('349', '99', '2017-11-01 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('350', '99', '2017-11-01 00:00:00', '2');
+INSERT INTO `fw_echarts_data` VALUES ('351', '59', '2017-11-01 00:00:00', '3');
+INSERT INTO `fw_echarts_data` VALUES ('352', '59', '2017-11-01 00:00:00', '3');
+INSERT INTO `fw_echarts_data` VALUES ('353', '59', '2017-11-01 00:00:00', '3');
+INSERT INTO `fw_echarts_data` VALUES ('354', '59', '2017-11-01 00:00:00', '3');
+INSERT INTO `fw_echarts_data` VALUES ('355', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('356', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('357', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('358', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('359', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('360', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('361', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('362', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('363', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('364', '10', '2017-11-01 00:00:00', '5');
+INSERT INTO `fw_echarts_data` VALUES ('365', '10', '2017-11-01 00:00:00', '5');
 
 -- ----------------------------
 -- Table structure for `fw_orders`
@@ -1025,46 +1078,35 @@ CREATE TABLE `fw_orders` (
   PRIMARY KEY (`orderId`),
   KEY `userId` (`userId`),
   KEY `orderStatus` (`orderStatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_orders
 -- ----------------------------
-INSERT INTO `fw_orders` VALUES ('8', '2017091915057900911085', '3', '1', '3', '2', '1', '2', '9600.00', '暂无', '1505790091', '1505798726', '1');
+INSERT INTO `fw_orders` VALUES ('8', '2017091915057900911085', '3', '1', '3', '2', '1', '2', '9600.00', '', '1505790091', '1505798726', '1');
 INSERT INTO `fw_orders` VALUES ('16', '2017092015059012115478', '14', '-1', '1', '4', '1', '0', '5600.00', null, '1505901211', '0', '1');
-INSERT INTO `fw_orders` VALUES ('17', '2017092115059577404758', '14', '-1', '1', '4', '1', '0', '5600.00', null, '1505957740', '0', '1');
-INSERT INTO `fw_orders` VALUES ('18', '2017092115059587624845', '14', '-1', '1', '4', '1', '0', '5600.00', null, '1505958762', '0', '1');
-INSERT INTO `fw_orders` VALUES ('19', '2017092115059631348383', '14', '-1', '3', '2', '1', '0', '9600.00', null, '1505963134', '0', '1');
 INSERT INTO `fw_orders` VALUES ('20', '2017092115059654793415', '14', '-1', '1', '3', '1', '0', '4800.00', null, '1505965479', '0', '1');
 INSERT INTO `fw_orders` VALUES ('22', '2017092115059881792709', '3', '1', '3', '2', '0', '1', '4800.00', '111111111111111111111111111', '1505988179', '1505988179', '1');
 INSERT INTO `fw_orders` VALUES ('23', '2017092115059886587836', '14', '-1', '1', '4', '1', '0', '5600.00', null, '1505988658', '0', '1');
-INSERT INTO `fw_orders` VALUES ('25', '2017092215060426544387', '14', '1', '3', '1', '1', '1', '5000.00', '暂无', '1506042654', '1506042660', '1');
-INSERT INTO `fw_orders` VALUES ('26', '2017092215060471086317', '14', '1', '3', '2', '0', '0', '9600.00', '暂无', '1506047108', '1506047114', '1');
+INSERT INTO `fw_orders` VALUES ('25', '2017092215060426544387', '14', '1', '3', '1', '1', '1', '5000.00', '', '1506042654', '1506042660', '1');
+INSERT INTO `fw_orders` VALUES ('26', '2017092215060471086317', '14', '1', '3', '2', '0', '0', '9600.00', '', '1506047108', '1506047114', '1');
 INSERT INTO `fw_orders` VALUES ('28', '2017092215060512436693', '14', '1', '2', '1', '0', '2', '3200.00', null, '1506051243', '1506051243', '1');
-INSERT INTO `fw_orders` VALUES ('29', '2017092215060718162331', '14', '1', '2', '1', '0', '1', '3200.00', '暂无', '1506071816', '1506071827', '1');
+INSERT INTO `fw_orders` VALUES ('29', '2017092215060718162331', '14', '1', '1', '1', '0', '1', '3200.00', '', '1506071816', '1506071827', '1');
 INSERT INTO `fw_orders` VALUES ('39', '2017101615081152386591', '3', '-1', '1', '4', '1', '0', '0.01', null, '1508115238', '0', '1');
-INSERT INTO `fw_orders` VALUES ('40', '2017101615081225960582', '3', '-1', '1', '4', '1', '0', '0.01', null, '1508122596', '0', '1');
-INSERT INTO `fw_orders` VALUES ('46', '2017101615081417432443', '3', '-1', '1', '4', '1', '0', '0.01', null, '1508141743', '0', '1');
 INSERT INTO `fw_orders` VALUES ('47', '2017101615081471634691', '3', '-1', '1', '4', '1', '0', '5600.00', null, '1508147163', '0', '1');
-INSERT INTO `fw_orders` VALUES ('48', '2017101715082016654033', '3', '-1', '1', '4', '1', '0', '5600.00', null, '1508201665', '0', '1');
 INSERT INTO `fw_orders` VALUES ('49', '2017101715082018994693', '15', '-1', '1', '1', '1', '0', '0.01', null, '1508201899', '0', '1');
-INSERT INTO `fw_orders` VALUES ('50', '2017101815083063825226', '3', '-1', '1', '4', '1', '0', '5600.00', null, '1508306382', '0', '1');
 INSERT INTO `fw_orders` VALUES ('51', '2017102015084782301153', '14', '-1', '2', '1', '1', '0', '0.01', null, '1508478230', '0', '1');
 INSERT INTO `fw_orders` VALUES ('52', '2017103015093496121807', '19', '-1', '1', '3', '1', '0', '0.03', null, '1509349612', '0', '1');
 INSERT INTO `fw_orders` VALUES ('53', '2017103115094120396528', '18', '-1', '1', '1', '1', '0', '0.01', null, '1509412039', '0', '1');
 INSERT INTO `fw_orders` VALUES ('54', '2017103115094181637611', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509418163', '0', '1');
 INSERT INTO `fw_orders` VALUES ('55', '2017103115094193392316', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509419339', '0', '1');
-INSERT INTO `fw_orders` VALUES ('56', '2017103115094213455078', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509421345', '0', '1');
-INSERT INTO `fw_orders` VALUES ('57', '2017103115094256460573', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509425646', '0', '1');
-INSERT INTO `fw_orders` VALUES ('58', '2017103115094260720338', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509426072', '0', '1');
-INSERT INTO `fw_orders` VALUES ('59', '2017103115094318723501', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509431872', '0', '1');
-INSERT INTO `fw_orders` VALUES ('60', '2017103115094371525186', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509437152', '0', '1');
-INSERT INTO `fw_orders` VALUES ('61', '2017103115094385385095', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509438538', '0', '1');
-INSERT INTO `fw_orders` VALUES ('62', '2017103115094394498153', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509439449', '0', '1');
-INSERT INTO `fw_orders` VALUES ('63', '2017103115094422541616', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509442254', '0', '1');
-INSERT INTO `fw_orders` VALUES ('64', '2017103115094426714293', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509442671', '0', '1');
-INSERT INTO `fw_orders` VALUES ('65', '2017103115094433809182', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509443380', '0', '1');
-INSERT INTO `fw_orders` VALUES ('66', '2017103115094457476627', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509445747', '0', '1');
+INSERT INTO `fw_orders` VALUES ('67', '2017110115095008473112', '3', '-1', '3', '2', '1', '0', '9600.00', null, '1509500847', '0', '1');
+INSERT INTO `fw_orders` VALUES ('68', '2017110115095019777485', '3', '1', '3', '2', '0', '2', '4800.00', null, '1509501977', '1509501977', '1');
+INSERT INTO `fw_orders` VALUES ('69', '2017110115095036308704', '14', '1', '2', '3', '0', '2', '8400.00', null, '1509503630', '1509507396', '1');
+INSERT INTO `fw_orders` VALUES ('70', '2017110115095069794428', '14', '1', '2', '3', '0', '2', '2800.00', null, '1509506979', '1509506979', '1');
+INSERT INTO `fw_orders` VALUES ('71', '2017110115095070085491', '14', '1', '1', '1', '0', '2', '0.01', null, '1509507008', '1509507008', '1');
+INSERT INTO `fw_orders` VALUES ('72', '2017110115095075681027', '14', '-1', '2', '3', '1', '0', '8400.00', null, '1509507568', '0', '1');
+INSERT INTO `fw_orders` VALUES ('73', '2017110115095317154482', '15', '-1', '1', '1', '1', '0', '0.01', null, '1509531715', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_payments`
@@ -1111,7 +1153,7 @@ CREATE TABLE `fw_vip` (
 -- ----------------------------
 INSERT INTO `fw_vip` VALUES ('1', '基础版', '1', '1', '1', '120', '0', '0', '0', '0', '0', '0', '1', '0');
 INSERT INTO `fw_vip` VALUES ('2', '高级版', '0', '1', '4', '15', '5', '1', '1', '1', '1', '1', '1', '1');
-INSERT INTO `fw_vip` VALUES ('3', '定制版', '0', '1', '3', '20', '3', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `fw_vip` VALUES ('3', '定制版', '0', '1', '3', '40', '3', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `fw_vip` VALUES ('12', '来个新套餐', '0', '1', '0', '0', '0', '0', '0', '1', '0', '0', '1', '0');
 INSERT INTO `fw_vip` VALUES ('6', 'fdsf', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `fw_vip` VALUES ('22', 'fdsf浮动', '0', '0', '11', '0', '0', '0', '0', '0', '0', '0', '0', '0');

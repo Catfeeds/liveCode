@@ -19,7 +19,11 @@
 					<div class="user_name">
 						<i class="fa fa-user"></i> 
 						2895547754@qq.com
+						<b class="caret"></b>
 					</div>
+					<ul class="dropdown-menu" role="menu">
+                        <li><a href="/admin.php?s=/admin/public/logout.html" class="ajax-get"><i class="fa fa-sign-out"></i> 退出</a></li>
+                    </ul>
 					<a href="" class="user_info_link">系统后台</a>
 				</div>-->
 				<div class="clear"></div>
@@ -93,9 +97,64 @@
 		</footer>
 		<div class="clear"></div>
 	</div>
+	<!--登录弹出框-->
+	<div class="theme-popover" style="display: none;">
+		<span class="close"><img src="__HOME__/user/img/close.png"/></span>
+		<div class="login">
+			<h2>登录</h2>
+			<form action="{:U('Home/User/login')}" method="post" class="theme-login loginform">
+				<input type="text" placeholder="手机号或邮箱" class="login-inp" name="username" value=""/>
+				<input type="password" placeholder="密码"   class="login-inp" name="password" value=""/>
+				<input type="submit" class="theme-sub ajax-post" target-form="loginform" value="登 录"/>
+			</form>
+			<a class="forback">忘记密码</a>
+			<p style="height: 15px;"></p>
+			<a href="#" class="fontc free-regist">免费注册</a>
+		</div>
+
+		<div class="regist" style="display: none;">
+			<h2>注册</h2>
+			<form action="{:U('Home/User/regist')}" class="theme-login registform">
+				<input type="text" placeholder="用户名" class="login-inp" name="username" value="" />
+				<input type="text" placeholder="手机号" class="login-inp" name="mobile" value="" />
+				<input type="text" placeholder="邮箱" class="login-inp" id="email2" name="email" value="" />
+				<div class="inp-box">
+					<input type="text" placeholder="邮箱验证码" class="login-inp" name="emailVerify" value="" />
+					<input type="button" value="发送" onclick="sendEmails('{:U("Home/User/getEmailVerify")}','email2')" class="inp-btn" id="registbtn"/>
+				</div>
+				<input type="password" placeholder="密码（8-20位，必须包含字母和数字）" class="login-inp" name="password" value=""/>
+				<input type="password" placeholder="确认密码" class="login-inp" name="rePassword" value="" />
+				<div class="inp-box">
+					<input type="text" placeholder="图片验证码" class="login-inp" name="picVerify" value="" />
+					<a href="javascript:void(0)" ><img class="verifyimg code-img reload-verify" title="点击刷新" src="{:U('Home/User/verify')}"></a>
+				</div>
+				<input type="submit" class="theme-sub ajax-post" target-form="registform" value="注 册"/>
+			</form>
+			<a href="#" class="fontc login-now">现在登录</a>
+		</div>
+		<div class="get-back" style="display: none;">
+			<h2>找回密码</h2>
+			<form action="{:U('Home/User/updatePass')}" method="post" class="theme-login updatePass">
+				<input type="text" placeholder="邮箱" class="login-inp" id="email3" name="email" value=""/>
+				<div class="inp-box">
+					<input type="text" placeholder="邮箱验证码" class="login-inp" name="emailVerify" value=""/>
+					<input type="button" value="发送" onclick="sendEmail('{:U("Home/User/getEmailVerify")}','email3')" class="inp-btn" id="gobackbtn"/>
+				</div>
+				<input type="password" placeholder="新密码（8-20位，必须包含字母和数字）" class="login-inp" name="password" value=""/>
+				<input type="password" placeholder="确认密码" class="login-inp" name="rePassword" value=""/>
+				<div class="inp-box">
+					<input type="text" placeholder="图片验证码" class="login-inp" name="picVerify" value=""/>
+					<a href="javascript:void(0)" ><img class="verifyimg code-img reload-verify" title="点击刷新" src="{:U('Home/User/verify')}"></a>
+				</div>
+				<input type="submit" class="theme-sub ajax-post" target-form="updatePass" value="确 定"/>
+			</form>
+		</div>
+	</div>
+	<div class="theme-popover-mask" style="display: none;"></div>
 </block>
 		
 <block name="script">
+	<script src="__HOME__/user/js/login.js" type="text/javascript" charset="utf-8"></script>
 	<script src="__HOME__/user/js/tab.js" type="text/javascript" charset="utf-8"></script>
 	<script src="__HOME__/user/js/pay.js" type="text/javascript" charset="utf-8"></script>
 </block>

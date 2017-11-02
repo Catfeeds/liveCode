@@ -98,7 +98,7 @@ class AccessController extends AdminController {
         } else {
             //使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('新增配置')  //设置页面标题
+            $builder->setMetaTitle('新增')  //设置页面标题
                     ->setPostUrl(U('add')) //设置表单提交地址
                     ->addFormItem('uid', 'text', 'UID', '用户ID')
                     ->addFormItem('group', 'select', '用户组', '不同用户组对应相应的权限', select_list_as_tree('Group'))
@@ -114,8 +114,18 @@ class AccessController extends AdminController {
         if (IS_POST) {
             $access_object = D('Access');
             $data = $access_object->create();
+            $password = $_POST['password'];
+            if (!empty($password)) {
+                if (!preg_match("/^(?![^a-zA-Z]+$)(?!\D+$).{8,15}$/", $password)) {
+                    $this->error('密码必须为8-20位，且包含字母和数字！');
+                }
+            }
             if ($data) {
                 if ($access_object->save($data)) {
+                    if (!empty($password)) {
+                        $access = $access_object->find($data['id']);
+                        D('User')->save(['id'=>$access['uid'],'password'=>user_md5($password)]);
+                    }
                     $this->success('更新成功', U('index'));
                 } else {
                     $this->error('更新失败');
@@ -125,13 +135,14 @@ class AccessController extends AdminController {
             }
         } else {
             // 使用FormBuilder快速建立表单页面。
+            $access = D('Access')->find($id);
             $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('编辑配置')  // 设置页面标题
+            $builder->setMetaTitle('编辑')  // 设置页面标题
                     ->setPostUrl(U('edit'))    // 设置表单提交地址
                     ->addFormItem('id', 'hidden', 'ID', 'ID')
-                    ->addFormItem('uid', 'text', 'UID', '用户ID')
+                    ->addFormItem('password', 'password', '管理员登录密码','默认为空则不修改')
                     ->addFormItem('group', 'select', '用户组', '不同用户组对应相应的权限', select_list_as_tree('Group'))
-                    ->setFormData(D('Access')->find($id))
+                    ->setFormData($access)
                     ->display();
         }
     }
@@ -143,9 +154,9 @@ class AccessController extends AdminController {
     public function setStatus($model = CONTROLLER_NAME){
         $ids = I('request.ids');
         $status=I('request.status');
-        halt(I(''));
+        $userMod = D('user');
+
         if ( $status=='delete' ){
-            $userMod = D('user');
             if (is_array($ids)) {
                 foreach( $ids as $v  ){ 
                     $access = D($model)->find($v);
@@ -154,6 +165,18 @@ class AccessController extends AdminController {
             } else {
                 $access = D($model)->find($ids);
                 $userMod->save(['id'=>$access['uid'],'user_type'=>2]);
+            }
+        }
+        if ( $status=='forbid' || $status=='resume' ){
+            $newStatus = ($status=='forbid')? 0:1;
+            if (is_array($ids)) {
+                foreach( $ids as $v  ){ 
+                    $access = D($model)->find($v);
+                    $userMod->save(['id'=>$access['uid'],'status'=>$newStatus]);
+                }
+            } else {
+                $access = D($model)->find($ids);
+                $userMod->save(['id'=>$access['uid'],'status'=>$newStatus]);
             }
         }
         parent::setStatus($model);

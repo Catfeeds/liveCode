@@ -24,7 +24,7 @@ class AccessModel extends Model {
      * 
      */
     protected $_validate = array(
-        array('uid', 'require', 'UID不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('uid', 'require', 'UID不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_INSERT),
         array('group', 'require', '部门不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('uid', 'checkUser', '该用户不存在', self::MUST_VALIDATE, 'callback', self::MODEL_BOTH),
         array('uid', 'checkUserIfVip', '该用户已购买套餐，请勿添加为管理员', self::MUST_VALIDATE, 'callback', self::MODEL_BOTH),
