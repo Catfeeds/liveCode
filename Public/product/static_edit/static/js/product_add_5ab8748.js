@@ -1,10 +1,12 @@
 $(function(){
+	$(".navbar-right .dropdown").click(function(){
+		$(this).find(".dropdown-menu").toggle();
+	})
+})
+$(function(){
 	$('#sidebar .navside-first [data-toggle="collapse"]').click(function(){
 		$(this).toggleClass('arrowbb');
 		$(this).next('.navside-second').slideToggle('slow');
-	})
-	$(".navbar-right .dropdown").click(function(){
-		$(this).find(".dropdown-menu").toggle();
 	})
 })
 function closePage() {
