@@ -5,13 +5,14 @@
       <script src="static_edit/cli/js/lib/plug/respond.min.js"></script>
       <script src="static_edit/cli/js/lib/plug/html5shiv.min.js"></script>
     <![endif]-->
-	<link rel="stylesheet" href="__PUBLIC__/product/static_edit/cli/flatkit/assets/bootstrap/dist/css/bootstrap.min.css">
+	<!--<link rel="stylesheet" href="__PUBLIC__/product/static_edit/cli/flatkit/assets/bootstrap/dist/css/bootstrap.min.css">-->
 	<link rel="stylesheet" href="__PUBLIC__/product/static_edit/cli/flatkit/assets/styles/app.min.css">
 	<link rel="stylesheet" href="__PUBLIC__/product/static_edit/cli/flatkit/assets/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="__PUBLIC__/product/static_edit/cli/css/clicon.css">
 	<link rel="stylesheet" href="__PUBLIC__/product/static_edit/cli/flatkit/assets/styles/cli_global.css">
 	<link href="__PUBLIC__/product/static_edit/cli/umeditor/themes/default/css/umeditor.css" rel="stylesheet">
 	<link rel="stylesheet" href="__PUBLIC__/product/static_edit/static/css/product_add_8757449.css">
+	<link rel="stylesheet" type="text/css" href="__CUI__/css/layui.css"/>
 </block>
 <block name="main">
 	<div class="user_plugins_wraper">
@@ -22,35 +23,28 @@
 					<div class="row active_row">
 						<div class="pull-left light box" style="min-height: 600px;width:810px;">
 							<div class="white col-md-12 p-a-0 m-b-0 active_edit_container">
-								<ul class="nav nav-pills nav-sm nav-rounded none" ui-nav="">
-									<li class="nav-item active" data-type="pro" data-toggle="tab" data-target="#tab-pro" aria-expanded="false">
-										<a class="nav-link">商品码</a>
-									</li>
-								</ul>
 								<div class="active_main">
 									<div class="tab-content">
 										<div>
 											<div class="type_section imgtext_section">
 												<div class="row no-gutter">
 													<div class="col-md-12">
-														<div class="form-file upload-img-btn img_cover_noimg" id="upload-img-btn" data-upload-img>
-															<p class="text-grey text-darkgrey text-xs" style="margin-top:144px;">请上传商品图片</p>
-															<p class="text-grey m-t-xs text-xs">没有图片将不会在手机端占据页面空间</p>
-															<button class="btn btn-sm white m-t">上传图片</button>
-															<input type="file" class="uploadfile up_img" id="uploadfile-img" name="Filedata" data-type="product"></div>
-														<div id="uploading-file" class="uploading">
-															<i class="file-icon file-icon-img"></i>
-															<div class="progress progress-xxs">
-																<div class="progress-bar green" style="width: 0%">0%</div>
-															</div>
-															<p class="m-t">上传中，请稍候...</p>
-														</div>
-														<a href="javascript:;" class="btn btn-sm white m-b-sm" id="upload-img-del" style="display: none;">删除</a>
-														<a class="btn btn-sm white m-b-sm" id="upload-img-up" data-upload-img style="display: none;">上传
-															<input type="file" class="uploadfile up_img" name="Filedata" data-type="product" title="请选择文件"></a>
-														<div class="img_cover upload-img-cover" id="img_cover" style="background-image:url('')" data-upload-img>
-															<button class="btn green m-b-sm none" id="template_btn" style="margin-top: 215px;z-index: 1;">点击替换预设图片</button>
-															<input type="file" class="uploadfile up_img" id="uploadfile-img-cover" name="Filedata" data-type="product" title="点击可替换图片"></div>
+														<div>
+												    		<div class="edit-left">
+																<div class="upload-img">
+																	<div class="layui-upload">
+																	  <div class="layui-upload-list">
+																	    <img class="layui-upload-img" id="demo1" src="__PUBLIC__/images/noimg.png">
+																	    <p id="demoText"></p>
+																	  </div>
+																	  <button type="button" class="layui-btn" id="testcp">上传图片</button>
+																	  <input class="layui-upload-file" type="file" name="file">
+																	</div> 
+															        <input type="hidden" id="uploadPicUrl" value="">
+																</div><br>
+												    		</div>
+												    		<div class="clear"></div>
+												    	</div>
 													</div>
 												</div>
 												<div class="row no-gutter m-b-md">
@@ -58,7 +52,7 @@
 														<div class="editor_box imgtext_editor block" editor-type="um">
 															<div class="umeditor_alert alert alert-success alert-dismissible text-center fade" id="umeditor_alert" role="alert">
 																<button type="button" class="close" data-dismiss="alert" aria-label="Close" id="alert_msg_close">
-                                            <span aria-hidden="true">×</span></button>请在下面的示例内容上修改！</div>
+                                            						<span aria-hidden="true">×</span></button>请在下面的示例内容上修改！</div>
 															<script type="text/plain" id="myEditor" style="width: 610px; height:350px; padding: 30px; z-index: 9;"></script>
 														</div>
 													</div>
@@ -73,8 +67,8 @@
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal">
-                                  <span aria-hidden="true">×</span>
-                                  <span class="sr-only">Close</span></button>
+			                                <span aria-hidden="true">×</span>
+			                                <span class="sr-only">Close</span></button>
 											<h4 class="modal-title"></h4>
 										</div>
 										<div class="modal-body p-lg"></div>
@@ -105,7 +99,7 @@
 									<a href="//cli.im/news/30378" target="_blank" class="text-lightgrey pointer m-l-xs" data-toggle="tooltip" data-html="true" data-placement="top" data-original-title='<div style="padding:5px 0px;"><img src="static_edit/static/images/tip-picture@2x_5892af5.png" style="width:177px;margin-bottom:5px;"/><div class="text-left">1，若条码编号为13位，请在最前面填写数字0</div><div class="text-left">2，输入后不可修改，请谨慎填写</div></div>'>
 										<i class="fa fa-question-circle"></i>
 									</a>
-										<!--</i>-->
+										
 								</div>
 								<div class="pos-rlt">
 									<input type="text" id="gtin-val" class="form-control form-control-sm text-xs" maxlength="14" placeholder="14位数字编号,没有可不填">
@@ -113,9 +107,6 @@
 									<div class="text-danger pos-abt wrong-gtin-13 text-xs none" id="wrong-gtin-13" style="bottom:-17px;">13位编码，请在前面填写数字0</div>
 								</div>
 							</div>
-							<!--<div class="b-t p-x p-y-0">
-								<button class="btn btn-sm white right_box_btn" id="option_btn">其他选项</button>
-							</div>-->
 							<div class="p-x p-y-0">
 								<button id="save_btn" class="btn btn-sm green right_box_btn m-t-0" data-loading-text="正在保存..." data-complete-text="保存" data-save="">生成二维码</button>
 							</div>
@@ -213,5 +204,6 @@
 	<script src="__PUBLIC__/product/static_edit/cli/umeditor/lang/zh-cn/zh-cn.js"></script>
 	<script src="__PUBLIC__/product/static_edit/static/js/product_add_5ab8748.js"></script>
 	<script src="__PUBLIC__/product/static_edit/cli/js/modalTips.js"></script>
-
+	<script type="text/javascript" src="__CUI__/js/layui.js"></script>
+	<script type="text/javascript" src="__CUI__/js/moreupload.js"></script>
 </block>
