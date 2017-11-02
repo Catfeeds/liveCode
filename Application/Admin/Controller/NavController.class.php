@@ -95,12 +95,11 @@ EOF;
             }
             if ($data) {
                 $id = $nav_object->add($data);
-                halt('新增成功');
-                // if ($id) {
-                //     $this->success('新增成功', U('index'));
-                // } else {
-                //     $this->error('新增失败');
-                // }
+                if ($id) {
+                    // $this->success('新增成功');
+                } else {
+                    $this->error('新增失败');
+                }
             } else {
                 $this->error($nav_object->getError());
             }

@@ -377,7 +377,7 @@ class ProductController extends AdminController {
         foreach ($content as $key => $value) {
             $data[$key] = $value;
         }
-        $data['type'] = 2;
+        $data['type'] = 6;
         // halt($data);
         $this->assign('data',$data);
         $this->display('Livecode/live_text');

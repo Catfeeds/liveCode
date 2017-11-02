@@ -52,6 +52,10 @@ class AccessController extends AdminController {
         }
 
         // 使用Builder快速建立列表页面。
+        // $attr['name']  = 'delete';
+        // $attr['title'] = '删除';
+        // $attr['class'] = 'label label-danger ajax-get confirm';
+        // $attr['href']  = U('setStatus',['status'=>'delete','model'=>'delete','id'=>'__data_id__']);
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('管理员列表')  // 设置页面标题
                 ->addTopButton('addnew')   // 添加新增按钮
@@ -83,6 +87,7 @@ class AccessController extends AdminController {
             $data = $access_object->create();
             if ($data) {
                 if ($access_object->add($data)) {
+                    D('user')->save(['id'=>$data['uid'],'user_type'=>1]);
                     $this->success('新增成功', U('index'));
                 } else {
                     $this->error('新增失败');
@@ -130,4 +135,28 @@ class AccessController extends AdminController {
                     ->display();
         }
     }
+
+    /**
+     * 设置一条或者多条数据的状态
+     * 
+     */
+    public function setStatus($model = CONTROLLER_NAME){
+        $ids = I('request.ids');
+        $status=I('request.status');
+        halt(I(''));
+        if ( $status=='delete' ){
+            $userMod = D('user');
+            if (is_array($ids)) {
+                foreach( $ids as $v  ){ 
+                    $access = D($model)->find($v);
+                    $userMod->save(['id'=>$access['uid'],'user_type'=>2]);
+                }
+            } else {
+                $access = D($model)->find($ids);
+                $userMod->save(['id'=>$access['uid'],'user_type'=>2]);
+            }
+        }
+        parent::setStatus($model);
+    }
+
 }
