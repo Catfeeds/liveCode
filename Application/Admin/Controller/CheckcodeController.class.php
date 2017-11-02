@@ -50,7 +50,7 @@ class CheckcodeController extends AdminController {
                     $data[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
                     $data[$k]['username']= $this->userObj->getUserInfo($v['uid'])['username'];
 
-                    if ($v['type'] == 1 || $v['type'] == 5) {
+                    if ($v['type'] == 1 || $v['type'] == 4 || $v['type'] == 5) {
                         $data[$k]['content']='<a href="'.U('detail',['id'=>$v['id'],'codeType'=>1,'model'=>$modelName]).'" class="label label-primary layer2">点击查看</a>';
                     }elseif ($v['type'] == 3) {
                         $file                = json_decode($v['content'],true)['url'];
@@ -205,7 +205,7 @@ class CheckcodeController extends AdminController {
                     $data['update_time'] = time();
                 }
                 //如果是图文或者文件，内容保存为json格式
-                if ($type == 1 || $type == 3 || $type == 5) {
+                if ($type == 1 || $type == 3 || $type == 4 || $type == 5) {
                     $data['content']   = json_encode($data['content']);
                 }
                 $data['id']  = $info['editId'];
@@ -296,16 +296,20 @@ class CheckcodeController extends AdminController {
             if (!$data) {$this->error('数据不存在');}
 
             if ($codeType == 1) {
-                if ($data['type'] == 1 || $data['type'] == 3 || $data['type'] == 5) {
+                if ($data['type'] == 1 || $data['type'] == 3 || $data['type'] == 4 || $data['type'] == 5) {
                     $content = json_decode($data["content"],true);
                     foreach ($content as $key => $value) {
-                        $data[$key] = $value;
+                        if ($data['type'] == 4) {
+                            $data['url'][$key] = $value;
+                        }else{
+                            $data[$key] = $value;
+                        }
                     }
                 }
                 $meta_title = '编辑活码';
                 $html       = 'Livecode/edit';
             }elseif ($codeType == 2) {
-                $content = json_decode($data["content"]) ;
+                $content = json_decode($data["content"]);
                 foreach ($content as $key => $value) {
                     $data[$key] = $value;
                 }
@@ -398,11 +402,17 @@ class CheckcodeController extends AdminController {
         }else {
             $content = json_decode($data["content"],true);
             foreach ($content as $key => $value) {
-                $data[$key] = $value;
+                if ($data['type'] == 4) {
+                $data['url'][$key] = $value;
+                }else{
+                    $data[$key] = $value;
+                }
             }
             $this->assign('data',$data);
             if ($data['type'] == 1) {
                 $this->display('Livecode/live_text');    //图文
+            }elseif ($data['type'] == 4) {
+                $this->display('Livecode/live_url');     //网址
             }else{
                 $this->display('Livecode/live_vcard');   //名片
             }
