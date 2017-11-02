@@ -101,7 +101,7 @@ class GroupController extends AdminController {
 
             $this->assign('all_module_menu_list', $all_module_menu_list);
             $this->assign('all_group', $all_group);
-            $this->assign('meta_title', '新增部门');
+            $this->assign('meta_title', '新增');
             $this->display('add_edit');
         }
     }
@@ -150,7 +150,7 @@ class GroupController extends AdminController {
             $this->assign('info', $info);
             $this->assign('all_module_menu_list', $all_module_menu_list);
             $this->assign('all_group', $all_group);
-            $this->assign('meta_title', '编辑部门');
+            $this->assign('meta_title', '编辑');
             $this->display('add_edit');
         }
     }
