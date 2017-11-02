@@ -25,3 +25,6 @@
 	position: relative;
 	z-index: 0;
 }
+.navside-default a.arrowbb>.arrow:before, .navside-inverse .arrow:before {
+    content: "\f107";
+}
