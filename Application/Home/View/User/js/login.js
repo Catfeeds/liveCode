@@ -29,7 +29,9 @@ $(function(){
 		$(".theme-popover-mask").fadeIn();
 		$(".theme-popover").fadeIn();
 	})
-	
+	$(".user_name").click(function(){
+		$(this).next('.dropdown-menu').toggle();
+	})
 	
 	// 刷新验证码
     $(".code-img").on('click', function() {
