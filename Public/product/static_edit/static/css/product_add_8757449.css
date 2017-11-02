@@ -9,3 +9,19 @@
 	background: rgba(0,0,0,0.5);
 	display: none;
 }
+.edui-container{
+	width: 100%!important;
+}
+.modal-dialog{
+	margin-top: 60px!important;
+}
+.layui-upload-img {
+    max-height: 205px;
+}
+.upload-img{
+	text-align: center;
+}
+.navbar-inverse{
+	position: relative;
+	z-index: 0;
+}
