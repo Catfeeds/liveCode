@@ -122,8 +122,9 @@
                 <ul class="nav navside-nav navside-second collapse in menutree">
                     <volist name="_ns_second._child" id="_ns_third" key="skey2">
                         <li onmouseover=treehove({$_ns_third['id']}) onmouseout=treeout({$_ns_third['id']}) <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?> >
-                            <a href="{:U($_ns_third['url'])}" style="height: 34px;"></a>
-                            <span class="nav-label ml" style="margin-left: 20px;">{$_ns_third.title}</span>
+                            <a href="{:U($_ns_third['url'])}" style="height: 34px;">
+                            	<span class="nav-label ml" style="margin-left: 20px;">{$_ns_third.title}</span>
+                            </a>
                             <div class="changetree" id="tree_{$_ns_third['id']}">
                             	<span class="button add" onclick="treeadd(this,{$_ns_third['parentid']})" title="新建目录"></span>
                             	<span class="button edit" onclick="treedit(this,{$_ns_third['id']})" title="编辑目录" ></span>
@@ -231,3 +232,5 @@
         </style>
 </body>
 </html>
+
+ 	 
