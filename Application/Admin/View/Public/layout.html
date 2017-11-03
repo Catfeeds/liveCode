@@ -20,7 +20,8 @@
     <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/admin.css">
     <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/theme/{:C('ADMIN_THEME')}.css">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/libs/animate/animate.min.css">
-	     <link rel="stylesheet" type="text/css" href="__CUI__/css/cui.extend.min.css">
+	<link rel="stylesheet" type="text/css" href="__CUI__/css/cui.extend.min.css">
+	<link rel="stylesheet" type="text/css" href="__CUI__/css/menutree.css"/>
     <block name="style"></block>
     <!--[if lt IE 9]>
         <script src="http://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
@@ -118,12 +119,16 @@
                     <span class="nav-label">{$_ns_second.title}</span>
                 </a>
                 <!--<ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$skey}">-->
-                <ul class="nav navside-nav navside-second collapse in">
+                <ul class="nav navside-nav navside-second collapse in menutree">
                     <volist name="_ns_second._child" id="_ns_third" key="skey2">
-                        <li <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?>>
-                            <a href="{:U($_ns_third['url'])}" >
-                                <span class="nav-label" style="margin-left: 20px;">{$_ns_third.title}</span>
-                            </a>
+                        <li onmouseover=treehove({$_ns_third['id']}) onmouseout=treeout({$_ns_third['id']}) <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?> >
+                            <a href="{:U($_ns_third['url'])}" style="height: 34px;"></a>
+                            <span class="nav-label ml" style="margin-left: 20px;">{$_ns_third.title}</span>
+                            <div class="changetree" id="tree_{$_ns_third['id']}">
+                            	<span class="button add" onclick="treeadd(this,{$_ns_third['parentid']})" title="新建目录"></span>
+                            	<span class="button edit" onclick="treedit(this,{$_ns_third['id']})" title="编辑目录" ></span>
+                            	<span class="button remove" onclick="treedel(this,{$_ns_third['id']})" title="删除目录" ></span>
+                            </div>
                         </li>
                     </volist>
                 </ul>
@@ -184,7 +189,7 @@
         </div>
     </div>
     <script src="__PUBLIC__/libs/layer/layer.js"></script>
-    
+    <script src="__CUI__/js/menutree.js"></script>
         <script type="text/javascript">
            $(function(){
                	var html=$(".fa-user").next('.nav-label').addClass('abc');

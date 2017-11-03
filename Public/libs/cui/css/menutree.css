@@ -1,0 +1,52 @@
+.changetree{
+	display: none;
+    float: right;
+    position: absolute;
+    right:2px;
+    top: 8px;
+    z-index: 99999;
+}
+.treeUl{
+	margin-left: 17px!important;
+	width: 100%;
+}
+.treeUl .changetree span.button{
+	margin-left: 3px!important;
+}
+.nav-label.ml{
+	position: absolute;
+	left: 36px;
+	top: 7px;
+	cursor: pointer;
+	color: #777;
+}
+.menutree li{
+	position: relative;
+}
+.changetree span.button {
+    line-height: 0;
+    margin: 0;
+    width: 13px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 0 none;
+    cursor: pointer;
+    outline: 0;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-image: url(//static.clewm.net/static/zTree/css/zTreeStyle/img/ztree_icon_fd44db8.png);
+}
+.changetree span.button.add {
+    background-position: 0 -41px;
+    vertical-align: middle;
+}
+.changetree span.button.edit {
+    background-position: 0 -64px;
+    vertical-align: middle;
+}
+.changetree span.button.remove {
+    background-position: 0 -87px;
+    vertical-align: middle;
+}
