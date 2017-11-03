@@ -14,7 +14,7 @@
 		$.ajax({
 	        type: "POST", 
 	        async: "false", 
-	        url: "edit", 
+	        url: "add", 
 	        data: {'parentid':parentid}, 
 	        success: function (data) { 					
 			var addhtml='<ul class="treeUl"><li onmouseover=treehove('+data.id+') onmouseout=treeout('+data.id+')>';
