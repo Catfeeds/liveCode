@@ -305,7 +305,10 @@ class UserController extends AdminController {
             $data = I('post.');
             if ($data['menu_auth']) {
                 $data['menu_auth'] = json_encode($data['menu_auth']);
+            }else{
+                $data['menu_auth'] = 0;
             }
+
             $result = $mod->save($data);
             if ($result !== false) {
                 $this->success('操作成功', U('index'));
@@ -319,19 +322,10 @@ class UserController extends AdminController {
                  $this->error('用户不存在或被禁用！');
             }
             $info['menu_auth'] = json_decode($info['menu_auth'],true);
+            $info['menu'] = D('Module')->where(['pid'=>4])->select();
+
             $this->assign(['meta_title'=>'域名管理','info'=>$info]);
             $this->display();
-            // // 使用FormBuilder快速建立表单页面。
-            // $builder = new \Common\Builder\FormBuilder();
-            // $builder->setMetaTitle('域名管理')  // 设置页面标题
-            //         ->setPostUrl(U('domain'))    // 设置表单提交地址
-            //         ->addFormItem('id', 'hidden', 'ID', 'ID')
-            //         ->addFormItem('url', 'text', '活码域名')
-            //         ->addFormItem('url_status', 'select', '域名审核', '', [1=>'通过',-1=>'不通过'])
-            //         ->addFormItem('ifCheck', 'select', '该用户活码是否需要审核', '', [1=>'需要',-1=>'不需要'])
-            //         ->addFormItem('limitCount', 'text', '活码访问限制次数','默认为空则不限制，否则访问次数达到填写数字后将无法访问！')
-            //         ->setFormData($info)
-            //         ->display();
         }
     }
 
