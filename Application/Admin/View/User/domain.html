@@ -1,0 +1,179 @@
+<extend name="$_admin_public_layout" />
+<block name="style">
+    <style type="text/css">
+        /* Builder样式 */
+        .builder .builder-container .builder-data-empty {
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        .builder .builder-container .builder-data-empty .empty-info {
+            padding: 130px 0;
+            color: #555;
+        }
+        .builder .builder-container .builder-table .table td {
+            max-width: 600px;
+            vertical-align: middle;
+            overflow: hidden;
+        }
+        .builder .builder-container .builder-table .table td img.picture {
+            max-width: 200px;
+            max-height: 40px;
+        }
+        .builder .builder-container .pagination {
+            margin-top: 0px;
+        }
+        .builder.formbuilder-box .form-builder .img-box .remove-picture {
+            color: red;
+            position: absolute;
+            top: 0;
+            right: 2px;
+            background: #fff;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .builder.formbuilder-box .form-builder .img-box .remove-picture:hover {
+            color: #DD0000;
+            box-shadow: inset 0 1px 1px red, 0 0 8px red;
+        }
+        .builder.formbuilder-box .form-builder .file-box .remove-file {
+            color: red;
+            position: absolute;
+            top: 12px;
+            right: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .builder.formbuilder-box .form-builder .file-box .remove-file:hover {
+            color: #DD0000;
+            box-shadow: inset 0 1px 1px red, 0 0 8px red;
+        }
+        .builder.formbuilder-box .form-builder .board_list .board {
+            padding: 0px;
+            margin-right: 10px;
+        }
+        @media (min-width: 768px) {
+            .builder.formbuilder-box .form-builder .input,
+            .builder.formbuilder-box .form-builder .select,
+            .builder.formbuilder-box .form-builder .textarea {
+                width: 70%;
+            }
+            .builder.formbuilder-box .form-builder .submit,
+            .builder.formbuilder-box .form-builder .return {
+                min-width: 120px;
+            }
+            .builder.formbuilder-box .form-builder.form-horizontal {
+                padding: 0 15px;
+            }
+            .builder.formbuilder-box .form-builder.form-horizontal .control-label {
+                text-align: left;
+            }
+            .builder.formbuilder-box .form-builder.form-horizontal .left {
+                width: 15%;
+                float: left;
+            }
+            .builder.formbuilder-box .form-builder.form-horizontal .right {
+                width: 85%;
+                float: left;
+            }
+        }
+        @media (min-width: 992px) {
+            .builder.formbuilder-box .form-builder.form-horizontal .left {
+                width: 12%;
+                float: left;
+            }
+            .builder.formbuilder-box .form-builder.form-horizontal .right {
+                width: 88%;
+                float: left;
+            }
+        }
+    </style>
+</block>
+<block name="main">
+    <div class="builder formbuilder-box panel-body">
+        <div class="builder-container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form action="{:U('domain')}" method="post" class="form-horizontal form form-builder">
+                        <div class="col-xs-12">
+                            <div class="form-group hidden item_id ">
+                                <label class="left control-label">ID：</label>
+                                <div class="right">
+                                    <input type="hidden" class="form-control input" name="id" value="{$info.id}" >
+                                </div>
+                            </div>
+                            <div class="form-group item_url ">
+                                <label class="left control-label">活码域名：</label>
+                                <div class="right">
+                                    <input type="text" class="form-control input text" name="url" value="{$info.url}" >
+                                            </div>
+                            </div>
+                            <?php if($info['url'] != ''): ?>
+                            <div class="form-group item_url_status ">
+                                <label class="left control-label">域名审核：</label>
+                                <div class="right">
+                                    <select name="url_status" class="form-control cui-select select" >
+                                        <option value="1" <eq name="info.url_status" value="1">selected</eq>>通过</option>
+                                        <option value="-1" <eq name="info.url_status" value="-1">selected</eq>>不通过</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                            <div class="form-group item_ifCheck ">
+                                <label class="left control-label">该用户活码是否需要审核：</label>
+                                <div class="right">
+                                    <select name="ifCheck" class="form-control cui-select select" >
+                                        <option value="1" <eq name="info.ifCheck" value="1">selected</eq>>需要</option>
+                                        <option value="-1" <eq name="info.ifCheck" value="-1">selected</eq>>不需要</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group item_limitCount ">
+                                <label class="left control-label">活码访问限制次数：</label>
+                                <div class="right">
+                                    <input type="text" class="form-control input text" name="limitCount" value="{$info.limitCount}" >
+                                    <span class="check-tips text-muted small">默认为零则不限制，否则访问次数达到填写数字后将无法访问！</span>        
+                                </div>
+                            </div>
+                            <div class="form-group item_limitCount ">
+                                <label class="left control-label">活码显示类型：</label>
+                                <div class="cui-control cui-checkbox">
+                                    <label class="checkbox-label checkbox-inline">
+                                        <input type="checkbox" name="menu_auth[]" data-module-name="1" value="1" <?php if(in_array(1,$info['menu_auth'])){echo 'checked';} ?>>
+                                        <span class="cui-control-indicator"></span>
+                                        <span>活码生成</span>
+                                    </label>
+                                    <label class="checkbox-label checkbox-inline">
+                                        <input type="checkbox" name="menu_auth[]" data-module-name="2" value="2" <?php if(in_array(2,$info['menu_auth'])){echo 'checked';} ?>>
+                                        <span class="cui-control-indicator"></span>
+                                        <span>产品活码</span>
+                                    </label>
+                                    <label class="checkbox-label checkbox-inline">
+                                        <input type="checkbox" name="menu_auth[]" data-module-name="3" value="3" <?php if(in_array(3,$info['menu_auth'])){echo 'checked';} ?>>
+                                        <span class="cui-control-indicator"></span>
+                                        <span>视频活码</span>
+                                    </label>
+                                    <label class="checkbox-label checkbox-inline">
+                                        <input type="checkbox" name="menu_auth[]" data-module-name="4" value="4" <?php if(in_array(4,$info['menu_auth'])){echo 'checked';} ?>>
+                                        <span class="cui-control-indicator"></span>
+                                        <span>网址跳转</span>
+                                    </label>
+                                    <label class="checkbox-label checkbox-inline">
+                                        <input type="checkbox" name="menu_auth[]" data-module-name="5" value="5" <?php if(in_array(5,$info['menu_auth'])){echo 'checked';} ?>>
+                                        <span class="cui-control-indicator"></span>
+                                        <span>多网址跳转</span>
+                                    </label>
+                                </div>
+                            </div>                                                
+                            <div class="form-group"></div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button>
+                                <button class="btn btn-primary submit ajax-post visible-md-inline visible-lg-inline" type="submit" target-form="form-builder">确定</button>
+                                <button class="btn btn-default return visible-md-inline visible-lg-inline" onclick="javascript:history.back(-1);return false;">返回</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+    </div> 
+</block>

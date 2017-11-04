@@ -69,7 +69,7 @@ function imgPasteUpload(e) {
 }
 function imgPasteAjax(e, t) {
     $.ajax({
-        url: "//upload.api.cli.im/upload.php?kid=cliim",
+        url: "admin.php?s=/admin/product/addfile",
         type: "post",
         dataType: "json",
         data: {
