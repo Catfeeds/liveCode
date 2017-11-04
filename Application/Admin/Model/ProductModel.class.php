@@ -37,5 +37,13 @@ class ProductModel extends Model {
         array('create_time', 'time', self::MODEL_INSERT, 'function'),
         array('update_time', 'time', self::MODEL_BOTH, 'function'),
     );
+
+    /**
+     * 获取待审核活码数量
+     */
+    public function getIfCheckCount(){
+        $count = $this->where(['status'=>0])->count();
+        return $count;
+    }
     
 }

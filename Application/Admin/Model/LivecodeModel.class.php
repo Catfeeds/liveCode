@@ -53,6 +53,12 @@ class LivecodeModel extends Model {
             return false;
         }
     }
-   
+    /**
+     * 获取待审核活码数量
+     */
+    public function getIfCheckCount(){
+        $count = $this->where(['status'=>0])->count();
+        return $count;
+    }
   
 }
