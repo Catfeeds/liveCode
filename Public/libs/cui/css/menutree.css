@@ -9,6 +9,20 @@
 .treeUl{
 	margin-left: 17px!important;
 	width: 100%;
+	min-height:25px;
+    padding-left: 20px;
+}
+.treeUl:after,.treeUl li:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+.treeUl li a{
+	width: 100%;
+	display: inline-block;
+}
+.treeUl li{
+	list-style: none;
 }
 .treeUl .changetree span.button{
 	margin-left: 3px!important;
