@@ -4,6 +4,11 @@ $(function(){
     if (codeType) {
         postUrl = 'admin.php?s=/admin/checkcode/addLivecodeFile';
     }
+    var productPostUrl = 'admin.php?s=/admin/product/addfile';
+	var codeType= $("#codeType").val();     //管理员审核编辑
+    if (codeType) {
+        productPostUrl = 'admin.php?s=/admin/product/addLivecodeFile';
+    }
 
 	layui.use('upload', function(){
 	  var $ = layui.jquery,upload = layui.upload;
@@ -161,9 +166,9 @@ $(function(){
 	  
 	  
 	  //产品活码图片上传
-	  var uploadInst = upload.render({
+	  var uploadInst4 = upload.render({
 	    elem: '#testcp'
-	    ,url: 'url'
+	    ,url: productPostUrl
 	    ,before: function(obj){
 	      //预读本地文件示例，不支持ie8
 	      obj.preview(function(index, file, result){
@@ -185,7 +190,7 @@ $(function(){
 	      var demoText = $('#demoText');
 	      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>  <a class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</a>');
 	      demoText.find('.demo-reload').on('click', function(){
-	        uploadInst.upload();
+	        uploadInst4.upload();
 	      });
 	      //演示失败状态，并实现删除
 	      demoText.find('.demo-delete').on('click', function(){

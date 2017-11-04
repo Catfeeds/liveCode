@@ -178,5 +178,26 @@ class UserModel extends Model {
         $count = $this->where(['url'=>['neq',''],'url_status'=>0])->count();
         return $count;
     }
+    /**
+     * 检查用户功能权限
+     * 
+     */
+    public function checkMenuAuth() {
+        $current_menu = D('Admin/Module')->getCurrentMenu(); // 当前菜单
+        $menu_auth = $this->getFieldByid(session('user_auth.uid'), 'menu_auth');  // 获得当前登录用户信息
+        $menu_auth = json_decode($menu_auth,true);
+        if ($menu_auth == 0) {
+            return false;
+        }
+        if ($menu_auth != '') {
+            // 获得当前登录用户所属部门的权限列表
+            if (in_array($current_menu['id'], $menu_auth)) {
+                return true;
+            }
+        } else {
+            return true;  // 无需验证
+        }
+        return false;
+    }
 
 }

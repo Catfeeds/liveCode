@@ -1,10 +1,5 @@
 <extend name="$_admin_public_layout" />
 <block name="style">
-	<!--[if lt IE 9]>
-      <link rel="stylesheet" href="static_edit/cli/flatkit/assets/bootstrap/dist/css/bootstrapieV2.css">
-      <script src="static_edit/cli/js/lib/plug/respond.min.js"></script>
-      <script src="static_edit/cli/js/lib/plug/html5shiv.min.js"></script>
-    <![endif]-->
 	<!--<link rel="stylesheet" href="__PUBLIC__/product/static_edit/cli/flatkit/assets/bootstrap/dist/css/bootstrap.min.css">-->
 	<link rel="stylesheet" href="__PUBLIC__/product/static_edit/cli/flatkit/assets/styles/app.min.css">
 	<link rel="stylesheet" href="__PUBLIC__/product/static_edit/cli/flatkit/assets/font-awesome/css/font-awesome.min.css">
@@ -94,7 +89,7 @@
 									<div class="inline pointer operation_link" id="beauty-qrcode">二维码美化</div>
 								</div>
 							</div>
-							<div class="b-t p-x p-y">
+							<!-- <div class="b-t p-x p-y">
 								<div class="text-grey text-center m-b-sm">商品条码编号
 									<a href="//cli.im/news/30378" target="_blank" class="text-lightgrey pointer m-l-xs" data-toggle="tooltip" data-html="true" data-placement="top" data-original-title='<div style="padding:5px 0px;"><img src="static_edit/static/images/tip-picture@2x_5892af5.png" style="width:177px;margin-bottom:5px;"/><div class="text-left">1，若条码编号为13位，请在最前面填写数字0</div><div class="text-left">2，输入后不可修改，请谨慎填写</div></div>'>
 										<i class="fa fa-question-circle"></i>
@@ -106,9 +101,9 @@
 									<div class="text-danger pos-abt wrong-gtin text-xs none" id="wrong-gtin">格式不正确</div>
 									<div class="text-danger pos-abt wrong-gtin-13 text-xs none" id="wrong-gtin-13" style="bottom:-17px;">13位编码，请在前面填写数字0</div>
 								</div>
-							</div>
+							</div> -->
 							<div class="p-x p-y-0">
-								<button id="save_btn" class="btn btn-sm green right_box_btn m-t-0" data-loading-text="正在保存..." data-complete-text="保存" data-save="">生成二维码</button>
+								<button id="save_btn6" class="btn btn-sm green right_box_btn m-t-0" data-loading-text="正在保存..." data-complete-text="保存" data-save="">生成二维码</button>
 							</div>
 						</div>
 					</div>
@@ -189,9 +184,6 @@
 	</script>
 	<script src="__PUBLIC__/product/static_edit/cli/js/lib/plug/jceb.msgtip.js?v=20170314"></script>
 	<script src="__PUBLIC__/product/static_edit/cli/js/clistyle.js?v=20170314"></script>
-	<!--[if lt IE 10]>
-      <script src="static_edit/cli/js/lib/plug/jquery.placeholder.min.js"></script>
-    <![endif]-->
 	<script>
 		var type_change;
 		var coding = false;
@@ -200,10 +192,11 @@
 	</script>
 	<script type="text/javascript" src="__PUBLIC__/product/static_edit/static/js/lib/plug/jquery.colorpicker_1d06d07.js"></script>
 	<script charset="utf-8" src="__PUBLIC__/product/static_edit/cli/umeditor/umeditor.config.js"></script>
-	<script charset="utf-8" src="__PUBLIC__/product/static_edit/cli/umeditor/umeditor.js?v=20170321"></script>
+	<script charset="utf-8" src="__PUBLIC__/product/static_edit/cli/umeditor/umeditor.js"></script>
 	<script src="__PUBLIC__/product/static_edit/cli/umeditor/lang/zh-cn/zh-cn.js"></script>
 	<script src="__PUBLIC__/product/static_edit/static/js/product_add_5ab8748.js"></script>
 	<script src="__PUBLIC__/product/static_edit/cli/js/modalTips.js"></script>
 	<script type="text/javascript" src="__CUI__/js/layui.js"></script>
 	<script type="text/javascript" src="__CUI__/js/moreupload.js"></script>
+	<script src="__ADMIN_JS__/qrcode.js" type="text/javascript"></script>
 </block>

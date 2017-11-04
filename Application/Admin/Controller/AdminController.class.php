@@ -42,6 +42,14 @@ class AdminController extends CommonController {
                 $this->assign('_admin_tabs', C('ADMIN_TABS'));
             }
         }
+        if (session('user_auth.user_type') == 2) {
+            if ('Admin/Index/index' !== $current_url) {
+                if (!D('Admin/User')->checkMenuAuth()) {
+                    $this->error('权限不足！', U('Admin/Index/index'));
+                }
+                // $this->assign('_admin_tabs', C('ADMIN_TABS'));
+            }
+        }
         
         // 获取左侧导航
         if (!C('ADMIN_TABS')) {

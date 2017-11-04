@@ -2,7 +2,7 @@
 	var _upload = {
 		_kid : null,
 		_index:0,
-		_upurl : '//upload.api.cli.im/upload.php',
+		_upurl : 'admin.php?s=/admin/product/addfile',
 		_param : {},
 		_new : function(obj,params){ //支持HTML5
 			var size = this._newfsiize(obj);
@@ -24,16 +24,16 @@
 			},false);
 			xhr.addEventListener("load", function(evt){ //成功
 				var data = evt.target.responseText;
-				if(data==''){
-					alert("上传异常");
-					return false;
-				}
-				try{
-					data = eval('('+data+')');
-				}catch(e){
-					alert("上传异常\n"+data);
-					return false;
-				}
+				// if(data==''){
+				// 	alert("上传异常");
+				// 	return false;
+				// }
+				// try{
+				// 	data = eval('('+data+')');
+				// }catch(e){
+				// 	alert("上传异常\n"+data);
+				// 	return false;
+				// }
 				var newobj=_upload._newdo($obj).reset();
 				if(data.status!='1') params.failed(data.info);
 				else params.complete.call(newobj,data.data,_upload._index);
@@ -48,7 +48,8 @@
 				_upload._newdo($obj).reset();
 				params.cancel();
 			}, false);
-			xhr.open("POST", this._upurl+"?kid="+this._kid);
+			xhr.open("POST", this._upurl+"/kid/"+this._kid);
+			// xhr.open("POST", this._upurl);
 			xhr.withCredentials = true;
 			xhr.send(fd);
 		},

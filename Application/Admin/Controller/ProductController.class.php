@@ -396,4 +396,24 @@ class ProductController extends AdminController {
         $this->display('Phone/view');
     }
 
+    /**
+     * 上传文件
+     */
+    public function addfile() {
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->rootPath  =     'Uploads/product/file/'; // 设置附件上传根目录
+            $upload->savePath  =     ''; // 设置附件上传（子）目录+
+            // 上传文件 
+            $info   =   $upload->upload();
+            if(!$info) {// 上传错误提示错误信息
+                $this->error('上传失败！');
+            }else{// 上传成功
+                $size = getFilesize($info['file']['size']);
+                $url  = $info['file']['savepath'].$info['file']['savename'];
+                $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
+            }
+        }
+    }
+
 }
