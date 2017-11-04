@@ -20,7 +20,8 @@
     <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/admin.css">
     <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/theme/{:C('ADMIN_THEME')}.css">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/libs/animate/animate.min.css">
-	     <link rel="stylesheet" type="text/css" href="__CUI__/css/cui.extend.min.css">
+	<link rel="stylesheet" type="text/css" href="__CUI__/css/cui.extend.min.css">
+	<link rel="stylesheet" type="text/css" href="__CUI__/css/menutree.css"/>
     <block name="style"></block>
     <!--[if lt IE 9]>
         <script src="http://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
@@ -78,7 +79,7 @@
                        <!-- <li><a target="_blank" href="__ROOT__/"><i class="fa fa-external-link-square"></i> 打开前台</a></li> -->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-user"></i> {$_user_auth.username} <b class="caret"></b>
+                                <i class="fa fa-user"></i>{$_user_auth.username} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{:U('Admin/Public/logout')}" class="ajax-get"><i class="fa fa-sign-out"></i> 退出</a></li>
@@ -114,16 +115,21 @@
         <volist name="_ns_first._child" id="_ns_second" key="skey">
             <li <?php if($_parent_menu_list[2]['id'] == $_ns_second['id'] && (!$_parent_menu_list[3]['id'] || ($_parent_menu_list[3]['id'] && !$_GET['type']))) echo 'class="active"'; ?><?php if($_ns_second['title'] == '活码管理' && $_GET['codeType']) echo 'class="active"'; ?>>
                 <a href="{:U($_ns_second['url'])}" >
-                    <?php if($ifCheckCount > 0): ?><i class="{$_ns_second.icon}"></i><?php endif; ?>
+                    <?php if($ifCheckCount > 0): ?><i class="{$_ns_second.icon}"></i><em class="abc"></em><?php endif; ?>
                     <span class="nav-label">{$_ns_second.title}</span>
                 </a>
                 <!--<ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$skey}">-->
-                <ul class="nav navside-nav navside-second collapse in">
+                <ul class="nav navside-nav navside-second collapse in menutree">
                     <volist name="_ns_second._child" id="_ns_third" key="skey2">
-                        <li <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?>>
-                            <a href="{:U($_ns_third['url'])}" >
-                                <span class="nav-label" style="margin-left: 20px;">{$_ns_third.title}</span>
+                        <li onmouseover=treehove({$_ns_third['id']}) onmouseout=treeout({$_ns_third['id']}) <?php if($_parent_menu_list[3]['id'] == $_ns_third['id']) echo 'class="active"'; ?> >
+                            <a href="{:U($_ns_third['url'])}" style="height: 34px;">
+                            	<span class="nav-label ml" style="margin-left: 20px;">{$_ns_third.title}</span>
                             </a>
+                            <div class="changetree" id="tree_{$_ns_third['id']}">
+                            	<span class="button add" onclick="treeadd(this,{$_ns_third['parentid']})" title="新建目录"></span>
+                            	<span class="button edit" onclick="treedit(this,{$_ns_third['id']})" title="编辑目录" ></span>
+                            	<span class="button remove" onclick="treedel(this,{$_ns_third['id']})" title="删除目录" ></span>
+                            </div>
                         </li>
                     </volist>
                 </ul>
@@ -184,12 +190,9 @@
         </div>
     </div>
     <script src="__PUBLIC__/libs/layer/layer.js"></script>
-    
+    <script src="__CUI__/js/menutree.js"></script>
         <script type="text/javascript">
            $(function(){
-               	var html=$(".fa-user").next('.nav-label').addClass('abc');
-               	$(".fa-th").next('.nav-label').addClass('drop');
-               	
     				$('.layer').click(function(){
     				    var url=($(this).attr('href'));
     				    var layerindex=layer.open({
@@ -216,31 +219,18 @@
     	 });
         </script>
         <style>
-        	span.nav-label.abc,span.nav-label.drop{
-        		position: relative;
-        	}
-        	span.nav-label.abc:after {
-    		    content: "";
+        	.abc{
     		    display: inline-block;
     		    width: 6px;
     		    height: 6px;
     		    background: #FF1C20;
     		    border-radius: 50%;
     		    position: absolute;
-    		    top: 6px;
-    		    left: 65px;
-    		}
-        	span.nav-label.drop:after {
-    		    content: "";
-    		    display: inline-block;
-    		    width: 6px;
-    		    height: 6px;
-    		    background: #FF1C20;
-    		    border-radius: 50%;
-    		    position: absolute;
-    		    top: 6px;
-    		    left: 62px;
+    		    top: 14px;
+    		    right: 83px;
     		}
         </style>
 </body>
 </html>
+
+ 	 

@@ -13,8 +13,9 @@
         top:  50px;;
         bottom: 0;
         overflow: auto;
-        background: #eee;
+        background: #fff;
         width: 220px;
+        overflow-x: scroll;
     }
     #sidebar .navside {
         border-radius: 0;
