@@ -299,14 +299,26 @@ class UserController extends AdminController {
      * 
      */
     public function domain($id) {
+        $menu = D('Module')->where(['pid'=>4])->select();
         if (IS_POST) {
             // 提交数据
             $mod = D('User');
             $data = I('post.');
+            $ids = [];
+            foreach ($menu as $v) {
+                $ids[] = $v['id'];
+            }
+            if ($data['menu_auth']) {
+                $data['menu_auth'] = array_diff($ids, $data['menu_auth']);
+                sort($data['menu_auth']);
+            }else{
+                $data['menu_auth'] = $ids;
+            }
+            
             if ($data['menu_auth']) {
                 $data['menu_auth'] = json_encode($data['menu_auth']);
             }else{
-                $data['menu_auth'] = 0;
+                $data['menu_auth'] = '';
             }
 
             $result = $mod->save($data);
@@ -322,9 +334,9 @@ class UserController extends AdminController {
                  $this->error('用户不存在或被禁用！');
             }
             $info['menu_auth'] = json_decode($info['menu_auth'],true);
-            $info['menu'] = D('Module')->where(['pid'=>4])->select();
+            // h($info['menu_auth']);
 
-            $this->assign(['meta_title'=>'域名管理','info'=>$info]);
+            $this->assign(['meta_title'=>'域名管理','info'=>$info,'menu'=>$menu]);
             $this->display();
         }
     }

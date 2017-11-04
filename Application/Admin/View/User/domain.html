@@ -137,9 +137,9 @@
                             <div class="form-group item_limitCount ">
                                 <label class="left control-label">活码显示类型：</label>
                                 <div class="cui-control cui-checkbox">
-                                    <volist name="info.menu" id="vo">
+                                    <volist name="menu" id="vo">
                                     <label class="checkbox-label checkbox-inline">
-                                        <input type="checkbox" name="menu_auth[]" data-module-name="{$vo.id}" value="{$vo.id}" <?php if(in_array($vo['id'],$info['menu_auth'])){echo 'checked';} ?>>
+                                        <input type="checkbox" name="menu_auth[]" data-module-name="{$vo.id}" value="{$vo.id}" <?php if(!in_array($vo['id'],$info['menu_auth'])){echo 'checked';} ?>>
                                         <span class="cui-control-indicator"></span>
                                         <span>{$vo.title}</span>
                                     </label>

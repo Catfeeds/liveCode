@@ -1,7 +1,6 @@
 	function treehove(id){
 		$('#tree_'+id).show();
 		event.stopPropagation();
-
 	}
 	
 	function treeout(id){
@@ -10,18 +9,19 @@
 	}
 	
 	//增加目录
-	function treeadd(obj,parentid){		
+	function treeadd(obj,pid){		
+		alert(pid)
 		$.ajax({
 	        type: "POST", 
 	        async: "false", 
 	        url: "add", 
-	        data: {'parentid':parentid}, 
+	        data: {'pid':pid}, 
 	        success: function (data) { 					
 			var addhtml='<ul class="treeUl"><li onmouseover=treehove('+data.id+') onmouseout=treeout('+data.id+')>';
 		        addhtml+='<a href="" style="height: 34px;"></a>';
 		        addhtml+='<span class="nav-label ml">新建目录</span>';
 		        addhtml+='<div class="changetree" id="tree_'+data.id+'">';
-		        addhtml+='<span class="button add" onclick="treeadd(this,'+parentid+')" title="新建目录"></span>';
+		        addhtml+='<span class="button add" onclick="treeadd(this,'+pid+')" title="新建目录"></span>';
 		        addhtml+='<span class="button edit" onclick="treedit(this,'+data.id+')" title="编辑目录" ></span>';
 		        addhtml+='<span class="button remove" onclick="treedel(this,'+data.id+')" title="删除目录"></span></div>';
 		        addhtml+='</li></ul>';

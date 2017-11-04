@@ -186,12 +186,10 @@ class UserModel extends Model {
         $current_menu = D('Admin/Module')->getCurrentMenu(); // 当前菜单
         $menu_auth = $this->getFieldByid(session('user_auth.uid'), 'menu_auth');  // 获得当前登录用户信息
         $menu_auth = json_decode($menu_auth,true);
-        if ($menu_auth == 0) {
-            return false;
-        }
+        // h($current_menu);
         if ($menu_auth != '') {
             // 获得当前登录用户所属部门的权限列表
-            if (in_array($current_menu['id'], $menu_auth)) {
+            if (!in_array($current_menu['id'], $menu_auth) && !in_array($current_menu['pid'], $menu_auth)) {
                 return true;
             }
         } else {
