@@ -603,3 +603,28 @@ function getEwmFileName($codeType){
             break;
     }
 }
+/**
+ * 根据活码名称返回控制器
+ */
+function getControllerName($title){
+    switch ($title) {
+        case '活码生成':
+            return 'livecode';
+            break;
+        case '产品活码':
+            return 'product';
+            break;
+        case '视频活码':
+            return 'video';
+            break;
+        case '网址跳转':
+            return 'phone';
+            break;
+        case '多网址跳转':
+            return 'duourl';
+            break;
+        default:
+            return 'livecode';
+            break;
+    }
+}
