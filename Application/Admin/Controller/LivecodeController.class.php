@@ -390,6 +390,9 @@ class LivecodeController extends AdminController {
                 if ($type == 5) {
                     createVcfFile($id,$data['content']);
                 }
+                if ($data['menuId']) {
+                    $this->success(['type'=>$data['menuId']], '/Uploads/livecode/'.$id.'.png');
+                }
                 $this->success('新增成功', '/Uploads/livecode/'.$id.'.png');
             } else {
                 $this->error('新增失败');

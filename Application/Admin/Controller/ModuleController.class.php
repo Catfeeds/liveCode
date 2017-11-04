@@ -39,7 +39,105 @@ class ModuleController extends AdminController {
                 ->setTableDataList($data_list)     // 数据列表
                 ->display();
     }
-
+    /**
+     * 活码-新建目录(返回活码类型名称)
+     */
+    public function add() {
+        $module_object = D('Module');
+        $parentMenu = $module_object->find(I('post.pid/d'));
+        $codeType = getControllerName($parentMenu['title']);
+        $this->success(['codeType'=>$codeType]);
+    }
+    /**
+     * 活码-修改目录名称
+     */
+    public function edit() {
+        $data = I('post.');
+        if ($data['title'] == '') {
+            $this->error('请输入目录名称');
+        }
+        $res = D('Module')->save($data);
+        if ($res !== false) {
+            $this->success('修改成功');
+        }
+        $this->error('修改失败');
+    }
+    /**
+     * 活码-删除目录
+     */
+    public function del() {
+        $id  = I('post.id/d');
+        $pid = I('post.pid/d');
+        $uid = (int)session('user_auth.uid');
+        $module_object = D('Module');
+        $parentMenu    = $module_object->find($pid);
+        $childMenu     = $module_object->find($id);
+        $codeType      = getControllerName($parentMenu['title']);
+        //判断活码类型并删除数据
+        if ($codeType == 'livecode') {
+            $mod =  D('Livecode');
+            $codes = $mod->where(['uid'=>$uid,'menuId'=>$childMenu['create_time']])->select();
+            if ($codes) {
+                foreach ($codes as $v) {
+                    unlink("Uploads/livecode/".$v['id'].'.png');
+                    $res = $mod->where(['id'=>$v['id']])->delete();
+                    if ($res === false) {
+                        $this->error('数据删除失败');
+                    }
+                }
+            }
+        }elseif ($codeType == 'product') {
+            $mod =  D('Product');
+            $codes = $mod->where(['uid'=>$uid,'menuId'=>$childMenu['create_time']])->select();
+            if ($codes) {
+                foreach ($codes as $v) {
+                    unlink("Uploads/product/".$v['id'].'.png');
+                    $res = $mod->where(['id'=>$v['id']])->delete();
+                    if ($res === false) {
+                        $this->error('数据删除失败');
+                    }
+                }
+            }
+        }elseif ($codeType == 'video' || $codeType == 'phone') {
+            $mod =  D('Phone');
+            $codes = $mod->where(['uid'=>$uid,'menuId'=>$childMenu['create_time']])->select();
+            if ($codes) {
+                foreach ($codes as $v) {
+                    if ($codeType == 'video') {
+                        $videourl = $mod-> where(['id'=>$v['id']]) -> getField('videourl');
+                        unlink($videourl);
+                        unlink("Uploads/ewm/".$v['id'].'.png');
+                    }else{
+                        unlink("Uploads/phone/".$v['id'].'.png');
+                    }
+                    $res = $mod->where(['id'=>$v['id']])->delete();
+                    if ($res === false) {
+                        $this->error('数据删除失败');
+                    }
+                }
+            }
+        }elseif ($codeType == 'duourl') {
+            $mod =  D('Duourl');
+            $codes = $mod->where(['uid'=>$uid,'menuId'=>$childMenu['create_time']])->select();
+            if ($codes) {
+                foreach ($codes as $v) {
+                    unlink("Uploads/duourl/".$v['id'].'.png');
+                    $res = $mod->where(['id'=>$v['id']])->delete();
+                    if ($res === false) {
+                        $this->error('数据删除失败');
+                    }
+                }
+            }
+        }
+        
+        //找出相关菜单并删除
+        $where = ['id|pid'=>$id,'user_id'=>$uid,'create_time'=>$childMenu['create_time']];
+        $result = $module_object->where($where)->delete();
+        if ($result) {
+            $this->success('删除成功');
+        }
+        $this->error('删除失败');
+    }
     /**
      * 检查模块依赖
      * 
