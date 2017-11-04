@@ -137,7 +137,9 @@
                                                 <volist name="_ns_first._child" id="_ns_second" key="skey">
                                                     <li <?php if($_parent_menu_list[2]['id'] == $_ns_second['id']) echo 'class="active"'; ?>>
                                                         <a href="{:U($_ns_second['url'])}" >
-                                                            <?php if($ifCheckCount > 0): ?><i class="{$_ns_second.icon}"></i><?php endif; ?>
+                                                            <i class="{$_ns_second.icon}"></i>
+                                                            <?php if($ifCheckUserCount > 0 && $_ns_second['id'] == 14): ?><em class="abc"></em><?php endif; ?>
+                                                            <?php if($ifCheckLivecodeCount > 0 && $_ns_second['id'] == 152): ?><em class="abc"></em><?php endif; ?>
                                                             <span class="nav-label">{$_ns_second.title}</span>
                                                         </a>
                                                     </li>

@@ -113,9 +113,11 @@
 <notempty name="_ns_first._child">
     <ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$fkey}">
         <volist name="_ns_first._child" id="_ns_second" key="skey">
-            <li <?php if($_parent_menu_list[2]['id'] == $_ns_second['id'] && (!$_parent_menu_list[3]['id'] || ($_parent_menu_list[3]['id'] && !$_GET['type']))) echo 'class="active"'; ?><?php if($_ns_second['title'] == '活码管理' && $_GET['codeType']) echo 'class="active"'; ?>>
+            <li <?php if($_parent_menu_list[2]['id'] == $_ns_second['id'] && (!$_parent_menu_list[3]['id'] || ($_parent_menu_list[3]['id'] && !$_GET['type']))) echo 'class="active"'; ?>>
                 <a href="{:U($_ns_second['url'])}" >
-                    <?php if($ifCheckCount > 0): ?><i class="{$_ns_second.icon}"></i><em class="abc"></em><?php endif; ?>
+                    <i class="{$_ns_second.icon}"></i>
+                    <?php if($ifCheckUserCount > 0 && $_ns_second['id'] == 14): ?><em class="abc"></em><?php endif; ?>
+                    <?php if($ifCheckLivecodeCount > 0 && $_ns_second['id'] == 152): ?><em class="abc"></em><?php endif; ?>
                     <span class="nav-label">{$_ns_second.title}</span>
                 </a>
                 <!--<ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$skey}">-->

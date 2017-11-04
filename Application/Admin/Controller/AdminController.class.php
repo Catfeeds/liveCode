@@ -61,8 +61,15 @@ class AdminController extends CommonController {
         $this->assign('_admin_public_layout', C('ADMIN_PUBLIC_LAYOUT'));  // 页面公共继承模版
 
         //获取待审核活码域名的用户数量
-        $ifCheckCount = D('User')->getIfCheckCount();
-        $this->assign('ifCheckCount', $ifCheckCount);
+        $ifCheckUserCount = D('User')->getIfCheckCount();
+        $this->assign('ifCheckUserCount', $ifCheckUserCount);
+        //获取待审核活码的数量
+        $livecodeCount1 = D('Livecode')->getIfCheckCount();
+        $livecodeCount2 = D('Product')->getIfCheckCount();
+        $livecodeCount3 = D('Phone')->getIfCheckCount();
+        $livecodeCount4 = D('Duourl')->getIfCheckCount();
+        $ifCheckLivecodeCount = $livecodeCount1 + $livecodeCount2 + $livecodeCount3 + $livecodeCount4;
+        $this->assign('ifCheckLivecodeCount', $ifCheckLivecodeCount);
     }
 
     /**

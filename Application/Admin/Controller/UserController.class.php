@@ -303,11 +303,8 @@ class UserController extends AdminController {
             // 提交数据
             $mod = D('User');
             $data = I('post.');
-            // if (empty($data['url'])) {
-            //     $this->error('请输入活码域名！');
-            // }
-            if (empty($data['url_status'])) {
-                $this->error('请选择审核结果！');
+            if (!empty($data['url']) && empty($data['url_status'])) {
+                $this->error('请选择域名审核结果！');
             }
             $result = $mod->save($data);
             if ($result !== false) {
