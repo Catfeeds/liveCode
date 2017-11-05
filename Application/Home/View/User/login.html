@@ -30,61 +30,144 @@
 				</div>
 			</div>
 			<div class="mainwarp w1000">
-				<div class="choose_edition">
-					<p class="tit_txt"><span class="tit1">1.请选择版本</span>（一次性开通多年，还可以享受折扣优惠，年限越大，折扣越大。<font style="color: red;">2年9折！3年8折！5年7折！</font>详情请咨询我们在线售前工程师。）</p>
-					<ul class="edition">
-						<li>基础版</li>
-						<li class="edit_on">高级版</li>
-						<li>定制版</li>
-						<input type="hidden"  id="edition" value="1" />
-						<div class="clear"></div>
-					</ul>
-				</div>
-				<div class="choose_edition">
-					<p class="tit1">2.请选择时长</p>
-					<ul class="duration dis_block">
-						<li class="edit_on"><span><font class="jine">2000</font>元/年</span><p>1年</p></li>
-						<li><span><font class="jine">1800</font>元/年</span><p>2年</p></li>
-						<li><span><font class="jine">1600</font>元/年</span><p>3年</p></li>
-						<li><span><font class="jine">1600</font>元/年</span><p>4年</p></li>
-						<li><span><font class="jine">1400</font>元/年</span><p>5年</p></li>
-						<input type="hidden"  id="duration" value="0" />
-						<div class="clear"></div>
-					</ul>
-				</div>
-				<div class="now_buy">
-					<span>正在开通&nbsp;</span>  
-					<span class="col1">高级版1年</span>
-					<span>&nbsp;&nbsp;总计：<span class="col2">￥<font>2000</font></span></span>
-					<a href="#" class="buy_btn">现在支付</a>
-				</div>
-				<div class="contrast_tab">
-					<p class="tit1">版本对比表：</p>
-					<table border="1" cellspacing="0" cellpadding="0" class="con_table">
-						<thead>
-							<tr><th>对比项</th><th>基础版</th><th class="bgcolg">高级版</th><th>定制版</th></tr>
-						</thead>
-						<tbody>
-							<tr><td>活码数量</td><td>1个</td><td class="bgcolg">不限制</td><td>不限制</td></tr>
-							<tr><td>内容编辑</td><td>无限制修改</td><td class="bgcolg">无限制修改</td><td>无限制修改</td></tr>
-							<tr><td>扫描量</td><td>不限制扫描量</td><td class="bgcolg">不限制扫描量</td><td>不限制扫描量</td></tr>
-							<tr><td>跳转网址数量</td><td>10个</td><td class="bgcolg">不限制</td><td>不限制</td></tr>
-							<tr><td>风险预警</td><td>无风险页直接跳转</td><td class="bgcolg">无风险页直接跳转</td><td>无风险页直接跳转</td></tr>
-							<tr><td>网址审核</td><td>自动通过审核</td><td class="bgcolg">自动通过审核</td><td>自动通过审核</td></tr>
-							<tr><td>批量上传网址</td><td></td><td class="bgcolg">支持</td><td>支持</td></tr>
-							<tr><td>批量修改网址</td><td></td><td class="bgcolg">支持</td><td>支持</td></tr>
-							<tr><td>批量下载活码图片</td><td></td><td class="bgcolg">支持</td><td>支持</td></tr>
-							<tr><td>特殊类型定制</td><td></td><td class="bgcolg"></td><td>支持</td></tr>
-							<tr><td>独立域名</td><td></td><td class="bgcolg"></td><td>支持</td></tr>
-							<tr><td>独立主机</td><td></td><td class="bgcolg"></td><td>支持</td></tr>
-							<tr><td>跳转类型</td><td>单个网址跳转/多网址随机跳转</td><td class="bgcolg">单个网址跳转/多网址随机跳转</td><td>单个网址跳转/多网址随机跳转</td></tr>
-							<tr><td>统计追踪</td><td>不支持</td><td class="bgcolg">不支持</td><td>不支持</td></tr>
-						</tbody>
-					</table>
-					
-				</div>
-				<div class="clear"></div>
+			<div class="choose_edition">
+				<p class="tit_txt"><span class="tit1">1.请选择版本</span>（一次性开通多年，还可以享受折扣优惠，年限越大，折扣越大。<font style="color: red;">2年9折！3年8折！5年7折！</font>详情请咨询我们在线售前工程师。）</p>
+				<ul class="edition">
+					<volist name="vips" id="vo">
+						<li <?php if($vo['is_recommed']){echo 'class="edit_on"';} ?>>{$vo['name']}</li>
+					</volist>
+					<div class="clear"></div>
+				</ul>
 			</div>
+			<div class="choose_edition">
+				<p class="tit1">2.请选择时长</p>
+				<div class="ch_edit">
+					<volist name="vips" id="vo" key="k">
+						<ul <?php if($vo['is_recommed']){echo 'class="duration dis_block"';}else{echo 'class="duration" style="display: none;" ';} ?>>
+							<volist name="versions" id="vo2">
+								<?php if($vo['id'] == $vo2['vipId']): ?>
+								<li><span><font class="jine">{$vo2['price']}</font>元/年</span><p>{$vo2['year']}年</p></li>
+								<?php endif; ?>
+							</volist>
+							<div class="clear"></div>
+						</ul>
+					</volist>
+				</div>
+			</div>
+
+			<div class="now_buy">
+				<form action="{:U('Home/Order/buy')}" method="post" class="theme-buy">
+					<span>正在开通&nbsp;</span>  
+					<span class="col1">{$recommed['name']}{$recommed['year']}年</span>
+					<span>&nbsp;&nbsp;总计：<span class="col2">￥<font>{$recommed['price']*$recommed['year']}</font></span></span>
+					<input type="hidden" class="vip" name="vip" value="">
+					<input type="hidden" class="year" name="year" value="">
+					<input type="hidden" class="money" name="money" value="">
+					<input type="button" class="buy_btn denglu" value="提交订单"/>
+				</form>
+			</div>
+			<div class="contrast_tab">
+				<p class="tit1">版本对比表：</p>
+				<table border="1" cellspacing="0" cellpadding="0" class="con_table">
+					<thead>
+						<tr>
+							<th>对比项</th>
+							<volist name="vips" id="vo">
+								<th <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['name']}</th>
+							</volist>	
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>活码数量</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['livecode_count']|showDiffCount="text",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>内容编辑</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>无限制修改</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>扫描量</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>不限制扫描量</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>跳转网址数量</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['jump_url_count']|showDiffCount="text",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>风险预警</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>无风险页直接跳转</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>网址审核</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>自动通过审核</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>批量上传网址</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['batch_upload']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>批量修改网址</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['batch_edit']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>批量下载活码图片</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['batch_download']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>特殊类型定制</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['special_type']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>独立域名</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['single_url']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>独立主机</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['single_host']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>跳转类型</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>单个网址跳转/多网址随机跳转</td>
+							</volist>
+						</tr>
+						<tr>
+							<td>统计追踪</td>
+							<volist name="vips" id="vo">
+								<td <?php if($vo['is_recommed']){echo 'class="bgcolg"';} ?>>{$vo['count_track']|showDiffCount="select",###}</td>
+							</volist>
+						</tr>
+					</tbody>
+				</table>
+				
+			</div>
+			<div class="clear"></div>
+		</div>
 			<footer class="foot">
 				<div class="foot_txt">
 					<div class="left">

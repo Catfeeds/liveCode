@@ -110,7 +110,20 @@ class UserController extends CommonController {
                 $this->error('登录失败');
             }
         } else {
-            $this->assign('meta_title', '用户登录');
+            $mod = D('Order');
+            // 获取套餐
+            $vips = $mod->getVips();
+            // 获取套餐价格
+            $versions = M('vip_price')->order('year')->select();
+            // 获取默认的套餐及价格
+            $recommed = $mod->getRecommed();
+
+            $this->assign([
+                'meta_title'    => '用户登录',
+                'vips'          => $vips,
+                'versions'      => $versions,
+                'recommed'      => $recommed,
+            ]);
             $this->display();
         }
     }
