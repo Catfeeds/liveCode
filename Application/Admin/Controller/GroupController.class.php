@@ -140,7 +140,11 @@ class GroupController extends AdminController {
      * 
      */
     public function setStatus($model = CONTROLLER_NAME){
-        $ids = I('request.ids');
+        $ids       = I('request.ids');
+        $status    = I('request.status');
+        $userMod   = D('User');
+        $accessMod = D('Access');
+
         if (is_array($ids)) {
             if(in_array('1', $ids)) {
                 $this->error('超级管理员组不允许操作');
@@ -148,6 +152,21 @@ class GroupController extends AdminController {
         } else {
             if($ids === '1') {
                 $this->error('超级管理员组不允许操作');
+            }
+        }
+
+        if ( $status=='forbid' || $status=='resume' ){
+            $newStatus = ($status=='forbid')? 0:1;
+            if (is_array($ids)) {
+                foreach( $ids as $v  ){ 
+                    $uids   = $accessMod->where(['group'=>$v])->getField('uid',true);
+                    $userMod->save(['id'=>['in',$uids],'status'=>$newStatus]);
+                    $accessMod->where(['group'=>$v])->save(['status'=>$newStatus]);
+                }
+            } else {
+                $uids   = $accessMod->where(['group'=>$ids])->getField('uid',true);
+                $userMod->save(['id'=>['in',$uids],'status'=>$newStatus]);
+                $accessMod->where(['group'=>$ids])->save(['status'=>$newStatus]);
             }
         }
         parent::setStatus($model);

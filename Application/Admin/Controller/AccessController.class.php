@@ -148,8 +148,8 @@ class AccessController extends AdminController {
      * 
      */
     public function setStatus($model = CONTROLLER_NAME){
-        $ids = I('request.ids');
-        $status=I('request.status');
+        $ids     = I('request.ids');
+        $status  = I('request.status');
         $userMod = D('user');
 
         if ( $status=='delete' ){
