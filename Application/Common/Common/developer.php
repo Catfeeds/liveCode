@@ -516,7 +516,7 @@ function WSTReturn($msg,$status = -1,$data = []){
     return $rs;
 }
 /**
- * 返回用户域名状态
+ * 返回用户域名审核状态 && 活码审核状态
  */
 function domainStatus($url_status){
     switch ($url_status) {
@@ -524,10 +524,10 @@ function domainStatus($url_status){
             return '<font color="red">待审核</font>';
             break;
         case '1':
-            return '<font color="green">正常</font>';
+            return '<font color="green">审核通过</font>';
             break;
         case '-1':
-            return '未通过';
+            return '审核不通过';
             break;
         default:
             return '<font color="red">待审核</font>';

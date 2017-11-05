@@ -44,10 +44,16 @@ class LivecodeModel extends Model {
      */
     public function userLivecodeCountLimit() {
         // 用户已创建的活码数量
-        $count = $this->where(['uid'=>session('user_auth.uid')])->count();
+        $uid = (int)session('user_auth.uid');
+        $count1 = $this->where(['uid'=>$uid])->count();
+        $count2 = D('Product')->where(['uid'=>$uid])->count();
+        $count3 = D('Phone')->where(['uid'=>$uid])->count();
+        $count4 = D('Duourl')->where(['uid'=>$uid])->count();
+        $count = $count1+$count2+$count3+$count4;
         //限制数量
-        $vip = D('User')->alias('u')->field('livecode_count')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.session('user_auth.uid'))->find();
-        if ($count < $vip['livecode_count']) {
+        $vip = D('User')->alias('u')->field('livecode_count')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$uid)->find();
+
+        if ($count < $vip['livecode_count'] || $vip['livecode_count'] == 0) {
             return true;
         }else{
             return false;

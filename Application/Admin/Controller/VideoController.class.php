@@ -34,7 +34,8 @@ class VideoController extends AdminController {
                    ->select();
 
         foreach( $data_list as $k => $v ){
-            $data_list[$k]['ewm']   ="Uploads/ewm/".$v['id'].'.png';
+            $data_list[$k]['ewm']    = "Uploads/ewm/".$v['id'].'.png';
+            $data_list[$k]['status'] = domainStatus($v['status']);
         }
         $page = new Page(
             $this->obj->where($map)->count(),
@@ -72,6 +73,7 @@ class VideoController extends AdminController {
                 ->addTableColumn('count', '扫码次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
+                ->addTableColumn('status', '状态')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
@@ -102,7 +104,8 @@ class VideoController extends AdminController {
                    ->select();
 
         foreach( $data_list as $k => $v ){
-            $data_list[$k]['ewm']   ="Uploads/ewm/".$v['id'].'.png';
+            $data_list[$k]['ewm']     = "Uploads/ewm/".$v['id'].'.png';
+            $data_list[$k]['status']  = domainStatus($v['status']);
         }
         $page = new Page(
             $this->obj->where($map)->count(),
@@ -135,6 +138,7 @@ class VideoController extends AdminController {
                 ->addTableColumn('count', '播放次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
+                ->addTableColumn('status', '状态')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页

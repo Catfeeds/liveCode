@@ -41,7 +41,8 @@ class PhoneController extends AdminController {
                    ->select();
                   
         foreach( $data_list as $k => $v ){
-        	$data_list[$k]['ewm']="Uploads/phone/".$v['id'].'.png';
+            $data_list[$k]['ewm']    = "Uploads/phone/".$v['id'].'.png';
+            $data_list[$k]['status'] = domainStatus($v['status']);
         }           
         $page = new Page(
             $this->obj->where($map)->count(),
@@ -90,6 +91,7 @@ class PhoneController extends AdminController {
                 ->addTableColumn('count', '扫码次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
+                ->addTableColumn('status', '状态')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
@@ -120,7 +122,8 @@ class PhoneController extends AdminController {
                    ->select();
 
         foreach( $data_list as $k => $v ){
-            $data_list[$k]['ewm']   ="Uploads/phone/".$v['id'].'.png';
+            $data_list[$k]['ewm']     = "Uploads/phone/".$v['id'].'.png';
+            $data_list[$k]['status']  = domainStatus($v['status']);
         }
         $page = new Page(
             $this->obj->where($map)->count(),
@@ -164,6 +167,7 @@ class PhoneController extends AdminController {
                 ->addTableColumn('count', '扫码次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
+                ->addTableColumn('status', '状态')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
@@ -355,6 +359,12 @@ title = replace(title, '$ksid', '$endid') ");
      */
     public function add() {
         if (IS_POST) {
+            //判断用户当前套餐活码数量是否已达上限
+            $limit = D('Livecode')->userLivecodeCountLimit();
+            if (!$limit) {
+                $this->error('活码创建数量已达上限，请在续费管理中升级套餐');
+            }
+            
             $data['create_time'] =NOW_TIME;
             $data['update_time'] =NOW_TIME;
             $data['title']       =I('post.title/s');
