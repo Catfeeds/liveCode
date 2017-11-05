@@ -500,7 +500,7 @@ class LivecodeController extends AdminController {
                 $data['title'] = $data['content']['name'].'的名片';
                 $data['update_time'] = time();
             }
-            // h($data['content']['left_address']);
+            // h($data['content']['left_internet']);
             $user = D('user')->getUserInfo($this->uid);
             $data['status']= ($user['ifCheck'] == -1)?1:0;
             //如果是图文或者文件，内容保存为json格式
@@ -508,7 +508,7 @@ class LivecodeController extends AdminController {
                 $data['content']   = json_encode($data['content']);
             }
             $data['id']  = $info['editId'];
-            // h($data);
+
             $result = $this->obj->save($data);
             if ($result) {
                 //如果是名片活码，需更新vcf文件
