@@ -227,7 +227,12 @@ class HuomaController extends HomeController{
         $tell     = $data['left_phone'][0]['val'];
         $phone    = $data['left_phone'][1]['val'];
         $email    = $data['left_phone'][3]['val'];
+        $fax      = $data['left_phone'][2]['val'];
         $addr     = $data['left_address'][0]['val'];
+        $url      = $data['left_internet'][1]['val'];
+        $qq       = $data['left_internet'][3]['val'];
+        $intro    = $data['left_intro'][0]['val'];
+
 
         Vendor('phpqrcode.phpqrcode');
         //生成二维码图片
@@ -240,7 +245,11 @@ class HuomaController extends HomeController{
             TEL;TYPE=work:'.$tell.'
             TEL:'.$phone.'
             EMAIL:'.$email.'
+            TEL;TYPE=WORK,FAX:'.$fax.'
+            URL;WORK:'.$url.'
+            X-QQ:'.$qq.'
             ADR:'.$addr.'
+            NOTE;ENCODING=QUOTED-PRINTABLE:'.$intro.'
             END:VCARD';
         $level='M';
         $size=4;
