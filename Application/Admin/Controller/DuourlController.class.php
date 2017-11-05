@@ -453,51 +453,47 @@ class DuourlController extends AdminController {
         }
         parent::setStatus($model);
     }
-    public function edittzwz ()
-    {
-	    	if ( IS_POST )
-	        	{
-		        	$ksid=I('ksid');
-		
-		if ( !$ksid )
-		{
-			$this->error('请输入需要修改的ID');
-		}
-		$rs=$this->obj->find($ksid);
-		if ( !$rs )
-		{
-			$this->error('没有找到此id的相关信息');
-		}
-	 $file=I('file');
-	        if ( !$file )
-	        {
+    public function edittzwz (){
+	    if ( IS_POST ){
+		    $ksid=I('ksid');
+    		if ( !$ksid ){
+    			$this->error('请输入需要修改的ID');
+    		}
+    		$rs=$this->obj->find($ksid);
+    		if ( !$rs ){
+    			$this->error('没有找到此id的相关信息');
+    		}
+    	    $file=I('file');
+	        if ( !$file ){
 	        	$this->error('请上传文件');
 	        }
 	        $filename=get_upload_info($file,'path');
-	        if ( !$filename )
-	        {
+	        if ( !$filename ){
 	        	$this->error('请上传文件');
 	        }
 	        $txtarr=file( getcwd().$filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	        if ( !is_array($txtarr) )
-	        {
+	        if ( !is_array($txtarr) ){
 	        	$this->error('读取失败，请确认txt格式是否符合要求');
 	        }
 	        $data['id']=$ksid;
 	        $data['title']=implode('|||',$txtarr);
-	         $data['update_time']=NOW_TIME;
-	         $this->obj->save($data);
+	        $data['update_time']=NOW_TIME;
+	        $this->obj->save($data);
+            if (I('post.menuId/d')) {
+               $this->success('修改成功', U('child',['type'=>I('post.menuId/d')]));
+            }
 	     	$this->success('修改成功',U('index'));	
-	        	}else{
+	    }else{
 	    // 使用FormBuilder快速建立表单页面。
-            $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('批量修改跳转网址') //设置页面标题
-                    ->setPostUrl(U('edittzwz'))    //设置表单提交地址
-                    ->addFormItem('ksid', 'text', '需要修改的ID')
-                    ->addFormItem('file', 'file', '上传修改网址','上传需要导入的网址文件，格式为一行一个网址，文档格式为txt')
-                    
-                    ->display();
-	        	}
+        $builder = new \Common\Builder\FormBuilder();
+        $builder->setMetaTitle('批量修改跳转网址') //设置页面标题
+                ->setPostUrl(U('edittzwz'))    //设置表单提交地址
+                ->addFormItem('menuId', 'hidden')
+                ->addFormItem('ksid', 'text', '需要修改的ID')
+                ->addFormItem('file', 'file', '上传修改网址','上传需要导入的网址文件，格式为一行一个网址，文档格式为txt')
+                ->setFormData(['menuId' => I('get.type/d')])
+                ->display();
+        }
     
     }
     public function detail (){

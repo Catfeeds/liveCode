@@ -32,7 +32,7 @@ class VipController extends AdminController {
                    ->where($map)
                    ->order('v.sort,p.price desc')
                    ->select();
-        // halt($data_list);
+
         $page = new Page(
             $mod->alias('v')->join('__VIP_PRICE__ p ON p.vipId=v.id')->where($map)->count(),
             C('ADMIN_PAGE_ROWS')
@@ -44,14 +44,12 @@ class VipController extends AdminController {
                 ->addTopButton('addnew')  // 添加新增按钮
                 ->addTopButton('delete')  // 添加删除按钮
                 ->setSearch('请输入套餐名称', U('index'))
-               
                 ->addTableColumn('name', '套餐名称')
                 ->addTableColumn('year', '时长(年)')
                 ->addTableColumn('price', '套餐价格(元)')
                 ->addTableColumn('is_recommed', '是否前台推荐', 'status')
                 ->addTableColumn('is_show', '是否前台显示', 'status')
                 ->addTableColumn('sort', '排序')
-
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
@@ -211,15 +209,6 @@ class VipController extends AdminController {
      */
     public function setStatus($model = 'vip_price'){
         $ids = I('request.ids');
-        if (is_array($ids)) {
-            if(in_array('1', $ids)) {
-                $this->error('超级管理员不允许操作');
-            }
-        } else {
-            if($ids === '1') {
-                $this->error('超级管理员不允许操作');
-            }
-        }
         parent::setStatus('vip_price');
     }
 }
