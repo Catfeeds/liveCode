@@ -52,10 +52,6 @@ class AccessController extends AdminController {
         }
 
         // 使用Builder快速建立列表页面。
-        // $attr['name']  = 'delete';
-        // $attr['title'] = '删除';
-        // $attr['class'] = 'label label-danger ajax-get confirm';
-        // $attr['href']  = U('setStatus',['status'=>'delete','model'=>'delete','id'=>'__data_id__']);
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('管理员列表')  // 设置页面标题
                 ->addTopButton('addnew')   // 添加新增按钮

@@ -274,35 +274,28 @@ class PhoneController extends AdminController {
     	}
     }
     
- public function edittzwz ()
-    {
-	    	if ( IS_POST )
-	        	{
-		        	$ksid=I('ksid');
-		$endid=I('endid');
-		if ( !$ksid )
-		{
-			$this->error('请输入旧关键词');
-		}
-		if ( !$endid )
-		{
-			$this->error('请输入新关键词');
-		}
+    public function edittzwz (){
+	    if ( IS_POST ){
+		    $ksid=I('ksid');
+    		$endid=I('endid');
+    		if ( !$ksid ){
+    			$this->error('请输入旧关键词');
+    		}
+    		if ( !$endid ){
+    			$this->error('请输入新关键词');
+    		}
 		
-		M('cms_phone')->execute("UPDATE __CMS_PHONE__ SET 
-title = replace(title, '$ksid', '$endid') ");
+		    M('cms_phone')->execute("UPDATE __CMS_PHONE__ SET title = replace(title, '$ksid', '$endid') ");
 	     	$this->success('修改成功',U('index'));	
-	        	}else{
-	    // 使用FormBuilder快速建立表单页面。
+	    }else{
+	        // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('批量修改跳转网址') //设置页面标题
                     ->setPostUrl(U('edittzwz'))    //设置表单提交地址
                     ->addFormItem('ksid', 'text', '旧关键词')
                     ->addFormItem('endid', 'text', '新关键词')
-                    
                     ->display();
-	        	}
-    
+	    }
     }
     /**
      * 下载二维码
@@ -381,19 +374,16 @@ title = replace(title, '$ksid', '$endid') ");
             if ( !$data['videourl'] ){
                 $this->error('请输入跳转网址');
             }
-            if ($data) {
-                $id = $this->obj->add($data);
-                if ($id) {
-	                qrcode($data['huoma'],$id,4);
-                    if ($data['menuId']) {
-                       $this->success('新增成功', U('child',['type'=>$data['menuId']]));
-                    }
-                    $this->success('新增成功', U('index'));
-                } else {
-                    $this->error('新增失败');
+
+            $id = $this->obj->add($data);
+            if ($id) {
+                qrcode($data['huoma'],$id,4);
+                if ($data['menuId']) {
+                   $this->success('新增成功', U('child',['type'=>$data['menuId']]));
                 }
+                $this->success('新增成功', U('index'));
             } else {
-                $this->error($this->obj->getError());
+                $this->error('新增失败');
             }
         } else {
             // 使用FormBuilder快速建立表单页面。
@@ -449,45 +439,43 @@ title = replace(title, '$ksid', '$endid') ");
         }
     }
 
-   
+    /**
+     * 批量导入
+     */
     public function drurl() {
         if (IS_POST) {
 	        $file=I('file');
-	        if ( !$file )
-	        {
+	        if ( !$file ){
 	        	$this->error('请上传文件');
 	        }
 	        $filename=get_upload_info($file,'path');
-	        if ( !$filename )
-	        {
+	        if ( !$filename ){
 	        	$this->error('请上传文件');
 	        }
 	        $txtarr=file( getcwd().$filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	        if ( !is_array($txtarr) )
-	        {
+	        if ( !is_array($txtarr) ){
 	        	$this->error('读取失败，请确认txt格式是否符合要求');
 	        }
-	       
-            $data['create_time']=NOW_TIME;
-            $data['update_time']=NOW_TIME;
-            $data['uid']=$this->uid;
-            foreach( $txtarr as $v  )
-            {
-	          
-	        $data['title']=$v;
-	        $rs=$this->obj->where(array('title'=>$v))->find();
-	        if ( $rs )
-	        {
-	        /*$data['id']=$rs['id'];
-	       	 $user_object->save($data);
-	       	 $ewmid=$rs['id'];*/
-	        }else{
-		      $data['d']=get_dwz();
-	        $data['huoma']=get_huomaurl($data['d']);
-		     //unset($data['id']);
-		        $ewmid=$this->obj->add($data);
-		       qrcode($data['huoma'],$ewmid,4);
-		        }    
+            $data['menuId']      = I('post.menuId/d');
+            $data['uid']         = $this->uid;
+            $data['create_time'] = NOW_TIME;
+            $data['update_time'] = NOW_TIME;
+            foreach( $txtarr as $v  ){
+    	        $data['videourl']=$v;
+    	        $rs=$this->obj->where(array('videourl'=>$v))->find();
+    	        if ( $rs ){
+        	        /*$data['id']=$rs['id'];
+        	       	 $user_object->save($data);
+        	       	 $id=$rs['id'];*/
+    	        }else{
+    		        $data['d']=get_dwz();
+                    $data['huoma'] = setLivecodeUrl('',$data['d']);
+    		        $id=$this->obj->add($data);
+    		        qrcode($data['huoma'],$id,4);
+    		    }    
+            }
+            if ($data['menuId']) {
+               $this->success('导入成功', U('child',['type'=>$data['menuId']]));
             }
             $this->success('导入成功', U('index'));
         } else {
@@ -495,7 +483,9 @@ title = replace(title, '$ksid', '$endid') ");
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('导入网址') //设置页面标题
                     ->setPostUrl(U('drurl'))    //设置表单提交地址
+                    ->addFormItem('menuId', 'hidden')
                     ->addFormItem('file', 'file', '上传文件','上传需要导入的网址文件，格式为一行一个网址，文档格式为txt')
+                    ->setFormData(['menuId' => I('get.type/d')])
                     ->display();
         }
     }
