@@ -46,7 +46,8 @@ class ProductController extends AdminController {
         foreach( $data_list as $k => $v ){
             $data_list[$k]['ewm']     = "Uploads/product/".$v['id'].'.png';
             $data_list[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
-            $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+            $data_list[$k]['content'] = '<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+            $data_list[$k]['status']  = domainStatus($v['status']);
         }      
           
         $page = new Page(
@@ -80,6 +81,7 @@ class ProductController extends AdminController {
                 ->addTableColumn('content', '活码内容')
                 ->addTableColumn('count', '扫码次数')
                 ->addTableColumn('ewm', '二维码', 'img')
+                ->addTableColumn('status', '状态')
                 ->addTableColumn('create_time', '添加时间', 'time')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
@@ -113,7 +115,8 @@ class ProductController extends AdminController {
         foreach( $data_list as $k => $v ){
             $data_list[$k]['ewm']     = "Uploads/product/".$v['id'].'.png';
             $data_list[$k]['title']   = LC_Substr($v['title'],0,15,"utf-8",true);
-            $data_list[$k]['content']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+            $data_list[$k]['content'] = '<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+            $data_list[$k]['status']  = domainStatus($v['status']);
         }      
           
         $page = new Page(
@@ -143,6 +146,7 @@ class ProductController extends AdminController {
                 ->addTableColumn('count', '扫描次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
+                ->addTableColumn('status', '状态')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页

@@ -41,8 +41,9 @@ class DuourlController extends AdminController {
                    ->select();
                   
         foreach( $data_list as $k => $v ){
-        	$data_list[$k]['ewm']="Uploads/duourl/".$v['id'].'.png';
-        	$data_list[$k]['title']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+            $data_list[$k]['ewm']    = "Uploads/duourl/".$v['id'].'.png';
+            $data_list[$k]['title']  = '<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+            $data_list[$k]['status'] = domainStatus($v['status']);
         }      
           
         $page = new Page(
@@ -87,6 +88,7 @@ class DuourlController extends AdminController {
                 ->addTableColumn('count', '扫码次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
+                ->addTableColumn('status', '状态')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
@@ -117,8 +119,9 @@ class DuourlController extends AdminController {
                    ->select();
                   
         foreach( $data_list as $k => $v ){
-            $data_list[$k]['ewm']="Uploads/duourl/".$v['id'].'.png';
-            $data_list[$k]['title']='<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+            $data_list[$k]['ewm']    = "Uploads/duourl/".$v['id'].'.png';
+            $data_list[$k]['title']  = '<a href="'.U('detail',array('id'=>$v['id'])).'" class="label label-primary layer2">点击查看</a>';
+            $data_list[$k]['status'] = domainStatus($v['status']);
         }      
           
         $page = new Page(
@@ -158,6 +161,7 @@ class DuourlController extends AdminController {
                 ->addTableColumn('count', '扫码次数')
                 ->addTableColumn('ewm', '二维码', 'img')
                 ->addTableColumn('create_time', '添加时间', 'time')
+                ->addTableColumn('status', '状态')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)    // 数据列表
                 ->setTableDataPage($page->show()) // 数据列表分页
@@ -308,6 +312,11 @@ class DuourlController extends AdminController {
      */
     public function add() {
         if (IS_POST) {
+            //判断用户当前套餐活码数量是否已达上限
+            $limit = D('Livecode')->userLivecodeCountLimit();
+            if (!$limit) {
+                $this->error('活码创建数量已达上限，请在续费管理中升级套餐');
+            }
             $info=I('post.');
             if ( !$info['name'] ){
                 $this->error('请输入网址名称');
