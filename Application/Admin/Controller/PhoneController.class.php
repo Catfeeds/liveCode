@@ -285,15 +285,20 @@ class PhoneController extends AdminController {
     			$this->error('请输入新关键词');
     		}
 		
-		    M('cms_phone')->execute("UPDATE __CMS_PHONE__ SET title = replace(title, '$ksid', '$endid') ");
+		    M('cms_phone')->execute("UPDATE __CMS_PHONE__ SET videourl = replace(videourl, '$ksid', '$endid') ");
+            if (I('post.menuId/d')) {
+               $this->success('修改成功', U('child',['type'=>I('post.menuId/d')]));
+            }
 	     	$this->success('修改成功',U('index'));	
 	    }else{
 	        // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('批量修改跳转网址') //设置页面标题
                     ->setPostUrl(U('edittzwz'))    //设置表单提交地址
+                    ->addFormItem('menuId', 'hidden')
                     ->addFormItem('ksid', 'text', '旧关键词')
                     ->addFormItem('endid', 'text', '新关键词')
+                    ->setFormData(['menuId' => I('get.type/d')])
                     ->display();
 	    }
     }
