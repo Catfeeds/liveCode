@@ -156,13 +156,16 @@ class AccountController extends AdminController {
                    ->page($p, C('ADMIN_PAGE_ROWS'))
                    ->order('create_time desc')
                    ->select();
-        $data_list[] = $data[0];
-        if (!empty($data_list)) {
+        
+        $data_list = [];
+        if ($data) {
+            $data_list[] = $data[0];
             foreach ($data_list as $key => $v) {
                 $data_list[$key]['name']   = $v['name'].'-'.$v['year'].'年';
                 $data_list[$key]['expire_time']   = $v['year']*365*86400+$v['pay_time'];
             }
         }
+        
 
         $page = new Page(
             $mod->alias('o')->where($map)->join('__ADMIN_USER__ u on u.id = o.userId','left')->join('__VIP__ v on v.id = o.vipId','left')->count(),
@@ -180,7 +183,6 @@ class AccountController extends AdminController {
                 ->addTableColumn('pay_time', '订购时间','time')
                 ->addTableColumn('name', '套餐名称')
                 ->addTableColumn('expire_time', '有效期至','time')
-                // ->addTableColumn('isNew', '状态','status')
                 ->addTableColumn('right_button', '操作', 'btn')
                 ->setTableDataList($data_list)     // 数据列表
                 ->setTableDataPage($page->show())  // 数据列表分页
