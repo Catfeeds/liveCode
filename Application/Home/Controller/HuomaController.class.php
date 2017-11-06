@@ -233,7 +233,6 @@ class HuomaController extends HomeController{
         $qq       = $data['left_internet'][3]['val'];
         $intro    = $data['left_intro'][0]['val'];
 
-
         Vendor('phpqrcode.phpqrcode');
         //生成二维码图片
         $object = new \QRcode();
