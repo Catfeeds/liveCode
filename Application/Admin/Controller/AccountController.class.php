@@ -149,7 +149,7 @@ class AccountController extends AdminController {
         $map = ['o.orderStatus'=>1,'o.status'=>1,'o.userId'=>session('user_auth.uid')];
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
         $mod = D('Order');
-        $data = $mod->alias('o')->field('o.*,u.username,v.name')
+        $data = $mod->alias('o')->field('o.*,u.username,u.expire_time,v.name')
                    ->where($map)
                    ->join('__ADMIN_USER__ u on u.id = o.userId','left')
                    ->join('__VIP__ v on v.id = o.vipId','left')
@@ -162,11 +162,9 @@ class AccountController extends AdminController {
             $data_list[] = $data[0];
             foreach ($data_list as $key => $v) {
                 $data_list[$key]['name']   = $v['name'].'-'.$v['year'].'年';
-                $data_list[$key]['expire_time']   = $v['year']*365*86400+$v['pay_time'];
             }
         }
         
-
         $page = new Page(
             $mod->alias('o')->where($map)->join('__ADMIN_USER__ u on u.id = o.userId','left')->join('__VIP__ v on v.id = o.vipId','left')->count(),
             C('ADMIN_PAGE_ROWS')
