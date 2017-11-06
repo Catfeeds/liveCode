@@ -17,7 +17,7 @@
     <div class="wrapper">
 
 <!-- 图文活码S -->
-    	<div class="editor-wrap" style="display: block;">
+    	<div class="editor-wrap">
 	    	<div class="editor_main txt_main lf">
 	    		<div class="edit-left">
 					<div class="upload-img">
@@ -36,7 +36,7 @@
 	                </div><br>
 					<div>
                         <div class="right">
-                            <textarea name="content" id="imgtext" class="form-control" ></textarea>
+                            <textarea name="content" class="form-control imgtext" ></textarea>
                         </div>
                     </div>
 	    		</div>
@@ -121,10 +121,10 @@
 <!-- 文件活码E -->
 
 <!-- 网址导航S -->
-    	<div class="editor-wrap">
+    	<div class="editor-wrap" style="display: block;">
 	    	<div class="editor_main txt_main">
     			<div class="txt_left">
-    				<div class="web_wrap">
+    				<div class="right">
 	    				<input type="text" class="form_inp" placeholder="请输入标题名称" id="title4" value="" style="margin-bottom: 20px;" />
 	    				<!-- <input type="text" class="form_inp" placeholder="http://" id="url" value="" /> -->
 	    				<div class="" id="title_content">
@@ -157,8 +157,13 @@
 		    				<i class="fa fa-plus url-icon" id="add_url_btn" val="">&nbsp;添加网址</i>
 		    				<div class="clear"></div>
 	    				</div>
-	    				<span class="check-tips text-muted small">请在网址前添加http://,确保网址完整！</span>
+
+	    				<!-- <span class="check-tips text-muted small">请在网址前添加http://,确保网址完整！</span> -->
+	    				<div class="right">
+	                        <textarea name="content" class="form-control imgtext imgtext2" ></textarea>
+	                    </div>
 	    			</div>
+	    			
     			</div>
     			<div class="edit_left">
     				<div class="txt_right" id="code4">
