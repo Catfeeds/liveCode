@@ -47,7 +47,9 @@
 														<div class="editor_box imgtext_editor block" editor-type="um">
 															<div class="umeditor_alert alert alert-success alert-dismissible text-center fade" id="umeditor_alert" role="alert">
 																<button type="button" class="close" data-dismiss="alert" aria-label="Close" id="alert_msg_close">
-                                            						<span aria-hidden="true">×</span></button>请在下面的示例内容上修改！</div>
+                                            						<span aria-hidden="true">×</span>
+																</button>请在下面的示例内容上修改！
+															</div>
 															<script type="text/plain" id="myEditor" style="width: 610px; height:350px; padding: 30px; z-index: 9;"></script>
 														</div>
 													</div>
@@ -103,7 +105,10 @@
 								</div>
 							</div> -->
 							<div class="p-x p-y-0">
-								<button id="save_btn6" class="btn btn-sm green right_box_btn m-t-0" data-loading-text="正在保存..." data-complete-text="保存" data-save="">生成二维码</button>
+								<a href="" id="xiazai" class="btn-sm btn_xz" >下载</a>
+							</div>
+							<div class="p-x p-y-0">
+								<button id="save_btn6" class="btn-sm green-btn">生成二维码</button>
 							</div>
 						</div>
 					</div>
@@ -173,7 +178,7 @@
 	</div>
 </block>
 <block name="script">
-	<script src="__PUBLIC__/product/static_edit/cli/js/lib/jquery.1.9.1.min.js"></script>
+	<!--<script src="__PUBLIC__/product/static_edit/cli/js/lib/jquery.1.9.1.min.js"></script>-->
 	<script src="__PUBLIC__/product/static_edit/cli/flatkit/libs/jquery/bootstrap/dist/js/bootstrap_V3.js"></script>
 	<script src="__PUBLIC__/product/static_edit/static/js/lib/sea_3c3cab9.js"></script>
 	<script>
@@ -182,7 +187,7 @@
 			SENIOR_EDIT = 'http://www.livecode.com/admin.php?s=/admin/product',
 			STATIC_SERVICE = 'http://www.livecode.com/public/product/static_edit';
 	</script>
-	<script src="__PUBLIC__/product/static_edit/cli/js/lib/plug/jceb.msgtip.js?v=20170314"></script>
+	<!--<script src="__PUBLIC__/product/static_edit/cli/js/lib/plug/jceb.msgtip.js?v=20170314"></script>-->
 	<script src="__PUBLIC__/product/static_edit/cli/js/clistyle.js?v=20170314"></script>
 	<script>
 		var type_change;
