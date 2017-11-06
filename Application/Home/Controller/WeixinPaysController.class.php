@@ -202,9 +202,8 @@ class WeixinPaysController extends CommonController {
         $out_trade_no = I('out_trade_no/s');
         $file = new \Common\Util\File();
         $total_fee = $file->cache( $out_trade_no );
-        // h($total_fee);
-
         $data = array("status"=>-1);
+        
         if($total_fee>0){
             $file->cache( $out_trade_no, null );
             $data["status"] = 1;
