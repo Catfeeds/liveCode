@@ -159,7 +159,7 @@ um.addListener("contentChange",
 function() {
     is_change = !0
 }),
-window.onbeforeunload = closePage,
+//window.onbeforeunload = closePage,
 $(function() {
     var e = '<label class="checkbox-inline pasteplain_btn text-darkgrey" id="pasteplain_check"><input type="checkbox" value="option1" class="has-value">粘贴保留格式</label><span class="senior-edit-btn text-green" senior-editor>高级编辑</span>';
     $(".edui-toolbar").append(e),
