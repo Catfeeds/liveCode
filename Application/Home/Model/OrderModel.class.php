@@ -139,7 +139,7 @@ class OrderModel extends Model {
         $orderId  = $obj["orderId"];
         $payType  = $obj["payType"];
         $tradeNo  = $obj["tradeNo"];
-        
+
         $order = $this->where(['orderId'=>$orderId,'userId'=>$userId])->find();
         if ($order) {
             $user = D('User')->find($userId);
@@ -153,7 +153,7 @@ class OrderModel extends Model {
                     $expire_time = $user['expire_time'] + $order['year']*365*86400;
                 }
 
-                $user_action = D('User')->where(['id'=>$userId])->save(['vipId'=>$order['vipId'],'expire_time'=>$expire_time]);
+                $user_action = D('User')->save(['id'=>$userId,'vipId'=>$order['vipId'],'expire_time'=>$expire_time]);
                 if (!$user_action) {
                     $this->rollback();
                     $this->error = '支付失败！';return false;
