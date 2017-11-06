@@ -29,12 +29,27 @@ $(function(){
 		$(".theme-popover-mask").fadeIn();
 		$(".theme-popover").fadeIn();
 	})
-//	$(document).click(function(){
-//		$(".user_plugins").find('.dropdown-menu').hide();
+//	$(document).on('click','body',function(){
+//		$(".user_plugins").find('.dropdown-menu').toggle();
 //	})
-	$(".user_name").click(function(){
-		$(this).next('.dropdown-menu').toggle();
-	})
+//	$(".user_name").click(function(){
+//		$(this).next('.dropdown-menu').toggle();
+//	})
+	
+	$('.user_plugins').on('click', '.user_name', function(){
+        if ($('.dropdown-menu').hasClass('show1')) {
+            $('.dropdown-menu').removeClass('show1');
+        } else {
+            $('.dropdown-menu').addClass('show1');
+        }
+        return false;
+    });
+    $('body').on('click', function(){
+        $('.dropdown-menu').removeClass('show1');
+    });
+	$(document).scroll(function(){
+        $('.dropdown-menu').removeClass('show1');
+    });
 	
 	// 刷新验证码
     $(".code-img").on('click', function() {
