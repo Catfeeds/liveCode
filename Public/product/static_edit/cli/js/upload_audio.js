@@ -19,25 +19,25 @@ define(function(require, exports, module) {
         if (!pd) {
             pd = true;
             var img, file, suffix, size;
-            img = 'jpg,jpeg,png,gif';
+            img = 'mp3';
             suffix = img;
-            size = 1024 * 1024 * 20;
-            $(".edui-image-file").upload({
+            size = 1024 * 1024 * 30;
+            $(".edui-audio-file").upload({
                 'exts': suffix, //支持的扩展名
                 'extsfun': function(nowexts) { //不支持的扩展名回调
                     var alertContent = '<p>非常抱歉，出于安全的考虑以及根据网监部门和安全联盟的规定，暂时不能支持您当前上传文件的格式。目前我们仅支持以下格式：</p><br>'+
-                        '<p>jpg,jpeg,gif,png</p>';
+                        '<p>mp3</p>';
                     var alertFooter = '<div class="modal-footer">'+
                     '<button class="btn dark-white" data-dismiss="modal">我知道了</button>'+
                     '</div>';
-                    $('#modal-alert').modal('show').find('.modal-title').text('上传图片格式不支持')
+                    $('#modal-alert').modal('show').find('.modal-title').text('上传音频格式不支持')
                     .end().find('.modal-body').empty().append(alertContent);
                     $('#modal-alert').find('.modal-footer').remove().end().find('.modal-body').after(alertFooter);
                 },
                 'maxsize': size, //最大200MB
                 'maxsizefun': function(nowsize) { //超出大小回调
                     var alertContent = '<p class="text-center"><i class="fa fa-exclamation-circle text-warn m-r"></i>您上传的文件过大，请联系我们，寻求帮助</p>';
-                    $('#modal-alert').modal('show').find('.modal-title').text('上传的图片过大')
+                    $('#modal-alert').modal('show').find('.modal-title').text('上传的音频过大')
                     .end().find('.modal-body').empty().append(alertContent);              
                 },
                 'start': function($setAfter) { //开始上传
@@ -63,7 +63,7 @@ define(function(require, exports, module) {
                     save_rmdisable();
 //                  alert('上传成功','ok');
                     re_data = "../Uploads/product/file/"+data;
-                    $("img[title = "+ imgTitle +"]").attr("src",re_data);
+                    $("img[title = "+ imgTitle +"]").after("<iframe height=100 width=auto src='"+ re_data +"' frameborder=0 'allowfullscreen'></iframe>").remove();
                 },
                 'failed': function(msg) { //上传失败
                     save_rmdisable();

@@ -8221,36 +8221,7 @@ UM.plugins['autoupload'] = function () {
     me.setOpt('pasteImageEnabled', true);
     me.setOpt('dropFileEnabled', true);
     var sendAndInsertImage = function (file, editor) {
-        if (typeof(getCapacityCommon) != "undefined") {
-            getCapacityCommon.capacityOverproof(getCapacityCommon.accumulationFileSize());
-            if (getCapacityCommon.accumulationFileSize() !== 0) {   //容量超出150% 禁止图片上传
-                //模拟数据
-                var fd = new FormData();
-                fd.append(editor.options.imageFieldName || 'upfile', file, file.name || ('blob.' + file.type.substr('image/'.length)));
-                fd.append('type', 'ajax');
-                var xhr = new XMLHttpRequest();
-                xhr.open("post", me.options.imageUrl, true);
-                // xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-                xhr.addEventListener('load', function (e) {
-                    try {
-                        var json = eval('('+e.target.response+')'),
-                            picLink = json.data.path;
-                        if (json.data.filesize_byte != null) {
-                            var imgSizeReturn = imgSizeOver(json.data.filesize_byte);
-                        }
-                        if (imgSizeReturn != 1) {
-                            editor.execCommand('insertimage', {
-                                style: "max-width: 100%",
-                                src: picLink,
-                                _src: picLink
-                            });
-                        }
-                    } catch (er) {
-                    }
-                });
-                xhr.send(fd);
-            }
-        } else {
+
             var fd = new FormData();
             fd.append(editor.options.imageFieldName || 'upfile', file, file.name || ('blob.' + file.type.substr('image/'.length)));
             fd.append('type', 'ajax');
@@ -8275,7 +8246,6 @@ UM.plugins['autoupload'] = function () {
                 }
             });
             xhr.send(fd);
-        }
     };
 
     function getPasteImage(e) {
@@ -11323,29 +11293,18 @@ UM.registerUI('image',function(name){
         var uploadTpl = '<div class="uploadfile edui-image-upload%%">' +
             '<span class="edui-image-icon"></span>' +
             '<form class="edui-image-form" method="post" enctype="multipart/form-data" target="up">' +
-            '<input style=\"filter: alpha(opacity=0);\" class="edui-image-file" type="file" hidefocus name="Filedata" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp"/>' +
+            '<input style=\"filter: alpha(opacity=0);\" class="edui-image-file" type="file" hidefocus name="file"/>' +
             '</form>' +
             '</div>';
         // 单图上传
         $('.edui-btn-image').append(uploadTpl.replace(/%%/g, 1));
         // 调用通用上传服务
         $('.edui-image-file').click(function() {
-            if (typeof(getCapacityCommon) != "undefined") {
-                getCapacityCommon.capacityOverproof(getCapacityCommon.accumulationFileSize());
-                if (getCapacityCommon.accumulationFileSize() !== 0) {   //容量超出150% 禁止图片上传
-                    seajs.use([STATIC_SERVICE+'/public/upload.js', STATIC_SERVICE+'/cli/js/upload_um.js?v=20170424'], function(a, b) {
-                        var up_vip = file_size;
-                        b.upload(up_vip);
-                        is_change = true;   //上传新图片提示改动
-                    });
-                }
-            }else {
-                seajs.use([STATIC_SERVICE+'/public/upload.js', STATIC_SERVICE+'/cli/js/upload_um.js?v=20170424'], function(a, b) {
-                    var up_vip = file_size;
-                    b.upload(up_vip);
-                    is_change = true;   //上传新图片提示改动
-                });
-            }
+            seajs.use([STATIC_SERVICE+'/public/upload.js', STATIC_SERVICE+'/cli/js/upload_um.js?v=20170424'], function(a, b) {
+                var up_vip = file_size;
+                b.upload(up_vip);
+                is_change = true;   //上传新图片提示改动
+            });
         });
     });
     me.addListener('selectionchange', function () {
@@ -11358,14 +11317,43 @@ UM.registerUI('image',function(name){
 // 插入视频
 UM.registerUI('ship',
     function(name) {
-        var me = this,
-            href;
+        var me = this, currentRange, $dialog,
+        opt = {
+            title: (me.options.labelMap &&me.options.labelMap[name]) || me.getLang("labelMap." + name),
+            url: me.options.UMEDITOR_HOME_URL + 'dialogs/image/image.js'
+        };
         var $btn = $.eduibutton({
             icon : name,
             click : function(){
-//              $.fn.clistyle({onlyTable: true});
+
             }
         });
+        //加载模版数据
+	    utils.loadFile(document,{
+	        src: opt.url,
+	        tag: "script",
+	        type: "text/javascript",
+	        defer: "defer"
+	    },function(){
+	        // 视频直接上传功能(文件上传模板渲染)
+	        var uploadTpl = '<div class="uploadfile edui-ship-upload%%">' +
+	            '<span class="edui-ship-icon"></span>' +
+	            '<form class="edui-ship-form" method="post" enctype="multipart/form-data" target="up">' +
+	            '<input style=\"filter: alpha(opacity=0);\" class="edui-ship-file" type="file" hidefocus name="file"/>' +
+	            '</form>' +
+	            '</div>';
+	        // 视频上传
+	        $('.edui-btn-ship').append(uploadTpl.replace(/%%/g, 1));
+	        // 调用通用上传服务
+	        $('.edui-ship-file').click(function() {
+	            seajs.use([STATIC_SERVICE+'/public/upload.js', STATIC_SERVICE+'/cli/js/upload_ship.js'], function(a, b) {
+	                var up_vip = file_size;
+	                b.upload(up_vip);
+	                is_change = true;   //上传视频提示改动
+	            });
+	        });
+	    });
+	    
         this.addListener('selectionchange',function(){
             var state = this.queryCommandState(name);
             $btn.edui().disabled(state == -1).active(state == 1)
@@ -11373,5 +11361,54 @@ UM.registerUI('ship',
         return $btn;
     }
 );
+
+// 插入音频
+UM.registerUI('audio',
+    function(name) {
+        var me = this, currentRange, $dialog,
+        opt = {
+            title: (me.options.labelMap &&me.options.labelMap[name]) || me.getLang("labelMap." + name),
+            url: me.options.UMEDITOR_HOME_URL + 'dialogs/image/image.js'
+        };
+        var $btn = $.eduibutton({
+            icon : name,
+            click : function(){
+
+            }
+        });
+        //加载模版数据
+	    utils.loadFile(document,{
+	        src: opt.url,
+	        tag: "script",
+	        type: "text/javascript",
+	        defer: "defer"
+	    },function(){
+	        // 视频直接上传功能(文件上传模板渲染)
+	        var uploadTpl = '<div class="uploadfile edui-audio-upload%%">' +
+	            '<span class="edui-audio-icon"></span>' +
+	            '<form class="edui-audio-form" method="post" enctype="multipart/form-data" target="up">' +
+	            '<input style=\"filter: alpha(opacity=0);\" class="edui-audio-file" type="file" hidefocus name="file"/>' +
+	            '</form>' +
+	            '</div>';
+	        // 视频上传
+	        $('.edui-btn-audio').append(uploadTpl.replace(/%%/g, 1));
+	        // 调用通用上传服务
+	        $('.edui-audio-file').click(function() {
+	            seajs.use([STATIC_SERVICE+'/public/upload.js', STATIC_SERVICE+'/cli/js/upload_audio.js'], function(a, b) {
+	                var up_vip = file_size;
+	                b.upload(up_vip);
+	                is_change = true;   //上传视频提示改动
+	            });
+	        });
+	    });
+	    
+        this.addListener('selectionchange',function(){
+            var state = this.queryCommandState(name);
+            $btn.edui().disabled(state == -1).active(state == 1)
+        });
+        return $btn;
+    }
+);
+
 
 })(jQuery)

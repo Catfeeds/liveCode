@@ -57,3 +57,10 @@
 #myEditor{
 	width: 100%!important;
 }
+.edui-icon-audio{
+	margin-top: 4px!important;
+	background-position: -18px -39px;
+}
+.edui-icon-ship{
+	background-position: -322px -18px;
+}
