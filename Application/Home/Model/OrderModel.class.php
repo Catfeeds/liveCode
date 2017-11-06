@@ -139,7 +139,7 @@ class OrderModel extends Model {
         $orderId  = $obj["orderId"];
         $payType  = $obj["payType"];
         $tradeNo  = $obj["tradeNo"];
-
+        
         $order = $this->where(['orderId'=>$orderId,'userId'=>$userId])->find();
         if ($order) {
             $user = D('User')->find($userId);
