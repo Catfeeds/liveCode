@@ -1,11 +1,11 @@
 $(function(){
     KindEditor.ready(function(K) {
-        kindeditor_1 = K.create('#imgtext', {
+        kindeditor_1 = K.create('.imgtext', {
             allowFileManager : true,
             filePostName : 'file',
             cssPath : [
-                '__PUBLIC__/libs/cui/css/cui.min.css',
-                '__PUBLIC__/libs/kindeditor/plugins/code/prettify.css'
+                'public/libs/cui/css/cui.min.css',
+                'public/libs/kindeditor/plugins/code/prettify.css'
             ],
             width : '100%',
             height : '500px',
@@ -33,7 +33,7 @@ $(function(){
     $("#save_btn").click(function(){
         var picUrl  = $("#uploadPicUrl").val();
         var title   = $("#title").val();
-        var content = $("#imgtext").val();
+        var content = $(".imgtext").val();
         if (picUrl == '') {
             $.alertMessager('请上传图片!');return;
         }
@@ -108,11 +108,10 @@ $(function(){
     });
     //网址导航
     $("#save_btn4").click(function(){
-        var title   = $("#title4").val();
-        var desc = $(".url-desc").val();
-        var link = $(".url-link").val();
+        var title = $("#title4").val();
+        var desc  = $(".url-desc").val();
+        var link  = $(".url-link").val();
         var content = getUrlParams('.url-desc');
-
         if (title == '') {
             $.alertMessager('请输入标题名称!');return;
         }
@@ -241,7 +240,11 @@ getUrlParams = function(obj){
     var params = {};
     $(obj).each(function(key){
         if($(this).val() && $(this).parents('.no-gutter').find('.url-link').val()){
-            params[key] = {desc:$(this).val(),link:$(this).parents('.no-gutter').find('.url-link').val()};
+            if (key == 0) {
+                params[key] = {desc:$(this).val(),link:$(this).parents('.no-gutter').find('.url-link').val(),content:$(".imgtext2").val()};
+            }else{
+                params[key] = {desc:$(this).val(),link:$(this).parents('.no-gutter').find('.url-link').val()};
+            }
         }
     });
     return params;
