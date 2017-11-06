@@ -141,6 +141,9 @@ class OrderModel extends Model {
         $tradeNo  = $obj["tradeNo"];
 
         $order = $this->where(['orderId'=>$orderId,'userId'=>$userId])->find();
+        if ($order['orderStatus'] == 1) {
+            return true;
+        }
         if ($order) {
             $user = D('User')->find($userId);
             $isNew = $user['vipId'] ? 0:1;

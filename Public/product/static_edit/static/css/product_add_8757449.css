@@ -54,3 +54,6 @@
 .show1{
 	display: block!important;
 }
+#myEditor{
+	width: 100%!important;
+}
