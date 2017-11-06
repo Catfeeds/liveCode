@@ -44,6 +44,7 @@ class HuomaController extends HomeController{
             $ext             = substr(strrchr($data['title'], '.'), 1); 
             $content         = json_decode($data['content'],true);
             $data['url']     = '/Uploads/livecode/file/'.$content['url'];
+            $data['fileName']= $content['fileName'];
             $data['size']    = $content['size'];
             $data['picIcon'] = getPicType($ext);
             $this->assign('data',$data);
