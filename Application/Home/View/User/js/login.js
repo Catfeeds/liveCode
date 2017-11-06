@@ -29,6 +29,9 @@ $(function(){
 		$(".theme-popover-mask").fadeIn();
 		$(".theme-popover").fadeIn();
 	})
+//	$(document).click(function(){
+//		$(".user_plugins").find('.dropdown-menu').hide();
+//	})
 	$(".user_name").click(function(){
 		$(this).next('.dropdown-menu').toggle();
 	})
