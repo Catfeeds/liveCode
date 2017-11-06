@@ -11184,6 +11184,7 @@ UM.registerUI('tellink',
 				$("#modal-tellink").fadeIn();
                 $(".modal-backdrop").hide();
                 $(".maskmodal").show();
+                $(".navbar-inverse").css('z-index',"0");
             }
         });
         $("#modal-tellink-confirm").click(function(){
@@ -11192,13 +11193,32 @@ UM.registerUI('tellink',
 //          $("#modal-tellink").modal("hide");
 			$("#modal-tellink").fadeOut();
             $(".empty_placeholder").remove();
+            $(".navbar-inverse").css('z-index',"1");
             me.execCommand("inserthtml","<a href='tel:"+href+"' _href='tel:"+href+"' target='_self'>"+href+"</a>","needFilter");
         });
-        //新添加的遮罩层隐藏
+        //点击退出
+		$(".navbar-right").on('click','.dropdown',function(){
+			if ($('.dropdown-menu').hasClass('show1')) {
+	            $('.dropdown-menu').removeClass('show1');
+	        } else {
+	            $('.dropdown-menu').addClass('show1');
+	        }
+	        return false;
+		})
+	    $('body').on('click', function(){
+	        $('.dropdown-menu').removeClass('show1');
+	        $('.dropdown-menu').hide();
+	    });
+		$(document).scroll(function(){
+	        $('.dropdown-menu').removeClass('show1');
+	        $('.dropdown-menu').hide();
+	    });
+	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
         	$(".maskmodal").hide();
+        	$(".navbar-inverse").css('z-index',"1");
         	$("#modal-tellink").fadeOut();
-        })
+        });
         this.addListener('selectionchange',function(){
             var state = this.queryCommandState(name);
             $btn.edui().disabled(state == -1).active(state == 1)
