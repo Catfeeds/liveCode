@@ -29,12 +29,6 @@ $(function(){
 		$(".theme-popover-mask").fadeIn();
 		$(".theme-popover").fadeIn();
 	})
-//	$(document).on('click','body',function(){
-//		$(".user_plugins").find('.dropdown-menu').toggle();
-//	})
-//	$(".user_name").click(function(){
-//		$(this).next('.dropdown-menu').toggle();
-//	})
 	
 	$('.user_plugins').on('click', '.user_name', function(){
         if ($('.dropdown-menu').hasClass('show1')) {
