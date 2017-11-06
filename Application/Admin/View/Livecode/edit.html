@@ -82,6 +82,7 @@
         <div class="editor-wrap" <?php if($data['type'] == 3){echo 'style="display: block;"';} ?>>
             <div class="editor_main txt_main">
                 <div class="txt_left">
+                    <input type="text" class="form_inp" placeholder="请输入标题名称" id="title3" value="{$data['title']}" style="margin-bottom: 30px;" />
                     <div class="layui-upload">
                       <button type="button" class="layui-btn layui-btn-normal" id="testList">选择文件</button><input class="layui-upload-file" type="file" name="file" multiple=""> 
                       <div class="layui-upload-list">
@@ -94,7 +95,7 @@
                           </tr></thead>
                           <tbody id="demoList">
                           <tr id="upload-1508222495117-0">
-                              <td>{$data['title']}</td>
+                              <td>{$data['fileName']}</td>
                               <td>{$data['size']}</td>
                               <td><span style="color: #5FB878;">上传成功</span></td><td></td>
                           </tr>
@@ -104,7 +105,7 @@
                       <button type="button" class="layui-btn" id="testListAction">开始上传</button>
                     </div>
                 </div>
-                <input type="hidden" id="uploadFileName" value="{$data['title']}">
+                <input type="hidden" id="uploadFileName" value="{$data['fileName']}">
                 <input type="hidden" id="uploadFileSize" value="{$data['size']}">
                 <input type="hidden" id="uploadFileUrl" value="{$data['url']}">
                 <div class="edit_left">
