@@ -37,7 +37,7 @@ $(function(){
 		var nian_num=nian.split('年')[0];
 		var edu=$(".duration.dis_block .edit_on .jine").html();
 		var tot=nian_num*edu;
-		$(".col1").html(banben+nian);
+		$(".col1").html(banben+'&nbsp;'+nian);
 		$(".col2 font").html(tot);
 		$(".vip").val(banben);
 		$(".year").val(nian_num);

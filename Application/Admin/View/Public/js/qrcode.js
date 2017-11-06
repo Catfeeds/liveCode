@@ -85,16 +85,20 @@ $(function(){
     });
     //文件活码
     $("#save_btn3").click(function(){
+        var title = $("#title3").val();
         var uploadFileName = $("#uploadFileName").val();
         var uploadFileSize = $("#uploadFileSize").val();
         var uploadFileUrl  = $("#uploadFileUrl").val();
+        if (title == '') {
+            $.alertMessager('请输入标题名称!');return;
+        }
         if (uploadFileName == '' || uploadFileUrl == '') {
-            $.alertMessager('请先上传文件!');return;
+            $.alertMessager('请上传文件!');return;
         }
         $.ajax({
             url: postUrl,
             type: 'POST',
-            data: {editId:editId,menuId:menuId,title:uploadFileName,content:{url:uploadFileUrl,size:uploadFileSize},type:3},
+            data: {editId:editId,menuId:menuId,title:title,content:{fileName:uploadFileName,url:uploadFileUrl,size:uploadFileSize},type:3},
             success: function (data) {
                 if(data.status == 1){
                     $("#code3 img").attr('src',data.url);

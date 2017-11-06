@@ -23,8 +23,34 @@
 }
 .navbar-inverse{
 	position: relative;
-	z-index: 0;
+	z-index: 1;
 }
 .navside-default a.arrowbb>.arrow:before, .navside-inverse .arrow:before {
     content: "\f107";
+}
+.btn_xz {
+    height: 30px;
+    float: left;
+    text-align: center;
+    margin-top: 30px;
+}
+.btn-sm {
+    width: 168px;
+    display: block;
+    padding: 6px;
+    font-size: 14px;
+    background: #fff;
+    margin: 16px auto;
+    border-radius: 5px;
+    color: #000;
+    box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+}
+.green-btn {
+    border: none;
+    outline: none;
+    background-color: #4caf50;
+    color: rgba(255, 255, 255, 0.87);
+}
+.show1{
+	display: block!important;
 }
