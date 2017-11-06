@@ -570,3 +570,6 @@ body {
     color: #212121!important;
     cursor: pointer;
 }
+.show1{
+	display: block!important;
+}
