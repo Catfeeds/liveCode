@@ -139,7 +139,7 @@ class OrderModel extends Model {
         $orderId  = $obj["orderId"];
         $payType  = $obj["payType"];
         $tradeNo  = $obj["tradeNo"];
-
+        
         $order = $this->where(['orderId'=>$orderId,'userId'=>$userId])->find();
         if ($order) {
             $user = D('User')->find($userId);
@@ -148,10 +148,11 @@ class OrderModel extends Model {
             $this->startTrans();
             $result = $this->where(['orderId'=>$orderId,'userId'=>$userId])->save(['orderStatus'=>1,'tradeNo'=>$tradeNo,'pay_time'=>time(),'payType'=>$payType,'isNew'=>$isNew]);
             if($result){
-                $expire_time = time()+$order['year']*365*86400;
-                if ($order['vipId'] == $user['vipId']) {
+                $expire_time = time()+$order['year']*365*86400;                
+                if ($order['vipId'] == $user['vipId'] && $user['expire_time'] > time()) {
                     $expire_time = $user['expire_time'] + $order['year']*365*86400;
                 }
+
                 $user_action = D('User')->where(['id'=>$userId])->save(['vipId'=>$order['vipId'],'expire_time'=>$expire_time]);
                 if (!$user_action) {
                     $this->rollback();
