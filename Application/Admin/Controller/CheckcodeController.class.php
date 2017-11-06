@@ -18,16 +18,19 @@ class CheckcodeController extends AdminController {
      * 活码列表
      * 
      */
-    public function index($codeType = 1,$status=['0']) {
+    public function index($codeType = 1,$status=['0','-1']) {
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
         //搜索 && 条件
         $keyword   = I('keyword', '', 'string');
         if ($keyword){
-             $where['id|title'] = array('like','%'.$keyword.'%');
-        }elseif ($keyword && $codeType = 5) {
-             $where['id|name'] = array('like','%'.$keyword.'%');
+            if ($codeType == 5) {
+                $where['id|name'] = array('like','%'.$keyword.'%');
+            }else{
+                $where['id|title'] = array('like','%'.$keyword.'%');
+            }
         }
-        $status == 'history'? $status = ['1','-1'] : '';
+
+        $status == 'history'? $status = ['1'] : '';
         $where['status'] = ['in',$status];
         if ($codeType == 3) {
             $where['type'] = 2;
@@ -102,10 +105,9 @@ class CheckcodeController extends AdminController {
             'keyword'         => $keyword,
             'status'          => I('get.status/s'),
             'modelName'       => $modelName,
+            'path_info'       => $_SERVER['PATH_INFO'],
         ]);
         $this->display();
-
-        
     }
 
     /**
@@ -320,7 +322,7 @@ class CheckcodeController extends AdminController {
                 $html       = 'Video/edit';
             }elseif ($codeType == 4) {   //网址跳转
                 $builder = new \Common\Builder\FormBuilder();
-                $builder->setMetaTitle('编辑网址跳转')  // 设置页面标题
+                return $builder->setMetaTitle('编辑网址跳转')  // 设置页面标题
                         ->setPostUrl(U('edit',['codeType'=>$codeType,'id'=>$id,'jumpUrl'=>urlencode($_SERVER["HTTP_REFERER"])]))    // 设置表单提交地址
                         ->addFormItem('id', 'hidden', 'ID', 'ID')
                         ->addFormItem('menuId', 'hidden')

@@ -134,7 +134,7 @@ class OrderModel extends Model {
      * 完成支付
      * 
      */
-    public function complatePay($obj) {
+    public function completePay($obj) {
         $userId   = $obj["userId"];
         $orderId  = $obj["orderId"];
         $payType  = $obj["payType"];
@@ -148,8 +148,12 @@ class OrderModel extends Model {
             $this->startTrans();
             $result = $this->where(['orderId'=>$orderId,'userId'=>$userId])->save(['orderStatus'=>1,'tradeNo'=>$tradeNo,'pay_time'=>time(),'payType'=>$payType,'isNew'=>$isNew]);
             if($result){
-                $expire_time = time()+$order['year']*365*86400;
-                $user_action = M('admin_user')->where(['id'=>$userId])->save(['vipId'=>$order['vipId'],'expire_time'=>$expire_time]);
+                $expire_time = time()+$order['year']*365*86400;                
+                if ($order['vipId'] == $user['vipId'] && $user['expire_time'] > time()) {
+                    $expire_time = $user['expire_time'] + $order['year']*365*86400;
+                }
+
+                $user_action = D('User')->save(['id'=>$userId,'vipId'=>$order['vipId'],'expire_time'=>$expire_time]);
                 if (!$user_action) {
                     $this->rollback();
                     $this->error = '支付失败！';return false;

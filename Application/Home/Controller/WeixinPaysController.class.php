@@ -175,14 +175,12 @@ class WeixinPaysController extends CommonController {
                 $obj["orderId"] = $pkeys [0];
                 $obj["userId"]  = $pkeys [1];
                 $obj["payType"] = 1;
-
                 $obj["tradeNo"] = $trade_no;
                 $obj["out_trade_no"] = $out_trade_no;
                 $obj["total_fee"] = (float)$total_fee/100;
-                // halt($obj);
                 // 支付成功业务逻辑
                 $m = D('order');
-                $rs = $m->complatePay ( $obj );
+                $rs = $m->completePay($obj);
 
                 if($rs){
                     $file = new \Common\Util\File();
@@ -204,9 +202,8 @@ class WeixinPaysController extends CommonController {
         $out_trade_no = I('out_trade_no/s');
         $file = new \Common\Util\File();
         $total_fee = $file->cache( $out_trade_no );
-        // h($total_fee);
-
         $data = array("status"=>-1);
+        
         if($total_fee>0){
             $file->cache( $out_trade_no, null );
             $data["status"] = 1;

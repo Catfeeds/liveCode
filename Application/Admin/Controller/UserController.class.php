@@ -193,8 +193,8 @@ class UserController extends AdminController {
      */
     public function fee($id,$orderId='') {
         $mod = D('User');
-        $info = $mod->where(['id'=>$id,'status'=>1,'user_type'=>2])->find();
-        if (!$info) {
+        $user = $mod->where(['id'=>$id,'status'=>1,'user_type'=>2])->find();
+        if (!$user) {
             $this->error('用户不存在或被禁用！');
         }
         if (IS_POST) {
@@ -205,7 +205,7 @@ class UserController extends AdminController {
             //找到对应的套餐明细
             $vip_price = M('vip_price')->find($post['vip']);
 
-            $data['isNew']       = $info['vipId'] ? 0:1;
+            $data['isNew']       = $user['vipId'] ? 0:1;
             $data['year']        = $vip_price['year'];
             $data['vipId']       = $vip_price['vipId'];
 
@@ -225,8 +225,11 @@ class UserController extends AdminController {
 
             if ($result) {
                 $expire_time = time()+$data['year']*365*86400;
+                if ($data['vipId'] == $user['vipId'] && $user['expire_time'] > time()) {
+                    $expire_time = $user['expire_time'] + $data['year']*365*86400;
+                }
                 //修改用户数据
-                $res = $mod->where(['id'=>$id])->save(['vipId'=>$data['vipId'],'expire_time'=>$expire_time]);
+                $res = $mod->save(['id'=>$id,'vipId'=>$data['vipId'],'expire_time'=>$expire_time]);
                 if ($res) {
                     $this->success('操作成功', U('index'));
                 }
