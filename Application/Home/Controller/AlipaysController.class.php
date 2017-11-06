@@ -121,7 +121,7 @@ class AlipaysController extends CommonController {
             $obj["tradeNo"] = $request['trade_no'];
             
             //支付成功业务逻辑
-            $rs = $m->complatePay($obj);
+            $rs = $m->completePay($obj);
             
             if($rs){
                 echo 'success';
