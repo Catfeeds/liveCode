@@ -229,7 +229,7 @@ class UserController extends AdminController {
                     $expire_time = $user['expire_time'] + $data['year']*365*86400;
                 }
                 //修改用户数据
-                $res = $mod->where(['id'=>$id])->save(['vipId'=>$data['vipId'],'expire_time'=>$expire_time]);
+                $res = $mod->save(['id'=>$id,'vipId'=>$data['vipId'],'expire_time'=>$expire_time]);
                 if ($res) {
                     $this->success('操作成功', U('index'));
                 }

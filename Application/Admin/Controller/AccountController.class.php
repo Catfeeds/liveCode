@@ -165,10 +165,7 @@ class AccountController extends AdminController {
             }
         }
         
-        $page = new Page(
-            $mod->alias('o')->where($map)->join('__ADMIN_USER__ u on u.id = o.userId','left')->join('__VIP__ v on v.id = o.vipId','left')->count(),
-            C('ADMIN_PAGE_ROWS')
-        );
+        $page = new Page(1,C('ADMIN_PAGE_ROWS'));
 
         // 使用Builder快速建立列表页面。
         $attr['name']  = 'fee';
