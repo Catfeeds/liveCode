@@ -269,7 +269,7 @@ class ProductController extends AdminController {
         if (IS_POST) {
             $editId = I('post.editId/d');
             if (!empty($editId)) {
-                $this->edit();
+                return $this->edit();
             }
             //判断用户当前套餐活码数量是否已达上限
             $limit = D('Livecode')->userLivecodeCountLimit();
@@ -415,7 +415,8 @@ class ProductController extends AdminController {
             }else{// 上传成功
                 $size = getFilesize($info['file']['size']);
                 $url  = $info['file']['savepath'].$info['file']['savename'];
-                $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
+                echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$url]);
+                //$this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
             }
         }
     }

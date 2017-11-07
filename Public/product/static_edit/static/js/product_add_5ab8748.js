@@ -135,7 +135,7 @@ function downurl(e) {
     return i
 }
 var oldIE, op, op_1, op_name, telnum, is_change = !1,
-toolbar_config = "undo redo | removeformat horizontal | bold italic underline | forecolor backcolor fontsize | justifyleft justifycenter justifyright | insertorderedlist insertunorderedlist | link unlink image clistyle table tellink",
+toolbar_config = "undo redo | removeformat horizontal | bold italic underline | forecolor backcolor fontsize | justifyleft justifycenter justifyright | insertorderedlist insertunorderedlist | link unlink ship audio image clistyle table tellink",
 um = UM.getEditor("myEditor", {
     toolbar: [toolbar_config],
     pasteImageEnabled: !0,
@@ -173,7 +173,8 @@ $(function() {
     $(".edui-icon-clistyle").html("<i class='fa fa-magic text-grey m-r-sm'></i><span>插入样式</span>"),
     $(".edui-icon-table").html("<i class='fa fa-table text-grey m-r-sm'></i><span>插入表格</span>"),
     $(".edui-icon-tellink").html("<i class='fa fa-phone text-grey m-r-sm'></i><span>插入电话</span>");
-    $(".edui-icon-ship").html("<i class='fa fa-ship text-grey m-r-sm'></i><span>插入视频</span>");
+    $(".edui-icon-ship").html("<i class='fa text-grey m-r-sm' title='插入视频'></i>");
+    $(".edui-icon-audio").html("<i class='fa fa-audio text-grey m-r-sm' title='插入音频'></i>");
     var t = getUrlName("code_type");
     if (null != t && 0 != t ? $.ajax({
         type: "GET",
@@ -263,19 +264,17 @@ $(function() {
         $("#url_des_title").removeClass("none")
     }),
     $("[data-upload-img]").click(function() {
-        if (getCapacityCommon.capacityOverproof(getCapacityCommon.accumulationFileSize()), 0 !== getCapacityCommon.accumulationFileSize()) {
-            var e = $(this).find('input[type="file"]').attr("data-type"),
-            t = file_size;
-            seajs.use([STATIC_SERVICE+"/public/upload.js?v=20170503", "m/upload_" + e],
-            function(i, o) {
-                o.upload(e, t),
-                is_change = !0
-            })
-        }
+		var e = $(this).find('input[type="file"]').attr("data-type"),
+        t = file_size;
+        seajs.use([STATIC_SERVICE+"/public/upload.js?v=20170503", "m/upload_" + e],
+        function(i, o) {
+            o.upload(e, t),
+            is_change = !0
+        })
     }),
     $(document).on("click", "input[name = 'Filedata']",
     function() {
-        return 0 == getCapacityCommon.accumulationFileSize() && "file" != $(this).attr("data-type") ? !1 : void 0
+        return void 0
     }),
     $("[data-upload-file]").click(function() {
         if (!$("#upload-file-btn").hasClass("disabled")) {

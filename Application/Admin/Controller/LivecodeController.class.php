@@ -281,7 +281,7 @@ class LivecodeController extends AdminController {
         if (IS_POST) {
             $editId = I('post.editId/d');
             if (!empty($editId)) {
-                $this->edit();
+                return $this->edit();
             }
             //判断用户当前套餐活码数量是否已达上限
             $limit = $this->obj->userLivecodeCountLimit();

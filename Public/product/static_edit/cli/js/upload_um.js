@@ -19,17 +19,9 @@ define(function(require, exports, module) {
         if (!pd) {
             pd = true;
             var img, file, suffix, size;
-            img = 'jpg,jpeg,png,gif,mp4';
+            img = 'jpg,jpeg,png,gif';
             suffix = img;
-            size = 1024 * 1024 * 2;
-            //基础版用户
-            if(is_vip==30){
-                size = 1024 * 1024 * 30;
-            }
-            //高级版用户
-            if(is_vip==0){
-                size=1024 * 1024 * 300;
-            };
+            size = 1024 * 1024 * 20;
             $(".edui-image-file").upload({
                 'exts': suffix, //支持的扩展名
                 'extsfun': function(nowexts) { //不支持的扩展名回调
@@ -44,18 +36,9 @@ define(function(require, exports, module) {
                 },
                 'maxsize': size, //最大200MB
                 'maxsizefun': function(nowsize) { //超出大小回调
-                    var maxsizeMB = size/1024/1024;
-                    if (is_vip != 0 && is_vip != 30) { //免费版 
-                        var alertContent = '<div class="text-center"><p class="m-b">最大支持 '+maxsizeMB+' MB,现在为 '+nowsize+'，付费用户拥有更高上传权限</p>'+
-                            '<a href="#" target="_blank" class="btn btn-sm white m-r">查看版本比较</a>'+
-                            '<a href="#" target="_blank" class="btn btn-sm green">购买</a>'; 
-                        $('#modal-alert').modal('show').find('.modal-title').text('上传的图片过大')
-                        .end().find('.modal-body').empty().append(alertContent);
-                    } else {
-                        var alertContent = '<p class="text-center"><i class="fa fa-exclamation-circle text-warn m-r"></i>您上传的文件过大，请<a class="text-green link text-u-l p-x-xs" href="javascript:open_qq();">联系我们</a>寻求帮助</p>';
-                        $('#modal-alert').modal('show').find('.modal-title').text('上传的图片过大')
-                        .end().find('.modal-body').empty().append(alertContent);
-                    }                
+                    var alertContent = '<p class="text-center"><i class="fa fa-exclamation-circle text-warn m-r"></i>您上传的文件过大，请联系我们，寻求帮助</p>';
+                    $('#modal-alert').modal('show').find('.modal-title').text('上传的图片过大')
+                    .end().find('.modal-body').empty().append(alertContent);              
                 },
                 'start': function($setAfter) { //开始上传
                     save_adddisable();
@@ -78,9 +61,8 @@ define(function(require, exports, module) {
                 },
                 'complete': function(data) { //上传成功
                     save_rmdisable();
-                    data.path = data.path.replace(/(http:\/\/)|(https:\/\/)/, "//");// 去掉http:与https:
-                    alert('上传成功','ok');
-                    re_data = data.path;
+//                  alert('上传成功','ok');
+                    re_data = "../Uploads/product/file/"+data;
                     $("img[title = "+ imgTitle +"]").attr("src",re_data);
                 },
                 'failed': function(msg) { //上传失败

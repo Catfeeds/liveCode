@@ -113,10 +113,14 @@ class UserController extends CommonController {
             $mod = D('Order');
             // 获取套餐
             $vips = $mod->getVips();
+            foreach ($vips as $k=>$v) {
+                $vips[$k]['detail'] = json_decode($v['detail'],true);
+            }
             // 获取套餐价格
             $versions = M('vip_price')->order('year')->select();
             // 获取默认的套餐及价格
             $recommed = $mod->getRecommed();
+            $recommed['detail'] = json_decode($recommed['detail'],true);
 
             $this->assign([
                 'meta_title'    => '用户登录',
