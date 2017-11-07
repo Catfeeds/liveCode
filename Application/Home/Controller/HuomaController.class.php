@@ -23,8 +23,8 @@ class HuomaController extends HomeController{
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
-        $user = $userMod->find($data['uid']);
-        if ($user['limitCount'] != 0 && $user['visitCount'] >= $user['limitCount']) {
+        $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
+        if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
             return $this->display('Public/unfined');
         }
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
@@ -77,8 +77,8 @@ class HuomaController extends HomeController{
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
-        $user = $userMod->find($data['uid']);
-        if ($user['limitCount'] != 0 && $user['visitCount'] >= $user['limitCount']) {
+        $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
+        if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
             return $this->display('Public/unfined');
         }
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
@@ -106,8 +106,8 @@ class HuomaController extends HomeController{
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
-        $user = $userMod->find($data['uid']);
-        if ($user['limitCount'] != 0 && $user['visitCount'] >= $user['limitCount']) {
+        $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
+        if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
             return $this->display('Public/unfined');
         }
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
@@ -146,8 +146,8 @@ class HuomaController extends HomeController{
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
-        $user = $userMod->find($rs['uid']);
-        if ($user['limitCount'] != 0 && $user['visitCount'] >= $user['limitCount']) {
+        $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$rs['uid'])->find();
+        if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
             return $this->display('Public/unfined');
         }
         $userMod->where(['id'=>$rs['uid']])->setInc('visitCount', 1);
