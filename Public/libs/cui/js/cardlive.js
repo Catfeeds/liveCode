@@ -152,8 +152,8 @@ function move(){
 	})
 }
 
-//添加网址
 $(function(){
+	//添加网址
 	$("#add_url_btn").click(function(){
 		var html="";
 			html+='<div class="url-row row no-gutter m-b">';
@@ -164,6 +164,34 @@ $(function(){
 			html+='<div class="col-md-3">';
 			html+='<i class="fa fa-arrow-up url-icon url-up"></i>';
 			html+='<i class="fa fa-arrow-down  url-icon url-down"></i>';
+			html+='<i class="fa fa-trash url-icon delicon"></i></div></div>';
+		$(this).before(html);
+		var e=$(".url-row").length;
+		$(".url-row:last").attr("num",e-1);
+	})
+	//添加明细
+	$("#add_detail_btn").click(function(){
+		var html="";
+			html+='<div class="url-row row no-gutter m-b">';
+			html+='<div class="col-md-3">';
+			html+='<input type="text" placeholder="文字说明" class="form-control url-border detail-desc " value=""></div>';
+			html+='<div class="col-md-6">';
+			html+='<input type="text" placeholder="配置值" class="form-control url-border detail-val" value=""></div>';
+			html+='<div class="col-md-3">';
+			html+='<i class="fa fa-trash url-icon delicon"></i></div></div>';
+		$(this).before(html);
+		var e=$(".url-row").length;
+		$(".url-row:last").attr("num",e-1);
+	})
+	//添加套餐选项
+	$("#add_vip_btn").click(function(){
+		var html="";
+			html+='<div class="url-row row no-gutter m-b">';
+			html+='<div class="col-md-3">';
+			html+='<input type="text" placeholder="套餐时长(年)" class="form-control url-border vip-year " value=""></div>';
+			html+='<div class="col-md-6">';
+			html+='<input type="text" placeholder="套餐价格(元)" class="form-control url-border vip-price" value=""></div>';
+			html+='<div class="col-md-3">';
 			html+='<i class="fa fa-trash url-icon delicon"></i></div></div>';
 		$(this).before(html);
 		var e=$(".url-row").length;
@@ -197,4 +225,82 @@ $(function(){
 			$(this).parents('.no-gutter').remove();
 		}
 	})
+
+	//新增套餐
+    $(".submit").click(function(){
+		var params = {};
+		params     = getAllParams('.s-query');
+        params.vip = getDuoInputParams('.vip-year');
+        params.detail = getDuoInputParams2('.detail-desc');
+
+        if (params.name == '') {
+            $.alertMessager('请输入套餐名称!');return;
+        }
+        if (!$(".vip-year").val()) {
+            $.alertMessager('请输入套餐时长!');return;
+        }
+        if (!$(".vip-price").val()) {
+            $.alertMessager('请输入套餐价格!');return;
+        }
+
+        $.ajax({
+            url: 'admin.php?s=/admin/vip/add',
+            type: 'POST',
+            data: params,
+            success: function (data) {  
+                if(data.status == 1){
+                    $.alertMessager(data.info,'success');
+					setTimeout(function(){window.location.href=data.url;},2000);
+                }else{
+                    $.alertMessager(data.info);return;
+                }
+            }
+        });
+    });
+
 })
+
+getAllParams = function(obj){
+	var params = {};
+	var chk = {},s;
+	$(obj).each(function(){
+		if($(this)[0].type=='hidden' || $(this)[0].type=='number' || $(this)[0].type=='tel' || $(this)[0].type=='password' || $(this)[0].type=='select-one' || $(this)[0].type=='textarea' || $(this)[0].type=='text'){
+			params[$(this).attr('id')] = $.trim($(this).val());
+		}else if($(this)[0].type=='radio'){
+			if($(this).attr('name')){
+				params[$(this).attr('name')] = $('input[name='+$(this).attr('name')+']:checked').val();
+			}
+		}else if($(this)[0].type=='checkbox'){
+			if($(this).attr('name') && !chk[$(this).attr('name')]){
+				s = [];
+				chk[$(this).attr('name')] = 1;
+				$('input[name='+$(this).attr('name')+']:checked').each(function(){
+					s.push($(this).val());
+				});
+				params[$(this).attr('name')] = s.join(',');
+			}
+		}
+	});
+	chk=null,s=null;
+	return params;
+}
+//套餐选项
+getDuoInputParams = function(obj){
+    var params = {};
+    $(obj).each(function(key){
+        if($(this).val() && $(this).parents('.no-gutter').find('.vip-price').val()){
+            params[key] = {year:$(this).val(),price:$(this).parents('.no-gutter').find('.vip-price').val()};
+        }
+    });
+    return params;
+}
+//明细
+getDuoInputParams2 = function(obj){
+    var params = {};
+    $(obj).each(function(key){
+        if($(this).val() && $(this).parents('.no-gutter').find('.detail-val').val()){
+            params[key] = {desc:$(this).val(),val:$(this).parents('.no-gutter').find('.detail-val').val()};
+        }
+    });
+    return params;
+}

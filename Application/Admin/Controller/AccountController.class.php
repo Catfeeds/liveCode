@@ -62,7 +62,7 @@ class AccountController extends AdminController {
                     $this->error('新添加的域名不能和未通过审核的域名一样');
                 }
 
-                $res = $mod->where(['id'=>$data['uid']])->save(['url'=>$data['url'],'url_status'=>0]);
+                $res = $mod->where(['id'=>$data['uid']])->save(['url'=>$data['url'],'url_status'=>0,'ifCheck'=>1]);
                 if ($res !== false) {
                     $this->success('操作成功');
                 } else {

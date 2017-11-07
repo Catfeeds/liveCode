@@ -50,9 +50,9 @@ class LivecodeModel extends Model {
         $count3 = D('Phone')->where(['uid'=>$uid])->count();
         $count4 = D('Duourl')->where(['uid'=>$uid])->count();
         $count = $count1+$count2+$count3+$count4;
+        
         //限制数量
         $vip = D('User')->alias('u')->field('livecode_count')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$uid)->find();
-
         if ($count < $vip['livecode_count'] || $vip['livecode_count'] == 0) {
             return true;
         }else{
