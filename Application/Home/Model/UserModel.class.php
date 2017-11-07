@@ -31,7 +31,7 @@ class UserModel extends Model {
 
         //验证用户名
         array('username', 'require', '用户名不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('username', '3,32', '用户名长度为1-32个字符', self::MUST_VALIDATE, 'length', self::MODEL_BOTH),
+        array('username', '1,32', '用户名长度为1-32个字符', self::MUST_VALIDATE, 'length', self::MODEL_BOTH),
         array('username', '', '用户名被占用', self::MUST_VALIDATE, 'unique', self::MODEL_BOTH),
         array('username', '/^(?!_)(?!\d)(?!.*?_$)[\w\一-\龥]+$/', '用户名只可含有数字、字母、下划线且不以下划线开头结尾，不以数字开头！', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
 
@@ -237,6 +237,9 @@ class UserModel extends Model {
 
         if (empty($data['username'])) {
             $this->error = '请输入用户名！';return false;
+        }
+        if (mb_strlen($data['username']) > 10) {
+            $this->error = '用户名请勿超过10个字符！';return false;
         }
         if (!preg_match('/^1[34578]{1}\d{9}$/',$data['mobile'])) {
             $this->error = '请输入正确的手机号！';return false;
