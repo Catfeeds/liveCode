@@ -184,9 +184,8 @@ class UserModel extends Model {
      */
     public function checkMenuAuth() {
         $current_menu = D('Admin/Module')->getCurrentMenu(); // 当前菜单
-        $menu_auth = $this->getFieldByid(session('user_auth.uid'), 'menu_auth');  // 获得当前登录用户信息
-        $menu_auth = json_decode($menu_auth,true);
-        // h($current_menu);
+        $user = $this->alias('u')->field('v.menu_auth')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.session('user_auth.uid'))->find();
+        $menu_auth = json_decode($user['menu_auth'],true);
         if ($menu_auth != '') {
             // 获得当前登录用户所属部门的权限列表
             if (!in_array($current_menu['id'], $menu_auth) && !in_array($current_menu['pid'], $menu_auth)) {
