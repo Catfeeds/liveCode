@@ -25,11 +25,8 @@ class UserModel extends Model {
      */
     protected $_validate = array(
         //验证用户名
-        //array('nickname', 'require', '昵称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-
-        //验证用户名
         array('username', 'require', '用户名不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('username', '1,32', '用户名长度为1-32个字符', self::MUST_VALIDATE, 'length', self::MODEL_BOTH),
+        array('username', '1,10', '用户名请勿超过10个字符', self::MUST_VALIDATE, 'length', self::MODEL_BOTH),
         array('username', '', '用户名被占用', self::MUST_VALIDATE, 'unique', self::MODEL_BOTH),
         // array('username', '/^(?!_)(?!\d)(?!.*?_$)[\w\一-\龥]+$/', '用户名只可含有数字、字母、下划线且不以下划线开头结尾，不以数字开头！', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
 
@@ -184,9 +181,8 @@ class UserModel extends Model {
      */
     public function checkMenuAuth() {
         $current_menu = D('Admin/Module')->getCurrentMenu(); // 当前菜单
-        $menu_auth = $this->getFieldByid(session('user_auth.uid'), 'menu_auth');  // 获得当前登录用户信息
-        $menu_auth = json_decode($menu_auth,true);
-        // h($current_menu);
+        $user = $this->alias('u')->field('v.menu_auth')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.session('user_auth.uid'))->find();
+        $menu_auth = json_decode($user['menu_auth'],true);
         if ($menu_auth != '') {
             // 获得当前登录用户所属部门的权限列表
             if (!in_array($current_menu['id'], $menu_auth) && !in_array($current_menu['pid'], $menu_auth)) {

@@ -66,10 +66,6 @@ class OrderModel extends Model {
         $vip = $vip_mod->find($order['vipId']);
         //比现在使用套餐排序更高的套餐
         $vips = $vip_mod->alias('v')->field('v.*')->join('__VIP_PRICE__ p on v.id=p.vipId','left')->where(['price'=>['neq',''],'is_show'=>1,'sort'=>['egt',$vip['sort']]])->order('v.sort,p.price desc')->group('v.id')->select();
-        // if (!$vips) {
-        //     $this->error = '您目前使用的套餐已经是最高级别！';return false;
-        // }
-        // halt($vips);
         //是否有推荐套餐,没有则把第一个设为默认推荐
         $have_recommed = 0;
         foreach ($vips as $k => $v) {
@@ -85,7 +81,6 @@ class OrderModel extends Model {
                 $vips[0]['is_recommed'] = 1;
             }
         }
-// halt($vips);
         return $vips;
     }
 
@@ -94,7 +89,10 @@ class OrderModel extends Model {
      * 
      */
     public function getRecommed() {
-        $recommed = M('vip')->alias('v')->where(['v.is_recommed'=>1,'year'=>1])->join('__VIP_PRICE__ p on v.id=p.vipId','left')->find();
+        $recommed = M('vip')->where(['is_recommed'=>1])->find();
+        if (!$recommed) {
+            $recommed = M('vip')->order('sort')->find();
+        }
         return $recommed;
     }
 
@@ -105,7 +103,7 @@ class OrderModel extends Model {
         $userId  = (int)session('user_auth.uid');
         $orderId = I("orderId/d");
         $rs      = array();
-        $where   = ['orderId'=>$orderId,"userId"=>$userId,"orderStatus"=>-1,"status"=>1,"payType"=>0];
+        $where   = ['orderId'=>$orderId,"userId"=>$userId,"orderStatus"=>-1,"status"=>1];
         $rs      = $this->field('orderId,orderNo')->where($where)->select();
         if(count($rs)>0){
             return WSTReturn('',1);

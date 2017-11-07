@@ -10,7 +10,7 @@ namespace Home\Controller;
 use Common\Controller\CommonController;
 use Think\Verify;
 /**
- * 前台用户控制器
+ * 订单控制器
  * 
  */
 class OrderController extends CommonController {
@@ -88,11 +88,15 @@ class OrderController extends CommonController {
             $mod = D('Order');
             // 获取套餐
             $vips = $mod->getVips();
+            foreach ($vips as $k=>$v) {
+                $vips[$k]['detail'] = json_decode($v['detail'],true);
+            }
+
             // 获取套餐价格
             $versions = M('vip_price')->order('year')->select();
             // 获取默认的套餐及价格
             $recommed = $mod->getRecommed();
-            // halt($vips);
+            $recommed['detail'] = json_decode($recommed['detail'],true);
 
             $this->assign([
                 'meta_title'    => '版本购买',
@@ -140,10 +144,14 @@ class OrderController extends CommonController {
             if (!$vips) {
                 $this->error($mod->getError());
             }
+            foreach ($vips as $k=>$v) {
+                $vips[$k]['detail'] = json_decode($v['detail'],true);
+            }
             // 获取套餐价格
             $versions = M('vip_price')->order('year')->select();
             // 获取默认的套餐及价格
             $recommed = $mod->getRecommed();
+            $recommed['detail'] = json_decode($recommed['detail'],true);
 
             $this->assign([
                 'meta_title'    => '版本续费',

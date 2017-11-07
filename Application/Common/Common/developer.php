@@ -390,13 +390,15 @@ function payType($payType){
  */
 function showDiffCount($type,$data){
     if ($type == 'text') {
-        if ($data == 0) {
+        if ($data == '0') {
             return '不限制';
+        }elseif ($data == '不支持') {
+            return '';
         }else{
-            return $data.'个';
+            return $data;
         }
     }elseif ($type == 'select') {
-        if ($data == 0) {
+        if ($data == '0') {
             return '';
         }else{
             return '支持';
