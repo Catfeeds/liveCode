@@ -135,7 +135,7 @@ function downurl(e) {
     return i
 }
 var oldIE, op, op_1, op_name, telnum, is_change = !1,
-toolbar_config = "undo redo | removeformat horizontal | bold italic underline | forecolor backcolor fontsize | justifyleft justifycenter justifyright | insertorderedlist insertunorderedlist | link unlink ship audio image clistyle table tellink",
+toolbar_config = "undo redo | removeformat horizontal | bold italic underline | forecolor backcolor fontsize | justifyleft justifycenter justifyright | insertorderedlist insertunorderedlist | link unlink ship audio contact wechat image clistyle table tellink",
 um = UM.getEditor("myEditor", {
     toolbar: [toolbar_config],
     pasteImageEnabled: !0,
@@ -169,12 +169,14 @@ $(function() {
         var e = um;
         e.execCommand("pasteplain")
     }),
-    $(".edui-icon-image").html("<i class='fa fa-photo text-grey m-r-sm'></i><span>插入图片</span>"),
-    $(".edui-icon-clistyle").html("<i class='fa fa-magic text-grey m-r-sm'></i><span>插入样式</span>"),
-    $(".edui-icon-table").html("<i class='fa fa-table text-grey m-r-sm'></i><span>插入表格</span>"),
-    $(".edui-icon-tellink").html("<i class='fa fa-phone text-grey m-r-sm'></i><span>插入电话</span>");
-    $(".edui-icon-ship").html("<i class='fa text-grey m-r-sm' title='插入视频'></i>");
-    $(".edui-icon-audio").html("<i class='fa fa-audio text-grey m-r-sm' title='插入音频'></i>");
+    $(".edui-icon-image").html("<i class='fa fa-photo text-grey m-r-sm'></i><span>图片</span>"),
+    $(".edui-icon-clistyle").html("<i class='fa fa-magic text-grey m-r-sm'></i><span>样式</span>"),
+    $(".edui-icon-table").html("<i class='fa fa-table text-grey m-r-sm'></i><span>表格</span>"),
+    $(".edui-icon-tellink").html("<i class='fa fa-phone text-grey m-r-sm'></i><span>名片</span>");
+    $(".edui-icon-ship").html("<i class='fa text-grey m-r-sm'></i>");
+    $(".edui-icon-audio").html("<i class='fa fa-audio text-grey m-r-sm'></i>");
+    $(".edui-icon-contact").html("<i class='fa fa-contact text-grey m-r-sm'></i>");
+    $(".edui-icon-wechat").html("<i class='fa fa-wechat text-grey m-r-sm'></i>");
     var t = getUrlName("code_type");
     if (null != t && 0 != t ? $.ajax({
         type: "GET",

@@ -130,45 +130,130 @@
 			</div>
 		</div>
 	</div>
+	
+	<!--插入电话名片-->
 	<div id="modal-tellink" class="modal" data-backdrop="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">插入电话</h4></div>
-				<div class="modal-body text-center p-a-lg m-y-md">
-					<input id="modal-tellink-input" class="form-control" type="text" placeholder="请输入有效的电话号码">
-					<p class="text-left text-danger m-t-sm" id="modal-tellink-tip">请输入正确的电话号码</p>
-					<p class="text-center m-t text-grey">输入电话号码之后，手机端可以一键拨打电话</p>
+					<h4 class="modal-title">插入名片</h4></div>
+				<div class="modal-body text-center">
+					<div class="form-group row">
+						<label class="col-sm-2 ptb7 form-control-label">模块标题</label>
+						<div class="col-sm-9">
+							<input id="modal-tellink-input" class="form-control" type="text">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label"></label>
+						<div class="col-sm-9">
+							<div class="b-a" style="padding:8px 10px 7px 0px;">
+								<div class="pull-right">
+									<a href="http://www.livecode.com/admin.php?s=/admin/livecode/add.html" class="btn bead white " target="_blank">新建名片</a>
+								</div>
+								<div class="cl"></div>
+							</div>
+							<ul class="vcard-list b-l b-r b-b" style="display: block;">
+								<li>
+									<label mnt="杜山东">
+										<input type="radio" name="vcard_info" value="" tel="15875566606" usern="杜山东" position="总经理">杜山东  15875566606 总经理
+									</label>
+								</li>
+								<li>
+									<label mnt="杜山西">
+										<input type="radio" name="vcard_info" value="" tel="18356852017" usern="杜山西" position="大经理">杜山西 18356852017 大经理
+									</label>
+								</li>
+								<li>
+									<label mnt="杜山中">
+										<input type="radio" name="vcard_info" value="" tel="15156785241" usern="杜山中" position="小经理">杜山中 15156785241 小经理
+									</label>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn dark-white " data-dismiss="modal">取消</button>
-					<button type="button" class="btn green " data-loading-text="正在确定..." id="modal-tellink-confirm">确定</button>
+					<button type="button" class="btn dark-white bead" data-dismiss="modal">取消</button>
+					<button type="button" class="btn green bead" id="modal-tellink-confirm">确定</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--<div id="modal-other-option" class="modal fade" data-backdrop="true">
+	<!--插入联系我们-->
+	<div id="modal-contact" class="modal" data-backdrop="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">其他选项</h4></div>
-				<div class="modal-body text-center p-a-0">
-					<div class="option_main" id="option_main">
-						<div class="row no-gutter" id="footer_others">
-							<div class="type_section_title">微信分享标题</div>
-							<div class="type_section_others">
-								<input type="text" class="form-control form-control-sm" placeholder="请输入标题名称" senior-title="product" value='' />
+					<h4 class="modal-title">联系我们</h4>
+				</div>
+				<div class="modal-body text-center">
+					<div class="form-group row">
+						<label class="col-sm-2 ptb7 form-control-label">模块标题</label>
+						<div class="col-sm-9">
+							<input id="modal-tit-input" class="form-control" type="text">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 ptb7 form-control-label">描述</label>
+						<div class="col-sm-9">
+							<input id="modal-depict-input" class="form-control" type="text">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 ptb7 form-control-label">详细地址</label>
+						<div class="col-sm-9">
+							<input id="modal-address-input" class="form-control" type="text">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 ptb7 form-control-label">联系方式</label>
+						<div class="row col-sm-9 m-l-0">
+							<div class="contact_tbody row m-l-0"></div>
+							<div class="col-sm-9 p-l-0 p-r-0">
+								<button type="button" class="add_c_link btn btn-sm" val="0">
+									<i class="fa fa-plus fa-fw m-r-xs"></i>
+									<span>添加联系信息</span>
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn dark-white" data-dismiss="modal">取消</button>
-					<button type="button" class="btn green other-xuanze" data-loading-text="正在确定..." id="modal-option-confirm">确定</button>
+					<button type="button" class="btn dark-white bead" data-dismiss="modal">取消</button>
+					<button type="button" class="btn green bead" id="modal-contact-confirm">确定</button>
 				</div>
 			</div>
 		</div>
-	</div>-->
+	</div>
+	<!--插入微信号-->
+	<div id="modal-wechat" class="modal" data-backdrop="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">联系我们</h4>
+				</div>
+				<div class="modal-body text-center">
+					<div class="form-group row">
+						<label class="col-sm-2 ptb7 form-control-label">模块标题</label>
+						<div class="col-sm-9">
+							<input id="modal-wechat-input" class="form-control" type="text">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 ptb7 form-control-label">二维码链接</label>
+						<div class="col-sm-9">
+							<input id="modal-wechat-input" class="form-control" type="text">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn dark-white bead" data-dismiss="modal">取消</button>
+					<button type="button" class="btn green bead" id="modal-wechat-confirm">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="maskmodal"></div>
 	<div class="tip-bottom box-shadow">
 		<p class="text-center">
@@ -205,3 +290,30 @@
 	<script type="text/javascript" src="__CUI__/js/moreupload.js"></script>
 	<script src="__ADMIN_JS__/qrcode.js" type="text/javascript"></script>
 </block>
+
+<!--插入联系方式-->
+<!--<div class="card_module">
+	<h2 class="card_module_tit">标题</h2>
+	<div class="card_module_con">
+		<div class="card_module_vcard">
+			<div class="weui-article"><p>描述</p></div>
+			<div class="card_module_info">
+				<div class="weui-address"><span class="address_icon"></span></div>
+				<div class="weui-address_info">
+					<h4>地址</h4>
+					<p>地址</p>
+				</div>
+				<div class="cl"></div>
+			</div>
+			<div class="card_module_info">
+				<div class="weui-address"><span>电话</span></div>
+				<div class="weui-address_info">
+					<h4>电话</h4>
+					<p>地址</p>
+				</div>
+				<div class="cl"></div>
+			</div>
+			<div class="cl"></div>
+		</div>
+	</div>
+</div>-->
