@@ -41,6 +41,11 @@
 												    		<div class="clear"></div>
 												    	</div>
 													</div>
+													<div class="col-md-12">
+														<div class="pro_tit">
+										            		<input type="text" class="form-control input text font20" id="title" value="" placeholder="请输入标题名称">
+										                </div>
+													</div>
 												</div>
 												<div class="row no-gutter m-b-md">
 													<div class="col-md-12">
@@ -76,34 +81,7 @@
 						<div class="edit_right_content" id="edit_right_content">
 							<div class="p-a" id="qrcode_img_pro">
 								<img src="__PUBLIC__/product/static_edit/static/images/pro/qrcode-none@2x_162233f.png" class="edit_qrcode_img pointer" data-save="">
-								<div class="pro_tooltip tooltip right fade" id="qrcodeimg_tooltip" role="tooltip">
-									<div class="tooltip-arrow" style="top: 50%;"></div>
-									<div class="tooltip-inner">
-										<p class="text-left pro_tooltip_p">保存成功！二维码已保存至
-											<a href="" class="catalog_link target-link text-u-l" data-tip-bottom-target></a>，请在下载前扫码查看实际效果。</p>
-										<i class="fa fa-close pro_tooltip_close pointer" id="pro_tooltip_close"></i>
-									</div>
-								</div>
-								<button class="btn btn-sm white right_box_btn" id="show-qrcode">下载</button>
-								<div class="text-center text-grey text-xs" id="down-others">
-									<div class="inline pointer operation_link" id="down-qrtype">下载其他格式</div>
-									<div class="inline operation_separator">|</div>
-									<div class="inline pointer operation_link" id="beauty-qrcode">二维码美化</div>
-								</div>
 							</div>
-							<!-- <div class="b-t p-x p-y">
-								<div class="text-grey text-center m-b-sm">商品条码编号
-									<a href="//cli.im/news/30378" target="_blank" class="text-lightgrey pointer m-l-xs" data-toggle="tooltip" data-html="true" data-placement="top" data-original-title='<div style="padding:5px 0px;"><img src="static_edit/static/images/tip-picture@2x_5892af5.png" style="width:177px;margin-bottom:5px;"/><div class="text-left">1，若条码编号为13位，请在最前面填写数字0</div><div class="text-left">2，输入后不可修改，请谨慎填写</div></div>'>
-										<i class="fa fa-question-circle"></i>
-									</a>
-										
-								</div>
-								<div class="pos-rlt">
-									<input type="text" id="gtin-val" class="form-control form-control-sm text-xs" maxlength="14" placeholder="14位数字编号,没有可不填">
-									<div class="text-danger pos-abt wrong-gtin text-xs none" id="wrong-gtin">格式不正确</div>
-									<div class="text-danger pos-abt wrong-gtin-13 text-xs none" id="wrong-gtin-13" style="bottom:-17px;">13位编码，请在前面填写数字0</div>
-								</div>
-							</div> -->
 							<div class="p-x p-y-0">
 								<a href="" id="xiazai" class="btn-sm btn_xz" >下载</a>
 							</div>
@@ -240,10 +218,40 @@
 							<input id="modal-wechat-input" class="form-control" type="text">
 						</div>
 					</div>
-					<div class="form-group row">
+					<div class="form-group row" style="position: relative;">
 						<label class="col-sm-2 ptb7 form-control-label">二维码链接</label>
-						<div class="col-sm-9">
-							<input id="modal-wechat-input" class="form-control" type="text">
+						<span class="pos-abt"><i class="fa fa-question-circle"></i></span>
+						<div class="wechatTip">
+							<div class="wechatTip-arrow" style="left: 50%;"></div>
+							<div class="wechatTip-inner">该模板只有在微信扫一扫时展示！</div>
+						</div>
+						<div class="col-sm-9 text-left">
+							<input id="modal-ewm-input" class="form-control" type="text">
+							<div class="uploadewm">
+								<div class="checkbox m-b-0">
+									<label class="checkbox-inline">
+										<input type="checkbox" value="" class="check-up-box">&nbsp;允许通过扫描微信二维码添加好友
+										<span class="fa fa-question-circle text-lightgrey ewmcode"></span>
+										<div class="wechatTip">
+											<div class="wechatTip-arrow" style="left: 50%;"></div>
+											<div class="wechatTip-inner">扫描者可以直接在页面中通过链接添加你为好友</div>
+										</div>
+									</label>
+								</div>
+								<div class="upload-tool-btns m-t-10 light row m-l-0 m-r-0">
+									<div class="upload-img">
+										<div class="layui-upload">
+										  <div class="layui-upload-list">
+										    <!--<img class="layui-upload-img" id="demo5" src="__PUBLIC__/images/noimg.png">-->
+										    <p id="demoText5"></p>
+										  </div>
+										  <button type="button" class="layui-btn" id="uploadCode">上传二维码</button>
+										  <input class="layui-upload-file" type="file" name="file">
+										</div> 
+								        <input type="hidden" id="uploadWechat" value="">
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -255,12 +263,12 @@
 		</div>
 	</div>
 	<div class="maskmodal"></div>
-	<div class="tip-bottom box-shadow">
+	<!--<div class="tip-bottom box-shadow">
 		<p class="text-center">
 			<span>保存成功！该商品码已经保存至&nbsp;
             <a href="" class="target-link" data-tip-bottom-target></a>&nbsp;目录中</span>
 		</p>
-	</div>
+	</div>-->
 </block>
 <block name="script">
 	<!--<script src="__PUBLIC__/product/static_edit/cli/js/lib/jquery.1.9.1.min.js"></script>-->
