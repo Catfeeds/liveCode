@@ -405,6 +405,7 @@ class LivecodeController extends AdminController {
         } else {
             $this->meta_title = '新增活码';
             $this->assign('menuId',I('get.type/d'));
+            $this->assign('vcard',I('get.vcard/d'));
             $this->display();
         }
     }

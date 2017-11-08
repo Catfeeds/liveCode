@@ -10,7 +10,7 @@
 </block>
 <block name="main">
 <input type="hidden" id="editId" value="{$data['id']}">
-<input type="hidden" id="menuId" value="{$data['menuId']}">
+<input type="hidden" id="menuId" value="{$menuId}">
 <input type="hidden" id="codeType" value="{$data['codeType']}">
 
 	<div class="user_plugins_wraper">
@@ -83,10 +83,10 @@
 						</div>
 						<div class="edit_right_content" id="edit_right_content">
 							<div class="p-a" id="qrcode_img_pro">
-								<img src="__PUBLIC__/images/nocode.png" class="edit_qrcode_img pointer" data-save="">
+								<img src="<?php if($data['id']): ?>/Uploads/product/{$data['id']}.png<?php else: ?>__PUBLIC__/images/nocode.png<?php endif; ?>" class="edit_qrcode_img pointer" data-save="">
 							</div>
 							<div class="p-x p-y-0">
-								<a href="__PUBLIC__/images/nocode.png" id="xiazai" class="btn-sm btn_xz" >下载</a>
+								<a href="<?php if($data['id']): ?>/Uploads/product/{$data['id']}.png<?php else: ?>__PUBLIC__/images/nocode.png<?php endif; ?>" download="产品活码" id="xiazai" class="btn-sm btn_xz" >下载</a>
 							</div>
 							<div class="p-x p-y-0">
 								<button id="save_btn" class="btn-sm green-btn">生成二维码</button>
@@ -130,7 +130,7 @@
 						<div class="col-sm-9">
 							<div class="b-a" style="padding:8px 10px 7px 0px;">
 								<div class="pull-right">
-									<a href="http://www.livecode.com/admin.php?s=/admin/livecode/add.html" class="btn bead white " target="_blank">新建名片</a>
+									<a href="{:U('Admin/Livecode/add',['vcard'=>1])}" class="btn bead white " target="_blank">新建名片</a>
 								</div>
 								<div class="cl"></div>
 							</div>
@@ -309,8 +309,8 @@
 		            data: {editId:editId,menuId:menuId,title:title,content:{picUrl:picUrl,content:content}},
 		            success: function (data) {  
 		                if(data.status == 1){
-		                    $("#code6 img").attr('src',data.url);
-		                    $("#img6").attr('href',data.url);
+		                    $("#qrcode_img_pro img").attr('src',data.url);
+		                    $("#xiazai").attr('href',data.url);
 		                    $.alertMessager('二维码已成功保存!','success');
 		                    if (data.info.site) {
 		                        setTimeout(function(){self.location=document.referrer;},2000);
