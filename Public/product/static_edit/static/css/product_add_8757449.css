@@ -214,4 +214,106 @@ select.form-control-sm{
 .email span{
 	background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/email.png) no-repeat center;
 }
-
+.edui-btn-toolbar .edui-btn .edui-icon-wechat{
+	background-image: none;
+	margin: 7px 0 0 5px;
+}
+.pos-abt{
+	position: absolute;
+    top: 9px;
+    left: 88px;
+}
+.pos-abt i{
+	color: #bbb;
+	cursor: pointer;
+}
+.wechatTip{
+	position: absolute;
+    z-index: 99;
+    text-align: left;
+    top: -44px;
+    left: 3px;
+    display: none;
+}
+.wechatTip-arrow{
+	position: absolute;
+	bottom: -5px;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 5px 0;
+    border-top-color: #000;
+}
+.wechatTip-inner {
+    width: 170px;
+    padding: 3px 8px;
+    color: #fff;
+    background-color: #000;
+    border-radius: .25rem;
+}
+.m-t-10 {
+    margin-top: 10px;
+}
+.upload-tool-btns .upload-img{
+	text-align: left;
+    padding: 0 0 10px 10px;
+}
+.upload-tool-btns .layui-btn{
+    box-shadow: inset 0 0 0 1px rgba(120,130,140,.25);
+    background: #fff;
+    color: #333;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 5px;
+}
+.upload-tool-btns .layui-btn:hover{
+	color: #333;
+}
+.upload-tool-btns{
+	display: none;
+}
+.uploadewm .wechatTip{
+    top: -49px;
+    left: 61%;
+}
+.weui-panel{
+    width: 100%;
+    padding: 10px;
+    position: relative;
+}
+.weui-icon{
+    width: 20px;
+    height: 20px;
+    float: left;
+    background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/wechat.png) no-repeat center;
+}
+.weui-cell{
+    font-size: 16px;
+    float: left;
+    margin: 0 5px;
+}
+.weui-btn{
+	float: right;
+	margin-top: -2px;
+}
+.weui-btn input{
+    width: 46px;
+    height: 28px;
+    line-height: 28px;
+    color: #000;
+    background-color: #f8f8f8;
+    box-shadow: inset 0 0 0 1px rgba(120,130,140,.25);
+    border: none;
+    border-radius: 5px;
+}
+.pro_tit{
+	padding: 15px 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+.pro_tit input {
+	height: 50px;
+    font-size: 20px;
+    color: #000;
+    border: 1px solid rgba(0,0,0,.1);
+    border-left: none;
+    border-right: none;
+}
