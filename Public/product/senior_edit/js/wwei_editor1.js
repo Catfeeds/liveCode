@@ -161,7 +161,7 @@ function tempLoad() {
         $("#template-loading").show();
         $.ajax({
             type: "GET",
-            url: STATIC_SERVICE+"/loadtemp1/function.php",
+            url: "/admin.php?s=/admin/product/getHighJsonHtml",
             dataType : "jsonp",
             jsonp: "callback",
             data: {"data_Type":data_type},

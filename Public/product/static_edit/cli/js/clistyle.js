@@ -139,7 +139,7 @@
 	    	$('#clistyle-template-list').html(loading);
 	    	$.ajax({
 	            type: "GET",
-	            url: CLI_DOMAIN+"/Api/Clistyle/get_style.json",
+	            url: "/admin.php?s=/admin/product/getJsonHtml",
 	            dataType : "jsonp",
 	            jsonp: "callback",
 	            data: {"data_Type":dataType},
