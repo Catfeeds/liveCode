@@ -23,6 +23,7 @@ class ProductController extends AdminController {
         $this->obj = D('Product');
         //判断用户状态是否正常 && 套餐是否过期
         $this->ifExpired();
+        $this->assign('host',$_SERVER['HTTP_HOST']);
     }
     /**
      * 产品活码列表
