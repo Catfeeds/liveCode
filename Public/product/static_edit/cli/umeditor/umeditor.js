@@ -11175,16 +11175,16 @@ UM.registerUI('tellink',
         });
         //点击退出
 		$(".navbar-right").on('click','.dropdown',function(){
-			if ($('.dropdown-menu').hasClass('show1')) {
-	            $('.dropdown-menu').removeClass('show1');
+			if ($(this).find('.dropdown-menu').hasClass('show1')) {
+	            $(this).find('.dropdown-menu').removeClass('show1');
 	        } else {
-	            $('.dropdown-menu').addClass('show1');
+	            $(this).find('.dropdown-menu').addClass('show1');
 	        }
 	        return false;
 		})
 	    $('body').on('click', function(){
-	        $('.dropdown-menu').removeClass('show1');
-	        $('.dropdown-menu').hide();
+	        $('.navbar-right .dropdown-menu').removeClass('show1');
+	        $('.navbar-right .dropdown-menu').hide();
 	    });
 		$(document).scroll(function(){
 	        $('.dropdown-menu').removeClass('show1');
