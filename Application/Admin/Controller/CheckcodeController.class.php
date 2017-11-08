@@ -316,7 +316,15 @@ class CheckcodeController extends AdminController {
                 foreach ($content as $key => $value) {
                     $data[$key] = $value;
                 }
+                //插入名片
+                $vcards = D('Livecode')->where(['uid'=>$data['uid'],'type'=>5,'status'=>1])->getField('content',true);
+                if ($vcards) {
+                    foreach ($vcards as $key => $v) {
+                        $vcards[$key] = json_decode($v,true);
+                    }
+                }
                 $meta_title = '编辑产品活码';
+                $this->assign('vcards',$vcards);
                 $html       = 'Product/add';
             }elseif ($codeType == 3) {
                 $meta_title = '编辑视频活码';
