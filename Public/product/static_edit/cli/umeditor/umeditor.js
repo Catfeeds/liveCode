@@ -11272,11 +11272,13 @@ UM.registerUI('wechat',
             }
         });
         $("#modal-wechat-confirm").click(function(){
-        	$(".maskmodal").hide();
-            tit = $("#modal-wechat-input").val();
+            var wetit = $("#modal-wechat-input").val() || "微信好友" ;
+            var ewm=$("#modal-ewm-input").val();
+            if(!ewm) return;
+            $(".maskmodal").hide();
 			$("#modal-wechat").fadeOut();
             $(".navbar-inverse").css('z-index',"1");
-            me.execCommand("inserthtml",'<span>'+tit+'</span>',"needFilter");
+            me.execCommand("inserthtml",'<div class="weui-panel"><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div>',"needFilter");
         });
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
@@ -11284,12 +11286,25 @@ UM.registerUI('wechat',
         	$(".navbar-inverse").css('z-index',"1");
         	$("#modal-wechat").fadeOut();
         });
+        $(".pos-abt,.ewmcode").hover(function(){
+        	$(this).siblings('.wechatTip').fadeIn();
+        },function(){
+        	$(this).siblings('.wechatTip').fadeOut();
+        });
+        $(".check-up-box").click(function(){
+        	if($(this).is(":checked")){
+        		$(".upload-tool-btns").show();
+        	}else{
+        		$(".upload-tool-btns").hide();
+        	}
+        });
         this.addListener('selectionchange',function(){
             var state = this.queryCommandState(name);
             $btn.edui().disabled(state == -1).active(state == 1)
         });
         return $btn;
     });
+
 
 // 插入样式（高级编辑器）
 UM.registerUI('seniorstyle',
