@@ -135,7 +135,7 @@ function downurl(e) {
     return i
 }
 var oldIE, op, op_1, op_name, telnum, is_change = !1,
-toolbar_config = "undo redo | removeformat horizontal | bold italic underline | forecolor backcolor fontsize | justifyleft justifycenter justifyright | insertorderedlist insertunorderedlist | link unlink ship audio contact wechat image clistyle table tellink",
+toolbar_config = "undo redo | removeformat horizontal | bold italic underline | forecolor backcolor fontsize | justifyleft justifycenter justifyright | insertorderedlist insertunorderedlist | link unlink ship audio contact wechat document image  clistyle table tellink",
 um = UM.getEditor("myEditor", {
     toolbar: [toolbar_config],
     pasteImageEnabled: !0,
@@ -177,6 +177,7 @@ $(function() {
     $(".edui-icon-audio").html("<i class='fa fa-audio text-grey m-r-sm'></i>");
     $(".edui-icon-contact").html("<i class='fa fa-contact text-grey m-r-sm'></i>");
     $(".edui-icon-wechat").html("<i class='fa fa-wechat text-grey m-r-sm'></i>");
+    $(".edui-icon-document").html("<i class='fa fa-document text-grey m-r-sm'></i>");
     var t = getUrlName("code_type");
     if (null != t && 0 != t ? $.ajax({
         type: "GET",
