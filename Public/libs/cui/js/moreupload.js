@@ -199,6 +199,42 @@ $(function(){
 	      });
 	    }
 	  });
+	  
+	  //产品活码上传二维码
+	  var uploadInst5 = upload.render({
+	    elem: '#uploadCode'
+	    ,url: productPostUrl
+	    ,before: function(obj){
+	      //预读本地文件示例，不支持ie8
+	      obj.preview(function(index, file, result){
+	        $('#demo5').attr('src', result); //图片链接（base64）
+	      });
+	    }
+	    ,done: function(res){
+	      //如果上传失败
+	      if(res.status != 1){
+	        return layer.msg('上传失败');
+	      }else{
+	      	//上传成功
+	        $('#uploadWechat').val(res.info.uploadFileUrl);
+	      }
+	      
+	    }
+	    ,error: function(){
+	      //演示失败状态，并实现重传
+	      var demoText = $('#demoText5');
+	      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>  <a class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</a>');
+	      demoText.find('.demo-reload').on('click', function(){
+	        uploadInst4.upload();
+	      });
+	      //演示失败状态，并实现删除
+	      demoText.find('.demo-delete').on('click', function(){
+	      	  $('#demo5').attr('src', '/Public/images/noimg.png');
+	          demoText.empty();
+	      });
+	    }
+	  });
+	  
 	  	
 	});
 	
