@@ -13,6 +13,7 @@ class CheckcodeController extends AdminController {
         parent::_initialize();
         $this->uid         = $this->_user_auth['uid'];
         $this->userObj     = D('User');
+        $this->assign('host',$_SERVER['HTTP_HOST']);
     }
     /**
      * 活码列表

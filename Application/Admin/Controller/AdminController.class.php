@@ -337,7 +337,7 @@ class AdminController extends CommonController {
         $user = $mod->getUserInfo(session('user_auth.uid'));
         if (!$user || $user['status'] != 1) {
             $this->error('账号不存在或被禁用');
-        }elseif ($user['expire_time'] < time()) {
+        }elseif (session('user_auth.user_type') == 2 && $user['expire_time'] < time()) {
             $this->error('套餐已过期，请在续费管理中选择续费套餐');
         }
     }

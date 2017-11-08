@@ -567,7 +567,7 @@ class LivecodeController extends AdminController {
      * 点击查看
      */
     public function detail (){
-        $id            = I('id/d');
+        $id   = I('id/d');
         $data = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
         if (!$data) {
             return $this->display('Public/unfined');
