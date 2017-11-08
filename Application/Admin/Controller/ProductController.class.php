@@ -384,6 +384,7 @@ class ProductController extends AdminController {
             $data[$key] = $value;
         }
         $data['type'] = 6;
+        $data['picUrl'] = '/Uploads/product/file/'.$data['picUrl'];
         $this->assign('data',$data);
         $this->display('Livecode/live_text');
     }
