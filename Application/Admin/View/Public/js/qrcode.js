@@ -1,25 +1,25 @@
 $(function(){
-    KindEditor.ready(function(K) {
-        kindeditor_1 = K.create('.imgtext', {
-            allowFileManager : true,
-            filePostName : 'file',
-            cssPath : [
-                'public/libs/cui/css/cui.min.css',
-                'public/libs/kindeditor/plugins/code/prettify.css'
-            ],
-            width : '100%',
-            height : '500px',
-            resizeType: 1,
-            pasteType : 2,
-            urlType : 'absolute',
-            fileManagerJson : '/admin.php?s=/admin/upload/filemanager',
-            uploadJson : '/admin.php?s=/admin/upload/upload',
-            extraFileUploadParams: {
-                session_id : '16dnm7gnf59ivch3tu8cb95kq5'
-            },
-            afterBlur: function(){this.sync();}
-        });
-    });
+    // KindEditor.ready(function(K) {
+    //     kindeditor_1 = K.create('.imgtext', {
+    //         allowFileManager : true,
+    //         filePostName : 'file',
+    //         cssPath : [
+    //             'public/libs/cui/css/cui.min.css',
+    //             'public/libs/kindeditor/plugins/code/prettify.css'
+    //         ],
+    //         width : '100%',
+    //         height : '500px',
+    //         resizeType: 1,
+    //         pasteType : 2,
+    //         urlType : 'absolute',
+    //         fileManagerJson : '/admin.php?s=/admin/upload/filemanager',
+    //         uploadJson : '/admin.php?s=/admin/upload/upload',
+    //         extraFileUploadParams: {
+    //             session_id : '16dnm7gnf59ivch3tu8cb95kq5'
+    //         },
+    //         afterBlur: function(){this.sync();}
+    //     });
+    // });
     
     var editId  = $("#editId").val();
     var menuId   = $("#menuId").val();
@@ -178,51 +178,47 @@ $(function(){
         });
     });
     //产品活码
-    $("#save_btn6").click(function(){
-        alert(11)   
-        // var editId  = $("#editId6").val();
-        // var codeType= $("#codeType").val();     //管理员审核编辑
-        // var picUrl  = $("#uploadPicUrl").val();
-        // var title   = $("#title6").val();
-        // var content = $("#imgtext").val();
-        // var postUrl = 'admin.php?s=/admin/product/add';
+    $("#save_btn6").click(function(){ 
+        var editId  = $("#editId").val();
+        var codeType= $("#codeType").val();     //管理员审核编辑
+        var picUrl  = $("#uploadPicUrl").val();
+        var title   = $("#title").val();
+        var content = $("#myEditor").html();
+        var postUrl = 'admin.php?s=/admin/product/add';
 
-        // if (picUrl == '') {
-        //     $.alertMessager('请上传图片!');return;
-        // }
-        // if (title == '') {
-        //     $.alertMessager('请输入产品名称!');return;
-        // }
-        // if (content == '') {
-        //     $.alertMessager('请输入内容!');return;
-        // }
-        // if (codeType) {
-        //     postUrl = 'admin.php?s=/admin/checkcode/edit/codeType/'+codeType+'/id/'+editId;
-        // }
+        if (picUrl == '') {
+            $.alertMessager('请上传图片!');return;
+        }
+        if (content == '') {
+            $.alertMessager('请输入内容!');return;
+        }
+        if (codeType) {
+            postUrl = 'admin.php?s=/admin/checkcode/edit/codeType/'+codeType+'/id/'+editId;
+        }
 
-        // $.ajax({
-        //     url: postUrl,
-        //     type: 'POST',
-        //     data: {editId:editId,menuId:menuId,title:title,content:{picUrl:picUrl,content:content}},
-        //     success: function (data) {  
-        //         if(data.status == 1){
-        //             $("#code6 img").attr('src',data.url);
-        //             $("#img6").attr('href',data.url);
-        //             $.alertMessager('二维码已成功保存!','success');
-        //             if (data.info.site) {
-        //                 setTimeout(function(){self.location=document.referrer;},2000);
-        //             }else{
-        //                 if (data.info.type) {
-        //                     setTimeout(function(){location.href = "admin.php?s=/admin/product/child/type/"+data.info.type;},2000);
-        //                 }else{
-        //                     setTimeout(function(){location.href = "admin.php?s=/admin/product/index";},2000);
-        //                 }
-        //             }
-        //         }else{
-        //             $.alertMessager(data.info);return;
-        //         }
-        //     }
-        // });
+        $.ajax({
+            url: postUrl,
+            type: 'POST',
+            data: {editId:editId,menuId:menuId,title:title,content:{picUrl:picUrl,content:content}},
+            success: function (data) {  
+                if(data.status == 1){
+                    $("#code6 img").attr('src',data.url);
+                    $("#img6").attr('href',data.url);
+                    $.alertMessager('二维码已成功保存!','success');
+                    if (data.info.site) {
+                        setTimeout(function(){self.location=document.referrer;},2000);
+                    }else{
+                        if (data.info.type) {
+                            setTimeout(function(){location.href = "admin.php?s=/admin/product/child/type/"+data.info.type;},2000);
+                        }else{
+                            setTimeout(function(){location.href = "admin.php?s=/admin/product/index";},2000);
+                        }
+                    }
+                }else{
+                    $.alertMessager(data.info);return;
+                }
+            }
+        });
     });
 
 

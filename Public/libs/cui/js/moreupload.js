@@ -181,7 +181,7 @@ $(function(){
 	        return layer.msg('上传失败');
 	      }else{
 	      	//上传成功
-	        $('#uploadPicUrl').val(res.info.uploadFileUrl);
+	        $('#uploadPicUrl').val(res.data);
 	      }
 	      
 	    }

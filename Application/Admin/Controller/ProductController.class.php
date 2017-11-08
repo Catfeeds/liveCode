@@ -267,6 +267,7 @@ class ProductController extends AdminController {
      */
     public function add() {
         if (IS_POST) {
+            halt(I(''));
             $editId = I('post.editId/d');
             if (!empty($editId)) {
                 return $this->edit();
@@ -413,7 +414,7 @@ class ProductController extends AdminController {
             if(!$info) {// 上传错误提示错误信息
                 $this->error('上传失败！');
             }else{// 上传成功
-                $size = getFilesize($info['file']['size']);
+                // $size = getFilesize($info['file']['size']);
                 $url  = $info['file']['savepath'].$info['file']['savename'];
                 echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$url]);
                 //$this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
