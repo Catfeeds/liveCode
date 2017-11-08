@@ -55,6 +55,13 @@
             padding: 0px;
             margin-right: 10px;
         }
+        .mlr{
+    	    margin-left: 10px;
+    		margin-right: 4px;
+        }
+        .ml196{
+        	margin-left: 196px!important;
+        }
         @media (min-width: 768px) {
             .builder.formbuilder-box .form-builder .input,
             .builder.formbuilder-box .form-builder .select,
@@ -105,32 +112,37 @@
                                 <input type="text" class="form-control input text s-query" id="name" value="">      
                             </div>
                         </div>
-                        <div class="" id="vip_content">
-                            <div class="url-row row no-gutter m-b" num='0'>
-                                <div class="col-md-3">
-                                    <input type="text" placeholder="套餐时长(年)" class="form-control url-border vip-year" value="">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" placeholder="套餐价格(元)" class="form-control url-border vip-price" value="">
-                                </div>
-                                <div class="col-md-3">
-                                    <i class="fa fa-trash url-icon delicon"></i>
-                                </div>
-                            </div>
-                            <div class="url-row row no-gutter m-b" num='1'>
-                                <div class="col-md-3">
-                                    <input type="text" placeholder="套餐时长(年)" class="form-control url-border vip-year " value="">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" placeholder="套餐价格(元)" class="form-control url-border vip-price" value="">
-                                </div>
-                                <div class="col-md-3">
-                                    <i class="fa fa-trash url-icon delicon"></i>
-                                </div>
-                            </div>
-                            <i class="fa fa-plus url-icon" id="add_vip_btn" val="">&nbsp;添加选项</i>
-                            <div class="clear"></div>
-                        </div> 
+                        <div class="form-group">
+                        	<div id="vip_content">
+	                            <div class="url-row row no-gutter m-b" num='0'>
+	                            	<label class="left control-label"></label>
+	                                <div class="col-md-2">
+	                                    <input type="text" placeholder="套餐时长(年)" class="form-control url-border vip-year" value="">
+	                                </div>
+	                                <div class="col-md-5 mlr" >
+	                                    <input type="text" placeholder="套餐价格(元)" class="form-control url-border vip-price" value="">
+	                                </div>
+	                                <div class="col-md-1">
+	                                    <i class="fa fa-trash url-icon delicon"></i>
+	                                </div>
+	                            </div>
+	                            <div class="url-row row no-gutter m-b" num='1'>
+	                            	<label class="left control-label"></label>
+	                                <div class="col-md-2">
+	                                    <input type="text" placeholder="套餐时长(年)" class="form-control url-border vip-year " value="">
+	                                </div>
+	                                <div class="col-md-5 mlr">
+	                                    <input type="text" placeholder="套餐价格(元)" class="form-control url-border vip-price" value="">
+	                                </div>
+	                                <div class="col-md-1">
+	                                    <i class="fa fa-trash url-icon delicon"></i>
+	                                </div>
+	                            </div>
+	                            <i class="fa fa-plus url-icon ml196" id="add_vip_btn" val="">&nbsp;添加选项</i>
+	                            <div class="clear"></div>
+	                        </div> 
+                        </div>
+                        
                         <div class="form-group item_is_recommed ">
                             <label class="left control-label">是否设为推荐套餐：</label>
                             <div class="right">
@@ -223,32 +235,36 @@
                         <div class="form-group item_ ">
                             <label class="left control-label"><font color="red">套餐明细</font>：</label>
                         </div>
-                        <div class="" id="detail_content">
-                            <div class="url-row row no-gutter m-b" num='0'>
-                                <div class="col-md-3">
-                                    <input type="text" placeholder="文字说明" class="form-control url-border detail-desc " value="">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" placeholder="配置值" class="form-control url-border detail-val" value="">
-                                </div>
-                                <div class="col-md-3">
-                                    <i class="fa fa-trash url-icon delicon"></i>
-                                </div>
-                            </div>
-                            <div class="url-row row no-gutter m-b" num='1'>
-                                <div class="col-md-3">
-                                    <input type="text" placeholder="文字说明" class="form-control url-border detail-desc " value="">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" placeholder="配置值" class="form-control url-border detail-val" value="">
-                                </div>
-                                <div class="col-md-3">
-                                    <i class="fa fa-trash url-icon delicon"></i>
-                                </div>
-                            </div>
-                            <i class="fa fa-plus url-icon" id="add_detail_btn" val="">&nbsp;添加明细</i>
-                            <div class="clear"></div>
-                        </div>      
+                        <div class="form-group">
+                        	<div id="detail_content">
+	                            <div class="url-row row no-gutter m-b" num='0'>
+	                            	<label class="left control-label"></label>
+	                                <div class="col-md-2">
+	                                    <input type="text" placeholder="文字说明" class="form-control url-border detail-desc " value="">
+	                                </div>
+	                                <div class="col-md-5 mlr">
+	                                    <input type="text" placeholder="配置值" class="form-control url-border detail-val" value="">
+	                                </div>
+	                                <div class="col-md-1">
+	                                    <i class="fa fa-trash url-icon delicon"></i>
+	                                </div>
+	                            </div>
+	                            <div class="url-row row no-gutter m-b" num='1'>
+	                            	<label class="left control-label"></label>
+	                                <div class="col-md-2">
+	                                    <input type="text" placeholder="文字说明" class="form-control url-border detail-desc " value="">
+	                                </div>
+	                                <div class="col-md-5 mlr">
+	                                    <input type="text" placeholder="配置值" class="form-control url-border detail-val" value="">
+	                                </div>
+	                                <div class="col-md-1">
+	                                    <i class="fa fa-trash url-icon delicon"></i>
+	                                </div>
+	                            </div>
+	                            <i class="fa fa-plus url-icon ml196" id="add_detail_btn" val="">&nbsp;添加明细</i>
+	                            <div class="clear"></div>
+	                        </div> 
+                        </div>     
                         <!-- 自定义套餐明细 E-->
 
                         <div class="form-group"></div>

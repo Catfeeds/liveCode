@@ -272,9 +272,9 @@
 	<script src="__PUBLIC__/product/static_edit/static/js/lib/sea_3c3cab9.js"></script>
 	<script>
 		//防止common被运营商劫持，读不到变量
-		var CLI_DOMAIN = 'http://www.livecode.com/public/product',
-			SENIOR_EDIT = 'http://www.livecode.com/admin.php?s=/admin/product',
-			STATIC_SERVICE = 'http://www.livecode.com/public/product/static_edit';
+		var CLI_DOMAIN = 'http://{$host}/public/product',
+			SENIOR_EDIT = 'http://{$host}/admin.php?s=/admin/product',
+			STATIC_SERVICE = 'http://{$host}/public/product/static_edit';
 	</script>
 	<!--<script src="__PUBLIC__/product/static_edit/cli/js/lib/plug/jceb.msgtip.js?v=20170314"></script>-->
 	<script src="__PUBLIC__/product/static_edit/cli/js/clistyle.js?v=20170314"></script>
