@@ -317,3 +317,11 @@ select.form-control-sm{
     border-left: none;
     border-right: none;
 }
+.card_module_vcard a{
+	text-decoration: none;
+	cursor: pointer;
+}
+.card_module_info{
+    width: 70%;
+    float: left;
+}
