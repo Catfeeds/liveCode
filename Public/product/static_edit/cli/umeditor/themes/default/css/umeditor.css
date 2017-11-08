@@ -5,7 +5,8 @@
     background-color: #fff;
 }
 .edui-container .edui-toolbar{
-    position: relative;
+    position: relative!important;
+    top: auto!important;
     width:auto;
     border-bottom: 1px solid #e1e1e1;
     box-shadow: 2px 2px 5px #d3d6da;

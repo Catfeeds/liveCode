@@ -10821,7 +10821,7 @@ UM.registerUI('autofloat',function(){
                 },100);
             });
             bakCssText = toolbarBox.style.cssText;
-            placeHolder.style.height = toolbarBox.offsetHeight + 'px';
+            //placeHolder.style.height = toolbarBox.offsetHeight + 'px'; //取消固定编辑器的头部
             if(LteIE6){
                 fixIE6FixedPos();
             }
@@ -10830,7 +10830,7 @@ UM.registerUI('autofloat',function(){
             me.addListener('keydown', defer_updateFloating);
             me.addListener('resize', function(){
                 unsetFloating();
-                placeHolder.style.height = toolbarBox.offsetHeight + 'px';
+                //placeHolder.style.height = toolbarBox.offsetHeight + 'px';
                 updateFloating();
             });
 
@@ -11150,7 +11150,7 @@ UM.registerUI('tellink',
         var $btn = $.eduibutton({
             icon : name,
             click : function(){
-//              $("#modal-tellink").modal("show");
+                //$("#modal-tellink").modal("show");
 				$("#modal-tellink").fadeIn();
                 $(".modal-backdrop").hide();
                 $(".maskmodal").show();
@@ -11158,26 +11158,33 @@ UM.registerUI('tellink',
             }
         });
         $("#modal-tellink-confirm").click(function(){
-        	$(".maskmodal").hide();
             href = $("#modal-tellink-input").val();
-//          $("#modal-tellink").modal("hide");
+			var tel=$('.vcard-list li label input:checked').attr('tel');
+			var pposition=$('.vcard-list li label input:checked').attr('position');
+			var usern=$('.vcard-list li label input:checked').attr('usern');
+			if(!pposition) {
+				alert('请选择名片，无名片请新建名片');
+				return;
+			}
+			$(".maskmodal").hide();
 			$("#modal-tellink").fadeOut();
             $(".empty_placeholder").remove();
             $(".navbar-inverse").css('z-index',"1");
-            me.execCommand("inserthtml","<a href='tel:"+href+"' _href='tel:"+href+"' target='_self'>"+href+"</a>","needFilter");
+            //me.execCommand("inserthtml","<a href='tel:"+href+"' _href='tel:"+href+"' target='_self'>"+href+"</a>","needFilter");
+            me.execCommand("inserthtml",'<div class="card_module"><h2 class="card_module_tit">'+href+'</h2><div class="card_module_con"><div class="card_module_vcard"><div class="card_module_face"><img src="https://cache.cli.im/cli_biz/mobile/tpl/module/images/default_face.png"/></div><div class="card_module_info"><div class="vcard_info_name">'+usern+'</div><div class="vcard_info_position">'+pposition+'</div><div class="vcard_info_tel">'+tel+'</div></div><div class="cl"></div></div></div></div>',"needFilter");
         });
         //点击退出
 		$(".navbar-right").on('click','.dropdown',function(){
-			if ($('.dropdown-menu').hasClass('show1')) {
-	            $('.dropdown-menu').removeClass('show1');
+			if ($(this).find('.dropdown-menu').hasClass('show1')) {
+	            $(this).find('.dropdown-menu').removeClass('show1');
 	        } else {
-	            $('.dropdown-menu').addClass('show1');
+	            $(this).find('.dropdown-menu').addClass('show1');
 	        }
 	        return false;
 		})
 	    $('body').on('click', function(){
-	        $('.dropdown-menu').removeClass('show1');
-	        $('.dropdown-menu').hide();
+	        $('.navbar-right .dropdown-menu').removeClass('show1');
+	        $('.navbar-right .dropdown-menu').hide();
 	    });
 		$(document).scroll(function(){
 	        $('.dropdown-menu').removeClass('show1');
@@ -11194,8 +11201,111 @@ UM.registerUI('tellink',
             $btn.edui().disabled(state == -1).active(state == 1)
         });
         return $btn;
-    }
-);
+   });
+   
+// 产品码联系我们
+UM.registerUI('contact',
+    function(name) {
+        var me = this,
+            href;
+        var $btn = $.eduibutton({
+            icon : name,
+            click : function(){
+				$("#modal-contact").fadeIn();
+                $(".modal-backdrop").hide();
+                $(".maskmodal").show();
+                $(".navbar-inverse").css('z-index',"0");
+            }
+        });
+        $("#modal-contact-confirm").click(function(){
+        	$(".maskmodal").hide();
+            tit = $("#modal-tit-input").val();
+            depict = $("#modal-depict-input").val();
+            address = $("#modal-address-input").val();
+            var html = '', html2 ='';
+            if(address){
+        		html2 = '<div class="card_module_info"><div class="weui-address"><span class="address_icon"></span></div><div class="weui-address_info"><h4>地址</h4><p>'+address+'</p></div><div class="cl"></div></div>';
+        	}
+            $(".pos-rlt").each(function(){
+            	var input1 = $(this).find('.col-md-4 input').val() || "联系方式";
+            	var input2 = $(this).find('.col-md-5 input').val();
+            	if(!input2) return;
+            	html +='<div class="card_module_info">';
+				html +='<div class="weui-address '+ $(this).find('select option:selected').val() +'"><span></span></div>';
+				html +='<div class="weui-address_info">';
+				html +='<h4>'+ input1 +'</h4>';
+				html +='<p>'+ input2 +'</p>';
+				html +='</div>';
+				html +='<div class="cl"></div>';
+				html +='</div>';
+            })
+			$("#modal-contact").fadeOut();
+            $(".navbar-inverse").css('z-index',"1");
+            if(!address && html=="") return;
+            me.execCommand("inserthtml",'<div class="card_module"><h2 class="card_module_tit">'+tit+'</h2><div class="card_module_con"><div class="card_module_vcard"><div class="weui-article"><p>'+depict+'</p></div>' +html2 + html + '<div class="cl"></div></div></div></div>',"needFilter");
+        });
+	    //新添加的遮罩层隐藏
+        $(".dark-white").click(function(){
+        	$(".maskmodal").hide();
+        	$(".navbar-inverse").css('z-index',"1");
+        	$("#modal-contact").fadeOut();
+        });
+        this.addListener('selectionchange',function(){
+            var state = this.queryCommandState(name);
+            $btn.edui().disabled(state == -1).active(state == 1)
+        });
+        return $btn;
+    });
+
+// 产品码微信号
+UM.registerUI('wechat',
+    function(name) {
+        var me = this,
+            href;
+        var $btn = $.eduibutton({
+            icon : name,
+            click : function(){
+				$("#modal-wechat").fadeIn();
+                $(".modal-backdrop").hide();
+                $(".maskmodal").show();
+                $(".navbar-inverse").css('z-index',"0");
+            }
+        });
+        $("#modal-wechat-confirm").click(function(){
+            var wetit = $("#modal-wechat-input").val() || "微信好友" ;
+            var ewm=$("#modal-ewm-input").val();
+            if(!ewm) return;
+            $(".maskmodal").hide();
+			$("#modal-wechat").fadeOut();
+            $(".navbar-inverse").css('z-index',"1");
+            me.execCommand("inserthtml",'<div class="weui-panel"><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div>',"needFilter");
+        });
+	    //新添加的遮罩层隐藏
+        $(".dark-white").click(function(){
+        	$(".maskmodal").hide();
+        	$(".navbar-inverse").css('z-index',"1");
+        	$("#modal-wechat").fadeOut();
+        });
+        $(".pos-abt,.ewmcode").hover(function(){
+        	$(this).siblings('.wechatTip').fadeIn();
+        },function(){
+        	$(this).siblings('.wechatTip').fadeOut();
+        });
+        $(".check-up-box").click(function(){
+        	if($(this).is(":checked")){
+        		$(".upload-tool-btns").show();
+        	}else{
+        		$(".upload-tool-btns").hide();
+        	}
+        });
+        this.addListener('selectionchange',function(){
+            var state = this.queryCommandState(name);
+            $btn.edui().disabled(state == -1).active(state == 1)
+        });
+        return $btn;
+    });
+
+
 // 插入样式（高级编辑器）
 UM.registerUI('seniorstyle',
     function(name) {
@@ -11409,6 +11519,22 @@ UM.registerUI('audio',
         return $btn;
     }
 );
-
-
 })(jQuery)
+
+$(".add_c_link").click(function(){
+	var _len=$(this).attr('val');
+	var html="";
+		html+='<div class="row m-l-0 m-r-0 pos-rlt m-b"><div class="col-md-4 p-l-0 p-r-0">';
+		html+='<input type="text" class="form-control form-control-sm placeholder" value="" placeholder="请输入名称" index="'+_len+'">';
+		html+='</div><div class="col-md-3"><select class="form-control form-control-sm" index='+_len+'>';
+		html+='<option value="tel" selected="">电话</option><option value="mobile">手机</option><option value="email">邮箱</option>';
+		html+='<option value="qq">QQ号</option>';
+		html+='</select></div><div class="col-md-5 p-l-0"><input type="text" class="form-control form-control-sm placeholder" value="" placeholder="请输入联系内容" index="'+_len+'">';
+		html+='</div><a href="javascript:;" class="btn btn-xs btn-icon remove_contact" onclick="removeContact(this)"><i class="fa fa-trash"></i></a></div>';
+	$(".contact_tbody").append(html);
+	$('.add_c_link').attr('val',parseInt(_len)+1);
+})
+
+function removeContact(obj){
+	$(obj).parents('.pos-rlt').remove();
+}
