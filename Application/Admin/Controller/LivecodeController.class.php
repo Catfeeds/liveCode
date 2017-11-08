@@ -580,7 +580,9 @@ class LivecodeController extends AdminController {
                 $data[$key] = $value;
             }
         }
-
+        if ($data['type'] == 1) {
+            $data['picUrl'] = '/Uploads/livecode/file/'.$data['picUrl'];
+        }
         $this->assign('data',$data);
         if ($data['type'] == 1) {
             $this->display('live_text');    //图文

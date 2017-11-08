@@ -37,6 +37,7 @@ class HuomaController extends HomeController{
                 foreach ($content as $key => $value) {
                     $data[$key] = $value;
                 }
+                $data['picUrl'] = '/Uploads/livecode/file/'.$data['picUrl'];
             }
             $this->assign('data',$data);
             $this->display('live_text');
@@ -91,6 +92,7 @@ class HuomaController extends HomeController{
             $data[$key] = $value;
         }
         $data['type'] = 6;
+        $data['picUrl'] = '/Uploads/product/file/'.$data['picUrl'];
         $this->assign('data',$data);
         $this->display('live_text');
     }
