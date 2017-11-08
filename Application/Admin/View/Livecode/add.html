@@ -8,16 +8,16 @@
 <block name="main">
 	<input type="hidden" id="menuId" value="{$menuId}">
     <ul class="tab_code">
-    	<li class="tab_active">图文活码</li>
+    	<li <?php if(!$vcard){echo 'class="tab_active"';} ?>>图文活码</li>
     	<li>文本活码</li>
     	<li>文件活码</li>
     	<li>网址导航</li>
-    	<li>名片活码</li>
+    	<li <?php if($vcard){echo 'class="tab_active"';} ?>>名片活码</li>
     </ul>
     <div class="wrapper">
 
 <!-- 图文活码S -->
-    	<div class="editor-wrap" style="display: block;">
+    	<div class="editor-wrap" <?php if(!$vcard){echo 'style="display: block;"';} ?>>
 	    	<div class="editor_main txt_main lf">
 	    		<div class="edit-left">
 					<div class="upload-img">
@@ -181,7 +181,7 @@
 <!-- 网址导航E -->
 
 <!-- 名片活码S -->
-    	<div class="editor-wrap">
+    	<div class="editor-wrap" <?php if($vcard){echo 'style="display: block;"';} ?>>
 	    	<div class="editor_main txt_main lf" >
 	    		<div id="leftwrap">
 	    			<div class="left_box left_basic border-rt-green">

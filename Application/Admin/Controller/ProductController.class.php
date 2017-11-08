@@ -163,7 +163,7 @@ class ProductController extends AdminController {
         if (IS_POST) {
             $time = time();
             $mod  = M('admin_menu');
-            $data['pid']        = $mod->getFieldByTitle('活码生成','id');
+            $data['pid']        = $mod->getFieldByTitle('产品活码','id');
             $data['user_id']    = session('user_auth.uid');
             $data['title']      = I('title/s');
             $data['url']        = 'Admin/Product/child/type/'.$time;
@@ -291,6 +291,9 @@ class ProductController extends AdminController {
             $id = $this->obj->add($data);
             if ($id) {
                 qrcode($data['huoma'],$id,6);
+                if ($data['menuId']) {
+                    $this->success(['type'=>$data['menuId']], '/Uploads/product/'.$id.'.png');
+                }
                 $this->success('新增成功', '/Uploads/product/'.$id.'.png');
             } else {
                 $this->error('新增失败');
@@ -340,7 +343,6 @@ class ProductController extends AdminController {
             foreach ($content as $key => $value) {
                 $data[$key] = $value;
             }
-
             $this->meta_title = '编辑产品活码';
             $this->assign('menuId',I('get.type/d'));
             $this->assign('data',$data);
@@ -371,7 +373,7 @@ class ProductController extends AdminController {
      * 点击查看
      */
     public function detail (){
-        $id            = I('id/d');
+        $id   = I('id/d');
         $data = $this->obj->where(['id'=>$id,'uid'=>$this->uid])->find();
         if (!$data) {
             return $this->display('Public/unfined');
@@ -382,7 +384,6 @@ class ProductController extends AdminController {
             $data[$key] = $value;
         }
         $data['type'] = 6;
-        // halt($data);
         $this->assign('data',$data);
         $this->display('Livecode/live_text');
     }
@@ -413,7 +414,7 @@ class ProductController extends AdminController {
             if(!$info) {// 上传错误提示错误信息
                 $this->error('上传失败！');
             }else{// 上传成功
-                $size = getFilesize($info['file']['size']);
+                // $size = getFilesize($info['file']['size']);
                 $url  = $info['file']['savepath'].$info['file']['savename'];
                 echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$url]);
                 //$this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
