@@ -267,7 +267,7 @@ class ProductController extends AdminController {
      */
     public function add() {
         if (IS_POST) {
-            halt(I(''));
+            // halt(I(''));
             $editId = I('post.editId/d');
             if (!empty($editId)) {
                 return $this->edit();
@@ -345,6 +345,8 @@ class ProductController extends AdminController {
             $this->meta_title = '编辑产品活码';
             $this->assign('menuId',I('get.type/d'));
             $this->assign('data',$data);
+            // halt($data);
+
             $this->display('add');
         }
     }
