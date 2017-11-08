@@ -33,6 +33,13 @@ define(function(require, exports, module) {
                     $('#modal-alert').modal('show').find('.modal-title').text('上传视频格式不支持')
                     .end().find('.modal-body').empty().append(alertContent);
                     $('#modal-alert').find('.modal-footer').remove().end().find('.modal-body').after(alertFooter);
+                    $(".maskmodal").show();
+                    $(".modal-backdrop").hide();
+                    $(".navbar-inverse").css('z-index',"0");
+                    $(".dark-white").click(function(){
+                    	 $(".maskmodal").hide();
+                    	 $(".navbar-inverse").css('z-index',"1");
+                    })
                 },
                 'maxsize': size, //最大200MB
                 'maxsizefun': function(nowsize) { //超出大小回调
