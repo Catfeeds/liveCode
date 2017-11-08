@@ -33,12 +33,26 @@ define(function(require, exports, module) {
                     $('#modal-alert').modal('show').find('.modal-title').text('上传图片格式不支持')
                     .end().find('.modal-body').empty().append(alertContent);
                     $('#modal-alert').find('.modal-footer').remove().end().find('.modal-body').after(alertFooter);
+                    $(".maskmodal").show();
+                    $(".modal-backdrop").hide();
+                    $(".navbar-inverse").css('z-index',"0");
+                    $(".dark-white").click(function(){
+                    	 $(".maskmodal").hide();
+                    	 $(".navbar-inverse").css('z-index',"1");
+                    })
                 },
                 'maxsize': size, //最大200MB
                 'maxsizefun': function(nowsize) { //超出大小回调
                     var alertContent = '<p class="text-center"><i class="fa fa-exclamation-circle text-warn m-r"></i>您上传的文件过大，请联系我们，寻求帮助</p>';
                     $('#modal-alert').modal('show').find('.modal-title').text('上传的图片过大')
-                    .end().find('.modal-body').empty().append(alertContent);              
+                    .end().find('.modal-body').empty().append(alertContent);  
+                    $(".maskmodal").show();
+                    $(".modal-backdrop").hide();
+                    $(".navbar-inverse").css('z-index',"0");
+                    $(".dark-white").click(function(){
+                    	 $(".maskmodal").hide();
+                    	 $(".navbar-inverse").css('z-index',"1");
+                    })
                 },
                 'start': function($setAfter) { //开始上传
                     save_adddisable();
