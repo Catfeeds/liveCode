@@ -172,12 +172,12 @@ $(function(){
 	//添加明细
 	$("#add_detail_btn").click(function(){
 		var html="";
-			html+='<div class="url-row row no-gutter m-b">';
-			html+='<div class="col-md-3">';
+			html+='<div class="url-row row no-gutter m-b"><label class="left control-label"></label>';
+			html+='<div class="col-md-2">';
 			html+='<input type="text" placeholder="文字说明" class="form-control url-border detail-desc " value=""></div>';
-			html+='<div class="col-md-6">';
+			html+='<div class="col-md-5 mlr">';
 			html+='<input type="text" placeholder="配置值" class="form-control url-border detail-val" value=""></div>';
-			html+='<div class="col-md-3">';
+			html+='<div class="col-md-1">';
 			html+='<i class="fa fa-trash url-icon delicon"></i></div></div>';
 		$(this).before(html);
 		var e=$(".url-row").length;
@@ -186,18 +186,18 @@ $(function(){
 	//添加套餐选项
 	$("#add_vip_btn").click(function(){
 		var html="";
-			html+='<div class="url-row row no-gutter m-b">';
-			html+='<div class="col-md-3">';
+			html+='<div class="url-row row no-gutter m-b"><label class="left control-label"></label>';
+			html+='<div class="col-md-2">';
 			html+='<input type="text" placeholder="套餐时长(年)" class="form-control url-border vip-year " value=""></div>';
-			html+='<div class="col-md-6">';
+			html+='<div class="col-md-5 mlr">';
 			html+='<input type="text" placeholder="套餐价格(元)" class="form-control url-border vip-price" value=""></div>';
-			html+='<div class="col-md-3">';
+			html+='<div class="col-md-1">';
 			html+='<i class="fa fa-trash url-icon delicon"></i></div></div>';
 		$(this).before(html);
 		var e=$(".url-row").length;
 		$(".url-row:last").attr("num",e-1);
 	})
-	//删除网址
+	
 	function Up_or_Down(e, t) {
 		var i = e.parent().parent(),
 			o = e.parent().parent().prev(".url-row"),
@@ -217,6 +217,7 @@ $(function(){
 	$(document).on("click",".fa-arrow-down",function(){
 		Up_or_Down($(this),"down")
 	})
+	//删除网址
 	$(document).on("click",".delicon",function(){
 		var e=$(".url-row").length;
 		if(e==1){
