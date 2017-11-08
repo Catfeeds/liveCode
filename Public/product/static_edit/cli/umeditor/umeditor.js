@@ -10821,7 +10821,7 @@ UM.registerUI('autofloat',function(){
                 },100);
             });
             bakCssText = toolbarBox.style.cssText;
-            placeHolder.style.height = toolbarBox.offsetHeight + 'px';
+            //placeHolder.style.height = toolbarBox.offsetHeight + 'px'; //取消固定编辑器的头部
             if(LteIE6){
                 fixIE6FixedPos();
             }
@@ -10830,7 +10830,7 @@ UM.registerUI('autofloat',function(){
             me.addListener('keydown', defer_updateFloating);
             me.addListener('resize', function(){
                 unsetFloating();
-                placeHolder.style.height = toolbarBox.offsetHeight + 'px';
+                //placeHolder.style.height = toolbarBox.offsetHeight + 'px';
                 updateFloating();
             });
 
