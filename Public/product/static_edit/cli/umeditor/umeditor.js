@@ -11142,7 +11142,7 @@ UM.registerUI('pasteplain',
         return $btn;
     }
 );
-// 产品码专属 电话链接
+// 产品码专属 电话链接名片
 UM.registerUI('tellink',
     function(name) {
         var me = this,
@@ -11171,7 +11171,7 @@ UM.registerUI('tellink',
             $(".empty_placeholder").remove();
             $(".navbar-inverse").css('z-index',"1");
             //me.execCommand("inserthtml","<a href='tel:"+href+"' _href='tel:"+href+"' target='_self'>"+href+"</a>","needFilter");
-            me.execCommand("inserthtml",'<div class="card_module"><h2 class="card_module_tit">'+href+'</h2><div class="card_module_con"><div class="card_module_vcard"><div class="card_module_face"><img src="https://cache.cli.im/cli_biz/mobile/tpl/module/images/default_face.png"/></div><div class="card_module_info"><div class="vcard_info_name">'+usern+'</div><div class="vcard_info_position">'+pposition+'</div><div class="vcard_info_tel">'+tel+'</div></div><div class="cl"></div></div></div></div>',"needFilter");
+            me.execCommand("inserthtml",'<div class="card_module"><h2 class="card_module_tit">'+href+'</h2><div class="card_module_con"><div class="card_module_vcard"><a href=""><div class="card_module_face"><img src="https://cache.cli.im/cli_biz/mobile/tpl/module/images/default_face.png"/></div><div class="card_module_info"><div class="vcard_info_name">'+usern+'</div><div class="vcard_info_position">'+pposition+'</div><div class="vcard_info_tel">'+tel+'</div></div><div class="cl"></div></a></div></div></div>',"needFilter");
         });
         //点击退出
 		$(".navbar-right").on('click','.dropdown',function(){

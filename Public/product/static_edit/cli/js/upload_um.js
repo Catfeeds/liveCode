@@ -75,7 +75,7 @@ define(function(require, exports, module) {
                 },
                 'complete': function(data) { //上传成功
                     save_rmdisable();
-//                  alert('上传成功','ok');
+
                     re_data = "../Uploads/product/file/"+data;
                     $("img[title = "+ imgTitle +"]").attr("src",re_data);
                 },

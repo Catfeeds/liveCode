@@ -340,7 +340,6 @@ class CheckcodeController extends AdminController {
             }
 
             $data['codeType'] = $codeType;
-            // halt($data);
             $this->assign([
                 'meta_title' => $meta_title,
                 'data'       => $data,
