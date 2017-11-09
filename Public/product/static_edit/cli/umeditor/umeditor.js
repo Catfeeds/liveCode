@@ -11474,7 +11474,7 @@ UM.registerUI('document',
 			      	//上传成功
 			      	imagehtml = '<div class="weui_wd"><a href="'+res.targetUrl+'" class="weui_access" target="_blank"><div class="weui_hd">';
 			      	imagehtml += '<img src="/Public/images/fileicon.png"/></div><div class="weui_bd">';
-			      	imagehtml += '<p class="overflow">'+res.fileName+'</p><span>'+res.fileSize+'</span></div></a></div>';
+			      	imagehtml += '<p class="overflow">'+res.fileName+'</p><span>'+res.fileSize+'</span></div><div class="xiazai"></div></a></div>';
 			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
 			      }
 			    }
