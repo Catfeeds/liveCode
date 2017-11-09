@@ -357,9 +357,21 @@ class ProductController extends AdminController {
             foreach ($content as $key => $value) {
                 $data[$key] = $value;
             }
-            $this->meta_title = '编辑产品活码';
-            $this->assign('menuId',I('get.type/d'));
-            $this->assign('data',$data);
+            //插入名片
+            $vcards = D('Livecode')->where(['uid'=>$this->uid,'type'=>5,'status'=>1])->getField('content',true);
+            if ($vcards) {
+                foreach ($vcards as $key => $v) {
+                    $vcards[$key] = json_decode($v,true);
+                }
+            }
+
+            $this->assign([
+                'meta_title' => '编辑产品活码',
+                'menuId'     => I('get.type/d'),
+                'data'       => $data,
+                'isUser'     => 1,
+                'vcards'     => $vcards,
+            ]);
             $this->display('add');
         }
     }
