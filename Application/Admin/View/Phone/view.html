@@ -1,5 +1,5 @@
 <extend name="$_admin_public_layout" />
-<block name="script">
+<block name="style">
 	<style>
 		.l-text-wrapper {width: 168px;float: left;}
 		.tbr-h {height: 30px;line-height: 30px;}
@@ -7,38 +7,11 @@
 		.btn-blue{margin-top: -3px;padding: 3px 10px;}
 		.breadcrumb{position: fixed;width: 100%;z-index: 99;}
 	</style>
-	<link href="__PUBLIC__/libs/ligerui/skins/Aqua/css/ligerui-all.css?v={$version}" rel="stylesheet" type="text/css" />
-	<script src="__PUBLIC__/libs/ligerui/js/ligerui.all.js?v={$version}" type="text/javascript"></script>
-	<script src="__PUBLIC__/libs/echarts/echarts.min.js" type="text/javascript"></script>
-	<script src="__ADMIN_JS__/echarts.js" type="text/javascript"></script>
-	
-		
-	<!--新增的-->
-	<link rel="stylesheet" href="__PUBLIC__/charts/css/glob.css?v=20140806" />
-	<script type="text/javascript" src="__PUBLIC__/charts/js/jquery-1.8.0.min.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/charts/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/charts/js/glob.js?v=20140806"></script>
-	<script src="__PUBLIC__/charts/js/md5.js?v=20140806"></script>
-	<script type="text/javascript" src="__PUBLIC__/charts/js/highcharts.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/charts/js/exporting.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/charts/js/lineData.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/charts/js/lib/date.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/charts/js/My97DatePicker/WdatePicker.js"></script>
-    <script>
-	    var data = {"series":[{"name":"总访问量:2","data":[0,0,0,0,0,0,2]},{"name":"总访客数:2","data":[0,0,0,0,0,0,2]}],"xAxis":{"categories":["11-01","11-02","11-03","11-04","11-05","11-06","11-07"]}};
-    </script>
-	<script type="text/javascript">
-		$(function(){
-			$(".navbar-right").on('click','.dropdown',function(){
-				if($(this).find(".dropdown-menu").hasClass("againShow")){
-					$(this).find(".dropdown-menu").removeClass('againShow');
-				}else{
-					$(this).find(".dropdown-menu").addClass('againShow');
-				}
-			})
-		})
-	</script>
+	<link href="__PUBLIC__/libs/ligerui/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="__PUBLIC__/charts/css/glob.css" />
+
 </block>
+
 <block name="main">
 	<div class="sidebar_chart">
 	   <ul class="nav nav-pills nav-stacked">
@@ -52,9 +25,9 @@
 	</div>
   	<div class="main_chart">
 	   <ul class="nav nav-pills time-nav" field="date">
-	    <li class=""><a href="/index/date" class="today">今日</a></li>
+	    <li class="active"><a href="/index/date" class="today">今日</a></li>
 	    <li class=""><a href="javascript:;" class="1day">昨日</a></li>
-	    <li class="active"><a href="javascript:;" class="7day">最近7天</a></li>
+	    <li class=""><a href="javascript:;" class="7day">最近7天</a></li>
 	    <li class=""><a href="javascript:;" class="30day">最近30天</a></li>
 	    <li class="select_data">
 		    <form action="/index/date" method="get">
@@ -104,7 +77,30 @@
 	    </table>
 	   </div>
 	  </div>
-	  
-	  
-	
+</block>
+<block name="script">
+	<script type="text/javascript" src="__PUBLIC__/charts/js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/charts/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/glob.js"></script>
+	<script src="__PUBLIC__/charts/js/md5.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/charts/js/highcharts.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/charts/js/exporting.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/charts/js/lineData.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/lib/date.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript">
+		var data = {
+			"series":[{"name":"总访问量:23","data":[0,0,0,0,0,0,2]},{"name":"总访客数:2","data":[0,0,0,0,0,0,2]}],
+			"xAxis":{"categories":["11-01","11-02","11-03","11-04","11-05","11-06","11-07"]}
+		};
+		$(function(){
+			$(".navbar-right").on('click','.dropdown',function(){
+				if($(this).find(".dropdown-menu").hasClass("againShow")){
+					$(this).find(".dropdown-menu").removeClass('againShow');
+				}else{
+					$(this).find(".dropdown-menu").addClass('againShow');
+				}
+			})
+		})
+	</script>
 </block>
