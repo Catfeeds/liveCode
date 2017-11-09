@@ -11158,8 +11158,9 @@ UM.registerUI('tellink',
             }
         });
         $("#modal-tellink-confirm").click(function(){
-            href = $("#modal-tellink-input").val();
+            var href = $("#modal-tellink-input").val() || '名片';
 			var tel=$('.vcard-list li label input:checked').attr('tel');
+			var face=$('.vcard-list li label input:checked').attr('face') || 'https://cache.cli.im/cli_biz/mobile/tpl/module/images/default_face.png';
 			var pposition=$('.vcard-list li label input:checked').attr('position');
 			var usern=$('.vcard-list li label input:checked').attr('usern');
 			if(!pposition) {
@@ -11171,7 +11172,7 @@ UM.registerUI('tellink',
             $(".empty_placeholder").remove();
             $(".navbar-inverse").css('z-index',"1");
             //me.execCommand("inserthtml","<a href='tel:"+href+"' _href='tel:"+href+"' target='_self'>"+href+"</a>","needFilter");
-            me.execCommand("inserthtml",'<div class="card_module"><h2 class="card_module_tit">'+href+'</h2><div class="card_module_con"><div class="card_module_vcard"><a href=""><div class="card_module_face"><img src="https://cache.cli.im/cli_biz/mobile/tpl/module/images/default_face.png"/></div><div class="card_module_info"><div class="vcard_info_name">'+usern+'</div><div class="vcard_info_position">'+pposition+'</div><div class="vcard_info_tel">'+tel+'</div></div><div class="cl"></div></a></div></div></div>',"needFilter");
+            me.execCommand("inserthtml",'<div class="card_module"><h2 class="card_module_tit">'+href+'</h2><div class="card_module_con"><div class="card_module_vcard"><a href=""><div class="card_module_face"><img src="'+ face +'"/></div><div class="card_module_info1"><div class="vcard_info_name">'+usern+'</div><div class="vcard_info_position">'+pposition+'</div><div class="vcard_info_tel">'+tel+'</div></div><div class="cl"></div></a></div></div></div>',"needFilter");
         });
         //点击退出
 		$(".navbar-right").on('click','.dropdown',function(){
@@ -11219,7 +11220,7 @@ UM.registerUI('contact',
         });
         $("#modal-contact-confirm").click(function(){
         	$(".maskmodal").hide();
-            tit = $("#modal-tit-input").val();
+            tit = $("#modal-tit-input").val() || '联系我们';
             depict = $("#modal-depict-input").val();
             address = $("#modal-address-input").val();
             var html = '', html2 ='';
@@ -11358,8 +11359,7 @@ UM.registerUI('activeinsert',
             $btn.edui().disabled(state == -1).active(state == 1)
         });
         return $btn;
-    }
-);
+    });
 // 插入表格
 UM.registerUI('table',
     function(name) {
@@ -11382,46 +11382,113 @@ UM.registerUI('table',
  * 独立注册图片上传组件
  * by zhj   
  */
-UM.registerUI('image',function(name){
-    var me = this, currentRange, $dialog,
+UM.registerUI('image',
+    function(name) {
+        var me = this, currentRange, $dialog,
         opt = {
             title: (me.options.labelMap &&me.options.labelMap[name]) || me.getLang("labelMap." + name),
-            url: me.options.UMEDITOR_HOME_URL + 'dialogs/' + name + '/' + name + '.js'
+            url: me.options.UMEDITOR_HOME_URL + 'dialogs/image/image.js'
         };
-
-    var $btn = $.eduibutton({
-        icon: name
-    });
-    //加载模版数据
-    utils.loadFile(document,{
-        src: opt.url,
-        tag: "script",
-        type: "text/javascript",
-        defer: "defer"
-    },function(){
-        // 图片直接上传功能(文件上传模板渲染)
-        var uploadTpl = '<div class="uploadfile edui-image-upload%%">' +
-            '<span class="edui-image-icon"></span>' +
-            '<form class="edui-image-form" method="post" enctype="multipart/form-data" target="up">' +
-            '<input style=\"filter: alpha(opacity=0);\" class="edui-image-file" type="file" hidefocus name="file"/>' +
-            '</form>' +
-            '</div>';
-        // 单图上传
-        $('.edui-btn-image').append(uploadTpl.replace(/%%/g, 1));
-        // 调用通用上传服务
-        $('.edui-image-file').click(function() {
-            seajs.use([STATIC_SERVICE+'/public/upload.js', STATIC_SERVICE+'/cli/js/upload_um.js?v=20170424'], function(a, b) {
-                var up_vip = file_size;
-                b.upload(up_vip);
-                is_change = true;   //上传新图片提示改动
-            });
+        var $btn = $.eduibutton({
+            icon : name,
+            click : function(){
+				
+            }
         });
-    });
-    me.addListener('selectionchange', function () {
-        var state = this.queryCommandState(name);
-        $btn.edui().disabled(state == -1).active(state == 1)
-    });
-    return $btn;
+        //加载模版数据
+	    utils.loadFile(document,{
+	        src: opt.url,
+	        tag: "script",
+	        type: "text/javascript",
+	        defer: "defer"
+	    },function(){
+			layui.use('upload', function(){
+		  	  var $ = layui.jquery,upload = layui.upload;
+		  	  var productPostUrl = 'admin.php?s=/admin/product/addfile';
+		  	  var imgTitle='',imagehtml='';
+			  var uploadInst6 = upload.render({
+			    elem: '.edui-btn-image'
+			    ,url: productPostUrl
+			    ,before: function(obj){
+			    }
+			    ,done: function(res){
+			      //如果上传失败
+			      if(res.status != 1){
+			        return alert('上传失败');
+			      }else{
+			      	//上传成功
+			      	imagehtml = '<div class="imgsize"><img class="layui-upload-img" id="demo6" src="/Uploads/product/file/'+ res.data +'"></div>';
+			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
+			      }
+			    }
+			    ,error: function(){
+			    }
+			  });
+		 	})
+	    });
+	    
+        this.addListener('selectionchange',function(){
+            var state = this.queryCommandState(name);
+            $btn.edui().disabled(state == -1).active(state == 1)
+        });
+        return $btn;
+});
+
+//插入文档
+UM.registerUI('document',
+    function(name) {
+        var me = this, currentRange, $dialog,
+        opt = {
+            title: (me.options.labelMap &&me.options.labelMap[name]) || me.getLang("labelMap." + name),
+            url: me.options.UMEDITOR_HOME_URL + 'dialogs/image/image.js'
+        };
+        var $btn = $.eduibutton({
+            icon : name,
+            click : function(){
+				
+            }
+        });
+        //加载模版数据
+	    utils.loadFile(document,{
+	        src: opt.url,
+	        tag: "script",
+	        type: "text/javascript",
+	        defer: "defer"
+	    },function(){
+			layui.use('upload', function(){
+		  	  var $ = layui.jquery,upload = layui.upload;
+		  	  var productPostUrl = 'admin.php?s=/admin/product/addfile';
+		  	  var imgTitle='',imagehtml='';
+			  var uploadInst6 = upload.render({
+			    elem: '.edui-btn-document'
+			    ,accept: 'file' //普通文件
+			    ,url: productPostUrl
+			    ,before: function(obj){
+			    }
+			    ,done: function(res){
+			    
+			      //如果上传失败
+			      if(res.status != 1){
+			        return alert('上传失败');
+			      }else{
+			      	//上传成功
+			      	imagehtml = '<div class="weui_wd"><a href="'+res.targetUrl+'" class="weui_access"><div class="weui_hd">';
+			      	imagehtml += '<img src="Public/images/fileicon.png"/></div><div class="weui_bd">';
+			      	imagehtml += '<p class="overflow">'+res.fileName+'</p><span>'+res.fileSize+'</span></div></a></div>';
+			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
+			      }
+			    }
+			    ,error: function(){
+			    }
+			  });
+		 	})
+	    });
+	    
+        this.addListener('selectionchange',function(){
+            var state = this.queryCommandState(name);
+            $btn.edui().disabled(state == -1).active(state == 1)
+        });
+        return $btn;
 });
 
 // 插入视频
@@ -11435,7 +11502,6 @@ UM.registerUI('ship',
         var $btn = $.eduibutton({
             icon : name,
             click : function(){
-
             }
         });
         //加载模版数据
@@ -11445,23 +11511,34 @@ UM.registerUI('ship',
 	        type: "text/javascript",
 	        defer: "defer"
 	    },function(){
-	        // 视频直接上传功能(文件上传模板渲染)
-	        var uploadTpl = '<div class="uploadfile edui-ship-upload%%">' +
-	            '<span class="edui-ship-icon"></span>' +
-	            '<form class="edui-ship-form" method="post" enctype="multipart/form-data" target="up">' +
-	            '<input style=\"filter: alpha(opacity=0);\" class="edui-ship-file" type="file" hidefocus name="file"/>' +
-	            '</form>' +
-	            '</div>';
-	        // 视频上传
-	        $('.edui-btn-ship').append(uploadTpl.replace(/%%/g, 1));
-	        // 调用通用上传服务
-	        $('.edui-ship-file').click(function() {
-	            seajs.use([STATIC_SERVICE+'/public/upload.js', STATIC_SERVICE+'/cli/js/upload_ship.js'], function(a, b) {
-	                var up_vip = file_size;
-	                b.upload(up_vip);
-	                is_change = true;   //上传视频提示改动
-	            });
-	        });
+			layui.use('upload', function(){
+		  	  var $ = layui.jquery,upload = layui.upload;
+		  	  var productPostUrl = 'admin.php?s=/admin/product/addfile';
+		  	  var imgTitle='',imagehtml='';
+			  var uploadInst6 = upload.render({
+			    elem: '.edui-btn-ship'
+			    ,url: productPostUrl
+			    ,accept: 'video' //视频
+			    ,before: function(obj){
+			    }
+			    ,done: function(res){
+			      //如果上传失败
+			      if(res.status != 1){
+			        return alert('上传失败');
+			      }else{
+			      	//上传成功
+			      	imagehtml = '<video style="width:100%; max-height:480px;" controls>';
+					imagehtml +='<source src="/Uploads/product/file/'+ res.data +'" type="video/mp4">';
+					imagehtml +='<source src="/Uploads/product/file/'+ res.data +'" type="video/ogg">';
+					imagehtml +='您的浏览器不支持Video标签。';
+					imagehtml +='</video>';
+			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
+			      }
+			    }
+			    ,error: function(){
+			    }
+			  });
+		 	})
 	    });
 	    
         this.addListener('selectionchange',function(){
@@ -11469,8 +11546,7 @@ UM.registerUI('ship',
             $btn.edui().disabled(state == -1).active(state == 1)
         });
         return $btn;
-    }
-);
+});
 
 // 插入音频
 UM.registerUI('audio',
@@ -11483,7 +11559,7 @@ UM.registerUI('audio',
         var $btn = $.eduibutton({
             icon : name,
             click : function(){
-
+				
             }
         });
         //加载模版数据
@@ -11493,23 +11569,30 @@ UM.registerUI('audio',
 	        type: "text/javascript",
 	        defer: "defer"
 	    },function(){
-	        // 视频直接上传功能(文件上传模板渲染)
-	        var uploadTpl = '<div class="uploadfile edui-audio-upload%%">' +
-	            '<span class="edui-audio-icon"></span>' +
-	            '<form class="edui-audio-form" method="post" enctype="multipart/form-data" target="up">' +
-	            '<input style=\"filter: alpha(opacity=0);\" class="edui-audio-file" type="file" hidefocus name="file"/>' +
-	            '</form>' +
-	            '</div>';
-	        // 视频上传
-	        $('.edui-btn-audio').append(uploadTpl.replace(/%%/g, 1));
-	        // 调用通用上传服务
-	        $('.edui-audio-file').click(function() {
-	            seajs.use([STATIC_SERVICE+'/public/upload.js', STATIC_SERVICE+'/cli/js/upload_audio.js'], function(a, b) {
-	                var up_vip = file_size;
-	                b.upload(up_vip);
-	                is_change = true;   //上传视频提示改动
-	            });
-	        });
+			layui.use('upload', function(){
+		  	  var $ = layui.jquery,upload = layui.upload;
+		  	  var productPostUrl = 'admin.php?s=/admin/product/addfile';
+		  	  var imgTitle='',imagehtml='';
+			  var uploadInst6 = upload.render({
+			    elem: '.edui-btn-audio'
+			    ,url: productPostUrl
+			    ,accept: 'audio' //音频
+			    ,before: function(obj){
+			    }
+			    ,done: function(res){
+			      //如果上传失败
+			      if(res.status != 1){
+			        return alert('上传失败');
+			      }else{
+			      	//上传成功
+			      	imagehtml = '<audio src="/Uploads/product/file/'+ res.data +'" controls="controls" style="width: 100%;">您的浏览器不支持 audio 标签。</audio>';
+			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
+			      }
+			    }
+			    ,error: function(){
+			    }
+			  });
+		 	})
 	    });
 	    
         this.addListener('selectionchange',function(){

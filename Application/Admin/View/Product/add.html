@@ -130,22 +130,22 @@
 						<div class="col-sm-9">
 							<div class="b-a" style="padding:8px 10px 7px 0px;">
 							<?php if($isUser): ?>
-								<div class="pull-right">
-									<a href="{:U('Admin/Livecode/add',['vcard'=>1])}" class="btn bead white " target="_blank">新建名片</a>
-								</div>
-								<div class="cl"></div>
-							<?php endif; ?>
+                                <div class="pull-right">
+                                    <a href="{:U('Admin/Livecode/add',['vcard'=>1])}" class="btn bead white " target="_blank">新建名片</a>
+                                </div>
+                                <div class="cl"></div>
+                            <?php endif; ?>
 							</div>
 							<ul class="vcard-list b-l b-r b-b" style="display: block;">
-								<volist name="vcards" id="vo">
-								<li>
-									<label mnt="{$vo.name}">
-										<input type="radio" name="vcard_info" value="" tel="{$vo['left_phone'][1]['val']}" usern="{$vo.name}" position="总经理">{$vo.name}  {$vo['left_phone'][1]['val']} {$vo.appointment}
-									</label>
-								</li>
-								</volist>
+                                <volist name="vcards" id="vo">
+                                <li>
+                                    <label mnt="{$vo.name}">
+                                        <input type="radio" name="vcard_info" value="" tel="{$vo['left_phone'][1]['val']}" usern="{$vo.name}" position="总经理">{$vo.name}  {$vo['left_phone'][1]['val']} {$vo.appointment}
+                                    </label>
+                                </li>
+                                </volist>
 
-							</ul>
+                            </ul>
 						</div>
 					</div>
 				</div>
