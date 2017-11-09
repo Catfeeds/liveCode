@@ -19,6 +19,14 @@
 	<script type="text/javascript" src="__PUBLIC__/charts/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="__PUBLIC__/charts/js/glob.js?v=20140806"></script>
 	<script src="__PUBLIC__/charts/js/md5.js?v=20140806"></script>
+	<script type="text/javascript" src="__PUBLIC__/charts/js/highcharts.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/charts/js/exporting.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/charts/js/lineData.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/lib/date.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/My97DatePicker/WdatePicker.js"></script>
+    <script>
+	    var data = {"series":[{"name":"总访问量:2","data":[0,0,0,0,0,0,2]},{"name":"总访客数:2","data":[0,0,0,0,0,0,2]}],"xAxis":{"categories":["11-01","11-02","11-03","11-04","11-05","11-06","11-07"]}};
+    </script>
 	<script type="text/javascript">
 		$(function(){
 			$(".navbar-right").on('click','.dropdown',function(){
@@ -28,10 +36,6 @@
 					$(this).find(".dropdown-menu").addClass('againShow');
 				}
 			})
-//			$('body').on('click', function(){
-//		        $('.navbar-right .dropdown-menu').removeClass('show1');
-//		        $('.navbar-right .dropdown-menu').hide();
-//		    });
 		})
 	</script>
 </block>
@@ -47,12 +51,6 @@
 	   </ul>
 	</div>
   	<div class="main_chart">
-	   <script type="text/javascript" src="__PUBLIC__/charts/js/lineData.js"></script>
-	   <script type="text/javascript" src="__PUBLIC__/charts/js/lib/date.js"></script>
-	   <script type="text/javascript" src="__PUBLIC__/charts/js/My97DatePicker/WdatePicker.js"></script>
-	   <script>
-		    var data = {"series":[{"name":"总访问量:2","data":[0,0,0,0,0,0,2]},{"name":"总访客数:2","data":[0,0,0,0,0,0,2]}],"xAxis":{"categories":["11-01","11-02","11-03","11-04","11-05","11-06","11-07"]}};
-	   </script>
 	   <ul class="nav nav-pills time-nav" field="date">
 	    <li class=""><a href="/index/date" class="today">今日</a></li>
 	    <li class=""><a href="javascript:;" class="1day">昨日</a></li>
@@ -106,8 +104,7 @@
 	    </table>
 	   </div>
 	  </div>
-	  <script type="text/javascript" src="__PUBLIC__/charts/js/highcharts.js"></script>
-	  <script type="text/javascript" src="__PUBLIC__/charts/js/lib/date.js"></script>
-	  <script type="text/javascript" src="__PUBLIC__/charts/js/exporting.js"></script>
+	  
+	  
 	
 </block>
