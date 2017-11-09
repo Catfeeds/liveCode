@@ -27,10 +27,11 @@ class HuomaController extends HomeController{
         if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
             return $this->display('Public/unfined');
         }
+
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
         $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
 
-        M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>1]);
+        M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>1,'ip'=>get_client_ip()]);
         if ($data['type'] == 1 || $data['type'] == 2) {           //文本活码
             if ($data['type'] == 1) {
                 $content = json_decode($data["content"],true);
@@ -85,7 +86,7 @@ class HuomaController extends HomeController{
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
         $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
 
-        M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>2]);
+        M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d'),'type'=>2,'ip'=>get_client_ip()]);
 
         $content = json_decode($data["content"]);
         foreach ($content as $key => $value) {
@@ -120,18 +121,17 @@ class HuomaController extends HomeController{
         $url = $obj -> where(array('d' => $d)) -> getField('videourl');
         if ($type == 2 && $videourl){
             //视频活码跳转
-            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d'),'type'=>3]);
+            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d'),'type'=>3,'ip'=>get_client_ip()]);
             //$huoma = $obj -> where(array('d' => $d)) -> getField('huoma');
             $videoTitle = '{"mediaTitle": "'.$videourl[0]['title'].'"}';
             $this->assign('title',$videourl[0]['title']);
             $this->assign('videoTitle',$videoTitle);
             $this->assign('vdurl',$videourl[0]['videourl']);
             $this->assign('hmurl',$videourl[0]['huoma']);
-            // halt($videourl);
             $this->display();
         }elseif ($type == 1 && $url){
             //网址活码跳转
-            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d'),'type'=>4]);
+            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d'),'type'=>4,'ip'=>get_client_ip()]);
             redirect($url);
         }else{
             $this -> error('参数错误');
@@ -172,7 +172,7 @@ class HuomaController extends HomeController{
         }
         if ($tzurl){
             $obj->where(array('d' => $d)) ->setInc('count', 1);
-            M('echarts_data')->add(['codeId'=>$rs['id'],'createTime'=>date('Y-m-d'),'type'=>5]);
+            M('echarts_data')->add(['codeId'=>$rs['id'],'createTime'=>date('Y-m-d'),'type'=>5,'ip'=>get_client_ip()]);
             redirect($tzurl);
         }else{
             $this -> error('参数错误');
