@@ -346,6 +346,7 @@ select.form-control-sm{
 	height: 100%;
 	text-align: left;
     background: #eee;
+    margin: 5px 0;
 }
 .weui_wd:after,.weui_access:after,.weui-panel:after{
 	display: block;

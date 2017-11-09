@@ -11172,7 +11172,7 @@ UM.registerUI('tellink',
             $(".empty_placeholder").remove();
             $(".navbar-inverse").css('z-index',"1");
             //me.execCommand("inserthtml","<a href='tel:"+href+"' _href='tel:"+href+"' target='_self'>"+href+"</a>","needFilter");
-            me.execCommand("inserthtml",'<div class="card_module"><h2 class="card_module_tit">'+href+'</h2><div class="card_module_con"><div class="card_module_vcard"><a href=""><div class="card_module_face"><img src="'+ face +'"/></div><div class="card_module_info1"><div class="vcard_info_name">'+usern+'</div><div class="vcard_info_position">'+pposition+'</div><div class="vcard_info_tel">'+tel+'</div></div><div class="cl"></div></a></div></div></div>',"needFilter");
+            me.execCommand("inserthtml",'<div class="card_module" ><h2 class="card_module_tit">'+href+'</h2><div class="card_module_con"><div class="card_module_vcard"><a href="" target="_blank"><div class="card_module_face"><img src="'+ face +'"/></div><div class="card_module_info1"><div class="vcard_info_name">'+usern+'</div><div class="vcard_info_position">'+pposition+'</div><div class="vcard_info_tel">'+tel+'</div></div><div class="cl"></div></a></div></div></div>',"needFilter");
         });
         //点击退出
 		$(".navbar-right").on('click','.dropdown',function(){
@@ -11472,7 +11472,7 @@ UM.registerUI('document',
 			        return alert('上传失败');
 			      }else{
 			      	//上传成功
-			      	imagehtml = '<div class="weui_wd"><a href="'+res.targetUrl+'" class="weui_access"><div class="weui_hd">';
+			      	imagehtml = '<div class="weui_wd"><a href="'+res.targetUrl+'" class="weui_access" target="_blank"><div class="weui_hd">';
 			      	imagehtml += '<img src="/Public/images/fileicon.png"/></div><div class="weui_bd">';
 			      	imagehtml += '<p class="overflow">'+res.fileName+'</p><span>'+res.fileSize+'</span></div></a></div>';
 			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
