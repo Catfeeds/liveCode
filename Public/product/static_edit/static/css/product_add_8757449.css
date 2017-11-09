@@ -371,7 +371,7 @@ select.form-control-sm{
 }
 .weui_bd p{
 	width: 100%;
-    margin-top: 5px;
+    margin-top: 5px!important;
 }
 .overflow{
     text-overflow: ellipsis;

@@ -301,8 +301,21 @@ class ProductController extends AdminController {
             }
             
         } else {
+            //插入名片
+            $vcards = D('Livecode')->where(['uid'=>$this->uid,'type'=>5,'status'=>1])->getField('content',true);
+            if ($vcards) {
+                foreach ($vcards as $key => $v) {
+                    $vcards[$key] = json_decode($v,true);
+                }
+            }
+
             $this->meta_title = '新增产品活码';
-            $this->assign('menuId',I('get.type/d'));
+            $this->assign([
+                'meta_title' => '新增产品活码',
+                'menuId'     => I('get.type/d'),
+                'isUser'     => 1,
+                'vcards'     => $vcards,
+            ]);
             $this->display();
         }
     }
@@ -422,6 +435,21 @@ class ProductController extends AdminController {
                 //$this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
             }
         }
+    }
+
+    /**
+     * 返回json页面
+     */
+    public function getJsonHtml() {
+        $dataType = I('get.data_Type/s');
+        echo file_get_contents('Public/product/json/'.$dataType.'.json');
+    }
+    /**
+     * 返回json页面(高级编辑)
+     */
+    public function getHighJsonHtml() {
+        $dataType = I('get.data_Type/s');
+        echo file_get_contents('Public/product/json/high/'.$dataType.'.json');
     }
 
 }
