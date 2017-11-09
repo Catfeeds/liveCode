@@ -357,9 +357,21 @@ class ProductController extends AdminController {
             foreach ($content as $key => $value) {
                 $data[$key] = $value;
             }
-            $this->meta_title = '编辑产品活码';
-            $this->assign('menuId',I('get.type/d'));
-            $this->assign('data',$data);
+            //插入名片
+            $vcards = D('Livecode')->where(['uid'=>$this->uid,'type'=>5,'status'=>1])->getField('content',true);
+            if ($vcards) {
+                foreach ($vcards as $key => $v) {
+                    $vcards[$key] = json_decode($v,true);
+                }
+            }
+
+            $this->assign([
+                'meta_title' => '编辑产品活码',
+                'menuId'     => I('get.type/d'),
+                'data'       => $data,
+                'isUser'     => 1,
+                'vcards'     => $vcards,
+            ]);
             $this->display('add');
         }
     }
@@ -451,6 +463,33 @@ class ProductController extends AdminController {
     public function getHighJsonHtml() {
         $dataType = I('get.data_Type/s');
         echo file_get_contents('Public/product/json/high/'.$dataType.'.json');
+    }
+
+    /**
+     * 识别二维码内容
+     */
+    public function getQrcodeContent() {
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->rootPath  =     'Uploads/product/file/'; // 设置附件上传根目录
+            $upload->savePath  =     ''; // 设置附件上传（子）目录+
+            // 上传文件 
+            $info   =   $upload->upload();
+            if(!$info) {// 上传错误提示错误信息
+                $this->error('上传失败！');
+            }else{// 上传成功
+                $url  = $info['file']['savepath'].$info['file']['savename'];
+                $targetUrl  = '/Uploads/product/file/'.$url;
+                Vendor('QrReader.QrReader');
+                $qrcode = new \QrReader('http://'.$_SERVER['HTTP_HOST'].$targetUrl);  //图片路径
+                $text = $qrcode->text(); //返回识别后的文本
+                if (!$qrcode) {
+                    $this->error('二维码识别失败，请上传有效的二维码！');
+                }
+                echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$text]);
+            }
+        }
+      
     }
 
 }
