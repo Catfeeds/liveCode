@@ -289,6 +289,7 @@ select.form-control-sm{
     background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/wechat.png) no-repeat center;
 }
 .weui-cell{
+	width: 50%;
     font-size: 16px;
     float: left;
     margin: 0 5px;
