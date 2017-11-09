@@ -104,7 +104,7 @@
     margin: 10px 0;
 }
 .card_module{
-	background: #eee;
+	background: #f8f8f8;
     text-align: left;
     padding: 3px 10px 10px;
     margin: 5px 0;
@@ -280,7 +280,7 @@ select.form-control-sm{
     width: 100%;
     padding: 10px;
     position: relative;
-    background: #eee;
+    background: #f8f8f8;
 }
 .weui-icon{
     width: 20px;
@@ -346,7 +346,7 @@ select.form-control-sm{
 	width: 100%;
 	height: 100%;
 	text-align: left;
-    background: #eee;
+    background: #f8f8f8;
     margin: 5px 0;
 }
 .weui_wd:after,.weui_access:after,.weui-panel:after{
@@ -390,4 +390,32 @@ select.form-control-sm{
 	color: #888;
     opacity: .5;
     font-size: 13px;
+}
+.card_module_vcard{
+	position: relative;
+}
+.card_module_info1:after {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #aaa;
+    border-bottom: none;
+    border-right: none;
+    display: block;
+    content: "";
+    position: absolute;
+    top: 37%;
+    right: 0;
+    transform:rotate(135deg);
+	-ms-transform:rotate(135deg); 	/* IE 9 */
+	-moz-transform:rotate(135deg); 	/* Firefox */
+	-webkit-transform:rotate(135deg); /* Safari 和 Chrome */
+	-o-transform:rotate(135deg);
+}
+.weui_wd .xiazai{
+	width: 20px;
+    height: 20px;
+    background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/xiazai.png) no-repeat center;
+    display: inline-block;
+    float: right;
+    margin-top: 18px;
 }
