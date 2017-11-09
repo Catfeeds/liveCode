@@ -11160,7 +11160,7 @@ UM.registerUI('tellink',
         $("#modal-tellink-confirm").click(function(){
             var href = $("#modal-tellink-input").val() || '名片';
 			var tel=$('.vcard-list li label input:checked').attr('tel');
-			var face=$('.vcard-list li label input:checked').attr('face') || 'https://cache.cli.im/cli_biz/mobile/tpl/module/images/default_face.png';
+			var face=$('.vcard-list li label input:checked').attr('face') || '/Public/images/default_face.png';
 			var pposition=$('.vcard-list li label input:checked').attr('position');
 			var usern=$('.vcard-list li label input:checked').attr('usern');
 			if(!pposition) {
