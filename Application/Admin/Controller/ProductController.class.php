@@ -429,9 +429,10 @@ class ProductController extends AdminController {
             if(!$info) {// 上传错误提示错误信息
                 $this->error('上传失败！');
             }else{// 上传成功
-                // $size = getFilesize($info['file']['size']);
+                $size = getFilesize($info['file']['size']);
                 $url  = $info['file']['savepath'].$info['file']['savename'];
-                echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$url]);
+                $targetUrl  = '/Uploads/product/file/'.$url;
+                echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$url,'fileName'=>$info['file']['name'],'fileSize'=>$size,'targetUrl'=>$targetUrl]);
                 //$this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
             }
         }

@@ -11472,9 +11472,9 @@ UM.registerUI('document',
 			        return alert('上传失败');
 			      }else{
 			      	//上传成功
-			      	imagehtml = '<div class="weui_wd"><a href="" class="weui_access"><div class="weui_hd">';
+			      	imagehtml = '<div class="weui_wd"><a href="'+res.targetUrl+'" class="weui_access"><div class="weui_hd">';
 			      	imagehtml += '<img src="Public/images/fileicon.png"/></div><div class="weui_bd">';
-			      	imagehtml += '<p class="overflow">3.1洪先生文档管理系统设计.docx</p><span>143.5KB</span></div></a></div>';
+			      	imagehtml += '<p class="overflow">'+res.fileName+'</p><span>'+res.fileSize+'</span></div></a></div>';
 			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
 			      }
 			    }

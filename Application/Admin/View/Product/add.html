@@ -129,28 +129,23 @@
 						<label class="col-sm-2 form-control-label"></label>
 						<div class="col-sm-9">
 							<div class="b-a" style="padding:8px 10px 7px 0px;">
-								<div class="pull-right">
-									<a href="{:U('Admin/Livecode/add',['vcard'=>1])}" class="btn bead white " target="_blank">新建名片</a>
-								</div>
-								<div class="cl"></div>
+							<?php if($isUser): ?>
+                                <div class="pull-right">
+                                    <a href="{:U('Admin/Livecode/add',['vcard'=>1])}" class="btn bead white " target="_blank">新建名片</a>
+                                </div>
+                                <div class="cl"></div>
+                            <?php endif; ?>
 							</div>
 							<ul class="vcard-list b-l b-r b-b" style="display: block;">
-								<li>
-									<label mnt="杜山东">
-										<input type="radio" name="vcard_info" value="" tel="15875566606" face="Public/images/vcardbg3.jpg" usern="杜山东" position="总经理">杜山东  15875566606 总经理
-									</label>
-								</li>
-								<li>
-									<label mnt="杜山西">
-										<input type="radio" name="vcard_info" value="" tel="18356852017" face="" usern="杜山西" position="大经理">杜山西 18356852017 大经理
-									</label>
-								</li>
-								<li>
-									<label mnt="杜山中">
-										<input type="radio" name="vcard_info" value="" tel="15156785241" face="" usern="杜山中" position="小经理">杜山中 15156785241 小经理
-									</label>
-								</li>
-							</ul>
+                                <volist name="vcards" id="vo">
+                                <li>
+                                    <label mnt="{$vo.name}">
+                                        <input type="radio" name="vcard_info" value="" tel="{$vo['left_phone'][1]['val']}" usern="{$vo.name}" position="总经理">{$vo.name}  {$vo['left_phone'][1]['val']} {$vo.appointment}
+                                    </label>
+                                </li>
+                                </volist>
+
+                            </ul>
 						</div>
 					</div>
 				</div>
