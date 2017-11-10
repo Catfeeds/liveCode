@@ -23,7 +23,7 @@ a{text-decoration: none;}
 }
 .titImg img{
     width: 100%;
-    max-height: 240px;
+    height: auto;
 }
 .code_text{
     padding: 10px 15px 15px;
