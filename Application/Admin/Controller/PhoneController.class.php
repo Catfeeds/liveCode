@@ -519,26 +519,15 @@ class PhoneController extends AdminController {
      * 
      */
     public function view() {
+        $info = I('get.');
+        $data = D('Echarts')->getEchartsData($info);
+
         $this->assign([
-            'id'=>I('get.id/d'),
-            'code'=>I('get.code/d'),
-            'meta_title'=>'数据统计',
+            'meta_title' => '数据统计',
+            'info'       => $info,
+            'data'       => $data,
             ]);
-        $this->display();
-    }
-
-    /**
-     * 获取统计报表数据
-     */
-    public function getEchartsData(){
-        $id        = I('post.id/d');
-        $code      = I('post.code/d');
-        $startDate = I('post.startDate/s');
-        $endDate   = I('post.endDate/s');
-
-        $mod  = D('Echarts');
-        $data = $mod->getEchartsData($id,$code,$startDate,$endDate);
-        $this->success($data);
+        $this->display('public/echarts');
     }
 
 
