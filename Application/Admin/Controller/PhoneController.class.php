@@ -519,10 +519,82 @@ class PhoneController extends AdminController {
      * 
      */
     public function view() {
+        // halt(I(''));
+        $info['codeId']   = I('get.id/d');
+        $info['codeType'] = I('get.code/d');
+        $info['tab']      = I('get.tab/s');
+        $info['time']     = I('get.time/s');
+        $info['stime']    = I('get.stime/s');
+        $info['etime']    = I('get.etime/s');
+
+        $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+        $group = 'date';
+        $order = 'date desc';
+
+        $where = [];
+        if ($info['time'] == '') {
+            $where = 'DATEDIFF(createTime,NOW())=0';
+            $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+            $group = 'hour';
+            $order = '';
+        }
+        if ($info['time'] == 'yes') {
+            // $yes = date("Y-m-d",strtotime("-1 day"));   //2017-11-08
+            $where = 'DATEDIFF(createTime,NOW())=-1';
+            $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+            $group = 'hour';
+            $order = '';
+        }
+
+        $echarsMod = D('Echarts');
+        $data = $echarsMod->field($field)
+                ->where(['codeId'=>$info['codeId'],'type'=>$info['codeType']])
+                ->where($where)
+                ->group($group)
+                ->order($order)
+                ->select();
+        $info['total_count'] = $echarsMod->where(['codeId'=>$info['codeId'],'type'=>$info['codeType']])->where($where)->count();
+        if ($data) {
+            foreach ($data as $key => $v) {
+                $data[$key]['percentage'] = (int)($v['visitCount']/$info['total_count']*100).'%';
+                if ($info['time'] == 'yes') {
+                    for($i=23;$i>=0;$i--){
+                        $data[$i]['datetime'] = date($i).':00';
+                        if ($v['visitCount'] && $v['hour'] == $i) {
+                            $data[$i]['visitCount'] = $v['visitCount'];
+                            $data[$i]['visitorCount'] = $v['visitorCount'];
+                            $data[$i]['percentage'] = $data[$key]['percentage'];
+                            unset($data[$key]);
+                        }
+                    }
+                }elseif ($info['time'] == 'week') {
+                    for($i=6;$i>=0;$i--){
+                        // $data[$i]['datetime'] = date('Y-m-d',mktime(0,0,0,date('m'),date('d')-$i+1,date('Y'))-1);
+                        $data[$i]['datetime'] = date("Y-m-d",strtotime("-$i day"));
+                    }
+                }else{
+                    for($i=date('H');$i>=0;$i--){
+                        $data[$i]['datetime'] = date($i).':00';
+                        if ($v['visitCount'] && $v['hour'] == $i) {
+                            $data[$i]['visitCount'] = $v['visitCount'];
+                            $data[$i]['visitorCount'] = $v['visitorCount'];
+                            $data[$i]['percentage'] = $data[$key]['percentage'];
+                            unset($data[$key]);
+                        }
+                    }
+                }
+            }
+            ksort($data);
+
+// halt($info);
+
+        }
+
+
         $this->assign([
-            'id'=>I('get.id/d'),
-            'code'=>I('get.code/d'),
-            'meta_title'=>'数据统计',
+            'meta_title' => '数据统计',
+            'info'       => $info,
+            'data'       => $data,
             ]);
         $this->display();
     }
@@ -531,14 +603,85 @@ class PhoneController extends AdminController {
      * 获取统计报表数据
      */
     public function getEchartsData(){
-        $id        = I('post.id/d');
-        $code      = I('post.code/d');
-        $startDate = I('post.startDate/s');
-        $endDate   = I('post.endDate/s');
+        $info = I('post.');
 
-        $mod  = D('Echarts');
-        $data = $mod->getEchartsData($id,$code,$startDate,$endDate);
-        $this->success($data);
+        $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+        $group = 'date';
+        $order = 'date desc';
+
+        $where = [];
+        if ($info['time'] == '') {
+            $where = 'DATEDIFF(createTime,NOW())=0';
+            $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+            $group = 'hour';
+            $order = '';
+        }
+        if ($info['time'] == 'yes') {
+            // $yes = date("Y-m-d",strtotime("-1 day"));   //2017-11-08
+            $where = 'DATEDIFF(createTime,NOW())=-1';
+            $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+            $group = 'hour';
+            $order = '';
+        }
+
+        $echarsMod = D('Echarts');
+        $data = $echarsMod->field($field)
+                ->where(['codeId'=>$info['codeId'],'type'=>$info['codeType']])
+                ->where($where)
+                ->group($group)
+                ->order($order)
+                ->select();
+        if ($data) {
+            foreach ($data as $key => $v) {
+                if ($info['time'] == 'yes') {
+                    for($i=23;$i>=0;$i--){
+                        $data[$i]['datetime'] = date($i).':00';
+                        if ($v['visitCount'] && $v['hour'] == $i) {
+                            $data[$i]['visitCount'] = $v['visitCount'];
+                            $data[$i]['visitorCount'] = $v['visitorCount'];
+                            unset($data[$key]);
+                        }
+                    }
+                }elseif ($info['time'] == 'week') {
+                    for($i=6;$i>=0;$i--){
+                        $data[$i]['datetime'] = date("Y-m-d",strtotime("-$i day"));
+                    }
+                }else{
+                    for($i=date('H');$i>=0;$i--){
+                        $data[$i]['datetime'] = date($i).':00';
+                        if ($v['visitCount'] && $v['hour'] == $i) {
+                            $data[$i]['visitCount'] = $v['visitCount'];
+                            $data[$i]['visitorCount'] = $v['visitorCount'];
+                            unset($data[$key]);
+                        }
+                    }
+                }
+            }
+            ksort($data);
+
+halt($data);
+
+        }
+        // $mod  = D('Echarts');
+        // $data = $mod->getEchartsData($id,$code,$startDate,$endDate);
+        // if ($data) {
+        //     echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$text]);
+        // }else{
+        //     $this->error('报表数据获取失败');
+        // }
+        $data = [
+            'series'=>[
+                ['name'=>"总访问量:230",'data'=>[0,0,0,5,0,0,3]],
+                ['name'=>"总访客数:2",'data'=>[0,0,0,0,0,0,2]],
+            ],
+            'xAxis'=>[
+                'categories'=>["11-01","11-02","11-03","11-04","11-05","11-06","11-07"]
+            ]
+        ];
+
+
+        echo json_encode(['status'=>1,'data'=>$data]);
+
     }
 
 
