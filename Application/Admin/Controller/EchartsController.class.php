@@ -6,23 +6,51 @@
 // +----------------------------------------------------------------------
 // | 
 // +----------------------------------------------------------------------
-namespace Admin\Model;
-use Think\Model;
+namespace Admin\Controller;
+use Common\Util\Think\Page;
+
 /**
- * 数据统计模型
+ * 数据统计控制器
  * 
  */
-class EchartsModel extends Model {
+class EchartsController extends AdminController {
     /**
-     * 数据库表名
-     * 
+     * 导出
      */
-    protected $tableName = 'echarts_data';
+    public function outurl (){
+        halt(I(''));
+
+  //       $ksid=(int)I('ksid');
+		// $endid=(int)I('endid');
+		// if ( !$ksid ){
+		// 	$this->error('请输入开始ID');
+		// }
+		// if ( !$endid ){
+		// 	$this->error('请输入结束ID');
+		// }
+		// $where['type'] = 1;
+  //       $where['uid']  = $this->uid;
+		// $where['id']   = array('between',array($ksid,$endid));
+  //    	$rs=M('cms_phone')->where($where)->order('id')->select();
+  //       if (!$rs) {
+  //           $this->error('找不到该区间的文件，请输入正确的ID');
+  //       }
+  //       $str = "id,网址名称,跳转网址,活码地址\n";
+  //       foreach( $rs as $v){
+  //       	$str .= $v['id'].",".$v['title'].",".$v['videourl'].",".$v['huoma']."\n";
+  //       }
+
+  //       $str = iconv('utf-8','gb2312',$str);
+  //       $filename = date('Ymd').'.csv';
+  //       export_csv($filename,$str);
+    }
 
     /**
-     * 获取数据统计
+     * 获取统计报表数据
      */
-    public function getEchartsData($info){
+    public function getEchartsData(){
+        $info = I('post.');
+
         $where = [];
         if ($info['time'] == 'yes') {   //昨天
             // $yes = date("Y-m-d",strtotime("-1 day"));   //2017-11-08
@@ -55,41 +83,40 @@ class EchartsModel extends Model {
             $order = 'date desc';
         }
 
-        $data = $this->field($field)
+        $echarsMod = D('Echarts');
+        $data = $echarsMod->field($field)
                 ->where(['codeId'=>$info['id'],'type'=>$info['code']])
                 ->where($where)
                 ->group($group)
                 ->order($order)
                 ->select();
-        $info['total_count'] = $this->where(['codeId'=>$info['id'],'type'=>$info['code']])->where($where)->count();
+        $info['total_count'] = $echarsMod->where(['codeId'=>$info['id'],'type'=>$info['code']])->where($where)->count();
+
         if ($data) {
             foreach ($data as $key => $v) {
-                $data[$key]['percentage'] = (int)($v['visitCount']/$info['total_count']*100).'%';
                 if ($info['time'] == 'yes') {
                     for($i=23;$i>=0;$i--){
                         $data[$i]['datetime'] = date($i).':00';
                         if ($v['visitCount'] && $v['hour'] == $i) {
                             $data[$i]['visitCount'] = $v['visitCount'];
                             $data[$i]['visitorCount'] = $v['visitorCount'];
-                            $data[$i]['percentage'] = $data[$key]['percentage'];
                             unset($data[$key]);
                         }
                     }
                 }elseif ($info['time'] == 'week') {
                     for($i=6;$i>=0;$i--){
-                        // $data[$i]['datetime'] = date('Y-m-d',mktime(0,0,0,date('m'),date('d')-$i+1,date('Y'))-1);
-                        $data[$i]['datetime'] = date("Y-m-d",strtotime("-$i day"));
+                        $data[$i]['datetime'] = date("m-d",strtotime("-$i day"));
                     }
                 }elseif ($info['time'] == 'month') {
                     for($i=29;$i>=0;$i--){
-                        $data[$i]['datetime'] = date("Y-m-d",strtotime("-$i day"));
+                        $data[$i]['datetime'] = date("m-d",strtotime("-$i day"));
                     }
                 }elseif (!empty($info['etime'])) {
                     $start = strtotime($info['stime']);
                     $end   = strtotime($info['etime']);
                     $i = 0;
                     while ($end>=$start){  
-                        $data[$i]['datetime'] = date('Y-m-d',$end)."\n";  
+                        $data[$i]['datetime'] = date('m-d',$end)."\n";  
                         $end = strtotime('-1 day',$end);  
                         $i++;
                     } 
@@ -99,15 +126,39 @@ class EchartsModel extends Model {
                         if ($v['visitCount'] && $v['hour'] == $i) {
                             $data[$i]['visitCount'] = $v['visitCount'];
                             $data[$i]['visitorCount'] = $v['visitorCount'];
-                            $data[$i]['percentage'] = $data[$key]['percentage'];
                             unset($data[$key]);
                         }
                     }
                 }
             }
             ksort($data);
+            if ($info['time'] == 'week' || $info['time'] == 'month' || !empty($info['etime'])) {
+                $data = array_reverse($data);
+            }
+            $visitCount = $visitor = $datetime = [];
+            $visitorCount = 0;
+            foreach ($data as $key => $v) {
+                $visitCount[] = (int)$v['visitCount'];
+                $visitor[] = (int)$v['visitorCount'];
+                $visitorCount += (int)$v['visitorCount'];
+                $datetime[] = $v['datetime'];
+
+            }
         }
-        return $data;
+// halt($info);
+
+        $data = [
+            'series'=>[
+                ['name'=>"总访问量:".$info['total_count'],'data'=>$visitCount],
+                ['name'=>"总访客数:".$visitorCount,'data'=>$visitor],
+            ],
+            'xAxis'=>['categories'=>$datetime]
+        ];
+
+
+        echo json_encode(['status'=>1,'data'=>$data]);
+
     }
-   
+
+
 }

@@ -13,28 +13,28 @@
 </block>
 
 <block name="main">
-<input type="hidden" id="codeId" value="{$info['codeId']}">
-<input type="hidden" id="codeType" value="{$info['codeType']}">
+<input type="hidden" id="id" value="{$info['id']}">
+<input type="hidden" id="code" value="{$info['code']}">
 <input type="hidden" id="time" value="{$info['time']}">
 
 	<div class="sidebar_chart">
 	   <ul class="nav nav-pills nav-stacked">
-	    <li <eq name="info.tab" value="curr">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType'],'tab'=>'curr'])}">实时统计数据</a></li>
-	    <li <eq name="info.tab" value="">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType']])}">按日期统计</a></li>
-	    <li <eq name="info.tab" value="area">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType'],'tab'=>'area'])}">地域分布</a></li>
-	    <li <eq name="info.tab" value="net">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType'],'tab'=>'net'])}">网络线路</a></li>
-	    <li <eq name="info.tab" value="sys">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType'],'tab'=>'sys'])}">系统环境</a></li>
-	    <li <eq name="info.tab" value="cli">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType'],'tab'=>'cli'])}">客户端类型</a></li>
+	    <li <eq name="info.tab" value="curr">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>'curr'])}">实时统计数据</a></li>
+	    <li <eq name="info.tab" value="">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code']])}">按日期统计</a></li>
+	    <li <eq name="info.tab" value="area">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>'area'])}">地域分布</a></li>
+	    <li <eq name="info.tab" value="net">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>'net'])}">网络线路</a></li>
+	    <li <eq name="info.tab" value="sys">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>'sys'])}">系统环境</a></li>
+	    <li <eq name="info.tab" value="cli">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>'cli'])}">客户端类型</a></li>
 	   </ul>
 	</div>
   	<div class="main_chart">
 	    <ul class="nav nav-pills time-nav" field="date">
-		    <li <eq name="info.time" value="">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType']])}" class="today">今日</a></li>
-		    <li <eq name="info.time" value="yes">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType'],'time'=>'yes'])}" class="1day">昨日</a></li>
-		    <li <eq name="info.time" value="week">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType'],'time'=>'week'])}" class="7day">最近7天</a></li>
-		    <li <eq name="info.time" value="month">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType'],'time'=>'month'])}" class="30day">最近30天</a></li>
+		    <li <?php if($info['time'] == '' && empty($info['etime'])){echo 'class="active"';} ?>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code']])}" class="today">今日</a></li>
+		    <li <eq name="info.time" value="yes">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'time'=>'yes'])}" class="1day">昨日</a></li>
+		    <li <eq name="info.time" value="week">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'time'=>'week'])}" class="7day">最近7天</a></li>
+		    <li <eq name="info.time" value="month">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'time'=>'month'])}" class="30day">最近30天</a></li>
 		    <li class="select_data">
-			    <form action="{:U(Admin/Phone/view,['id'=>$info['codeId'],'code'=>$info['codeType']])}" method="get">
+			    <form action="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code']])}" method="get">
 			      <label class="ml10">选择日期：</label>
 			      <input class="Wdate form-control " type="text" onclick="WdatePicker()" id="stime" name="stime" value="{$info['stime']}" placeholder="起始日期" /> - 
 			      <input class="Wdate form-control" type="text" onclick="WdatePicker()" id="etime" name="etime" value="{$info['etime']}" placeholder="结束日期" />
@@ -83,15 +83,15 @@
     <script type="text/javascript" src="__PUBLIC__/charts/js/glob.js"></script>
 
 	<script type="text/javascript">
-		var data = {};
-		var params      = {};
-		params.codeId   = $('#codeId').val();
-		params.codeType = $('#codeType').val();
-		params.time 	= $('#time').val();
-		params.stime    = $('#stime').val();
-		params.etime    = $('#etime').val();
+		var data     = {};
+		var params   = {};
+		params.id    = $('#id').val();
+		params.code  = $('#code').val();
+		params.time  = $('#time').val();
+		params.stime = $('#stime').val();
+		params.etime = $('#etime').val();
 		$.ajax({
-            url: 'admin.php?s=/admin/phone/getEchartsData',
+            url: 'admin.php?s=/admin/echarts/getEchartsData',
             type: 'POST',
             data: params,
         	dataType: "json",
