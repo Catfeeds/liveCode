@@ -11279,7 +11279,7 @@ UM.registerUI('wechat',
             $(".maskmodal").hide();
 			$("#modal-wechat").fadeOut();
             $(".navbar-inverse").css('z-index',"1");
-            me.execCommand("inserthtml",'<div class="weui-panel"><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div>',"needFilter");
+            me.execCommand("inserthtml",'<div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div>',"needFilter");
         });
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
@@ -11474,7 +11474,7 @@ UM.registerUI('document',
 			      	//上传成功
 			      	imagehtml = '<div class="weui_wd"><a href="'+res.targetUrl+'" class="weui_access" target="_blank"><div class="weui_hd">';
 			      	imagehtml += '<img src="/Public/images/fileicon.png"/></div><div class="weui_bd">';
-			      	imagehtml += '<p class="overflow">'+res.fileName+'</p><span>'+res.fileSize+'</span></div></a></div>';
+			      	imagehtml += '<p class="overflow">'+res.fileName+'</p><span>'+res.fileSize+'</span></div><div class="xiazai"></div></a></div>';
 			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
 			      }
 			    }
