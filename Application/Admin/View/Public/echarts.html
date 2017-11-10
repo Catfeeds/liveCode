@@ -42,7 +42,7 @@
 			    </form>
 		    </li>
 	    </ul>
-   	    <a href="" class="down_excel btn btn-success" target="_blank" style="top:130px;">数据导出Excel</a>
+   	    <a href="javascript:;" class="down_excel btn btn-success" style="top:130px;">数据导出Excel</a>
 	    <div id="container" class="line" style="min-width: 310px; height: 400px; margin: 0 auto">
 	    	暂无统计数据
 	    </div>
@@ -104,6 +104,10 @@
                 }
             }
     	});
+    	//导出
+	    $(".down_excel").click(function(){
+	    	location.href='admin.php?s=/admin/echarts/outEchartsData/id/'+params.id+'/code/'+params.code+'/time/'+params.time+'/stime/'+params.stime+'/etime/'+params.etime;
+	    });
 
 		$(function(){
 			$(".navbar-right").on('click','.dropdown',function(){
@@ -113,6 +117,7 @@
 					$(this).find(".dropdown-menu").addClass('againShow');
 				}
 			})
+			
 		})
 	</script>
 </block>

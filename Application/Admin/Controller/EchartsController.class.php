@@ -15,34 +15,19 @@ use Common\Util\Think\Page;
  */
 class EchartsController extends AdminController {
     /**
-     * 导出
+     * 导出EXCEL
      */
-    public function outurl (){
-        halt(I(''));
+    public function outEchartsData(){
+        $info = I('get.');
+        $data = D('Echarts')->getOutEchartsData($info);
 
-  //       $ksid=(int)I('ksid');
-		// $endid=(int)I('endid');
-		// if ( !$ksid ){
-		// 	$this->error('请输入开始ID');
-		// }
-		// if ( !$endid ){
-		// 	$this->error('请输入结束ID');
-		// }
-		// $where['type'] = 1;
-  //       $where['uid']  = $this->uid;
-		// $where['id']   = array('between',array($ksid,$endid));
-  //    	$rs=M('cms_phone')->where($where)->order('id')->select();
-  //       if (!$rs) {
-  //           $this->error('找不到该区间的文件，请输入正确的ID');
-  //       }
-  //       $str = "id,网址名称,跳转网址,活码地址\n";
-  //       foreach( $rs as $v){
-  //       	$str .= $v['id'].",".$v['title'].",".$v['videourl'].",".$v['huoma']."\n";
-  //       }
-
-  //       $str = iconv('utf-8','gb2312',$str);
-  //       $filename = date('Ymd').'.csv';
-  //       export_csv($filename,$str);
+        $str = "时间,访问量,访客数\n";
+        foreach( $data as $v){
+        	$str .= $v['datetime'].",".$v['visitCount'].",".$v['visitorCount']."\n";
+        }
+        $str = iconv('utf-8','gb2312',$str);
+        $filename = date('Ymd').'.csv';
+        export_csv($filename,$str);
     }
 
     /**
