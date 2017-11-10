@@ -512,13 +512,15 @@ class DuourlController extends AdminController {
      * 
      */
     public function view() {
-        $this->assign([
-            'id'=>I('get.id/d'),
-            'code'=>I('get.code/d'),
-            'meta_title'=>'数据统计',
-            ]);
-        $this->display('Phone/view');
-    }
+        $info = I('get.');
+        $data = D('Echarts')->getEchartsData($info);
 
+        $this->assign([
+            'meta_title' => '数据统计',
+            'info'       => $info,
+            'data'       => $data,
+            ]);
+        $this->display('public/echarts');
+    }
 
 }
