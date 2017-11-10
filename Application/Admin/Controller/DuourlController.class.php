@@ -252,7 +252,7 @@ class DuourlController extends AdminController {
             $builder->setMetaTitle('导出网址') //设置页面标题
                     ->setPostUrl(U('outurl'))    //设置表单提交地址
                     ->addFormItem('id', 'text', '需要导出的ID')
-                     ->setAjaxSubmit(false)
+                    ->setAjaxSubmit(false)
                     ->display();
 	    }
     
