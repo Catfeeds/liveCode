@@ -137,7 +137,8 @@ class EchartsController extends AdminController {
                 ['name'=>"总访问量:".$info['total_count'],'data'=>$visitCount],
                 ['name'=>"总访客数:".$visitorCount,'data'=>$visitor],
             ],
-            'xAxis'=>['categories'=>$datetime]
+            'xAxis'=>['categories'=>$datetime],
+            'tabalName'=>'一小时内访问统计',
         ];
 
 

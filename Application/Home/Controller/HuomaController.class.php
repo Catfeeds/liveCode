@@ -30,8 +30,15 @@ class HuomaController extends HomeController{
 
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
         $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+        //获取访问者信息
+        $info            = getIPLoc_taobao(get_client_ip());
+        $info['os']      = getOS();
+        $info['browser'] = getBrowser();
+        $info['codeId']  = $data['id'];
+        $info['createTime'] = date('Y-m-d H:i:s');
+        $info['type']    = 1;
+        M('echarts_data')->add($info);
 
-        M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d H:i:s'),'type'=>1,'ip'=>get_client_ip()]);
         if ($data['type'] == 1 || $data['type'] == 2) {           //文本活码
             if ($data['type'] == 1) {
                 $content = json_decode($data["content"],true);
@@ -85,8 +92,14 @@ class HuomaController extends HomeController{
         }
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
         $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
-
-        M('echarts_data')->add(['codeId'=>$data['id'],'createTime'=>date('Y-m-d H:i:s'),'type'=>2,'ip'=>get_client_ip()]);
+        //获取访问者信息
+        $info            = getIPLoc_taobao(get_client_ip());
+        $info['os']      = getOS();
+        $info['browser'] = getBrowser();
+        $info['codeId']  = $data['id'];
+        $info['createTime'] = date('Y-m-d H:i:s');
+        $info['type']    = 2;
+        M('echarts_data')->add($info);
 
         $content = json_decode($data["content"]);
         foreach ($content as $key => $value) {
@@ -123,7 +136,7 @@ class HuomaController extends HomeController{
         $info            = getIPLoc_taobao(get_client_ip());
         $info['os']      = getOS();
         $info['browser'] = getBrowser();
-        $info['codeId'] = $videourl[0]['id'];
+        $info['codeId']  = $videourl[0]['id'];
         $info['createTime'] = date('Y-m-d H:i:s');
 
         if ($type == 2 && $videourl){
@@ -181,7 +194,14 @@ class HuomaController extends HomeController{
         }
         if ($tzurl){
             $obj->where(array('d' => $d)) ->setInc('count', 1);
-            M('echarts_data')->add(['codeId'=>$rs['id'],'createTime'=>date('Y-m-d H:i:s'),'type'=>5,'ip'=>get_client_ip()]);
+            //获取访问者信息
+            $info            = getIPLoc_taobao(get_client_ip());
+            $info['os']      = getOS();
+            $info['browser'] = getBrowser();
+            $info['codeId']  = $rs['id'];
+            $info['createTime'] = date('Y-m-d H:i:s');
+            $info['type']    = 5;
+            M('echarts_data')->add($info);
             redirect($tzurl);
         }else{
             $this -> error('参数错误');
