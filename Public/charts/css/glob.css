@@ -17,7 +17,7 @@ input[type="checkbox"]{margin-left: -16px;margin-top: 1px;}
 
 /*sidebar*/
 .sidebar_chart{
-	width:16.6666667%;
+	width:160px;
 	float: left;
 	position: fixed;
 	top:92px;
@@ -169,7 +169,7 @@ input[type="checkbox"]{margin-left: -16px;margin-top: 1px;}
 }
 
 /*main*/
-.main_chart{width: 83.33333333%;margin-left: 16.66666667%;padding: 20px;padding-top:55px;padding-right: 40px;padding-left: 40px;float: left;position: relative;min-height: 1px;}
+.main_chart{width: 83.33333333%;margin-left:160px;padding: 20px;padding-top:55px;padding-right: 40px;padding-left: 40px;float: left;position: relative;min-height: 1px;}
 .main_chart .time-nav li.active a{
 	color: #fff;
     background-color: #428bca;
