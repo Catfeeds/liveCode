@@ -631,31 +631,7 @@ function getControllerName($title){
     }
 }
 /**
- * 获取当前ip地址所在城市一
- */
-function getIPLoc_sina($queryIP){ 
-    $url = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip='.$queryIP; 
-    $ch = curl_init($url); 
-    //curl_setopt($ch,CURLOPT_ENCODING ,'utf8'); 
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10); 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; // 获取数据返回 
-    $location = curl_exec($ch); 
-    $location = json_decode($location); 
-    curl_close($ch); 
-     
-    $loc = ""; 
-    if($location===FALSE) return ""; 
-    halt($location);
-
-    if (empty($location->desc)) { 
-        $loc = $location->province.$location->city.$location->district.$location->isp; 
-    }else{ 
-        $loc = $location->desc; 
-    } 
-    return $loc; 
-} 
-/**
- * 获取当前ip地址所在城市二
+ * 获取当前ip地址所在城市
  */
 function getIPLoc_taobao($queryIP){ 
     // $url = 'http://chaxun.1616.net/s.php?type=ip&v='.$queryIP.'&output=json&callback=J1616.chaxun.ip.callback&_='.time(); 
@@ -669,7 +645,7 @@ function getIPLoc_taobao($queryIP){
     // $result = array(); 
     // preg_match("/(?:\()(.*)(?:\))/i",$location, $result); 
     // return json_decode($result[1],true);
-     
+
     if(empty($queryIP)) $ip=get_client_ip();  //get_client_ip()为tp自带函数，如没有，自己百度搜索。此处就不重复复制了  
     $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$queryIP;  
     $result = file_get_contents($url);  
@@ -677,3 +653,47 @@ function getIPLoc_taobao($queryIP){
     if($result['code']!==0 || !is_array($result['data'])) return false;  
     return $result['data'];
 } 
+/**
+ * 获取系统信息
+ */
+function getOS()  {  
+    $ua = $_SERVER['HTTP_USER_AGENT'];//这里只进行IOS和Android两个操作系统的判断，其他操作系统原理一样  
+    if (strpos($ua, 'Android') !== false) {//strpos()定位出第一次出现字符串的位置，这里定位为0  
+        $os = 'Android系统';
+    } elseif (strpos($ua, 'iPhone') !== false) {  
+        $os = 'iPhone系统';
+    } elseif (strpos($ua, 'Windows') !== false) {  
+        $os = 'Windows';
+    }  elseif (strpos($ua, 'Linux') !== false) {  
+        $os = 'Linux';
+    }   elseif (strpos($ua, 'Linux') !== false) {  
+        $os = '其他';
+    }   
+    return $os;
+}
+/**
+ * 获取系统信息
+ */
+function getBrowser()  {  
+    $ua = $_SERVER['HTTP_USER_AGENT'];//这里只进行IOS和Android两个操作系统的判断，其他操作系统原理一样  
+    if (strpos($ua, 'MSIE') !== false) {//strpos()定位出第一次出现字符串的位置，这里定位为0  
+        $os = 'Internet Explorer';
+    } elseif (strpos($ua, 'Firefox') !== false) {  
+        $os = 'Firefox';
+    } elseif (strpos($ua, 'Chrome') !== false) {  
+        $os = 'Chrome';
+    }  elseif (strpos($ua, 'Safari') !== false) {  
+        $os = 'Safari';
+    }elseif (strpos($ua, 'Opera') !== false) {  
+        $os = 'Opera';
+    }elseif (strpos($ua, '360') !== false) {  
+        $os = '360浏览器';
+    }elseif (strpos($ua, 'Alipay') !== false) {  
+        $os = '支付宝';
+    }   elseif (strpos($ua, 'Linux') !== false) {  
+        $os = '其他';
+    }   
+    halt($os);
+
+    return $os;
+}  

@@ -121,7 +121,9 @@ class HuomaController extends HomeController{
         $url = $obj -> where(array('d' => $d)) -> getField('videourl');
         //获取访问者信息
         $visitIP = get_client_ip();
-        $visit = getIPLoc_taobao($visitIP);
+        $visit   = getIPLoc_taobao($visitIP);
+        $os      = getOS();
+        $browser = getBrowser();
 
         if ($type == 2 && $videourl){
             //视频活码跳转
