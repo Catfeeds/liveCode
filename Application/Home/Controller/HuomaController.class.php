@@ -119,9 +119,13 @@ class HuomaController extends HomeController{
         $type = $obj -> where(array('d' => $d)) -> getField('type');
         $videourl = $obj -> where(array('d' => $d)) -> getField('0,id,title,videourl,huoma');
         $url = $obj -> where(array('d' => $d)) -> getField('videourl');
+        //获取访问者信息
+        $visitIP = get_client_ip();
+        $visit = getIPLoc_taobao($visitIP);
+
         if ($type == 2 && $videourl){
             //视频活码跳转
-            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d H:i:s'),'type'=>3,'ip'=>get_client_ip()]);
+            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d H:i:s'),'type'=>3,'ip'=>$visitIP]);
             //$huoma = $obj -> where(array('d' => $d)) -> getField('huoma');
             $videoTitle = '{"mediaTitle": "'.$videourl[0]['title'].'"}';
             $this->assign('title',$videourl[0]['title']);
@@ -131,7 +135,7 @@ class HuomaController extends HomeController{
             $this->display();
         }elseif ($type == 1 && $url){
             //网址活码跳转
-            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d H:i:s'),'type'=>4,'ip'=>get_client_ip()]);
+            M('echarts_data')->add(['codeId'=>$videourl[0]['id'],'createTime'=>date('Y-m-d H:i:s'),'type'=>4,'ip'=>$visitIP,'region'=>$visit['region'],'city'=>$visit['city'],'isp'=>$visit['isp']]);
             redirect($url);
         }else{
             $this -> error('参数错误');

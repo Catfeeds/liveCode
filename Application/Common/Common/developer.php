@@ -630,3 +630,50 @@ function getControllerName($title){
             break;
     }
 }
+/**
+ * 获取当前ip地址所在城市一
+ */
+function getIPLoc_sina($queryIP){ 
+    $url = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip='.$queryIP; 
+    $ch = curl_init($url); 
+    //curl_setopt($ch,CURLOPT_ENCODING ,'utf8'); 
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; // 获取数据返回 
+    $location = curl_exec($ch); 
+    $location = json_decode($location); 
+    curl_close($ch); 
+     
+    $loc = ""; 
+    if($location===FALSE) return ""; 
+    halt($location);
+
+    if (empty($location->desc)) { 
+        $loc = $location->province.$location->city.$location->district.$location->isp; 
+    }else{ 
+        $loc = $location->desc; 
+    } 
+    return $loc; 
+} 
+/**
+ * 获取当前ip地址所在城市二
+ */
+function getIPLoc_taobao($queryIP){ 
+    // $url = 'http://chaxun.1616.net/s.php?type=ip&v='.$queryIP.'&output=json&callback=J1616.chaxun.ip.callback&_='.time(); 
+    // $ch = curl_init($url); 
+    // // curl_setopt($ch,CURLOPT_ENCODING ,'utf8'); 
+    // curl_setopt($ch, CURLOPT_TIMEOUT, 10); 
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; // 获取数据返回 
+    // $location = curl_exec($ch); 
+    // // $location = json_decode($location); 
+    // curl_close($ch); 
+    // $result = array(); 
+    // preg_match("/(?:\()(.*)(?:\))/i",$location, $result); 
+    // return json_decode($result[1],true);
+     
+    if(empty($queryIP)) $ip=get_client_ip();  //get_client_ip()为tp自带函数，如没有，自己百度搜索。此处就不重复复制了  
+    $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$queryIP;  
+    $result = file_get_contents($url);  
+    $result = json_decode($result,true);  
+    if($result['code']!==0 || !is_array($result['data'])) return false;  
+    return $result['data'];
+} 
