@@ -677,33 +677,31 @@ function getOS()  {
 function getBrowser()  {  
     $ua = $_SERVER['HTTP_USER_AGENT'];//这里只进行IOS和Android两个操作系统的判断，其他操作系统原理一样  
     if (strpos($ua, 'Alipay') !== false) {//strpos()定位出第一次出现字符串的位置，这里定位为0  
-        $os = '支付宝';
+        $browser = '支付宝';
     }elseif (strpos($ua, 'MicroMessenger') !== false) {  
-        $os = '微信';
+        $browser = '微信';
     }elseif (strpos($ua, 'QQ') !== false) {  
-        $os = 'QQ';
+        $browser = 'QQ';
     }elseif (strpos($ua, 'WeiBo') !== false) {  
-        $os = '微博';
+        $browser = '微博';
     }elseif (strpos($ua, 'UC') !== false) {  
-        $os = 'UC浏览器';
+        $browser = 'UC浏览器';
     }elseif (strpos($ua, 'WeiBo') !== false) {  
-        $os = '微博';
+        $browser = '微博';
     }elseif (strpos($ua, 'Firefox') !== false) {  
-        $os = 'Firefox';
+        $browser = 'Firefox';
     }elseif (strpos($ua, 'Chrome') !== false) {  
-        $os = 'Chrome';
+        $browser = 'Chrome';
     }  elseif (strpos($ua, 'Safari') !== false) {  
-        $os = 'Safari';
+        $browser = 'Safari';
     }elseif (strpos($ua, 'Opera') !== false) {  
-        $os = 'Opera';
+        $browser = 'Opera';
     }elseif (strpos($ua, '360') !== false) {  
-        $os = '360浏览器';
+        $browser = '360浏览器';
     }elseif (strpos($ua, 'MSIE') !== false) {  
-        $os = 'Internet Explorer';
+        $browser = 'Internet Explorer';
     }elseif (strpos($ua, 'Linux') !== false) {  
-        $os = '其他';
+        $browser = '其他';
     }   
-    halt($os);
-
-    return $os;
+    return $browser;
 }  
