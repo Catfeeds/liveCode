@@ -678,8 +678,16 @@ function getBrowser()  {
     $ua = $_SERVER['HTTP_USER_AGENT'];//这里只进行IOS和Android两个操作系统的判断，其他操作系统原理一样  
     if (strpos($ua, 'Alipay') !== false) {//strpos()定位出第一次出现字符串的位置，这里定位为0  
         $os = '支付宝';
-    }elseif (strpos($ua, 'alipay') !== false) {  
-        $os = '支付宝222';
+    }elseif (strpos($ua, 'MicroMessenger') !== false) {  
+        $os = '微信';
+    }elseif (strpos($ua, 'QQ') !== false) {  
+        $os = 'QQ';
+    }elseif (strpos($ua, 'WeiBo') !== false) {  
+        $os = '微博';
+    }elseif (strpos($ua, 'UC') !== false) {  
+        $os = 'UC浏览器';
+    }elseif (strpos($ua, 'WeiBo') !== false) {  
+        $os = '微博';
     }elseif (strpos($ua, 'Firefox') !== false) {  
         $os = 'Firefox';
     }elseif (strpos($ua, 'Chrome') !== false) {  
