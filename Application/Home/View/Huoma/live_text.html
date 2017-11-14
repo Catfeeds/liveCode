@@ -5,6 +5,72 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>{$data['title']}</title>
 		<link rel="stylesheet" type="text/css" href="__HOME_CSS__/live.css">
+		<style type="text/css">
+			/*遮罩层*/
+			.attention{
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 100%;
+			    background: rgba(0,0,0,.6);
+			    z-index: 9999;
+			     display: none; 
+			}
+			.attention img{
+		        position: fixed;
+			    width: 180px;
+			    height:180px;
+			    z-index: 10001;
+			    top: 20%;
+			    left: 50%;
+			    transform: translate(-50%,0);
+			}
+			.attention p{
+			    position: fixed;
+			    top: 65%;
+			    z-index: 100001;
+			    color: #fff;
+			    font-size: 14px;
+			    left: 50%;
+			    transform: translate(-50%,0);
+		        white-space: nowrap;
+			}
+			.attention span{
+			    position: fixed;
+			    top: 70%;
+			    z-index: 100001;
+			    color: #fff;
+			    font-size: 14px;
+			    left: 50%;
+			    transform: translate(-50%,0);
+			    width: 20px;
+			    height: 20px;
+			    border: 1px solid #fff;
+			    border-radius: 50%;
+			    text-align: center;
+			    line-height: 20px;
+			    cursor: pointer;
+			}
+			.vcard_download{
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 100%;
+			    background: rgba(0,0,0,.6);
+			    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#80000000, endColorstr=#80000000);
+			    z-index: 9999;
+			    display: none;
+			}
+			.vcard_download img {
+			    position: fixed;
+			    width: 260px;
+			    height: 180px;
+			    z-index: 10001;
+			    right: -30px;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="code_warp">
@@ -22,5 +88,50 @@
 				</div>
 			</div>
 		</div>
+		<div class="attention" >
+			<img src="/Public/images/erweim.png"  style="width: 250px;height: 250px;" />
+			<p>长按二维码，选择识别图中二维码</p>
+			<span>X</span>
+		</div>
+		<div class="vcard_download">
+			<img src="/Public/images/filedown.png">
+		</div>
+		<script src="/Public/libs/cui/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function isWeixin(){
+			    var WxObj=window.navigator.userAgent.toLowerCase();
+			    if(WxObj.match(/microMessenger/i)=='micromessenger'){
+			        return true;
+			    }else{
+			        return false;
+			    }
+			}
+			$(function(){
+				$(".weui-btn input").click(function(){
+					if(isWeixin()){
+			    		//是微信打开显示提示信息
+			    		$(".attention").show();
+			        }else{
+			            //是非微信打开直接跳转下载地址
+			            $(".attention").hide();
+			        }
+				})
+				$('.l_filedown').on('click','span',function(){
+					$(this).parent('.attention').hide();
+				})
+				$(".weui_wd .xiazai").click(function(){
+					if(isWeixin()){
+			    		//是微信打开显示提示信息
+			    		$(".vcard_download").show();
+			        }else{
+			            //是非微信打开直接跳转下载地址
+			            $(".vcard_download").hide();
+			        }
+				})
+				$('.vcard_download').on('click',function(){
+					$(this).hide();
+				})
+			})
+		</script>
 	</body>
 </html>
