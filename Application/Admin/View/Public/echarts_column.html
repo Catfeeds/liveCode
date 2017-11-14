@@ -1,6 +1,9 @@
 <extend name="$_admin_public_layout" />
 <block name="style">
   <link rel="stylesheet" href="__PUBLIC__/charts/css/glob.css" />
+  <style type="text/css">
+  	.breadcrumb{position: fixed;width: 100%;z-index: 99;}
+  </style>
 </block>
 <block name="main">
 <input type="hidden" id="id" value="{$info['id']}">
@@ -20,7 +23,7 @@
        </ul>
     </div>
     <div class="main_chart">
-        <a href="" class="down_excel btn btn-success" target="_blank" style="top:125px;">数据导出Excel</a>
+        <a href="" class="down_excel btn btn-success" target="_blank" style="top:120px;">数据导出Excel</a>
         <ul class="nav nav-pills time-nav" field="date">
             <li <?php if($info['time'] == '' && empty($info['etime'])){echo 'class="active"';} ?>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'region'=>$info['region']])}" class="today">今日</a></li>
             <li <eq name="info.time" value="yes">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'time'=>'yes','region'=>$info['region']])}" class="1day">昨日</a></li>
@@ -35,7 +38,7 @@
                 </form>
             </li>
         </ul>
-        <a href="javascript:;" class="down_excel btn btn-success" style="top:130px;">数据导出Excel</a>
+        <!--<a href="javascript:;" class="down_excel btn btn-success" style="top:130px;">数据导出Excel</a>-->
         <div id="container" class="line" style="min-width: 310px; height: 400px; margin: 0 auto">
             暂无统计数据
         </div>
