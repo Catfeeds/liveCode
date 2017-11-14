@@ -116,11 +116,6 @@ a{text-decoration: none;}
     background: #f8f8f8;
     margin: 5px 0;
 }
-.weui_wd:after,.weui-panel:after,.weui_access:after{
-	content: "";
-	display: block;
-	clear: both;
-}
 .weui_access {
     width: 100%;
     height: 100%;
@@ -313,4 +308,14 @@ a{text-decoration: none;}
     content: "";
     display: block;
     clear: both;
-}		
+}	
+.weui_wd:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+.weui_access:after{
+	content: "";
+	display: block;
+	clear: both;
+}
