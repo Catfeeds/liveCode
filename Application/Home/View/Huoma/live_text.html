@@ -89,7 +89,7 @@
 			</div>
 		</div>
 		<div class="attention" >
-			<img src="/Public/images/erweim.png"  style="width: 250px;height: 250px;" />
+			<img src=""  style="width: 250px;height: 250px;" />
 			<p>长按二维码，选择识别图中二维码</p>
 			<span>X</span>
 		</div>
@@ -110,6 +110,7 @@
 				$(".weui-btn input").click(function(){
 					if(isWeixin()){
 			    		//是微信打开显示提示信息
+			    		$(".attention img").attr($('.wechatPic').val());
 			    		$(".attention").show();
 			        }else{
 			            //是非微信打开直接跳转下载地址
