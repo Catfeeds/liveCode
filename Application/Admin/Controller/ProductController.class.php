@@ -302,10 +302,10 @@ class ProductController extends AdminController {
             
         } else {
             //插入名片
-            $vcards = D('Livecode')->where(['uid'=>$this->uid,'type'=>5,'status'=>1])->getField('content',true);
+            $vcards = D('Livecode')->field('content,huoma')->where(['uid'=>$this->uid,'type'=>5,'status'=>1])->select();
             if ($vcards) {
                 foreach ($vcards as $key => $v) {
-                    $vcards[$key] = json_decode($v,true);
+                    $vcards[$key]['content'] = json_decode($v['content'],true);
                 }
             }
 
@@ -337,7 +337,6 @@ class ProductController extends AdminController {
             $data['id']      = $info['editId'];
             $user            = D('user')->getUserInfo($this->uid);
             $data['status']  = ($user['ifCheck'] == -1)?1:0;
-            // halt($data);
 
             $result = $this->obj->save($data);
             if ($result) {
@@ -358,10 +357,10 @@ class ProductController extends AdminController {
                 $data[$key] = $value;
             }
             //插入名片
-            $vcards = D('Livecode')->where(['uid'=>$this->uid,'type'=>5,'status'=>1])->getField('content',true);
+            $vcards = D('Livecode')->field('content,huoma')->where(['uid'=>$this->uid,'type'=>5,'status'=>1])->select();
             if ($vcards) {
                 foreach ($vcards as $key => $v) {
-                    $vcards[$key] = json_decode($v,true);
+                    $vcards[$key]['content'] = json_decode($v['content'],true);
                 }
             }
 
@@ -428,7 +427,11 @@ class ProductController extends AdminController {
             'info'       => $info,
             'data'       => $data,
             ]);
-        $this->display('public/echarts');
+        if ($info['tab'] == '' || $info['tab'] == 'curr') {
+            $this->display('public/echarts_line');
+        }else{
+            $this->display('public/echarts_column');
+        }
     }
 
     /**
