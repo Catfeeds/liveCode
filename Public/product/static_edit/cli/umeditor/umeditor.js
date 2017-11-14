@@ -11237,7 +11237,12 @@ UM.registerUI('contact',
 				html +='<div class="weui-address '+ $(this).find('select option:selected').val() +'"><span></span></div>';
 				html +='<div class="weui-address_info">';
 				html +='<h4>'+ input1 +'</h4>';
-				html +='<p>'+ input2 +'</p>';
+				
+				if($(this).find('select option:selected').val()=='mobile' || $(this).find('select option:selected').val()=='tel'){
+					html +='<a href="tel:'+ input2 +'" target="_self" _href="tel:'+ input2 +'">'+ input2 +'</a>';
+				}else{
+					html +='<p>'+ input2 +'</p>';
+				}
 				html +='</div>';
 				html +='<div class="cl"></div>';
 				html +='</div>';
@@ -11283,7 +11288,7 @@ UM.registerUI('wechat',
 			        return false;
 			    }
 			}
-            var wetit = $("#modal-wechat-input").val();
+            var wetit = $("#modal-wechat-input").val() || "微信好友";
             var ewm=$("#modal-ewm-input").val();
             if(!ewm) return;
             var wechatcode=$("#wechat-code").val();
@@ -11538,11 +11543,11 @@ UM.registerUI('ship',
 			        return alert('上传失败');
 			      }else{
 			      	//上传成功
-			      	imagehtml = '<video style="width:100%; max-height:480px;" controls>';
+			      	imagehtml = '<p><br/></p><div><video style="width:100%; max-height:480px;" controls>';
 					imagehtml +='<source src="/Uploads/product/file/'+ res.data +'" type="video/mp4">';
 					imagehtml +='<source src="/Uploads/product/file/'+ res.data +'" type="video/ogg">';
 					imagehtml +='您的浏览器不支持Video标签。';
-					imagehtml +='</video>';
+					imagehtml +='</video><div>';
 			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
 			      }
 			    }
@@ -11596,7 +11601,7 @@ UM.registerUI('audio',
 			        return alert('上传失败');
 			      }else{
 			      	//上传成功
-			      	imagehtml = '<audio src="/Uploads/product/file/'+ res.data +'" controls="controls" style="width: 100%;">您的浏览器不支持 audio 标签。</audio>';
+			      	imagehtml = '<p><br/></p><div><audio src="/Uploads/product/file/'+ res.data +'" controls="controls" style="width: 100%;">您的浏览器不支持 audio 标签。</audio></div>';
 			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
 			      }
 			    }
