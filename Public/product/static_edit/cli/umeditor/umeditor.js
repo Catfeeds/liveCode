@@ -11163,6 +11163,8 @@ UM.registerUI('tellink',
 			var face=$('.vcard-list li label input:checked').attr('face') || '/Public/images/default_face.png';
 			var pposition=$('.vcard-list li label input:checked').attr('position');
 			var usern=$('.vcard-list li label input:checked').attr('usern');
+            var link=$('.vcard-list li label input:checked').attr('link');
+
 			if(!pposition) {
 				alert('请选择名片，无名片请新建名片');
 				return;
@@ -11172,7 +11174,7 @@ UM.registerUI('tellink',
             $(".empty_placeholder").remove();
             $(".navbar-inverse").css('z-index',"1");
             //me.execCommand("inserthtml","<a href='tel:"+href+"' _href='tel:"+href+"' target='_self'>"+href+"</a>","needFilter");
-            me.execCommand("inserthtml",'<div class="card_module" ><h2 class="card_module_tit">'+href+'</h2><div class="card_module_con"><div class="card_module_vcard"><a href="" target="_blank"><div class="card_module_face"><img src="'+ face +'"/></div><div class="card_module_info1"><div class="vcard_info_name">'+usern+'</div><div class="vcard_info_position">'+pposition+'</div><div class="vcard_info_tel">'+tel+'</div></div><div class="cl"></div></a></div></div></div>',"needFilter");
+            me.execCommand("inserthtml",'<div class="card_module" ><h2 class="card_module_tit">'+href+'</h2><div class="card_module_con"><div class="card_module_vcard"><a href="'+ link +'"><div class="card_module_face"><img src="'+ face +'"/></div><div class="card_module_info1"><div class="vcard_info_name">'+usern+'</div><div class="vcard_info_position">'+pposition+'</div><div class="vcard_info_tel">'+tel+'</div></div><div class="cl"></div></a></div></div></div>',"needFilter");
         });
         //点击退出
 		$(".navbar-right").on('click','.dropdown',function(){

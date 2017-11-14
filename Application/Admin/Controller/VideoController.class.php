@@ -544,7 +544,11 @@ class VideoController extends AdminController {
             'info'       => $info,
             'data'       => $data,
             ]);
-        $this->display('public/echarts');
+        if ($info['tab'] == '' || $info['tab'] == 'curr') {
+            $this->display('public/echarts_line');
+        }else{
+            $this->display('public/echarts_column');
+        }
     }
 
 }
