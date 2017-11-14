@@ -11278,10 +11278,11 @@ UM.registerUI('wechat',
             var wetit = $("#modal-wechat-input").val() || "微信好友" ;
             var ewm=$("#modal-ewm-input").val();
             if(!ewm) return;
+            var wechatcode=$("#wechat-code").val();
             $(".maskmodal").hide();
 			$("#modal-wechat").fadeOut();
             $(".navbar-inverse").css('z-index',"1");
-            me.execCommand("inserthtml",'<div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div>',"needFilter");
+            me.execCommand("inserthtml",'<div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div><input type="hidden" class="wechat-code" value="'+wechatcode+'" />',"needFilter");
         });
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){

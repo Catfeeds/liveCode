@@ -492,7 +492,9 @@ class ProductController extends AdminController {
                 if (!$qrcode) {
                     $this->error('二维码识别失败，请上传有效的二维码！');
                 }
-                echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$text]);
+                $fileName = md5($text.time());
+                qrcode($text,$fileName,6);
+                echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$text,'fileUrl'=>'/Uploads/product/'.$fileName.'.png']);
             }
         }
       

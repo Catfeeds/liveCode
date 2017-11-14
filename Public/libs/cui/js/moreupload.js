@@ -218,6 +218,7 @@ $(function(){
 	      	//上传成功
 	        $('#modal-ewm-input').val(res.data);
 	        $('#uploadWechat').val(res.data);
+	        $('#wechat-code').val(res.fileUrl);
 	      }
 	      
 	    }
