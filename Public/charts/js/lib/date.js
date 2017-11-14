@@ -1,6 +1,6 @@
 $(function(){
 	$(".nav li:eq(1)").addClass("active");
-	lineData["title"]["text"] = $('.time-nav .active').text()+'访问统计';
+	lineData["title"]["text"] =data.tabalName;
 	lineData["series"] = data.series;
 	lineData["xAxis"] = data.xAxis;
 	lineData["series"][1]['visible'] = false;

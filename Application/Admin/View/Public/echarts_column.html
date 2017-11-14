@@ -1,0 +1,191 @@
+<extend name="$_admin_public_layout" />
+<block name="style">
+  <link rel="stylesheet" href="__PUBLIC__/charts/css/glob.css" />
+</block>
+<block name="main">
+<input type="hidden" id="id" value="{$info['id']}">
+<input type="hidden" id="code" value="{$info['code']}">
+<input type="hidden" id="curr" value="{$info['tab']}">
+<input type="hidden" id="time" value="{$info['time']}">
+
+    <div class="sidebar_chart">
+       <ul class="nav nav-pills nav-stacked">
+        <li <eq name="info.tab" value="curr">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>'curr'])}">实时统计数据</a></li>
+        <li <eq name="info.tab" value="">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code']])}">按日期统计</a></li>
+        <li <eq name="info.tab" value="area">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>'area'])}">地域分布</a></li>
+        <li <eq name="info.tab" value="net">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>'net'])}">网络线路</a></li>
+        <li <eq name="info.tab" value="sys">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>'sys'])}">系统环境</a></li>
+        <li <eq name="info.tab" value="cli">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>'cli'])}">客户端类型</a></li>
+       </ul>
+    </div>
+    <div class="main_chart">
+        <a href="" class="down_excel btn btn-success" target="_blank" style="top:125px;">数据导出Excel</a>
+        <ul class="nav nav-pills time-nav" field="date">
+            <li <?php if($info['time'] == '' && empty($info['etime'])){echo 'class="active"';} ?>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab']])}" class="today">今日</a></li>
+            <li <eq name="info.time" value="yes">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'time'=>'yes'])}" class="1day">昨日</a></li>
+            <li <eq name="info.time" value="week">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'time'=>'week'])}" class="7day">最近7天</a></li>
+            <li <eq name="info.time" value="month">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'time'=>'month'])}" class="30day">最近30天</a></li>
+            <li class="select_data">
+                <form action="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab']])}" method="get">
+                  <label class="ml10">选择日期：</label>
+                  <input class="Wdate form-control " type="text" onclick="WdatePicker()" id="stime" name="stime" value="{$info['stime']}" placeholder="起始日期" /> - 
+                  <input class="Wdate form-control" type="text" onclick="WdatePicker()" id="etime" name="etime" value="{$info['etime']}" placeholder="结束日期" />
+                  <button type="button" class="btn btn-success ml10 search-btn">根据日期查询</button>
+                </form>
+            </li>
+        </ul>
+        <a href="javascript:;" class="down_excel btn btn-success" style="top:130px;">数据导出Excel</a>
+        <div id="container" class="line" style="min-width: 310px; height: 400px; margin: 0 auto">
+            暂无统计数据
+        </div>
+        <div class="cl"></div>
+    <?php if($info['tab'] == 'cli'): ?>
+        <h2 class="sub-header">客户端类型</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                       <th>客户端类型</th>
+                       <th>页面访问次数</th>
+                       <th>访客量</th>
+                       <th>访问次数占比</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <volist name="data" id="vo">
+                    <tr>
+                       <td class="name"><span style="min-width: 60px;display: inline-block;">{$vo.browser}</span></td>
+                       <td class="pv">{$vo.visitCount}</td>
+                       <td class="uv">{$vo.visitorCount}</td>
+                       <td>{$vo.percentage}</td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+        </div>
+    <?php elseif($info['tab'] == 'sys'): ?>
+        <h2 class="sub-header">系统环境</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                       <th>系统</th>
+                       <th>页面访问次数</th>
+                       <th>访客量</th>
+                       <th>访问次数占比</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <volist name="data" id="vo">
+                    <tr>
+                       <td class="name"><span style="min-width: 60px;display: inline-block;">{$vo.os}</span></td>
+                       <td class="pv">{$vo.visitCount}</td>
+                       <td class="uv">{$vo.visitorCount}</td>
+                       <td>{$vo.percentage}</td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+        </div>
+    <?php elseif($info['tab'] == 'net'): ?>
+        <h2 class="sub-header">网络线路</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                       <th>网络线路</th>
+                       <th>页面访问次数</th>
+                       <th>访客量</th>
+                       <th>访问次数占比</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <volist name="data" id="vo">
+                    <tr>
+                       <td class="name"><span style="min-width: 60px;display: inline-block;">{$vo.isp}</span></td>
+                       <td class="pv">{$vo.visitCount}</td>
+                       <td class="uv">{$vo.visitorCount}</td>
+                       <td>{$vo.percentage}</td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+        </div>
+    <?php else: ?>
+        <h2 class="sub-header">地域访问量</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+             <thead>
+              <tr>
+               <th>来源地域</th>
+               <th>页面访问次数</th>
+               <th>访客量</th>
+               <th>访问次数占比</th>
+              </tr>
+             </thead>
+             <tbody>
+
+              <tr>
+               <td class="name"><span style="min-width: 60px;display: inline-block;">安徽</span><a href="/index/area/mark/3/id/60/stime/2017-11-07/etime/2017-11-07"><span class="area_infoLink">查看详情</span></a></td>
+               <td class="pv">2</td>
+               <td class="uv">2</td>
+               <td>100%</td>
+              </tr>
+
+             </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
+
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__PUBLIC__/charts/js/columnData.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/lib/area.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/jquery.cxselect.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/My97DatePicker/WdatePicker.js"></script>
+    <script>
+    $(function(){
+        var data = {};
+        var params   = {};
+        params.id    = $('#id').val();
+        params.code  = $('#code').val();
+        params.tab  = $('#curr').val();
+        params.time  = $('#time').val();
+        params.stime = $('#stime').val();
+        params.etime = $('#etime').val();
+        $.ajax({
+            url: 'admin.php?s=/admin/echarts/getEchartsData',
+            type: 'POST',
+            data: params,
+            dataType: "json",
+            async: false,
+            success: function (res) {  
+                if(res.status == 1){
+                    data = res.data;
+                }else{
+                    $.alertMessager(res.info);return;
+                }
+            }
+        });
+
+        columnData["title"]["text"] = $('.breadcrumb .active').text()+$('.time-nav .active').text()+'地域访问统计';
+        columnData["series"] = data.series;
+        columnData["xAxis"] = data.xAxis;
+        columnData["series"][0]['selected'] = true;
+        columnData["series"][1]['visible'] = false;
+        $('#container').highcharts(columnData);
+
+        //导出
+        $(".down_excel").click(function(){
+            location.href='admin.php?s=/admin/echarts/outEchartsData/id/'+params.id+'/code/'+params.code+'/tab/'+params.tab+'/time/'+params.time+'/stime/'+params.stime+'/etime/'+params.etime;
+        });
+        });
+    </script>
+    <script type="text/javascript" src="__PUBLIC__/charts/bootstrap/js/bootstrap.js"></script>
+    <script src="__PUBLIC__/charts/js/md5.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/highcharts.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/exporting.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/charts/js/glob.js"></script>
+</block>
+
