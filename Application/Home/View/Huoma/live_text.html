@@ -107,6 +107,12 @@
 			    }
 			}
 			$(function(){
+				if(isWeixin()){
+		    		//是微信打开显示提示信息
+		        }else{
+		            //是非微信打开
+		            $(".weui-cell").html('请在微信上查看');
+		        }
 				$(".weui-btn input").click(function(){
 					if(isWeixin()){
 			    		//是微信打开显示提示信息
@@ -117,6 +123,7 @@
 			            $(".attention").hide();
 			        }
 				})
+				
 				$('.attention').on('click','span',function(){
 					$(this).parent('.attention').hide();
 				})
