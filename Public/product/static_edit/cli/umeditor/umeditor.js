@@ -11275,7 +11275,27 @@ UM.registerUI('wechat',
             }
         });
         $("#modal-wechat-confirm").click(function(){
-            var wetit = $("#modal-wechat-input").val() || "微信好友" ;
+        	function isWeixin(){
+			    var WxObj=window.navigator.userAgent.toLowerCase();
+			    if(WxObj.match(/microMessenger/i)=='micromessenger'){
+			        return true;
+			    }else{
+			        return false;
+			    }
+			}
+        	var wetit='';
+			window.onload=function(){
+				if(isWeixin()){
+		    		//是微信打开显示提示信息
+		    		wetit = $("#modal-wechat-input").val();
+		        }else{
+		            //是非微信打开直接跳转下载地址
+		            wetit = $("#modal-wechat-input").val('请在微信上查看');
+		        }
+			}
+        	
+        	
+            //var wetit = $("#modal-wechat-input").val();
             var ewm=$("#modal-ewm-input").val();
             if(!ewm) return;
             $(".maskmodal").hide();
