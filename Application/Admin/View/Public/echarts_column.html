@@ -148,42 +148,51 @@
     <script type="text/javascript" src="__PUBLIC__/charts/js/jquery.cxselect.min.js"></script>
     <script type="text/javascript" src="__PUBLIC__/charts/js/My97DatePicker/WdatePicker.js"></script>
     <script>
-    $(function(){
-        var data = {};
-        var params   = {};
-        params.id    = $('#id').val();
-        params.code  = $('#code').val();
-        params.tab  = $('#curr').val();
-        params.time  = $('#time').val();
-        params.stime = $('#stime').val();
-        params.etime = $('#etime').val();
-        $.ajax({
-            url: 'admin.php?s=/admin/echarts/getEchartsData',
-            type: 'POST',
-            data: params,
-            dataType: "json",
-            async: false,
-            success: function (res) {  
-                if(res.status == 1){
-                    data = res.data;
-                }else{
-                    $.alertMessager(res.info);return;
-                }
-            }
-        });
-
-        columnData["title"]["text"] = $('.breadcrumb .active').text()+$('.time-nav .active').text()+'地域访问统计';
-        columnData["series"] = data.series;
-        columnData["xAxis"] = data.xAxis;
-        columnData["series"][0]['selected'] = true;
-        columnData["series"][1]['visible'] = false;
-        $('#container').highcharts(columnData);
-
-        //导出
-        $(".down_excel").click(function(){
-            location.href='admin.php?s=/admin/echarts/outEchartsData/id/'+params.id+'/code/'+params.code+'/tab/'+params.tab+'/time/'+params.time+'/stime/'+params.stime+'/etime/'+params.etime;
-        });
-        });
+	    $(function(){
+	        var data = {};
+	        var params   = {};
+	        params.id    = $('#id').val();
+	        params.code  = $('#code').val();
+	        params.tab  = $('#curr').val();
+	        params.time  = $('#time').val();
+	        params.stime = $('#stime').val();
+	        params.etime = $('#etime').val();
+	        $.ajax({
+	            url: 'admin.php?s=/admin/echarts/getEchartsData',
+	            type: 'POST',
+	            data: params,
+	            dataType: "json",
+	            async: false,
+	            success: function (res) {  
+	                if(res.status == 1){
+	                    data = res.data;
+	                }else{
+	                    $.alertMessager(res.info);return;
+	                }
+	            }
+	        });
+	
+	        columnData["title"]["text"] = $('.breadcrumb .active').text()+$('.time-nav .active').text()+'地域访问统计';
+	        columnData["series"] = data.series;
+	        columnData["xAxis"] = data.xAxis;
+	        columnData["series"][0]['selected'] = true;
+	        columnData["series"][1]['visible'] = false;
+	        $('#container').highcharts(columnData);
+	
+	        //导出
+	        $(".down_excel").click(function(){
+	            location.href='admin.php?s=/admin/echarts/outEchartsData/id/'+params.id+'/code/'+params.code+'/tab/'+params.tab+'/time/'+params.time+'/stime/'+params.stime+'/etime/'+params.etime;
+	        });
+	        
+	        $(".navbar-right .dropdown").removeClass('active');
+	        $(".navbar-right").on('click','.dropdown',function(){
+						if($(this).find(".dropdown-menu").hasClass("againShow")){
+							$(this).find(".dropdown-menu").removeClass('againShow');
+						}else{
+							$(this).find(".dropdown-menu").addClass('againShow');
+						}
+					})
+	     });
     </script>
     <script type="text/javascript" src="__PUBLIC__/charts/bootstrap/js/bootstrap.js"></script>
     <script src="__PUBLIC__/charts/js/md5.js"></script>
