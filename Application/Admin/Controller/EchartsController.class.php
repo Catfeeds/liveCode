@@ -26,6 +26,30 @@ class EchartsController extends AdminController {
             foreach( $data as $v){
                 $str .= $v['region'].",".$v['ip'].",".$v['isp'].",".$v['os'].",".$v['browser'].",".$v['createTime'].",".$v['visitorCount']."\n";
             }
+        }elseif ($info['tab'] == 'cli') {
+            $str = "客户端,访问量,访客数\n";
+            foreach( $data as $v){
+                $str .= $v['browser'].",".$v['visitCount'].",".$v['visitorCount']."\n";
+            }
+        }elseif ($info['tab'] == 'sys') {
+            $str = "系统,访问量,访客数\n";
+            foreach( $data as $v){
+                $str .= $v['os'].",".$v['visitCount'].",".$v['visitorCount']."\n";
+            }
+        }elseif ($info['tab'] == 'net') {
+            $str = "线路,访问量,访客数\n";
+            foreach( $data as $v){
+                $str .= $v['isp'].",".$v['visitCount'].",".$v['visitorCount']."\n";
+            }
+        }elseif ($info['tab'] == 'area') {
+            $str = "来源地域,访问量,访客数\n";
+            foreach( $data as $v){
+                if ($info['region']) {
+                    $str .= $v['city'].",".$v['visitCount'].",".$v['visitorCount']."\n";
+                }else{
+                    $str .= $v['region'].",".$v['visitCount'].",".$v['visitorCount']."\n";
+                }
+            }
         }else{
             $str = "时间,访问量,访客数\n";
             foreach( $data as $v){
@@ -69,6 +93,16 @@ class EchartsController extends AdminController {
                     $field = 'isp,count(id) AS visitCount,count(distinct ip) AS visitorCount';
                     $group = 'isp';
                     $order = 'createTime desc';
+                }elseif ($info['tab'] == 'area') {
+                    //地域分布
+                    if ($info['region']) {
+                        $where = 'DATEDIFF(createTime,NOW())=-1 and region_id ='.$info['region'];
+                        $group = 'city';
+                    }else{
+                        $group = 'region';
+                    }
+                    $field = 'region,city,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $order = 'createTime desc';
                 }else{
                     $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
                     $group = 'hour';
@@ -90,6 +124,16 @@ class EchartsController extends AdminController {
                     //网络线路
                     $field = 'isp,count(id) AS visitCount,count(distinct ip) AS visitorCount';
                     $group = 'isp';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'area') {
+                    //地域分布
+                    if ($info['region']) {
+                        $where = 'DATEDIFF(createTime,NOW())<7 and region_id ='.$info['region'];
+                        $group = 'city';
+                    }else{
+                        $group = 'region';
+                    }
+                    $field = 'region,city,count(id) AS visitCount,count(distinct ip) AS visitorCount';
                     $order = 'createTime desc';
                 }else{
                     $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
@@ -113,6 +157,16 @@ class EchartsController extends AdminController {
                     $field = 'isp,count(id) AS visitCount,count(distinct ip) AS visitorCount';
                     $group = 'isp';
                     $order = 'createTime desc';
+                }elseif ($info['tab'] == 'area') {
+                    //地域分布
+                    if ($info['region']) {
+                        $where = 'DATEDIFF(createTime,NOW())<30 and region_id ='.$info['region'];
+                        $group = 'city';
+                    }else{
+                        $group = 'region';
+                    }
+                    $field = 'region,city,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $order = 'createTime desc';
                 }else{
                     $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
                     $group = 'date';
@@ -134,6 +188,16 @@ class EchartsController extends AdminController {
                     //网络线路
                     $field = 'isp,count(id) AS visitCount,count(distinct ip) AS visitorCount';
                     $group = 'isp';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'area') {
+                    //地域分布
+                    if ($info['region']) {
+                        $where = 'DATEDIFF(createTime,NOW())=0 and region_id ='.$info['region'];
+                        $group = 'city';
+                    }else{
+                        $group = 'region';
+                    }
+                    $field = 'region,city,count(id) AS visitCount,count(distinct ip) AS visitorCount';
                     $order = 'createTime desc';
                 }else{
                     $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
@@ -159,6 +223,16 @@ class EchartsController extends AdminController {
                     //网络线路
                     $field = 'isp,count(id) AS visitCount,count(distinct ip) AS visitorCount';
                     $group = 'isp';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'area') {
+                    //地域分布
+                    if ($info['region']) {
+                        $where['region_id'] = $info['region'];
+                        $group = 'city';
+                    }else{
+                        $group = 'region';
+                    }
+                    $field = 'region,city,count(id) AS visitCount,count(distinct ip) AS visitorCount';
                     $order = 'createTime desc';
                 }else{
                     $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
@@ -197,6 +271,12 @@ class EchartsController extends AdminController {
                     $data[$key]['datetime'] = $v['os'];
                 }elseif ($info['tab'] == 'net') {
                     $data[$key]['datetime'] = $v['isp'];
+                }elseif ($info['tab'] == 'area') {
+                    if ($info['region']) {
+                        $data[$key]['datetime'] = $v['city'];
+                    }else{
+                        $data[$key]['datetime'] = $v['region'];
+                    }
                 }else{
                     //按日期统计
                     if ($info['time'] == 'yes') {
@@ -253,7 +333,6 @@ class EchartsController extends AdminController {
                 $categories[] = $v['datetime'];
             }
         }
-// halt($data);
 
         $tabalName = getTableName($info['tab']);
         $data = [
@@ -261,8 +340,9 @@ class EchartsController extends AdminController {
                 ['name'=>"总访问量:".$info['total_count'],'data'=>$visitCount],
                 ['name'=>"总访客数:".$visitorCount,'data'=>$visitor],
             ],
-            'xAxis'=>['categories'=>$categories],
-            'tabalName'=>$tabalName,
+            'xAxis'       => ['categories'=>$categories],
+            'tabalName'   => $tabalName,
+            'total_count' => $info['total_count'],
         ];
 
 
