@@ -309,4 +309,8 @@ a{text-decoration: none;}
     margin-top:3px;
     display: inline-block;
 }
-		
+.weui-panel:after {
+    content: "";
+    display: block;
+    clear: both;
+}		

@@ -6,6 +6,7 @@
 		.till{width: 30px;float: left;}
 		.btn-blue{margin-top: -3px;padding: 3px 10px;}
 		.breadcrumb{position: fixed;width: 100%;z-index: 99;}
+		.againShow{display: block;}
 	</style>
 	<link href="__PUBLIC__/libs/ligerui/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="__PUBLIC__/charts/css/glob.css" />
@@ -150,15 +151,12 @@
 	    	location.href='admin.php?s=/admin/echarts/outEchartsData/id/'+params.id+'/code/'+params.code+'/tab/'+params.tab+'/time/'+params.time+'/stime/'+params.stime+'/etime/'+params.etime;
 	    });
 
-		$(function(){
-			$(".navbar-right").on('click','.dropdown',function(){
-				if($(this).find(".dropdown-menu").hasClass("againShow")){
-					$(this).find(".dropdown-menu").removeClass('againShow');
-				}else{
-					$(this).find(".dropdown-menu").addClass('againShow');
-				}
-			})
-			
+		$(".navbar-right").on('click','.dropdown',function(){
+			if($(this).find(".dropdown-menu").hasClass("againShow")){
+				$(this).find(".dropdown-menu").removeClass('againShow');
+			}else{
+				$(this).find(".dropdown-menu").addClass('againShow');
+			}
 		})
 	</script>
 </block>
