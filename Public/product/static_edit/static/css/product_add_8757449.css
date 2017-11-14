@@ -16,7 +16,7 @@
 	margin-top: 60px!important;
 }
 .layui-upload-img {
-    max-height: 205px;
+    max-width: 100%;
 }
 .upload-img{
 	text-align: center;
