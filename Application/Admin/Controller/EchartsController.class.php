@@ -52,36 +52,119 @@ class EchartsController extends AdminController {
             $group = 'ip';
             $order = 'createTime';
         }else{
-            //按日期统计
             if ($info['time'] == 'yes') {   //昨天
-                // $yes = date("Y-m-d",strtotime("-1 day"));   //2017-11-08
                 $where = 'DATEDIFF(createTime,NOW())=-1';
-                $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
-                $group = 'hour';
-                $order = '';
+                if ($info['tab'] == 'cli') {    
+                    //客户端类型
+                    $field = 'browser,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'browser';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'sys') {
+                    //系统环境
+                    $field = 'os,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'os';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'net') {
+                    //网络线路
+                    $field = 'isp,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'isp';
+                    $order = 'createTime desc';
+                }else{
+                    $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'hour';
+                    $order = '';
+                }
             }elseif ($info['time'] == 'week') { //最近一周
                 $where = 'DATEDIFF(createTime,NOW())<7';
-                $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
-                $group = 'date';
-                $order = 'date desc';
+                if ($info['tab'] == 'cli') {    
+                    //客户端类型
+                    $field = 'browser,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'browser';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'sys') {
+                    //系统环境
+                    $field = 'os,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'os';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'net') {
+                    //网络线路
+                    $field = 'isp,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'isp';
+                    $order = 'createTime desc';
+                }else{
+                    $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'date';
+                    $order = 'date desc';
+                }
             }elseif ($info['time'] == 'month') { //最近30天
                 $where = 'DATEDIFF(createTime,NOW())<30';
-                $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
-                $group = 'date';
-                $order = 'date desc';
+                if ($info['tab'] == 'cli') {    
+                    //客户端类型
+                    $field = 'browser,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'browser';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'sys') {
+                    //系统环境
+                    $field = 'os,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'os';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'net') {
+                    //网络线路
+                    $field = 'isp,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'isp';
+                    $order = 'createTime desc';
+                }else{
+                    $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'date';
+                    $order = 'date desc';
+                }
             }else{  //今天
                 $where = 'DATEDIFF(createTime,NOW())=0';
-                $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
-                $group = 'hour';
-                $order = '';
+                if ($info['tab'] == 'cli') {    
+                    //客户端类型
+                    $field = 'browser,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'browser';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'sys') {
+                    //系统环境
+                    $field = 'os,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'os';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'net') {
+                    //网络线路
+                    $field = 'isp,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'isp';
+                    $order = 'createTime desc';
+                }else{
+                    $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'hour';
+                    $order = '';
+                }
             }
             $start = date('Y-m-d 00:00:00',strtotime($info['stime']));
             $end   = date('Y-m-d 23:59:59',strtotime($info['etime']));
             if (!empty($info['etime'])) {
                 $where = ['createTime'=>['between',[$start,$end]]];
-                $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
-                $group = 'date';
-                $order = 'date desc';
+                if ($info['tab'] == 'cli') {
+                    //客户端类型
+                    $field = 'browser,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'browser';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'sys') {
+                    //系统环境
+                    $field = 'os,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'os';
+                    $order = 'createTime desc';
+                }elseif ($info['tab'] == 'net') {
+                    //网络线路
+                    $field = 'isp,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'isp';
+                    $order = 'createTime desc';
+                }else{
+                    $field = 'DATE_FORMAT(createTime, "%Y-%m-%d") AS date,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'date';
+                    $order = 'date desc';
+                }
             }
         }
 
@@ -108,7 +191,14 @@ class EchartsController extends AdminController {
                             }
                         }
                     }
+                }elseif ($info['tab'] == 'cli') {
+                    $data[$key]['datetime'] = $v['browser'];
+                }elseif ($info['tab'] == 'sys') {
+                    $data[$key]['datetime'] = $v['os'];
+                }elseif ($info['tab'] == 'net') {
+                    $data[$key]['datetime'] = $v['isp'];
                 }else{
+                    //按日期统计
                     if ($info['time'] == 'yes') {
                         for($i=23;$i>=0;$i--){
                             $data[$i]['datetime'] = date($i).':00';
@@ -149,17 +239,18 @@ class EchartsController extends AdminController {
                 
             }
             ksort($data);
-            if ($info['time'] == 'week' || $info['time'] == 'month' || !empty($info['etime'])) {
-                $data = array_reverse($data);
+            if ($info['tab'] == '') {
+                if ($info['time'] == 'week' || $info['time'] == 'month' || !empty($info['etime'])) {
+                    $data = array_reverse($data);
+                }
             }
-            $visitCount = $visitor = $datetime = [];
+            $visitCount = $visitor = $categories = [];
             $visitorCount = 0;
             foreach ($data as $key => $v) {
                 $visitCount[] = (int)$v['visitCount'];
                 $visitor[] = (int)$v['visitorCount'];
                 $visitorCount += (int)$v['visitorCount'];
-                $datetime[] = $v['datetime'];
-
+                $categories[] = $v['datetime'];
             }
         }
 // halt($data);
@@ -170,7 +261,7 @@ class EchartsController extends AdminController {
                 ['name'=>"总访问量:".$info['total_count'],'data'=>$visitCount],
                 ['name'=>"总访客数:".$visitorCount,'data'=>$visitor],
             ],
-            'xAxis'=>['categories'=>$datetime],
+            'xAxis'=>['categories'=>$categories],
             'tabalName'=>$tabalName,
         ];
 
