@@ -137,7 +137,9 @@
         	async: false,
             success: function (res) {  
                 if(res.status == 1){
-					data = res.data;
+                	if (res.data.total_count != 0) {
+						data = res.data;
+                	}
                 }else{
                     $.alertMessager(res.info);return;
                 }

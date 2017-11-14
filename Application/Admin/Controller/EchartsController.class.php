@@ -250,7 +250,6 @@ class EchartsController extends AdminController {
                 ->order($order)
                 ->select();
         $info['total_count'] = $echarsMod->where(['codeId'=>$info['id'],'type'=>$info['code']])->where($where)->count();
-// halt($data);
 
         if ($data) {
             foreach ($data as $key => $v) {
@@ -334,7 +333,6 @@ class EchartsController extends AdminController {
                 $categories[] = $v['datetime'];
             }
         }
-// halt($data);
 
         $tabalName = getTableName($info['tab']);
         $data = [
@@ -342,8 +340,9 @@ class EchartsController extends AdminController {
                 ['name'=>"总访问量:".$info['total_count'],'data'=>$visitCount],
                 ['name'=>"总访客数:".$visitorCount,'data'=>$visitor],
             ],
-            'xAxis'=>['categories'=>$categories],
-            'tabalName'=>$tabalName,
+            'xAxis'       => ['categories'=>$categories],
+            'tabalName'   => $tabalName,
+            'total_count' => $info['total_count'],
         ];
 
 
