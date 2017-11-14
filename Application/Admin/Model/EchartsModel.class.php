@@ -33,7 +33,6 @@ class EchartsModel extends Model {
             $group = 'ip';
             $order = 'createTime';
         }else{
-            //按日期统计
             if ($info['time'] == 'yes') {   //昨天
                 // $yes = date("Y-m-d",strtotime("-1 day"));   //2017-11-08
                 $where = 'DATEDIFF(createTime,NOW())=-1';
@@ -51,10 +50,17 @@ class EchartsModel extends Model {
                 $group = 'date';
                 $order = 'date desc';
             }else{  //今天
-                $where = 'DATEDIFF(createTime,NOW())=0';
-                $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
-                $group = 'hour';
-                $order = '';
+                if ($info['tab'] == 'cli') {
+                    $where = 'DATEDIFF(createTime,NOW())=0';
+                    $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'hour';
+                    $order = '';
+                }else{
+                    $where = 'DATEDIFF(createTime,NOW())=0';
+                    $field = 'DATE_FORMAT(createTime, "%H") AS hour,count(id) AS visitCount,count(distinct ip) AS visitorCount';
+                    $group = 'hour';
+                    $order = '';
+                }
             }
         }
         

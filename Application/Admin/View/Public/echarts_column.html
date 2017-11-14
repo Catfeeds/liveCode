@@ -21,10 +21,10 @@
     <div class="main_chart">
         <a href="" class="down_excel btn btn-success" target="_blank" style="top:125px;">数据导出Excel</a>
         <ul class="nav nav-pills time-nav" field="date">
-            <li <?php if($info['time'] == '' && empty($info['etime'])){echo 'class="active"';} ?>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code']])}" class="today">今日</a></li>
-            <li <eq name="info.time" value="yes">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'time'=>'yes'])}" class="1day">昨日</a></li>
-            <li <eq name="info.time" value="week">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'time'=>'week'])}" class="7day">最近7天</a></li>
-            <li <eq name="info.time" value="month">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'time'=>'month'])}" class="30day">最近30天</a></li>
+            <li <?php if($info['time'] == '' && empty($info['etime'])){echo 'class="active"';} ?>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab']])}" class="today">今日</a></li>
+            <li <eq name="info.time" value="yes">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'time'=>'yes'])}" class="1day">昨日</a></li>
+            <li <eq name="info.time" value="week">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'time'=>'week'])}" class="7day">最近7天</a></li>
+            <li <eq name="info.time" value="month">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'time'=>'month'])}" class="30day">最近30天</a></li>
             <li class="select_data">
                 <form action="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code']])}" method="get">
                   <label class="ml10">选择日期：</label>
@@ -39,6 +39,31 @@
             暂无统计数据
         </div>
         <div class="cl"></div>
+    <?php if($info['tab'] == 'cli'): ?>
+        <h2 class="sub-header">客户端类型</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+             <thead>
+              <tr>
+               <th>客户端类型</th>
+               <th>页面访问次数</th>
+               <th>访客量</th>
+               <th>访问次数占比</th>
+              </tr>
+             </thead>
+             <tbody>
+
+              <tr>
+               <td class="name"><span style="min-width: 60px;display: inline-block;">安徽</span></td>
+               <td class="pv">2</td>
+               <td class="uv">2</td>
+               <td>100%</td>
+              </tr>
+
+             </tbody>
+            </table>
+        </div>
+    <?php else: ?>
         <h2 class="sub-header">地域访问量</h2>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
@@ -51,21 +76,19 @@
               </tr>
              </thead>
              <tbody>
+
               <tr>
                <td class="name"><span style="min-width: 60px;display: inline-block;">安徽</span><a href="/index/area/mark/3/id/60/stime/2017-11-07/etime/2017-11-07"><span class="area_infoLink">查看详情</span></a></td>
                <td class="pv">2</td>
                <td class="uv">2</td>
                <td>100%</td>
               </tr>
-              <tr>
-               <td class="name"><span style="min-width: 60px;display: inline-block;">江苏</span><a href="/index/area/mark/3/id/60/stime/2017-11-07/etime/2017-11-07"><span class="area_infoLink">查看详情</span></a></td>
-               <td class="pv">2</td>
-               <td class="uv">2</td>
-               <td>100%</td>
-              </tr>
+
              </tbody>
             </table>
         </div>
+    <?php endif; ?>
+
     </div>
 </block>
 <block name="script">
@@ -75,7 +98,13 @@
     <script type="text/javascript" src="__PUBLIC__/charts/js/My97DatePicker/WdatePicker.js"></script>
     <script>
     $(function(){
-        var data = jsonGoInt({"series":[{"name":"访问量","data":["2",'22']},{"name":"访客数","data":["2",'33']}],"xAxis":{"categories":["安徽","江苏"]}});
+        var data = jsonGoInt({
+            "series":[
+                {"name":"访问量","data":["2",'22']},
+                {"name":"访客数","data":["2",'33']}
+            ],
+            "xAxis":{"categories":["安徽","江苏"]}
+        });
         columnData["title"]["text"] = $('.breadcrumb .active').text()+$('.time-nav .active').text()+'地域访问统计';
         columnData["series"] = data.series;
         columnData["xAxis"] = data.xAxis;

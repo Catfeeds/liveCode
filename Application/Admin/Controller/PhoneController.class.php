@@ -527,10 +527,10 @@ class PhoneController extends AdminController {
             'info'       => $info,
             'data'       => $data,
             ]);
-        if ($info['tab'] == 'area') {
-            $this->display('public/echarts_column');
-        }else{
+        if ($info['tab'] == '' || $info['tab'] == 'curr') {
             $this->display('public/echarts_line');
+        }else{
+            $this->display('public/echarts_column');
         }
     }
 
