@@ -15,6 +15,7 @@
 <block name="main">
 <input type="hidden" id="id" value="{$info['id']}">
 <input type="hidden" id="code" value="{$info['code']}">
+<input type="hidden" id="curr" value="{$info['tab']}">
 <input type="hidden" id="time" value="{$info['time']}">
 
 	<div class="sidebar_chart">
@@ -51,13 +52,13 @@
 			    <tbody>
 			<volist name="data" id="vo">
 			    <tr>
-			       <td>{$vo.datetime}</td>
-			       <td>{$vo.visitCount}</td>
+			       <td>{$vo.region}</td>
+			       <td>{$vo.ip}</td>
+			       <td>{$vo.isp}</td>
+			       <td>{$vo.os}</td>
+			       <td>{$vo.browser}</td>
+			       <td>{$vo.createTime}</td>
 			       <td>{$vo.visitorCount}</td>
-			       <td>{$vo.percentage}</td>
-			       <td>{$vo.percentage}</td>
-			       <td>{$vo.percentage}</td>
-			       <td>{$vo.percentage}</td>
 			    </tr>
 			</volist>
 			    </tbody>
@@ -65,10 +66,10 @@
 	    </div>
   	<?php else: ?>
 		<ul class="nav nav-pills time-nav" field="date">
-		    <li <?php if($info['time'] == '' && empty($info['etime'])){echo 'class="active"';} ?>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code']])}" class="today">今日</a></li>
-		    <li <eq name="info.time" value="yes">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'time'=>'yes'])}" class="1day">昨日</a></li>
-		    <li <eq name="info.time" value="week">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'time'=>'week'])}" class="7day">最近7天</a></li>
-		    <li <eq name="info.time" value="month">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'time'=>'month'])}" class="30day">最近30天</a></li>
+		    <li <?php if($info['time'] == '' && empty($info['etime'])){echo 'class="active"';} ?>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab']])}" class="today">今日</a></li>
+		    <li <eq name="info.time" value="yes">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'time'=>'yes'])}" class="1day">昨日</a></li>
+		    <li <eq name="info.time" value="week">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'time'=>'week'])}" class="7day">最近7天</a></li>
+		    <li <eq name="info.time" value="month">class="active"</eq>><a href="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code'],'tab'=>$info['tab'],'time'=>'month'])}" class="30day">最近30天</a></li>
 		    <li class="select_data">
 			    <form action="{:U(Admin/Phone/view,['id'=>$info['id'],'code'=>$info['code']])}" method="get">
 			      <label class="ml10">选择日期：</label>
@@ -124,6 +125,7 @@
 		var params   = {};
 		params.id    = $('#id').val();
 		params.code  = $('#code').val();
+		params.tab  = $('#curr').val();
 		params.time  = $('#time').val();
 		params.stime = $('#stime').val();
 		params.etime = $('#etime').val();
@@ -143,7 +145,7 @@
     	});
     	//导出
 	    $(".down_excel").click(function(){
-	    	location.href='admin.php?s=/admin/echarts/outEchartsData/id/'+params.id+'/code/'+params.code+'/time/'+params.time+'/stime/'+params.stime+'/etime/'+params.etime;
+	    	location.href='admin.php?s=/admin/echarts/outEchartsData/id/'+params.id+'/code/'+params.code+'/tab/'+params.tab+'/time/'+params.time+'/stime/'+params.stime+'/etime/'+params.etime;
 	    });
 
 		$(function(){

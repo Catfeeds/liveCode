@@ -705,3 +705,28 @@ function getBrowser()  {
     }   
     return $browser;
 }  
+/**
+ * 返回数据统计图标名称
+ */
+function getTableName($curr){
+    switch ($curr) {
+        case 'curr':
+            return '一小时内实时访问统计';
+            break;
+        case 'area':
+            return '中国今日地域访问统计';
+            break;
+        case 'net':
+            return '今日网路线路访问统计';
+            break;
+        case 'sys':
+            return '今日系统环境访问统计';
+            break;
+        case 'cli':
+            return '今日客户端类型访问统计';
+            break;
+        default:
+            return '今日访问统计';
+            break;
+    }
+}
