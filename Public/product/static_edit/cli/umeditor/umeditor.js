@@ -11275,13 +11275,30 @@ UM.registerUI('wechat',
             }
         });
         $("#modal-wechat-confirm").click(function(){
-            var wetit = $("#modal-wechat-input").val() || "微信好友" ;
+        	function isWeixin(){
+			    var WxObj=window.navigator.userAgent.toLowerCase();
+			    if(WxObj.match(/microMessenger/i)=='micromessenger'){
+			        return true;
+			    }else{
+			        return false;
+			    }
+			}
+        	var wetit='';
+			if(isWeixin()){
+	    		//是微信打开显示提示信息
+	    		wetit = $("#modal-wechat-input").val();
+	        }else{
+	            //是非微信打开直接跳转下载地址
+	            wetit = $("#modal-wechat-input").val('请在微信上查看').val();
+	        }
+            //var wetit = $("#modal-wechat-input").val();
             var ewm=$("#modal-ewm-input").val();
             if(!ewm) return;
+            var wechatcode=$("#wechat-code").val();
             $(".maskmodal").hide();
 			$("#modal-wechat").fadeOut();
             $(".navbar-inverse").css('z-index',"1");
-            me.execCommand("inserthtml",'<div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div>',"needFilter");
+            me.execCommand("inserthtml",'<div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div><input type="hidden" class="wechatPic" value="'+wechatcode+'" />',"needFilter");
         });
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
