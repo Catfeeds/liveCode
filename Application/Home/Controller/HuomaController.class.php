@@ -296,7 +296,13 @@ class HuomaController extends HomeController{
             $this->error('获取文件失败！');
         }
         $this->success('/'.$dir.'/'.$id.'.png');
-
+    }
+     /**
+     * 地图跳转
+     */
+    public function baiduMap(){
+        $this->assign('params',I('get.'));
+        $this->display();
     }
 
 }
