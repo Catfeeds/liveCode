@@ -106,22 +106,15 @@
 				$('.attention').on('click','span',function(){
 					$(this).parent('.attention').hide();
 				})
-			})
-			
-			$(function(){
+				//地图跳转
 				$("#ditumapa").click(function(){
-					var lng=$(this).attr('lng');
-					var lat=$(this).attr('lat');
-					$.ajax({
-						type:"post",
-						url:"",
-						data: {lng:lng, lat:lat},
-						success:function(){
-							
-						}
-					});
+					var params = {};
+					params.lng = $(this).attr('lng');
+					params.lat = $(this).attr('lat');
+	                window.location.href = "index.php?s=/home/huoma/baiduMap/lng/"+params.lng+"/lat/"+params.lat;
 				})
 			})
+			
 		</script>
 	</body>
 </html>

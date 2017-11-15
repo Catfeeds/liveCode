@@ -10,13 +10,15 @@
 	<title>地图</title>
 </head>
 <body>
+	<input type="hidden" id="lng" value="{$params['lng']}">
+	<input type="hidden" id="lat" value="{$params['lat']}">
 	<div id="allmap"></div>
 </body>
 </html>
 <script type="text/javascript">
 	// 百度地图API功能
 	var map = new BMap.Map("allmap");
-	var point = new BMap.Point(116.400244,39.92556);
+	var point = new BMap.Point($('#lng').val(),$('#lat').val());
 	map.centerAndZoom(point, 13);
 	var marker = new BMap.Marker(point); // 创建标注
 	map.addOverlay(marker);              // 将标注添加到地图中
