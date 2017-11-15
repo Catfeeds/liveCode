@@ -414,10 +414,13 @@ select.form-control-sm{
 	-o-transform:rotate(135deg);
 }
 .weui_wd .xiazai{
-	width: 20px;
-    height: 20px;
-    background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/xiazai.png) no-repeat center;
+	width: 13px;
+    height: 13px;
+    transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    border-top: 1px solid #aaa;
+    border-right: 1px solid #aaa;
     display: inline-block;
     float: right;
-    margin-top: 18px;
+    margin-top: 19px;
 }
