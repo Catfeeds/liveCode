@@ -11225,9 +11225,12 @@ UM.registerUI('contact',
             tit = $("#modal-tit-input").val() || '联系我们';
             depict = $("#modal-depict-input").val();
             address = $("#modal-address-input").val();
+            var lnglat=$("#ditu_jwd").val();
+            var lng=lnglat.split(',')[0];
+            var lat=lnglat.split(',')[1];
             var html = '', html2 ='';
             if(address){
-        		html2 = '<div class="card_module_info"><div class="weui-address"><span class="address_icon"></span></div><div class="weui-address_info"><h4>地址</h4><p>'+address+'</p></div><div class="weui-address-btn"><a href="">地图</a></div><div class="cl"></div></div>';
+        		html2 = '<div class="card_module_info"><div class="weui-address"><span class="address_icon"></span></div><div class="weui-address_info"><h4>地址</h4><p>'+address+'</p></div><div class="weui-address-btn"><a href="" id="ditumapa" lng="'+ lng +'" lat="'+ lat +'">地图</a></div><div class="cl"></div></div>';
         	}
             $(".pos-rlt").each(function(){
             	var input1 = $(this).find('.col-md-4 input').val() || "联系方式";
@@ -11637,3 +11640,5 @@ $(".add_c_link").click(function(){
 function removeContact(obj){
 	$(obj).parents('.pos-rlt').remove();
 }
+
+
