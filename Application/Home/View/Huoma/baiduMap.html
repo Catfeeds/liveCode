@@ -22,5 +22,6 @@
 	var point = new BMap.Point($('#lng').val(),$('#lat').val());
 	map.centerAndZoom(point, 13);
 	var marker = new BMap.Marker(point); // 创建标注
+	map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT}));
 	map.addOverlay(marker);              // 将标注添加到地图中
 </script>
