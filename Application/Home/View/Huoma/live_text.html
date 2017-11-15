@@ -52,24 +52,7 @@
 			    line-height: 20px;
 			    cursor: pointer;
 			}
-			.vcard_download{
-			    position: fixed;
-			    top: 0;
-			    left: 0;
-			    width: 100%;
-			    height: 100%;
-			    background: rgba(0,0,0,.6);
-			    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#80000000, endColorstr=#80000000);
-			    z-index: 9999;
-			    display: none;
-			}
-			.vcard_download img {
-			    position: fixed;
-			    width: 260px;
-			    height: 180px;
-			    z-index: 10001;
-			    right: -30px;
-			}
+			
 		</style>
 	</head>
 	<body>
@@ -93,9 +76,6 @@
 			<p>长按二维码，选择识别图中二维码</p>
 			<span>X</span>
 		</div>
-		<div class="vcard_download">
-			<img src="//static.clewm.net/static/images/mobile/android_filedown_guide_4187842.png">
-		</div>
 		<script src="/Public/libs/cui/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			function isWeixin(){
@@ -107,6 +87,12 @@
 			    }
 			}
 			$(function(){
+				if(isWeixin()){
+		    		//是微信打开显示提示信息
+		        }else{
+		            //是非微信打开
+		            $(".weui-cell").html('请在微信上查看');
+		        }
 				$(".weui-btn input").click(function(){
 					if(isWeixin()){
 			    		//是微信打开显示提示信息
@@ -119,18 +105,6 @@
 				})
 				$('.attention').on('click','span',function(){
 					$(this).parent('.attention').hide();
-				})
-				$(".weui_wd .xiazai").click(function(){
-					if(isWeixin()){
-			    		//是微信打开显示提示信息
-			    		$(".vcard_download").show();
-			        }else{
-			            //是非微信打开直接跳转下载地址
-			            $(".vcard_download").hide();
-			        }
-				})
-				$('.vcard_download').on('click',function(){
-					$(this).hide();
 				})
 			})
 		</script>
