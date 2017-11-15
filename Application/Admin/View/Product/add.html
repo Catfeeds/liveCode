@@ -178,7 +178,13 @@
 					<div class="form-group row">
 						<label class="col-sm-2 ptb7 form-control-label">详细地址</label>
 						<div class="col-sm-9">
-							<input id="modal-address-input" class="form-control" type="text">
+							<input id="modal-address-input" class="form-control ditu" type="text" value="">
+							<input type="hidden" id="ditu_jwd" value=""/>
+							<span class="spanditu">
+								<i class="fa fa-map-marker text-green m-r-5" style="font-size: 16px;"></i>
+								<a href="javascript:;" id="mapmark" class="mapmark f12">标注地址</a>
+								<a href="javascript:;" id="removemark" class="dno f12 m-l-10">取消标注</a>
+							</span>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -200,6 +206,42 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<!--地图-->
+	<div id="modal-map" class="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">标注地图位置</h4> 
+				</div>
+				<div class="modal-body">
+					<div class="mapsoso row" id="mapsoso">
+						<div class="mapnote col-md-5" style="line-height: 32px;height:32px">
+							*拖动地图中的红色标注点到对应位置
+						</div>
+						<div class="col-md-5 pull-right">
+							<div class="form-group">
+								<div class="input-group input-group-sm">
+									<input type="text" class="form-control rounded" id="suggestId">
+									<span class="input-group-btn">
+										<button type="button" onclick="theLocation()" class="btn white b-a rounded no-shadow">搜索</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mapbox">
+						<div id="bdmap" class="mapshow"></div>
+					</div>
+				</div>
+				<div class="modal-footer modal-footer-js">   
+					<button type="button" class="btn" data-dismiss="modal">关闭</button> 
+					<button type="button" class="btn green" id="tran_submit">确定</button>   
+				</div>
+			</div>
+		</div>
+		<input type="hidden" name="" id="lng_lat" value="" />
+		<input type="hidden" name="" id="detail_add" value="" />
 	</div>
 	<!--插入微信号-->
 	<div id="modal-wechat" class="modal" data-backdrop="true">
@@ -332,4 +374,6 @@
 	<script src="__PUBLIC__/product/static_edit/cli/js/modalTips.js"></script>
 	<script type="text/javascript" src="__CUI__/js/layui.js"></script>
 	<script type="text/javascript" src="__CUI__/js/moreupload.js"></script>
+	<script src="https://api.map.baidu.com/api?v=2.0&ak=d4UsMAcnCOE9hFQWUN9344bOsAGAXR5E" type="text/javascript" charset="utf-8"></script>
+	<script src="__CUI__/js/ditumap.js" type="text/javascript" charset="utf-8"></script>
 </block>
