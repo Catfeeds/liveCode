@@ -202,7 +202,7 @@ select.form-control-sm{
 }
 .weui-address_info {
     float: left;
-    width: 85%;
+    width: 75%;
 }
 .tel span{
 	background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/tel.png) no-repeat center;
@@ -426,4 +426,86 @@ select.form-control-sm{
     display: inline-block;
     float: right;
     margin-top: 19px;
+}
+/*地图*/
+.ditu{
+    width: 60%;
+    float: left;
+}
+.spanditu{
+    float: left;
+    margin-top: 8px;
+    margin-left: 8px;
+}
+#modal-map .modal-dialog{
+	width:600px;
+	left: 50%;
+	margin-left:-300px;
+}
+#modal-map .modal-content{
+	position: relative;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+    color: rgba(0,0,0,.87);
+}
+#modal-map .modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+#modal-map .modal-body {
+    position: relative;
+    padding: 24px;
+}
+.mapsoso {
+    top: 9px;
+    left: 280px;
+}
+.mapnote{
+	line-height: 32px;
+    height: 32px;
+    padding-top: 6px;
+}
+#modal-map{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.mapbox {
+    overflow: hidden;
+}
+.mapshow {
+    width: 100%;
+    height: 400px;
+}
+#modal-map .modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+.modal-footer-js button{
+	border-radius: 5px!important;
+}
+#removemark{
+	display: none;
+	margin-left: 5px;
+}
+.weui-address-btn{
+    width: 10%;
+    float: right;
+    text-align: center;
+    margin-top: 15px;
+}
+.weui-address-btn a{
+    color: #000;
+    font-size: 14px;
+    padding: 5px;
+    display: inline-block;
+    box-shadow: inset 0 0 0 1px rgba(120,130,140,.25);
+    border-radius: 5px;
 }
