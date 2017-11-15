@@ -141,13 +141,18 @@ a{text-decoration: none;}
     font-size: 13px;
 }
 .weui_wd .xiazai{
-	width: 20px;
-    height: 20px;
-    background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/xiazai.png) no-repeat center;
+	width: 13px;
+    height: 13px;
+    transform:rotate(45deg);
+	-ms-transform:rotate(45deg); 	/* IE 9 */
+	-moz-transform:rotate(45deg); 	/* Firefox */
+	-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+	-o-transform:rotate(45deg);
+    border-top: 1px solid #aaa;
+    border-right: 1px solid #aaa;
     display: inline-block;
     float: right;
-    margin-top: 18px;
-    cursor: pointer;
+    margin-top: 19px;
 }
 /*微信*/
 .weui-panel {
