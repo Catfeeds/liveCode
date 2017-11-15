@@ -416,8 +416,11 @@ select.form-control-sm{
 .weui_wd .xiazai{
 	width: 13px;
     height: 13px;
-    transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
+    transform:rotate(45deg);
+	-ms-transform:rotate(45deg); 	/* IE 9 */
+	-moz-transform:rotate(45deg); 	/* Firefox */
+	-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+	-o-transform:rotate(45deg);
     border-top: 1px solid #aaa;
     border-right: 1px solid #aaa;
     display: inline-block;
