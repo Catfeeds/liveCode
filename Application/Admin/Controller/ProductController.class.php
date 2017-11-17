@@ -492,12 +492,18 @@ class ProductController extends AdminController {
                 if (!$qrcode) {
                     $this->error('二维码识别失败，请上传有效的二维码！');
                 }
-                $fileName = md5($text.time());
-                qrcode($text,$fileName,6);
-                echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$text,'fileUrl'=>'/Uploads/product/'.$fileName.'.png']);
+                echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$text]);
             }
         }
-      
+    }
+    /**
+     * 生成微信二维码图片
+     */
+    public function qrWXcode() {
+        $ewm = I('post.ewm/s');
+        $fileName = md5($ewm.time());    
+        qrcode($ewm,$fileName,6);
+        echo '/Uploads/product/'.$fileName.'.png';
     }
 
 }

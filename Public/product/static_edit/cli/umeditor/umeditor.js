@@ -11294,11 +11294,17 @@ UM.registerUI('wechat',
             var wetit = $("#modal-wechat-input").val() || "微信好友";
             var ewm=$("#modal-ewm-input").val();
             if(!ewm) return;
-            var wechatcode=$("#wechat-code").val();
+            $.ajax({
+                url: 'admin.php?s=/admin/product/qrWXcode',
+                type: 'POST',
+                data: {ewm:ewm}
+            }).done(function(res) {
+                $("#wechat-code").val(res);
+            });
             $(".maskmodal").hide();
 			$("#modal-wechat").fadeOut();
             $(".navbar-inverse").css('z-index',"1");
-            me.execCommand("inserthtml",'<div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div><input type="hidden" class="wechatPic" value="'+wechatcode+'" />',"needFilter");
+            me.execCommand("inserthtml",'<div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div>',"needFilter");
         });
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
