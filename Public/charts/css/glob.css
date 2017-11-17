@@ -113,7 +113,7 @@ input[type="checkbox"]{margin-left: -16px;margin-top: 1px;}
 	z-index:99;
 }
 .sms_close{
-	background: url('http://cli.im/images/newimages/popup-close-ex.png') no-repeat;
+	/*background: url('http://cli.im/images/newimages/popup-close-ex.png') no-repeat;*/
 	height: 40px;
 	width: 40px;
 	position: absolute;
