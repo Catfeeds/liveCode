@@ -139,22 +139,36 @@ class OrderController extends CommonController {
 
         } else {
             $mod = D('Order');
-            // 获取套餐(比现有套餐排序更高的套餐)
-            $vips = $mod->getFeeVips();
-            if (!$vips) {
-                $this->error($mod->getError());
+            $vpMod = M('vip_price');
+            //现在所使用的套餐
+            $order = $mod->where(['userId'=>session('user_auth.uid'),'orderStatus'=>1,'status'=>1])->order('pay_time desc')->find();
+            if (!$order) {
+                $this->error('请先在购买成功后再进行续费操作！');
             }
+            $usedDays     = ceil((time()-$order['pay_time'])/86400);    //已使用时间
+            $pricePerYear = $vpMod->where(['vipId'=>$order['vipId'],'year'=>$order['year']])->getField('price');
+            $pricePerDay  = $pricePerYear/365;
+            $expenditure  = ceil($usedDays*$pricePerDay);               //已花费的套餐费用
+            if ($expenditure <=0) {
+                $order['sale'] = 0;
+            }else{
+                $order['sale'] = $order['payMoney'] - $expenditure;          //可用于抵扣的金额
+            }
+
+            // 获取续费套餐
+            $vips = $mod->getFeeVips($order);
             foreach ($vips as $k=>$v) {
                 $vips[$k]['detail'] = json_decode($v['detail'],true);
             }
-            // 获取套餐价格
-            $versions = M('vip_price')->order('year')->select();
+            // 获取续费套餐价格
+            $versions = $vpMod->order('year')->select();
             // 获取默认的套餐及价格
             $recommed = $mod->getRecommed();
             $recommed['detail'] = json_decode($recommed['detail'],true);
 
             $this->assign([
                 'meta_title'    => '版本续费',
+                'order'         => $order,
                 'vips'          => $vips,
                 'versions'      => $versions,
                 'recommed'      => $recommed,

@@ -258,6 +258,7 @@ class UserController extends AdminController {
             $allVersions = M('vip_price')->alias('p')->field('p.*,v.name')
                         ->join('__VIP__ v on p.vipId = v.id')
                         ->where(['v.is_show'=>1])
+                        ->order('v.sort,p.price desc')
                         ->select();
             $this->assign([
                 'meta_title'  =>'选择套餐',

@@ -5,6 +5,10 @@
 </block>
 
 <block name="main">
+	<!-- 已购套餐id -->
+	<input type="hidden" id="vipId" value="{$order['vipId']}">
+	<input type="hidden" id="sale" value="{$order['sale']}">
+
 	<div class="main">
 		<div class="ahm-header">
 			<div class="w1000">
@@ -39,7 +43,7 @@
 				<p class="tit_txt"><span class="tit1">1.请选择版本</span>（一次性开通多年，还可以享受折扣优惠，年限越大，折扣越大。<font style="color: red;">2年9折！3年8折！5年7折！</font>详情请咨询我们在线售前工程师。）</p>
 				<ul class="edition">
 					<volist name="vips" id="vo">
-						<li <?php if($vo['is_recommed']){echo 'class="edit_on"';} ?>>{$vo['name']}</li>
+						<li vipId="{$vo['id']}" <?php if($vo['is_recommed']){echo 'class="edit_on"';} ?>>{$vo['name']}</li>
 					</volist>
 					<div class="clear"></div>
 				</ul>
@@ -51,9 +55,7 @@
 						<ul <?php if($vo['is_recommed']){echo 'class="duration dis_block"';}else{echo 'class="duration" style="display: none;" ';} ?>>
 							<volist name="versions" id="vo2">
 								<?php if($vo['id'] == $vo2['vipId']): ?>
-									<?php if($vo2['year'] >= $vo['BuyedYear']): ?>
 										<li><span><font class="jine">{$vo2['price']}</font>元/年</span><p>{$vo2['year']}年</p></li>
-									<?php endif; ?>
 								<?php endif; ?>
 							</volist>
 							<div class="clear"></div>
@@ -66,7 +68,10 @@
 				<form action="{:U('Home/Order/buy')}" method="post" class="theme-buy">
 					<span>正在开通&nbsp;</span>  
 					<span class="col1">{$recommed['name']}&nbsp;{$recommed['year']}年</span>
-					<span>&nbsp;&nbsp;总计：<span class="col2">￥<font>{$recommed['price']*$recommed['year']}</font></span></span>
+					<span>&nbsp;&nbsp;套餐价：<span class="col2">￥<font>{$recommed['price']*$recommed['year']}</font></span></span>
+					<span>&nbsp;&nbsp;已购套餐抵扣：<span class="col3 sale">￥<font>0</font></span></span>
+					<span>&nbsp;&nbsp;折后总计：<span class="col3 total">￥<font>9999</font></span></span>
+
 					<input type="hidden" class="vip" name="vip" value="">
 					<input type="hidden" class="year" name="year" value="">
 					<input type="hidden" class="money" name="money" value="">

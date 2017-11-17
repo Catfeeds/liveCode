@@ -33,7 +33,6 @@ class VipController extends AdminController {
                    ->order('v.sort,p.price desc')
                    ->group('p.vipId')
                    ->select();
-// halt($data_list);
 
         $page = new Page(
             $mod->alias('v')->join('__VIP_PRICE__ p ON p.vipId=v.id')->where($map)->group('p.vipId')->count(),
