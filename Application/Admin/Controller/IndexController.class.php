@@ -26,10 +26,23 @@ class IndexController extends AdminController {
             $link_list = D('Admin/Link')->getAll();
             $this->assign('_link_list', $link_list);  // 后台快捷链接
         }
-        $user = D('user')->getUserInfo(session('user_auth.uid'));
+        $user_type = session('user_auth.user_type');
+        if ($user_type == 2) {
+            $user = D('user')->getUserInfo(session('user_auth.uid'));
+            if ($user['vipId'] != 0) {
+                $vip = M('vip')->field('limit_count,zone_size')->where(['id'=>$user['vipId']])->find();
+                $user['limit_count']  = $vip['limit_count'];
+                $user['zone_size']    = $vip['zone_size'];
+                $user['countPercent'] = ceil($user['visitCount']/$user['limit_count']*100);
+            }else{
+                $user['limit_count'] = $user['zone_size'] = $user['countPercent'] = 0;
+            }
+            $this->assign('user', $user);
+        }
+        // halt($vip);
+
         $this->assign('meta_title', "首页");
-        $this->assign('user', $user);
-        $this->assign('user_type', session('user_auth.user_type'));
+        $this->assign('user_type', $user_type);
         $this->display();
     }
 
