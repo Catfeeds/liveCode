@@ -56,6 +56,9 @@
 }
 #myEditor{
 	width: 100%!important;
+	overflow-y: scroll;
+	height:600px;
+	min-height: auto!important;
 }
 .edui-icon-audio{
 	margin-top: 4px!important;
@@ -346,7 +349,7 @@ select.form-control-sm{
 }
 .weui_wd{
 	width: 100%;
-	height: 100%;
+	height:auto;
 	text-align: left;
     background: #f8f8f8;
     margin: 5px 0;
@@ -508,4 +511,7 @@ select.form-control-sm{
     display: inline-block;
     box-shadow: inset 0 0 0 1px rgba(120,130,140,.25);
     border-radius: 5px;
+}
+.clistyle-wrapper{
+	z-index: 999999999;
 }

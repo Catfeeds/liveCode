@@ -64,3 +64,27 @@
     background-position: 0 -87px;
     vertical-align: middle;
 }
+
+/*容量*/
+.amount{
+	padding: 10px;
+}
+.progress{
+    width: 100px;
+    display: inline-block;
+    margin: 0 10px;
+    height: 8px;
+    border-radius: .25rem;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.065);
+}
+.progress-bar{
+    display: inline-block;
+    float: left;
+    height: 1rem;
+    background-color: #41a3f1;
+    font-size: .8em;
+}
+.volume{
+	margin-bottom:5px;
+}

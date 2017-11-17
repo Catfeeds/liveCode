@@ -273,7 +273,9 @@ class PhoneController extends AdminController {
                     ->display();
     	}
     }
-    
+    /**
+     * 批量修改跳转网址
+     */
     public function edittzwz (){
 	    if ( IS_POST ){
 		    $ksid=I('ksid');
@@ -284,10 +286,13 @@ class PhoneController extends AdminController {
     		if ( !$endid ){
     			$this->error('请输入新关键词');
     		}
-		
-		    M('cms_phone')->execute("UPDATE __CMS_PHONE__ SET videourl = replace(videourl, '$ksid', '$endid') ");
-            if (I('post.menuId/d')) {
-               $this->success('修改成功', U('child',['type'=>I('post.menuId/d')]));
+            $user   = D('user')->getUserInfo($this->uid);
+            $status = ($user['ifCheck'] == -1)?1:0;
+
+		    M('cms_phone')->execute("UPDATE __CMS_PHONE__ SET videourl = replace(videourl, '$ksid', '$endid'),status = $status");
+            $menuId = I('post.menuId/d');
+            if ($menuId) {
+               $this->success('修改成功', U('child',['type'=>$menuId]));
             }
 	     	$this->success('修改成功',U('index'));	
 	    }else{
@@ -465,6 +470,8 @@ class PhoneController extends AdminController {
             $data['uid']         = $this->uid;
             $data['create_time'] = NOW_TIME;
             $data['update_time'] = NOW_TIME;
+            $user                = D('user')->getUserInfo($this->uid);
+            $data['status']      = ($user['ifCheck'] == -1)?1:0;
             foreach( $txtarr as $v  ){
     	        $data['videourl']=$v;
     	        $rs=$this->obj->where(array('videourl'=>$v))->find();

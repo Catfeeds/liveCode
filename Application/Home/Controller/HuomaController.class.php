@@ -20,11 +20,13 @@ class HuomaController extends HomeController{
         $obj  = M('cms_livecode');
         $data = $obj->where(['d'=>$d,'status'=>1])->find();
         if (!$data) {
+            $this->assign('errorMsg','页面不存在或者未通过审核╮(︶﹏︶")╭');
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
         $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
         if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
+            $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
 
@@ -83,11 +85,13 @@ class HuomaController extends HomeController{
         $obj  = M('cms_product');
         $data = $obj->where(['d'=>$d,'status'=>1])->find();
         if (!$data) {
+            $this->assign('errorMsg','页面不存在或者未通过审核╮(︶﹏︶")╭');
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
         $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
         if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
+            $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
@@ -119,11 +123,13 @@ class HuomaController extends HomeController{
         $obj = M('cms_phone');
         $data = $obj->where(['d'=>$d,'status'=>1])->find();
         if (!$data) {
+            $this->assign('errorMsg','页面不存在或者未通过审核╮(︶﹏︶")╭');
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
         $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
         if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
+            $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
@@ -167,11 +173,13 @@ class HuomaController extends HomeController{
         $obj = M('cms_duourl');
         $rs = $obj->where(['d'=>$d,'status'=>1])->find();
         if (!$rs) {
+            $this->assign('errorMsg','页面不存在或者未通过审核╮(︶﹏︶")╭');
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
         $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$rs['uid'])->find();
         if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
+            $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
         $userMod->where(['id'=>$rs['uid']])->setInc('visitCount', 1);

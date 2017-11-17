@@ -309,8 +309,24 @@
     <?php elseif($user['expire_time'] < time()): ?>
     <p class="bs-example-bg-classes bg-danger">您的套餐已过期，请在续费管理中选择续费套餐！&nbsp;&nbsp;&nbsp;<a href="/index.php?s=/home/order/fee"><font color="white">立即续费>>></font></a></p>
     <?php endif; ?>
+    <div class="amount">
+        <p>容量使用情况</p>
+        <div class="volume">
+            <span>扫码容量</span>
+            <div class="progress">
+                <div class="progress-bar" style="width:50%"></div>
+            </div>
+            <span class="progress-text">250次/500次</span>
+        </div>
+        <div class="volume">
+            <span>空间容量</span>
+            <div class="progress">
+                <div class="progress-bar" style="width:10%"></div>
+            </div>
+            <span class="progress-text">10M/20M</span>
+        </div>
+   </div>
 <?php endif; ?>
-                
             </div>
         </div>
     </div>

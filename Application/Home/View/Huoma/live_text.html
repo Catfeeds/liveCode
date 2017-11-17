@@ -96,7 +96,7 @@
 				$(".weui-btn input").click(function(){
 					if(isWeixin()){
 			    		//是微信打开显示提示信息
-			    		$(".attention img").attr('src',$('.wechatPic').val());
+			    		$(".attention img").attr('src',$('#wechat-code').val());
 			    		$(".attention").show();
 			        }else{
 			            //是非微信打开直接跳转下载地址

@@ -453,6 +453,9 @@ class DuourlController extends AdminController {
         }
         parent::setStatus($model);
     }
+    /**
+     * 批量修改跳转网址
+     */
     public function edittzwz (){
 	    if ( IS_POST ){
 		    $ksid=I('ksid');
@@ -475,12 +478,16 @@ class DuourlController extends AdminController {
 	        if ( !is_array($txtarr) ){
 	        	$this->error('读取失败，请确认txt格式是否符合要求');
 	        }
-	        $data['id']=$ksid;
-	        $data['title']=implode('|||',$txtarr);
-	        $data['update_time']=NOW_TIME;
+            $data['id']          = $ksid;
+            $data['title']       = implode('|||',$txtarr);
+            $data['update_time'] = NOW_TIME;
+            $user                = D('user')->getUserInfo($this->uid);
+            $data['status']      = ($user['ifCheck'] == -1)?1:0;
+            
 	        $this->obj->save($data);
-            if (I('post.menuId/d')) {
-               $this->success('修改成功', U('child',['type'=>I('post.menuId/d')]));
+            $menuId = I('post.menuId/d');
+            if ($menuId) {
+               $this->success('修改成功', U('child',['type'=>$menuId]));
             }
 	     	$this->success('修改成功',U('index'));	
 	    }else{
