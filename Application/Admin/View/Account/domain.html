@@ -99,7 +99,12 @@
                                 <label class="left control-label">活码域名：</label>
                                 <div class="right">
                                     <input type="text" class="form-control input text" name="url" value="{$info['url']}" >
-                                    <span class="check-tips text-muted small">如www.baidu.com,不要输入http://</span>
+                                    <span class="check-tips text-muted small">
+                                    (1) 请先将你的域名(或子域名)添加到上面的对话框中，如www.baidu.com，不要输入http://
+                                    <br>(2) 添加好后请将您的域名CNAME记录解析到：dns.ihuoma.cn，不会解析请联系我们在线工程师。
+                                    <br>(3) 解析好后，等待我们客服审核，审核通过后即可正常使用，解析生效时间一般DNS服务器1-2分钟就会生效，但全球DNS刷新需要8-72小时生效，如果出现活码打不开，可能是域名解析还没有生效，请耐心等待，如果24小时还没有生效，请联系我们在线工程师。
+                                    <br>(4) 这个域名是活码二维码的入口域名，你设置后，你的活码就是独立的域名入口，与别的用户是隔离开的，降低被封的风险！ 
+                                    </span>
                                 </div>
                             </div>
                         <?php if($info['url']): ?>
@@ -108,7 +113,7 @@
                                 <label class="left control-label"><?php if($info['url_status'] == 0): ?><font color="red">审核中</font><?php elseif($info['url_status'] == 1): ?><font color="green">审核已通过</font><?php else: ?><font color="red">未通过审核</font><?php endif; ?></label>
                             </div>
                         <?php endif; ?>                                             
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: 50px;">
                                 <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button>
                                 <button class="btn btn-primary submit ajax-post visible-md-inline visible-lg-inline" type="submit" target-form="form-builder">确定</button>
                                 <button class="btn btn-default return visible-md-inline visible-lg-inline" onclick="javascript:history.back(-1);return false;">返回</button>
