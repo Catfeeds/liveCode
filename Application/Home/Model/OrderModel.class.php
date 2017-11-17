@@ -48,7 +48,6 @@ class OrderModel extends Model {
      */
     public function getVips() {
         $vips = M('vip')->alias('v')->field('v.*')->join('__VIP_PRICE__ p on v.id=p.vipId','left')->where(['price'=>['neq',''],'is_show'=>1])->order('v.sort,p.price desc')->group('v.id')->select();
-// halt($vips);
         return $vips;
     }
 
@@ -56,12 +55,7 @@ class OrderModel extends Model {
      * 获取续费套餐
      * 
      */
-    public function getFeeVips() {
-        //现在所使用的套餐
-        $order = $this->where(['userId'=>session('user_auth.uid'),'orderStatus'=>1,'status'=>1])->order('pay_time desc')->find();
-        if (!$order) {
-            $this->error = '请先在购买后再进行续费操作！';return false;
-        }
+    public function getFeeVips($order) {
         $vip_mod = M('vip');
         $vip = $vip_mod->find($order['vipId']);
         //比现在使用套餐排序更高的套餐

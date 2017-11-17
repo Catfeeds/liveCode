@@ -37,11 +37,31 @@ $(function(){
 		var nian_num=nian.split('年')[0];
 		var edu=$(".duration.dis_block .edit_on .jine").html();
 		var tot=nian_num*edu;
-		$(".col1").html(banben+'&nbsp;'+nian);
+
 		$(".col2 font").html(tot);
+		$(".col1").html(banben+'&nbsp;'+nian);
 		$(".vip").val(banben);
 		$(".year").val(nian_num);
-		$(".money").val(tot);
+		// 选择的套餐id
+		var vipId = $(".edition .edit_on").attr('vipId');
+		if (vipId == $("#vipId").val()) {
+			$(".sale font").html(0);
+		}else{
+			$(".sale font").html($("#sale").val());
+		}
+		//续费差价
+		var sale=$(".sale font").html();
+		if (sale) {
+			var feetotal=nian_num*edu-sale;
+			if (feetotal < 0) {
+				feetotal = 0;
+			}
+			$(".total font").html(feetotal);
+			$(".money").val(feetotal);
+		}else{
+			//购买
+			$(".money").val(tot);
+		}
 	}
 	aihuoma();
 	

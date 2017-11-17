@@ -11488,7 +11488,7 @@ UM.registerUI('document',
 		  	  var imgTitle='',imagehtml='';
 			  var uploadInst6 = upload.render({
 			    elem: '.edui-btn-document'
-			    ,accept: 'file' //普通文件
+			    ,exts: 'png|jpg|jpeg|gif|mp3|mp4|doc|docx|pdf|ppt|pptx|css|js'
 			    ,url: productPostUrl
 			    ,before: function(obj){
 			    }

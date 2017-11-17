@@ -170,6 +170,13 @@ body {
 .col2 font{
 	font-weight: 600;
 }
+.col3{
+    color: #0088CF;
+    font-size: 30px;
+}
+.col3 font{
+    font-weight: 600;
+}
 .buy_btn{
 	width: 120px;
 	height: 45px;
