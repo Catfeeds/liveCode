@@ -88,7 +88,7 @@ function imgSizeOver(e) {
     if (1 == edition_id ? t = 2097152 : 2 == edition_id ? t = 31457280 : edition_id >= 3 && (t = 314572800), e > t && 1 == edition_id) {
         var i = (e / 1024 / 1024).toFixed(2) + " MB",
         o = t / 1024 / 1024,
-        n = '<div class="text-center"><p class="m-b">最大支持 ' + o + " MB,现在为 " + i + '，付费用户拥有更高上传权限</p><a href="//cli.im/news/price" target="_blank" class="btn btn-sm white m-r">查看版本比较</a><a href="//' + USER_DOMAIN + '/buy" target="_blank" class="btn btn-sm green">购买</a>';
+        n = '<div class="text-center"><p class="m-b">最大支持 ' + o + " MB,现在为 " + i + '，付费用户拥有更高上传权限</p><a href="" target="_blank" class="btn btn-sm white m-r">查看版本比较</a><a href="//' + USER_DOMAIN + '/buy" target="_blank" class="btn btn-sm green">购买</a>';
         return $("#modal-alert").modal("show").find(".modal-title").text("上传的图片过大").end().find(".modal-body").empty().append(n),
         1
     }

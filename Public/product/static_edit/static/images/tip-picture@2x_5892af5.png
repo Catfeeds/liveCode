@@ -36,7 +36,7 @@
 
 <div class="header cl">
 	<div class="main">
-		<a href="//cli.im" class="logo fl"></a>
+		<a href="" class="logo fl"></a>
 	</div>
 </div>
 <div class="container" id="main">
@@ -45,14 +45,14 @@
     		<span class="font_404_b">404</span>
     		<span class="font_404_s">，该页面不存在或已被删除！</span>
             <br>
-    		<a href="//cli.im" class="back">返回首页>></a>
+    		<a href="" class="back">返回首页>></a>
         </p>
 	</div>
 </div>
 <div class="footcontainer">
     <div class="t_wraper">
         <div class="tcpip cl">
-            ©2011-2017 Cli.im&nbsp;&nbsp;&nbsp;<a href="http://nearsnet.com">宁波邻家网络科技有限公司</a>&nbsp;&nbsp;&nbsp;&nbsp;浙ICP备12002384号-4&nbsp;&nbsp;&nbsp;&nbsp;增值电信业务经营许可证：浙B2-20140297&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.ancc.org.cn/" target="_blank">国家标准化协会理事单位</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="//cli.im/sitemap.xml" target="_blank">Sitemap</a>
+            ©2011-2017 ihuoma.cn&nbsp;&nbsp;&nbsp;<a href="http://nearsnet.com">宁波邻家网络科技有限公司</a>&nbsp;&nbsp;&nbsp;&nbsp;浙ICP备12002384号-4&nbsp;&nbsp;&nbsp;&nbsp;增值电信业务经营许可证：浙B2-20140297&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.ancc.org.cn/" target="_blank">国家标准化协会理事单位</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="//ihuoma.cn/sitemap.xml" target="_blank">Sitemap</a>
             <div class="cl"></div>
         </div>
     </div>
