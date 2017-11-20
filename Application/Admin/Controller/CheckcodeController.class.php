@@ -244,6 +244,8 @@ class CheckcodeController extends AdminController {
                 if (!file_exists($data['videourl'])) {
                     $this->error('文件不存在');
                 }
+                $data['update_time'] = NOW_TIME;
+
                 $result = $obj->save($data);
                 if ($result !== false) {
                     $this->success(['type'=>$data['menuId'],'site'=>'admin']);

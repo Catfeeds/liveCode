@@ -1,7 +1,4 @@
 <extend name="$_admin_public_layout" />
-<block name="script">
-
-</block>
 <block name="main">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/libs/video/css/style.css">
     <script src="__PUBLIC__/libs/jquery/2.x/jquery.min.js"></script>
@@ -130,6 +127,7 @@
                                                 <div class="resumable-drop" ondragenter="jQuery(this).addClass('resumable-dragover');" ondragend="jQuery(this).removeClass('resumable-dragover');" ondrop="jQuery(this).removeClass('resumable-dragover');">
                                                     <a class="resumable-browse"><u>上传文件</u></a>
                                                 </div>  
+                                                <input type="hidden" id="fileSize" value="{$data.size}">
                                                 <ul class="resumable-list"></ul>   
                                                 <!--<div class="resumable-progress">
                                                     <table>
@@ -185,6 +183,7 @@
               // Add the file to the list
               $('.resumable-list').append('<li class="resumable-file-'+file.uniqueIdentifier+'">正在上传文件 <span class="resumable-file-name"></span> <span class="resumable-file-progress"></span>');
               $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-name').html(file.fileName);
+              $('#fileSize').val((file.size/(1024*1024)).toFixed(2));
               // Actually start the upload
               r.upload();
             });
@@ -217,8 +216,9 @@
             var menuId    = $("#menuId").val();
             var title     = $("#title").val();
             var videoName = $(".resumable-file-name:last").html();
-            var codeType= $("#codeType").val();     //管理员审核编辑
-            var postUrl = 'admin.php?s=/admin/video/edit/id/'+id;
+            var size = $("#fileSize").val();
+            var codeType  = $("#codeType").val();     //管理员审核编辑
+            var postUrl   = 'admin.php?s=/admin/video/edit/id/'+id;
             if (codeType) {
                 postUrl = 'admin.php?s=/admin/checkcode/edit/codeType/'+codeType+'/id/'+id;
             }
@@ -234,7 +234,7 @@
             $.ajax({
                 url: postUrl,
                 type: 'POST',
-                data: {id:id,menuId:menuId,title:title,videourl:videoName},
+                data: {id:id,menuId:menuId,title:title,videourl:videoName,size:size},
                 success: function (data) {  
                     if(data.status == 1){
                         $.alertMessager('更新成功!','success');

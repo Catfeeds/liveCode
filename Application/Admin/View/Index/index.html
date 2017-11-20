@@ -321,9 +321,9 @@
         <div class="volume">
             <span>空间容量</span>
             <div class="progress">
-                <div class="progress-bar" style="width:0%"></div>
+                <div class="progress-bar" style="width:{$user.zoneSizePercent}%;"></div>
             </div>
-            <span class="progress-text">0M/{$user.zone_size}M</span>
+            <span class="progress-text">{$user.zoneSize}M/{$user.zone_size}M</span>
         </div>
    </div>
 <?php endif; ?>

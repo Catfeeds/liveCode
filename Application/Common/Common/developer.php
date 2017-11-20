@@ -730,3 +730,31 @@ function getTableName($curr){
             break;
     }
 }
+/**
+ * 获取用户已使用空间容量
+ */
+function getUserZoneSize($uid){
+    $fileSize = D('Livecode')->where(['uid'=>$uid])->sum('size');
+    $videoSize = D('Phone')->where(['uid'=>$uid])->sum('size');
+    return $fileSize + $videoSize;
+}
+/**
+ * 判断用户当前套餐活码数量是否已达上限
+ */
+function userLivecodeCountLimit(){
+    // 用户已创建的活码数量
+    $uid = (int)session('user_auth.uid');
+    $count1 = D('Livecode')->where(['uid'=>$uid])->count();
+    $count2 = D('Product')->where(['uid'=>$uid])->count();
+    $count3 = D('Phone')->where(['uid'=>$uid])->count();
+    $count4 = D('Duourl')->where(['uid'=>$uid])->count();
+    $count = $count1+$count2+$count3+$count4;
+
+    //限制数量
+    $user = D('User')->alias('u')->field('livecode_count')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$uid)->find();
+    if ($count < $user['livecode_count'] || $user['livecode_count'] == 0) {
+        return true;
+    }else{
+        return false;
+    }
+}

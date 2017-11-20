@@ -322,6 +322,18 @@ class VideoController extends AdminController {
      */
     public function add() {
         if (IS_POST) {
+            //判断用户当前套餐活码数量是否已达上限
+            $limit = userLivecodeCountLimit();
+            if (!$limit) {
+                $this->error('活码创建数量已达上限，请在续费管理中升级套餐');
+            }
+            $zoneSize = getUserZoneSize($this->uid);
+            $user = D('user')->getUserInfo($this->uid);
+            $vip_zoneSize = M('vip')->where(['id'=>$user['vipId']])->getField('zone_size');
+            if ($zoneSize >= $vip_zoneSize) {
+                $this->error('活码空间容量已达上限，请在续费管理中升级套餐');
+            }
+
             $data = I('post.');
             //判断文件是否存在
             if (!file_exists($data['videourl'])) {
@@ -334,17 +346,14 @@ class VideoController extends AdminController {
             $data['type']        = 2;
             $user                = D('user')->getUserInfo($this->uid);
             $data['status']      = ($user['ifCheck'] == -1)?1:0;
-            if ($data) {
-                $data['huoma'] = setLivecodeUrl('',$data['d']);
-                $id = $this->obj->add($data);
-                if ($id) {
-                    qrcode($data['huoma'],$id,3);
-                    $this->success(['type'=>$data['menuId']]);
-                } else {
-                    $this->error('新增失败');
-                }
+            $data['huoma']       = setLivecodeUrl('',$data['d']);
+
+            $id = $this->obj->add($data);
+            if ($id) {
+                qrcode($data['huoma'],$id,3);
+                $this->success(['type'=>$data['menuId']]);
             } else {
-                $this->error($this->obj->getError());
+                $this->error('新增失败');
             }
         } else {
             $this->meta_title = '新增视频活码';
@@ -359,16 +368,23 @@ class VideoController extends AdminController {
      */
     public function edit($id) {
         if (IS_POST) {
+            $zoneSize = getUserZoneSize($this->uid);
+            $user = D('user')->getUserInfo($this->uid);
+            $vip_zoneSize = M('vip')->where(['id'=>$user['vipId']])->getField('zone_size');
+            if ($zoneSize >= $vip_zoneSize) {
+                $this->error('活码空间容量已达上限，请在续费管理中升级套餐');
+            }
+
             $data = I('post.');
             //判断文件是否存在
             if (!file_exists($data['videourl'])) {
                 $this->error('文件不存在');
             }
-
             $user           = D('user')->getUserInfo($this->uid);
             $data['status'] = ($user['ifCheck'] == -1)?1:0;
+            $data['update_time'] = NOW_TIME;
             
-            $result         = $this->obj->save($data);
+            $result = $this->obj->save($data);
             if ($result !== false) {
                 $this->success(['type'=>$data['menuId']]);
             } else {
@@ -470,44 +486,34 @@ class VideoController extends AdminController {
     public function addfile() {
         $REQUEST_METHOD=$_SERVER['REQUEST_METHOD'];
         $uploads_dir="Uploads/video/";
-        if($REQUEST_METHOD == "GET")
-        {
-            if(count($_GET)>0)
-            {
+        if($REQUEST_METHOD == "GET"){
+            if(count($_GET)>0){
                 $chunkNumber = $_GET['resumableChunkNumber'];
                 $chunkSize = $_GET['resumableChunkSize'];
                 $totalSize = $_GET['resumableTotalSize'];
                 $identifier = $_GET['resumableIdentifier'];
                 $filename = iconv ( 'UTF-8', 'GB2312', $_GET ['resumableFilename'] );
-                if(validateRequest($chunkNumber, $chunkSize, $totalSize, $identifier, $filename)=='valid')
-                {
+                if(validateRequest($chunkNumber, $chunkSize, $totalSize, $identifier, $filename)=='valid'){
                     $chunkFilename = getChunkFilename($chunkNumber, $identifier,$filename,$uploads_dir);
-                    {
-                        if(file_exists($chunkFilename)){
-                            header("HTTP/1.0 200 Found");
-                        } else {
-                            header("HTTP/1.0 404 Not Found");
-                           
-                        }
+                    if(file_exists($chunkFilename)){
+                        header("HTTP/1.0 200 Found");
+                    } else {
+                        header("HTTP/1.0 404 Not Found");
                     }
-                }
-                else
-                {
+                }else{
                     header("HTTP/1.0 404 Not Found");
-                    
-                }}
+                }
+            }
         }
 
         if($REQUEST_METHOD == "POST"){
-            if(count($_POST)>0)
-            {
+            if(count($_POST)>0){
                 $resumableFilename = iconv ( 'UTF-8', 'GB2312', $_POST ['resumableFilename'] );
                 $resumableIdentifier=$_POST['resumableIdentifier'];
                 $resumableChunkNumber=$_POST['resumableChunkNumber'];
                 $resumableTotalSize=$_POST['resumableTotalSize'];
                 $resumableChunkSize=$_POST['resumableChunkSize'];
                 if (!empty($_FILES)) foreach ($_FILES as $file) {
-                    
                     if ($file['error'] != 0) {
                         _log('error '.$file['error'].' in file '.$resumableFilename);
                         continue;
@@ -519,11 +525,9 @@ class VideoController extends AdminController {
                     if (!is_dir($temp_dir)) {
                         mkdir($temp_dir, 0777, true);
                     }
-                    
                     if (!move_uploaded_file($file['tmp_name'], $dest_file)) {
                         _log('Error saving (move_uploaded_file) chunk '.$resumableChunkNumber.' for file '.$resumableFilename);
                     } else {
-                        
                         createFileFromChunks($temp_dir, $resumableFilename,$resumableChunkSize, $resumableTotalSize, $uploads_dir);
                     }
                 }
@@ -536,6 +540,12 @@ class VideoController extends AdminController {
      * 
      */
     public function view() {
+        $user = D('user')->getUserInfo($this->uid);
+        $count_track = M('Vip')->where(['id'=>$user['vipId']])->getField('count_track');
+        if ($count_track != 1) {
+            $this->error('权限不足！');
+        }
+        
         $info = I('get.');
         $data = D('Echarts')->getEchartsData($info);
 
