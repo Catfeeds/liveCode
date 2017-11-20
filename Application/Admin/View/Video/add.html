@@ -1,8 +1,4 @@
 <extend name="$_admin_public_layout" />
-<block name="script">
-    
-    
-</block>
 <block name="main">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/libs/video/css/style.css">
     <script src="__PUBLIC__/libs/jquery/2.x/jquery.min.js"></script>
@@ -119,6 +115,7 @@
                                             <div class="resumable-drop" ondragenter="jQuery(this).addClass('resumable-dragover');" ondragend="jQuery(this).removeClass('resumable-dragover');" ondrop="jQuery(this).removeClass('resumable-dragover');">
                                                 <a class="resumable-browse"><u>上传文件</u></a>
                                             </div>  
+                                            <input type="hidden" id="fileSize" value="0">
                                             <ul class="resumable-list"></ul>   
                                             <!-- <div class="resumable-progress">
                                                 <table>
@@ -176,6 +173,7 @@
               // Add the file to the list
               $('.resumable-list').append('<li class="resumable-file-'+file.uniqueIdentifier+'">正在上传文件 <span class="resumable-file-name"></span> <span class="resumable-file-progress"></span>');
               $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-name').html(file.fileName);
+              $('#fileSize').val((file.size/(1024*1024)).toFixed(2));
               // Actually start the upload
               r.upload();
             });
@@ -207,6 +205,7 @@
             var menuId   = $("#menuId").val();
             var title   = $("#title").val();
             var videoName = $(".resumable-file-name:last").html();
+            var size = $("#fileSize").val();
             if (title == '') {
                 $.alertMessager('请输入视频名称!');return;
             }
@@ -218,7 +217,7 @@
             $.ajax({
                 url: 'admin.php?s=/admin/video/add',
                 type: 'POST',
-                data: {menuId:menuId,title:title,videourl:videoName},
+                data: {menuId:menuId,title:title,videourl:videoName,size:size},
                 success: function (data) {  
                     if(data.status == 1){
                         $.alertMessager('新增成功!','success');

@@ -363,17 +363,17 @@ class PhoneController extends AdminController {
     public function add() {
         if (IS_POST) {
             //判断用户当前套餐活码数量是否已达上限
-            $limit = D('Livecode')->userLivecodeCountLimit();
+            $limit = userLivecodeCountLimit();
             if (!$limit) {
                 $this->error('活码创建数量已达上限，请在续费管理中升级套餐');
             }
             
-            $data['create_time'] =NOW_TIME;
-            $data['update_time'] =NOW_TIME;
-            $data['title']       =I('post.title/s');
-            $data['videourl']    =I('post.videourl/s');
-            $data['uid']         =$this->uid;
-            $data['d']           =get_dwz();
+            $data['create_time'] = NOW_TIME;
+            $data['update_time'] = NOW_TIME;
+            $data['title']       = I('post.title/s');
+            $data['videourl']    = I('post.videourl/s');
+            $data['uid']         = $this->uid;
+            $data['d']           = get_dwz();
             $data['huoma']       = setLivecodeUrl('',$data['d']);
             $data['menuId']      = I('post.type/d');
             $user                = D('user')->getUserInfo($this->uid);
@@ -526,6 +526,12 @@ class PhoneController extends AdminController {
      * 
      */
     public function view() {
+        $user = D('user')->getUserInfo($this->uid);
+        $count_track = M('Vip')->where(['id'=>$user['vipId']])->getField('count_track');
+        if ($count_track != 1) {
+            $this->error('权限不足！');
+        }
+        
         $info = I('get.');
         $data = D('Echarts')->getEchartsData($info);
 

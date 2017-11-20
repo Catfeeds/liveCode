@@ -98,7 +98,7 @@ $(function(){
         $.ajax({
             url: postUrl,
             type: 'POST',
-            data: {editId:editId,menuId:menuId,title:title,content:{fileName:uploadFileName,url:uploadFileUrl,size:uploadFileSize},type:3},
+            data: {editId:editId,menuId:menuId,title:title,content:{fileName:uploadFileName,url:uploadFileUrl,size:uploadFileSize},size:uploadFileSize,type:3},
             success: function (data) {
                 if(data.status == 1){
                     $("#code3 img").attr('src',data.url);
