@@ -32,8 +32,8 @@ class IndexController extends AdminController {
             $user = D('user')->getUserInfo($uid);
             if ($user['vipId'] != 0) {
                 $vip = M('vip')->field('limit_count,zone_size')->where(['id'=>$user['vipId']])->find();
-                $user['limit_count']  = $vip['limit_count'];
-                $user['zone_size']    = $vip['zone_size'];
+                $user['limit_count']   = $vip['limit_count'] == 0 ? '无限制':$vip['limit_count'].'次';
+                $user['zone_size']     = $vip['zone_size'] == 0 ? '无限制':$vip['zone_size'].'M';
                 $user['countPercent'] = ceil($user['visitCount']/$user['limit_count']*100);
                 // 已使用空间容量
                 $user['zoneSize'] = getUserZoneSize($uid);

@@ -295,7 +295,7 @@ class LivecodeController extends AdminController {
                     $zoneSize = getUserZoneSize($this->uid);
                     $user = D('user')->getUserInfo($this->uid);
                     $vip_zoneSize = M('vip')->where(['id'=>$user['vipId']])->getField('zone_size');
-                    if ($zoneSize >= $vip_zoneSize) {
+                    if ($vip_zoneSize != 0 && $zoneSize >= $vip_zoneSize) {
                         $this->error('活码空间容量已达上限，请在续费管理中升级套餐');
                     }
                 }
@@ -431,7 +431,7 @@ class LivecodeController extends AdminController {
                     $zoneSize = getUserZoneSize($this->uid);
                     $user = D('user')->getUserInfo($this->uid);
                     $vip_zoneSize = M('vip')->where(['id'=>$user['vipId']])->getField('zone_size');
-                    if ($zoneSize >= $vip_zoneSize) {
+                    if ($vip_zoneSize != 0 && $zoneSize >= $vip_zoneSize) {
                         $this->error('活码空间容量已达上限，请在续费管理中升级套餐');
                     }
                 }
