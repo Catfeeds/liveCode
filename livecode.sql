@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2017-11-16 09:24:14
+Date: 2017-11-20 17:36:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -101,7 +101,7 @@ CREATE TABLE `fw_admin_config` (
   `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of fw_admin_config
@@ -110,7 +110,7 @@ INSERT INTO `fw_admin_config` VALUES ('1', '站点开关', 'TOGGLE_WEB_SITE', '1
 INSERT INTO `fw_admin_config` VALUES ('2', '网站标题', 'WEB_SITE_TITLE', '网址跳转活码系统_网页跳转_链接跳转活码_爱活码活码管理系统_', '1', 'text', '', '网站标题前台显示标题', '1378898976', '1379235274', '2', '1');
 INSERT INTO `fw_admin_config` VALUES ('3', '网站口号', 'WEB_SITE_SLOGAN', '爱活码 爱上活码', '1', 'text', '', '网站口号、宣传标语、一句话介绍', '1434081649', '1434081649', '3', '1');
 INSERT INTO `fw_admin_config` VALUES ('5', '网站描述', 'WEB_SITE_DESCRIPTION', '爱活码二维码是一家提供免费的在线二维码生成服务，可以生成静态码、活码、微信二维码、淘宝二维码,网址跳转活码,微信群活码，比其他二维码服务商提供更优质的活码二维码服务', '1', 'textarea', '', '网站搜索引擎描述', '1378898976', '1379235841', '5', '1');
-INSERT INTO `fw_admin_config` VALUES ('6', '网站关键字', 'WEB_SITE_KEYWORD', '网址跳转活码,网页跳转活码,链接跳转活码系统,活码管理系统,活码二维码,活码生成器,爱活码,码云,活码生成', '1', 'textarea', '', '网站搜索引擎关键字', '1378898976', '1381390100', '6', '1');
+INSERT INTO `fw_admin_config` VALUES ('6', '网站关键字', 'WEB_SITE_KEYWORD', '网址跳转活码,网页跳转活码,链接跳转活码系统,活码管理系统,活码二维码,活码生成器,草料,码云,活码生成', '1', 'textarea', '', '网站搜索引擎关键字', '1378898976', '1381390100', '6', '1');
 INSERT INTO `fw_admin_config` VALUES ('7', '版权信息', 'WEB_SITE_COPYRIGHT', 'Copyright © 爱活码 All rights reserved.', '1', 'text', '', '设置在网站底部显示的版权信息，如“版权所有 © 2014-2015 科斯克网络科技”', '1406991855', '1406992583', '7', '1');
 INSERT INTO `fw_admin_config` VALUES ('8', '网站备案号', 'WEB_SITE_ICP', '皖ICP备17007700号-1', '1', 'text', '', '设置在网站底部显示的备案号，如“苏ICP备1502009-2号\"', '1378900335', '1415983236', '8', '1');
 INSERT INTO `fw_admin_config` VALUES ('9', '站点统计', 'WEB_SITE_STATISTICS', '', '1', 'textarea', '', '支持百度、Google、cnzz等所有Javascript的统计代码', '1378900335', '1415983236', '9', '1');
@@ -135,6 +135,7 @@ INSERT INTO `fw_admin_config` VALUES ('41', '用户端域名', 'USER_DOMAIN', 'w
 INSERT INTO `fw_admin_config` VALUES ('42', '管理员后台域名', 'ADMIN_DOMAIN', '2.livecode.com', '5', 'text', '', '', '1509342361', '1509342361', '3', '1');
 INSERT INTO `fw_admin_config` VALUES ('44', '首页联系邮箱', 'KEFU_EMAIL', '222', '5', 'text', '', '', '1509530656', '1509530656', '17', '1');
 INSERT INTO `fw_admin_config` VALUES ('45', '首页联系QQ', 'KEFU_QQ', '1072357480', '5', 'text', '', '', '1509530704', '1509530704', '18', '1');
+INSERT INTO `fw_admin_config` VALUES ('46', '测试单张图片', 'TEXT_PIC', '47', '3', 'picture', '', '', '1511155572', '1511155572', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_group`
@@ -426,7 +427,7 @@ CREATE TABLE `fw_admin_upload` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
 
 -- ----------------------------
 -- Records of fw_admin_upload
@@ -451,6 +452,9 @@ INSERT INTO `fw_admin_upload` VALUES ('41', '3', '问题汇总 - 副本.docx', '
 INSERT INTO `fw_admin_upload` VALUES ('42', '3', 'wangzhi.txt', '/Uploads/2017-11/59fe77cbb45de.txt', '', 'txt', '43', '0700e3da805c24c3b9498f25ff559bb8', 'a3a67685a5f871bc25687dde11eddec3fb7ccca4', 'Local', '0', '1509849035', '1509849035', '0', '1');
 INSERT INTO `fw_admin_upload` VALUES ('43', '3', 'wangzhi.txt', '/Uploads/2017-11/59fe7b50e9088.txt', '', 'txt', '41', 'fb970449f2b05aa1a0d7da2823278ad9', '30c68ea29259e544efb0f205c4c163f2bb4693f2', 'Local', '0', '1509849936', '1509849936', '0', '1');
 INSERT INTO `fw_admin_upload` VALUES ('44', '25', '3253.jpg', '/Uploads/2017-11/5a029ec0f1800.jpg', '', 'jpg', '468591', '9162fb4cd83e183a7ecd805d938c22cc', '7d0c447a041b6e0aad0a829dc561f00ebd192953', 'Local', '0', '1510121152', '1510121152', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('45', '25', 'wangzhi.txt', '/Uploads/2017-11/5a0e324073542.txt', '', 'txt', '65', '5f79cfe1df25229b47014e708f38cc93', '982af447911455df50c592ab6d3eb1e994583105', 'Local', '0', '1510879808', '1510879808', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('46', '1', 'wechat.jpg', '/Uploads/2017-11/5a12686d9c1cc.jpg', '', 'jpg', '40953', '74a12ef067ced5010f2258ad308917f2', '88fb7647999b14b51d471a88ea669eda3b07551e', 'Local', '0', '1511155821', '1511155821', '0', '1');
+INSERT INTO `fw_admin_upload` VALUES ('47', '1', '3027.jpg', '/Uploads/2017-11/5a126882aedfe.jpg', '', 'jpg', '241912', 'ee7fc20f7289ac43b0c76794cb69dd98', 'd713d5859a055765159e0c77c577344c13695696', 'Local', '0', '1511155842', '1511155842', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_admin_user`
@@ -471,19 +475,19 @@ CREATE TABLE `fw_admin_user` (
   `vipId` tinyint(1) NOT NULL DEFAULT '0' COMMENT '会员ID',
   `expire_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '会员有效期',
   `ifCheck` tinyint(4) NOT NULL DEFAULT '1' COMMENT '新增活码时是否需要审核',
-  `url` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL DEFAULT '',
   `url_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0域名待审核，1审核通过',
   `visitCount` int(11) NOT NULL DEFAULT '0' COMMENT '活码已访问次数',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='用户账号表';
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='用户账号表';
 
 -- ----------------------------
 -- Records of fw_admin_user
 -- ----------------------------
 INSERT INTO `fw_admin_user` VALUES ('1', '1', 'admin', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', '0', '', '1438651748', '1501578198', '1', '0', '0', '1', '', '0', '0');
 INSERT INTO `fw_admin_user` VALUES ('2', '2', 'admin2', 'b7aebc807e9844d9148e5cb32c6ff885', '', '', '0', 'admin', '1496210259', '1505898727', '1', '0', '0', '1', '', '0', '0');
-INSERT INTO `fw_admin_user` VALUES ('25', '2', '哈哈哈哈哈哈哈哈哈哈', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@163.com', '18121029523', '2130706433', 'admin', '1510042231', '1510046659', '1', '26', '1541578253', '-1', '', '0', '343');
+INSERT INTO `fw_admin_user` VALUES ('25', '2', '哈哈哈哈哈哈哈哈哈哈', 'b7aebc807e9844d9148e5cb32c6ff885', 'newbie91521@163.com', '18121029523', '2130706433', 'admin', '1510042231', '1510046659', '1', '26', '1637043503', '1', '', '0', '50');
 INSERT INTO `fw_admin_user` VALUES ('13', '2', '随便来个', 'b7aebc807e9844d9148e5cb32c6ff885', '发的发的发', 'fasdfsdf', '0', '', '0', '1505812506', '1', '0', '0', '1', '', '0', '0');
 INSERT INTO `fw_admin_user` VALUES ('14', '2', '哈哈哈小号', 'b7aebc807e9844d9148e5cb32c6ff885', '111@qq.com', '13333333333', '0', '', '1505548436', '0', '1', '0', '0', '-1', 'www.livecode21.com', '-1', '0');
 INSERT INTO `fw_admin_user` VALUES ('24', '2', '15555555555', 'b7aebc807e9844d9148e5cb32c6ff885', '15555555555@qq.com', '15555555555', '2130706433', 'admin', '1510023288', '1510023288', '1', '0', '0', '1', '', '0', '0');
@@ -520,7 +524,7 @@ CREATE TABLE `fw_cms_duourl` (
 -- ----------------------------
 -- Records of fw_cms_duourl
 -- ----------------------------
-INSERT INTO `fw_cms_duourl` VALUES ('22', '2', '0', '25', '来个多网址', 'www.qq.com|||www.baidu.com', null, '1510300162', '1510300162', 'http://www.livecode.com/index.php/huoma/duo?d=vpe2s2upu', 'vpe2s2upu', '1', '0', '0');
+INSERT INTO `fw_cms_duourl` VALUES ('22', '2', '0', '25', '来个多网址', 'http://www.qq.com|||https://www.2345.com/|||https://www.taobao.com/', null, '1510300162', '1510882067', 'http://www.livecode.com/index.php/huoma/duo?d=vpe2s2upu', 'vpe2s2upu', '1', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_cms_livecode`
@@ -533,20 +537,24 @@ CREATE TABLE `fw_cms_livecode` (
   `uid` int(11) NOT NULL DEFAULT '0',
   `title` varchar(255) NOT NULL DEFAULT '',
   `content` text NOT NULL COMMENT '活码内容',
+  `size` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '文件大小',
   `count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '扫描次数',
-  `huoma` varchar(255) DEFAULT NULL,
-  `d` varchar(255) DEFAULT NULL,
+  `huoma` varchar(255) NOT NULL DEFAULT '',
+  `d` varchar(255) NOT NULL DEFAULT '',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_cms_livecode
 -- ----------------------------
-INSERT INTO `fw_cms_livecode` VALUES ('1', '2', '0', '25', '11', '2', '0', 'http://www.livecode.com/index.php/huoma/live?d=5ki2b8lkg', '5ki2b8lkg', '1510729776', '1510729776', '1');
+INSERT INTO `fw_cms_livecode` VALUES ('1', '2', '0', '25', '11', '2', '0.00', '0', 'http://www.livecode.com/index.php/huoma/live?d=5ki2b8lkg', '5ki2b8lkg', '1510729776', '1510729776', '1');
+INSERT INTO `fw_cms_livecode` VALUES ('2', '3', '0', '25', '来个文件看看', '{\"fileName\":\"test111.pdf\",\"url\":\"2017-11-20\\/5a1228faa9f88.pdf\",\"size\":\"1.422 MB\"}', '1.42', '0', 'http://www.livecode.com/index.php/huoma/live?d=jft7wfeje', 'jft7wfeje', '1511145820', '1511145820', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('3', '3', '0', '25', '哈哈哈', '{\"fileName\":\"test111.pdf\",\"url\":\"2017-11-20\\/5a122d0072d47.pdf\",\"size\":\"1.422 MB\"}', '1.42', '0', 'http://www.livecode.com/index.php/huoma/live?d=x4016kweo', 'x4016kweo', '1511140741', '1511140741', '0');
+INSERT INTO `fw_cms_livecode` VALUES ('4', '3', '0', '25', '嘿嘿嘿', '{\"fileName\":\"\\u95ee\\u9898\\u6c47\\u603b2017-11-5.docx\",\"url\":\"2017-11-20\\/5a12373140459.docx\",\"size\":\"1.358 MB\"}', '111.36', '0', 'http://www.livecode.com/index.php/huoma/live?d=gx3ukr25m', 'gx3ukr25m', '1511143218', '1511143218', '0');
 
 -- ----------------------------
 -- Table structure for `fw_cms_phone`
@@ -556,27 +564,34 @@ CREATE TABLE `fw_cms_phone` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `type` tinyint(1) unsigned DEFAULT '1' COMMENT '1网址2视频',
   `menuId` int(11) NOT NULL DEFAULT '0',
-  `uid` int(11) DEFAULT '0',
-  `title` varchar(500) NOT NULL COMMENT '题标',
-  `videourl` varchar(255) DEFAULT NULL COMMENT '视频地址',
+  `uid` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(500) NOT NULL DEFAULT '' COMMENT '题标',
+  `videourl` varchar(255) NOT NULL DEFAULT '' COMMENT '视频地址',
+  `size` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '文件大小',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `huoma` varchar(255) DEFAULT NULL,
-  `d` varchar(255) DEFAULT NULL,
-  `tztype` tinyint(1) DEFAULT '1',
-  `count` int(11) DEFAULT '0' COMMENT '播放次数',
+  `huoma` varchar(255) NOT NULL DEFAULT '',
+  `d` varchar(30) NOT NULL DEFAULT '',
+  `tztype` tinyint(4) NOT NULL DEFAULT '1',
+  `count` int(11) NOT NULL DEFAULT '0' COMMENT '播放次数',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `status` (`status`) USING BTREE,
   KEY `title` (`title`(333))
-) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of fw_cms_phone
 -- ----------------------------
-INSERT INTO `fw_cms_phone` VALUES ('98', '1', '0', '25', '1', '2', '1510043301', '1510043301', 'http://www.livecode.com/index.php/huoma/?d=kqujl071h', 'kqujl071h', '1', '0', '0');
-INSERT INTO `fw_cms_phone` VALUES ('99', '1', '0', '25', '腾讯', 'http://www.qq.com', '1510043311', '1510044588', 'http://www.livecode.com/index.php/huoma/?d=frsbyi17z', 'frsbyi17z', '1', '156', '1');
-INSERT INTO `fw_cms_phone` VALUES ('100', '2', '0', '25', '为了数据统计', 'Uploads/video/music1.mp4', '1510208502', '1510208502', 'http://www.livecode.com/index.php/huoma/?d=4ep3941km', '4ep3941km', '1', '0', '0');
+INSERT INTO `fw_cms_phone` VALUES ('116', '1', '0', '25', '', 'https://www.taobao.com/', '0.00', '1510881353', '1510881353', 'http://www.livecode.com/index.php/huoma/?d=jl140bayx', 'jl140bayx', '1', '0', '1');
+INSERT INTO `fw_cms_phone` VALUES ('115', '1', '0', '25', '', 'https://www.2345.com/', '0.00', '1510881353', '1510881353', 'http://www.livecode.com/index.php/huoma/?d=gxfc0y9ft', 'gxfc0y9ft', '1', '0', '1');
+INSERT INTO `fw_cms_phone` VALUES ('114', '1', '0', '25', '', 'http://www.qq.com', '0.00', '1510881353', '1510881353', 'http://www.livecode.com/index.php/huoma/?d=uwowfw4zt', 'uwowfw4zt', '1', '0', '1');
+INSERT INTO `fw_cms_phone` VALUES ('117', '2', '0', '25', '看看视频2', 'Uploads/video/music1.mp4', '0.00', '1510883413', '1510883413', 'http://www.livecode.com/index.php/huoma/?d=me1o6bvx1', 'me1o6bvx1', '1', '6', '1');
+INSERT INTO `fw_cms_phone` VALUES ('118', '2', '0', '25', '好好好', 'Uploads/video/music1.mp4', '3.34', '1511141123', '1511141123', 'http://www.livecode.com/index.php/huoma/?d=tybam05qb', 'tybam05qb', '1', '0', '0');
+INSERT INTO `fw_cms_phone` VALUES ('128', '2', '0', '25', '1', 'Uploads/video/2809.jpg', '0.35', '1511149390', '1511149390', 'http://www.livecode.com/index.php/huoma/?d=hvsxv5jym', 'hvsxv5jym', '1', '0', '0');
+INSERT INTO `fw_cms_phone` VALUES ('123', '2', '0', '25', '1', 'Uploads/video/2809.jpg', '0.35', '1511147082', '1511147959', 'http://www.livecode.com/index.php/huoma/?d=7901sh7wq', '7901sh7wq', '1', '0', '0');
+INSERT INTO `fw_cms_phone` VALUES ('124', '2', '0', '25', '22', 'Uploads/video/music1.mp4', '3.34', '1511147095', '1511147095', 'http://www.livecode.com/index.php/huoma/?d=f7cud3eqf', 'f7cud3eqf', '1', '0', '0');
+INSERT INTO `fw_cms_phone` VALUES ('127', '2', '0', '25', '1', 'Uploads/video/anheqiao.mp3', '6.05', '1511147855', '1511147946', 'http://www.livecode.com/index.php/huoma/?d=43eizis0f', '43eizis0f', '1', '0', '0');
 
 -- ----------------------------
 -- Table structure for `fw_cms_product`
@@ -596,19 +611,14 @@ CREATE TABLE `fw_cms_product` (
   `status` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_cms_product
 -- ----------------------------
-INSERT INTO `fw_cms_product` VALUES ('104', '0', '25', '厉害的产品', '{\"picUrl\":\"2017-11-08\\/5a029ae712e6c.jpg\",\"content\":\"<p><span style=\\\"color: rgb(11, 11, 11); font-family: &quot;Microsoft YaHei&quot;, \\u5fae\\u8f6f\\u96c5\\u9ed1, SimSun, &quot;Microsoft JhengHei&quot;, \\u534e\\u6587\\u7ec6\\u9ed1, STHeiti, MingLiu, tahoma, verdana, arial, sans-serif; font-weight: bold; white-space: normal;\\\"><\\/span><\\/p><div style=\\\"text-align: center;\\\">\\u514b\\u62c9\\u9709\\u7d20\\u5e72\\u6df7\\u60ac\\u5242\\u7684\\u8bed\\u97f3\\u7528\\u836f\\u6307\\u5bfc<\\/div><p><\\/p><p style=\\\"font-family: Arial, \\u5fae\\u8f6f\\u96c5\\u9ed1, &quot;Microsoft yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;\\u51ac\\u9752\\u9ed1\\u4f53\\u7b80\\u4f53\\u4e2d\\u6587 w3&quot;, &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;\\u51ac\\u9752\\u9ed1\\u4f53\\u7b80\\u4f53\\u4e2d\\u6587 w3&quot;, STXihei, \\u534e\\u6587\\u7ec6\\u9ed1, SimSun, \\u5b8b\\u4f53, Heiti, \\u9ed1\\u4f53, sans-serif; text-align: justify; white-space: normal;\\\">\\u53bb\\u5e74\\u59a5\\u534f\\u6027\\u4ef7\\u6bd4\\u7684 M \\u7cfb\\u5217\\u628a\\u9524\\u5b50\\u7684\\u624b\\u673a\\u4ea7\\u54c1\\u4ece\\u6b7b\\u4ea1\\u7ebf\\u4e0a\\u62c9\\u4e86\\u56de\\u6765\\uff0c\\u800c\\u4eca\\u5e74 5 \\u6708\\u4efd\\u4eae\\u76f8\\u7684\\u575a\\u679c Pro \\u7cfb\\u5217\\uff0c\\u5728\\u8001\\u7f57\\u53e3\\u4e2d\\uff0c\\u5219\\u662f\\u7528\\u4e86\\u516c\\u53f8\\u6700\\u4f73\\u7684\\u8bbe\\u8ba1\\u53bb\\u5339\\u914d\\u4e00\\u4e2a\\u76f8\\u5bf9\\u4e2d\\u7aef\\u7684\\u6027\\u80fd\\uff0c\\u4e3a\\u4e86\\u964d\\u4f4e\\u8d2d\\u4e70\\u95e8\\u69db\\u4ee5\\u6362\\u53d6\\u66f4\\u597d\\u7684\\u9500\\u91cf\\uff0c\\u6bd5\\u7adf\\u5728\\u5982\\u4eca\\u56fd\\u5185\\u7684\\u624b\\u673a\\u5e02\\u573a\\uff0c\\u9500\\u91cf\\u624d\\u662f\\u5b58\\u6d3b\\u7684\\u8d44\\u672c\\uff0c\\u5b58\\u5728\\u611f\\u5f80\\u5f80\\u662f\\u5927\\u591a\\u6570\\u6d88\\u8d39\\u8005\\u9009\\u62e9\\u624b\\u673a\\u7684\\u91cd\\u8981\\u8bc4\\u5224\\u6807\\u51c6\\uff0c\\u5c0f\\u800c\\u7f8e\\u662f\\u5f88\\u96be\\u6d3b\\u4e0b\\u6765\\u4e86\\u3002<\\/p><p style=\\\"font-family: Arial, \\u5fae\\u8f6f\\u96c5\\u9ed1, &quot;Microsoft yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;\\u51ac\\u9752\\u9ed1\\u4f53\\u7b80\\u4f53\\u4e2d\\u6587 w3&quot;, &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;\\u51ac\\u9752\\u9ed1\\u4f53\\u7b80\\u4f53\\u4e2d\\u6587 w3&quot;, STXihei, \\u534e\\u6587\\u7ec6\\u9ed1, SimSun, \\u5b8b\\u4f53, Heiti, \\u9ed1\\u4f53, sans-serif; text-align: justify; white-space: normal;\\\"><br><\\/p><p style=\\\"font-family: Arial, \\u5fae\\u8f6f\\u96c5\\u9ed1, &quot;Microsoft yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;\\u51ac\\u9752\\u9ed1\\u4f53\\u7b80\\u4f53\\u4e2d\\u6587 w3&quot;, &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;\\u51ac\\u9752\\u9ed1\\u4f53\\u7b80\\u4f53\\u4e2d\\u6587 w3&quot;, STXihei, \\u534e\\u6587\\u7ec6\\u9ed1, SimSun, \\u5b8b\\u4f53, Heiti, \\u9ed1\\u4f53, sans-serif; text-align: justify; white-space: normal;\\\">\\u6628\\u665a\\u7684\\u53d1\\u5e03\\u4f1a\\u4e0a\\uff0c\\u8001\\u7f57\\u8bf4\\u575a\\u679c Pro \\u8fd9\\u4e2a\\u5b9a\\u4f4d\\u4e2d\\u7aef\\u7684\\u7cfb\\u5217\\uff0c\\u662f\\u4f1a\\u534a\\u5e74\\u4e00\\u66f4\\u65b0\\u7684\\uff0c\\u4f46\\u662f\\u65d7\\u8230\\u7cfb\\u5217\\u7684\\u66f4\\u65b0\\u5468\\u671f\\uff0c\\u53ef\\u80fd\\u662f\\u4e00\\u5e74\\uff0c\\u6216\\u8005\\u662f\\u516b\\u4e2a\\u6708\\u3002\\u8bf4\\u5230\\u65d7\\u8230\\u673a\\u7684\\u65f6\\u5019\\uff0c\\u8001\\u7f57\\u7684\\u4fe1\\u5fc3\\u660e\\u663e\\u6ca1\\u6709\\u524d\\u4e24\\u5e74\\u65f6\\u5019\\u8db3\\uff0c\\u6bd5\\u7adf\\u4ee5\\u9524\\u5b50\\u79d1\\u6280\\u76ee\\u524d\\u7684\\u4f53\\u91cf\\uff0c\\u60f3\\u8981\\u50cf\\u56fd\\u5185 TOP 5 \\u4e00\\u6837\\u540c\\u65f6\\u94fa\\u5c55\\u591a\\u6761\\u4ea7\\u54c1\\u7ebf\\u660e\\u663e\\u662f\\u4e0d\\u73b0\\u5b9e\\u7684\\u3002\\u800c\\u4ece T2 \\u4e4b\\u540e\\u5c31\\u5f7b\\u5e95\\u6d88\\u5931\\u7684\\u9524\\u5b50 T \\u7cfb\\u5217\\u65d7\\u8230\\uff0c\\u8001\\u7f57\\u4f3c\\u4e4e\\u4e5f\\u5df2\\u7ecf\\u628a\\u5e0c\\u671b\\u5bc4\\u6258\\u5728\\u4e86\\u6210\\u90fd\\u7684\\u56e2\\u961f\\u8eab\\u4e0a\\u3002<\\/p><p><img src=\\\"..\\/Uploads\\/product\\/file\\/2017-11-08\\/5a029b4f55bc6.jpg\\\" style=\\\"max-width: 100%;\\\" title=\\\"imgNum_4785203\\\"><span><\\/span><\\/p>\"}', '52', 'http://www.livecode.com/index.php/huoma/product?d=oafk83z9t', 'oafk83z9t', '1510120965', '1510120965', '1');
-INSERT INTO `fw_cms_product` VALUES ('103', '0', '25', '好来个产品1', '{\"picUrl\":\"2017-11-08\\/5a027d6e9d2a5.jpg\",\"content\":\"<p style=\\\"text-align: center;\\\"><font color=\\\"#ff0000\\\"><b>\\u54c8\\u54c8\\u54c8\\u54c8\\u54c8<\\/b><\\/font><\\/p><ol><li><p style=\\\"text-align: center;\\\"><b><font color=\\\"#000000\\\"><span style=\\\"max-width: 100%; font-size: 14px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: \\u5b8b\\u4f53;\\\">\\u4eb2\\u7231\\u7684\\u5bb6\\u957f\\uff0c\\u9996\\u5148\\u8bf7\\u786e\\u8ba4\\u672c\\u836f\\u4e3a\\u514b\\u62c9\\u9709\\u7d20\\u5e72\\u6df7\\u60ac\\u5242\\u3002\\u670d\\u836f\\u524d\\u9700\\u8981\\u5148\\u914d\\u7f6e\\u6df7\\u60ac\\u6db2\\uff1a\\u53d6\\u9002\\u91cf\\u6e29\\u5f00\\u6c34\\uff0c\\u52a0\\u5165\\u81f3\\u76db\\u9897\\u7c92\\u7684\\u74f6\\u4e2d\\uff0c\\u632f\\u6447\\uff0c\\u7ee7\\u7eed\\u52a0\\u6c34\\u76f4\\u5230\\u4e0e\\u7ea2\\u7ebf\\u9f50\\u5e73\\uff0c\\u5f97\\u5230\\u6df7\\u60ac\\u5242\\u3002\\u7528\\u9488\\u7b52\\u62bd\\u53d6\\u6807\\u7b7e\\u4e0a\\u6807\\u6ce8\\u7684\\u5242\\u91cf\\u670d\\u7528\\u3002\\u6bcf\\u6b21\\u670d\\u7528\\u524d\\u6447\\u5300\\u3002\\u7528\\u6cd5\\u7528\\u91cf\\u8bf7\\u9075\\u533b\\u5631\\u3002\\u914d\\u7f6e\\u597d\\u7684\\u6df7\\u60ac\\u6db2\\u5728\\u5ba4\\u6e29\\u4e0b\\u53ef\\u4ee5\\u4fdd\\u5b58<\\/span><span style=\\\"max-width: 100%; font-size: 14px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: &quot;Times New Roman&quot;, serif;\\\">14<\\/span><span style=\\\"max-width: 100%; font-size: 14px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: \\u5b8b\\u4f53;\\\">\\u5929\\u3002\\u82e5\\u670d\\u7528\\u540e\\u51fa\\u73b0\\u4e0d\\u826f\\u53cd\\u5e94\\u6216\\u7528\\u836f\\u8fc7\\u91cf\\uff0c\\u8bf7\\u53ca\\u65f6\\u54a8\\u8be2\\u533b\\u5e08\\u3002\\u795d\\u65e9\\u65e5\\u5eb7\\u590d\\uff01<\\/span><\\/font><\\/b><br><\\/p><\\/li><li><p style=\\\"text-align: center;\\\"><b><font color=\\\"#000000\\\"><span style=\\\"max-width: 100%; font-size: 14px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: \\u5b8b\\u4f53;\\\"><img src=\\\"..\\/Uploads\\/product\\/file\\/2017-11-08\\/5a027d9c6f45c.jpg\\\" style=\\\"max-width: 100%;\\\" title=\\\"imgNum_5657348\\\"><span><\\/span><\\/span><\\/font><\\/b><\\/p><\\/li><li><p style=\\\"text-align: center;\\\"><b><font color=\\\"#000000\\\"><span style=\\\"max-width: 100%; font-size: 14px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: \\u5b8b\\u4f53;\\\"><br><\\/span><\\/font><\\/b><\\/p><\\/li><li><p style=\\\"text-align: center;\\\"><b><font color=\\\"#000000\\\"><span style=\\\"max-width: 100%; font-size: 14px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: \\u5b8b\\u4f53;\\\"><iframe height=\\\"100\\\" width=\\\"auto\\\" src=\\\"..\\/Uploads\\/product\\/file\\/2017-11-08\\/5a027dae64c03.mp3\\\" frameborder=\\\"0\\\"><\\/iframe><span><\\/span><iframe height=\\\"400\\\" width=\\\"100%\\\" src=\\\"..\\/Uploads\\/product\\/file\\/2017-11-08\\/5a027da53855b.mp4\\\" frameborder=\\\"0\\\"><\\/iframe><span><\\/span><\\/span><\\/font><\\/b><\\/p><\\/li><\\/ol>\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=69uf3zsu5', '69uf3zsu5', '1510118803', '1510118803', '1');
-INSERT INTO `fw_cms_product` VALUES ('105', '0', '25', '嘿嘿嘿', '{\"picUrl\":\"2017-11-08\\/5a02a4d98ba98.jpg\",\"content\":\"<p>&nbsp;132132<ppp>\\n\\t<\\/ppp><\\/p><section class=\\\"clistyle-section clistyle-section-table\\\">\\n\\t\\t<table style=\\\"width: 100%; \\\">\\n\\t\\t\\t<tbody style=\\\"max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;\\\">\\n\\t\\t\\t\\t<tr style=\\\"max-width: 100%; box-sizing: border-box !important; line-height: 30px; word-wrap: break-word !important; \\\">\\n\\t\\t\\t\\t\\t<td style=\\\"width: 30%; box-sizing: border-box !important; background: #f5f5f5; padding: 5px 10px; border: 1px solid #ddd;font-size: 14px; color: #888; word-break: break-all; word-wrap: break-word !important;\\\">\\u89c4\\u683c<\\/td>\\n\\t\\t\\t\\t\\t<td style=\\\"width: 100px; max-width: 100%; box-sizing: border-box !important; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #212121; word-break: break-all; word-wrap: break-word !important;\\\">220*210cm<\\/td>\\n\\t\\t\\t\\t<\\/tr>\\n\\t\\t\\t\\t<tr style=\\\"max-width: 100%; box-sizing: border-box !important; line-height: 30px; word-wrap: break-word !important; \\\">\\n\\t\\t\\t\\t\\t<td style=\\\"width: 30%; box-sizing: border-box !important;background: #f5f5f5; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #888; word-break: break-all; word-wrap: break-word !important;\\\">\\u5382\\u5546<\\/td>\\n\\t\\t\\t\\t\\t<td style=\\\"width: 100px; max-width: 100%; box-sizing: border-box !important; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #212121; word-break: break-all; word-wrap: break-word !important;\\\">\\u90bb\\u5bb6\\u7f51\\u7edc\\u79d1\\u6280\\u6709\\u9650\\u516c\\u53f8<\\/td>\\n\\t\\t\\t\\t<\\/tr>\\n\\t\\t\\t\\t<tr style=\\\"max-width: 100%; box-sizing: border-box !important; line-height: 30px; word-wrap: break-word !important; \\\">\\n\\t\\t\\t\\t\\t<td style=\\\"width: 30%; box-sizing: border-box !important ;background: #f5f5f5; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #888; word-break: break-all; word-wrap: break-word !important;\\\">\\u70ed\\u7ebf<\\/td>\\n\\t\\t\\t\\t\\t<td style=\\\"width: 100px; max-width: 100%; box-sizing: border-box !important; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #212121; word-break: break-all; word-wrap: break-word !important;\\\">400020232<\\/td>\\n\\t\\t\\t\\t<\\/tr>\\n\\t\\t\\t\\t<tr style=\\\"max-width: 100%; box-sizing: border-box !important; line-height: 30px; word-wrap: break-word !important; \\\">\\n\\t\\t\\t\\t\\t<td style=\\\"width: 30%; box-sizing: border-box !important;background: #f5f5f5; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #888; word-break: break-all; word-wrap: break-word !important;\\\">\\u4ef7\\u683c<\\/td>\\n\\t\\t\\t\\t\\t<td style=\\\"width: 100px; max-width: 100%; box-sizing: border-box !important; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #212121; word-break: break-all; word-wrap: break-word !important;\\\">\\uffe5599<\\/td>\\n\\t\\t\\t\\t<\\/tr><tr style=\\\"max-width: 100%; box-sizing: border-box !important; line-height: 30px; word-wrap: break-word !important; \\\" class=\\\"tr_bgcolor\\\">\\n\\t\\t\\t\\t\\t<td style=\\\"width: 30%; box-sizing: border-box !important;background: #f5f5f5; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #888; word-break: break-all; word-wrap: break-word !important;\\\">\\u4ef7\\u683c<\\/td>\\n\\t\\t\\t\\t\\t<td style=\\\"width: 100px; max-width: 100%; box-sizing: border-box !important; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #212121; word-break: break-all; word-wrap: break-word !important;\\\">\\uffe5599<\\/td>\\n\\t\\t\\t\\t<\\/tr><tr class=\\\"\\\">\\n\\t\\t\\t\\t\\t<td style=\\\"width: 30%; box-sizing: border-box !important;background: #f5f5f5; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #888; word-break: break-all; word-wrap: break-word !important;\\\">\\u4ef7\\u683c<\\/td>\\n\\t\\t\\t\\t\\t<td style=\\\"width: 100px; max-width: 100%; box-sizing: border-box !important; padding: 5px 10px; border: 1px solid #ddd; font-size: 14px; color: #212121; word-break: break-all; word-wrap: break-word !important;\\\">\\uffe5599111<\\/td><\\/tr><\\/tbody><\\/table><\\/section><p><input type=\\\"hidden\\\" class=\\\"wechat-code\\\" value=\\\"https:\\/\\/u.wechat.com\\/MIXDukBRrf7ITxceycqrl3A\\\"><\\/p><p><br><\\/p><div class=\\\"weui-panel\\\"><div class=\\\"weui-icon\\\"><\\/div><div class=\\\"weui-cell\\\">\\u8bf7\\u5728\\u5fae\\u4fe1\\u4e0a\\u67e5\\u770b<\\/div><div class=\\\"weui-btn\\\"><input type=\\\"button\\\" value=\\\"\\u5173\\u6ce8\\\"><\\/div><\\/div><p><input type=\\\"hidden\\\" class=\\\"wechatPic\\\" value=\\\"\\/Uploads\\/product\\/64970f271ff28ea682495fdb9fc45c44.png\\\"><\\/p><p><br><\\/p><div class=\\\"card_module\\\"><h2 class=\\\"card_module_tit\\\">\\u6765\\u4e2a\\u6807\\u9898<\\/h2><div class=\\\"card_module_con\\\"><div class=\\\"card_module_vcard\\\"><div class=\\\"weui-article\\\"><p>\\u6211\\u662f\\u63cf\\u8ff0<\\/p><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"weui-address\\\"><span class=\\\"address_icon\\\"><\\/span><\\/div><div class=\\\"weui-address_info\\\"><h4>\\u5730\\u5740<\\/h4><p>\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u5e02\\u5305\\u6cb3\\u533a\\u5357\\u6ddd\\u6cb3\\u8def518\\u53f7<\\/p><\\/div><div class=\\\"weui-address-btn\\\"><a href=\\\"\\\" id=\\\"ditumapa\\\" lng=\\\"117.32823\\\" lat=\\\"31.84019\\\">\\u5730\\u56fe<\\/a><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"weui-address tel\\\"><span><\\/span><\\/div><div class=\\\"weui-address_info\\\"><h4>\\u6211\\u662f\\u8054\\u7cfb\\u4eba<\\/h4><a href=\\\"tel:1333333333\\\" target=\\\"_self\\\" _href=\\\"tel:1333333333\\\">1333333333<\\/a><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"weui-address mobile\\\"><span><\\/span><\\/div><div class=\\\"weui-address_info\\\"><h4>\\u6211\\u662f\\u8054\\u7cfb\\u4eba2<\\/h4><a href=\\\"tel:155555555\\\" target=\\\"_self\\\" _href=\\\"tel:155555555\\\">155555555<\\/a><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"weui-address email\\\"><span><\\/span><\\/div><div class=\\\"weui-address_info\\\"><h4>\\u6211\\u662f\\u8054\\u7cfb\\u4eba3<\\/h4><p>447936059@qq.com<\\/p><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><\\/div><\\/div><p><br><\\/p>\"}', '47', 'http://www.livecode.com/index.php/huoma/product?d=ge7y2cu9c', 'ge7y2cu9c', '1510731205', '1510731205', '1');
-INSERT INTO `fw_cms_product` VALUES ('106', '0', '25', '范德萨发生都放到1', '{\"picUrl\":\"2017-11-08\\/5a029cd77106e.jpg\",\"content\":\"<p><br><iframe height=\\\"100\\\" width=\\\"auto\\\" src=\\\"..\\/Uploads\\/product\\/file\\/2017-11-08\\/5a029ce136e58.mp3\\\" frameborder=\\\"0\\\"><\\/iframe><span><\\/span><\\/p><p><iframe height=\\\"400\\\" width=\\\"100%\\\" src=\\\"..\\/Uploads\\/product\\/file\\/2017-11-08\\/5a02a9d51f684.mp4\\\" frameborder=\\\"0\\\"><\\/iframe><span><\\/span><\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=563v8st7m', '563v8st7m', '1510125302', '1510125302', '1');
 INSERT INTO `fw_cms_product` VALUES ('107', '1510120134', '25', '子目录111', '{\"picUrl\":\"2017-11-08\\/5a029d503b1a1.jpg\",\"content\":\"<p><br><img src=\\\"..\\/Uploads\\/product\\/file\\/2017-11-08\\/5a029d57c7e29.jpg\\\" style=\\\"max-width: 100%;\\\" title=\\\"imgNum_9903465\\\"><span><\\/span><\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=s3w5esaqg', 's3w5esaqg', '1510120792', '1510120792', '1');
 INSERT INTO `fw_cms_product` VALUES ('108', '1510120134', '25', '好好好啊', '{\"picUrl\":\"2017-11-08\\/5a029e1895f2e.jpg\",\"content\":\"<p style=\\\"text-align: center;\\\">$this-&gt;meta_title = \'\\u65b0\\u589e\\u591a\\u7f51\\u5740\\u8df3\\u8f6c\';<\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=h9v8qbpk8', 'h9v8qbpk8', '1510121010', '1510121010', '1');
-INSERT INTO `fw_cms_product` VALUES ('109', '0', '25', '东西很多', '{\"picUrl\":\"2017-11-09\\/5a03b0aa68a0d.jpg\",\"content\":\"<p><video style=\\\"width:100%; max-height:480px;\\\" controls=\\\"\\\"><source src=\\\"\\/Uploads\\/product\\/file\\/2017-11-09\\/5a03b5676f2db.mp4\\\" type=\\\"video\\/mp4\\\"><source src=\\\"\\/Uploads\\/product\\/file\\/2017-11-09\\/5a03b5676f2db.mp4\\\" type=\\\"video\\/ogg\\\">\\u60a8\\u7684\\u6d4f\\u89c8\\u5668\\u4e0d\\u652f\\u6301Video\\u6807\\u7b7e\\u3002<\\/video><\\/p><div class=\\\"card_module\\\"><h2 class=\\\"card_module_tit\\\"><\\/h2><div class=\\\"card_module_con\\\"><div class=\\\"card_module_vcard\\\"><a href=\\\"\\\"><div class=\\\"card_module_face\\\"><img src=\\\"https:\\/\\/cache.cli.im\\/cli_biz\\/mobile\\/tpl\\/module\\/images\\/default_face.png\\\"><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"vcard_info_name\\\">\\u8001\\u4e8c123456<\\/div><div class=\\\"vcard_info_position\\\">\\u603b\\u7ecf\\u7406<\\/div><div class=\\\"vcard_info_tel\\\">15555555555<\\/div><\\/div><div class=\\\"cl\\\"><\\/div><\\/a><\\/div><\\/div><\\/div><p><br><\\/p><div class=\\\"weui_wd\\\"><a href=\\\"\\/Uploads\\/product\\/file\\/2017-11-09\\/5a03b5224a558.docx\\\" class=\\\"weui_access\\\" _href=\\\"\\/Uploads\\/product\\/file\\/2017-11-09\\/5a03b5224a558.docx\\\"><div class=\\\"weui_hd\\\"><img src=\\\"Public\\/images\\/fileicon.png\\\"><\\/div><div class=\\\"weui_bd\\\"><p class=\\\"overflow\\\">\\u54c8\\u54c8\\u54c8.docx<\\/p><span>1.057 MB<\\/span><\\/div><\\/a><\\/div><p><br><\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=rrxp57xyk', 'rrxp57xyk', '1510192510', '1510192510', '1');
-INSERT INTO `fw_cms_product` VALUES ('110', '0', '25', '看看地图', '{\"picUrl\":\"2017-11-15\\/5a0bef8e15d0e.jpg\",\"content\":\"<p><br><\\/p><div class=\\\"card_module\\\"><h2 class=\\\"card_module_tit\\\">\\u6211\\u662f\\u6a21\\u5757<\\/h2><div class=\\\"card_module_con\\\"><div class=\\\"card_module_vcard\\\"><div class=\\\"weui-article\\\"><p>\\u6211\\u662f\\u63cf\\u8ff0<\\/p><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"weui-address\\\"><span class=\\\"address_icon\\\"><\\/span><\\/div><div class=\\\"weui-address_info\\\"><h4>\\u5730\\u5740<\\/h4><p>\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u5e02\\u5e90\\u9633\\u533a\\u5bff\\u6625\\u8def390\\u53f7<\\/p><\\/div><div class=\\\"weui-address-btn\\\"><a href=\\\"\\\" id=\\\"ditumapa\\\" lng=\\\"117.285111\\\" lat=\\\"31.874878\\\">\\u5730\\u56fe<\\/a><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"weui-address tel\\\"><span><\\/span><\\/div><div class=\\\"weui-address_info\\\"><h4>\\u54c8\\u54c8\\u54c8<\\/h4><a href=\\\"tel:1333333333333\\\" target=\\\"_self\\\" _href=\\\"tel:1333333333333\\\">1333333333333<\\/a><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"weui-address mobile\\\"><span><\\/span><\\/div><div class=\\\"weui-address_info\\\"><h4>\\u54c8\\u54c8\\u54c82<\\/h4><a href=\\\"tel:1555555555\\\" target=\\\"_self\\\" _href=\\\"tel:1555555555\\\">1555555555<\\/a><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><\\/div><\\/div><p><br><\\/p>\"}', '68', 'http://www.livecode.com/index.php/huoma/product?d=mn8fnnef0', 'mn8fnnef0', '1510731708', '1510731708', '1');
+INSERT INTO `fw_cms_product` VALUES ('112', '0', '25', '(╥╯^╰╥)', '{\"picUrl\":\"2017-11-17\\/5a0e7042c0cb3.jpg\",\"content\":\"<p><br><\\/p><div class=\\\"weui-panel\\\"><div class=\\\"weui-icon\\\"><\\/div><div class=\\\"weui-cell\\\">\\u5fae\\u4fe1\\u597d\\u53cb<\\/div><div class=\\\"weui-btn\\\"><input type=\\\"button\\\" value=\\\"\\u5173\\u6ce8\\\"><\\/div><\\/div><p><br><\\/p>\"}', '0', 'http://www.livecode.com/index.php/huoma/product?d=yd0bb64pg', 'yd0bb64pg', '1510895700', '1510895700', '0');
 INSERT INTO `fw_cms_product` VALUES ('111', '1510120134', '25', '哈哈哈', '{\"picUrl\":\"2017-11-15\\/5a0bf7ea4d9f5.jpg\",\"content\":\"<div class=\\\"card_module\\\"><h2 class=\\\"card_module_tit\\\">\\u8303\\u5fb7\\u8428\\u8303\\u5fb7\\u8428<\\/h2><div class=\\\"card_module_con\\\"><div class=\\\"card_module_vcard\\\"><div class=\\\"weui-article\\\"><p>\\u6cd5\\u6492\\u65e6\\u6cd5\\u8bf4\\u7684<\\/p><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"weui-address\\\"><span class=\\\"address_icon\\\"><\\/span><\\/div><div class=\\\"weui-address_info\\\"><h4>\\u5730\\u5740<\\/h4><p>\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u5e02\\u5305\\u6cb3\\u533a\\u5357\\u6ddd\\u6cb3\\u8def518<\\/p><\\/div><div class=\\\"weui-address-btn\\\"><a href=\\\"javascript:;\\\" id=\\\"ditumapa\\\" lng=\\\"117.328733\\\" lat=\\\"31.840865\\\" _href=\\\"javascript:;\\\">\\u5730\\u56fe<\\/a><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"weui-address tel\\\"><span><\\/span><\\/div><div class=\\\"weui-address_info\\\"><h4>\\u6765\\u6765\\u6765<\\/h4><a href=\\\"tel:133333333\\\" target=\\\"_self\\\" _href=\\\"tel:133333333\\\">133333333<\\/a><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><\\/div><\\/div><p><br><\\/p><div class=\\\"card_module\\\"><h2 class=\\\"card_module_tit\\\">\\u6cd5\\u6492\\u65e6\\u6cd5\\u8bf4\\u7684<\\/h2><div class=\\\"card_module_con\\\"><div class=\\\"card_module_vcard\\\"><div class=\\\"weui-article\\\"><p>13232<\\/p><\\/div><div class=\\\"card_module_info\\\"><div class=\\\"weui-address\\\"><span class=\\\"address_icon\\\"><\\/span><\\/div><div class=\\\"weui-address_info\\\"><h4>\\u5730\\u5740<\\/h4><p>\\u5b89\\u5fbd\\u7701\\u5408\\u80a5\\u5e02\\u7476\\u6d77\\u533a\\u5408\\u88d5\\u8def7\\u53f7<\\/p><\\/div><div class=\\\"weui-address-btn\\\"><a href=\\\"javascript:;\\\" id=\\\"ditumapa\\\" lng=\\\"117.31939\\\" lat=\\\"31.859023\\\">\\u5730\\u56fe<\\/a><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><div class=\\\"cl\\\"><\\/div><\\/div><\\/div><\\/div><p><br><\\/p>\"}', '9', 'http://www.livecode.com/index.php/huoma/product?d=q6qp2gr9c', 'q6qp2gr9c', '1510735380', '1510735380', '1');
 
 -- ----------------------------
@@ -630,7 +640,7 @@ CREATE TABLE `fw_echarts_data` (
   `browser` varchar(20) NOT NULL DEFAULT '' COMMENT '浏览器类型',
   PRIMARY KEY (`id`),
   KEY `codeId` (`codeId`)
-) ENGINE=MyISAM AUTO_INCREMENT=858 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=866 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_echarts_data
@@ -1438,6 +1448,14 @@ INSERT INTO `fw_echarts_data` VALUES ('854', '111', '2017-11-15 16:29:33', '2', 
 INSERT INTO `fw_echarts_data` VALUES ('855', '111', '2017-11-15 16:42:22', '2', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Android系统', 'Chrome');
 INSERT INTO `fw_echarts_data` VALUES ('856', '111', '2017-11-15 16:43:04', '2', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Android系统', 'Chrome');
 INSERT INTO `fw_echarts_data` VALUES ('857', '111', '2017-11-15 16:48:03', '2', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Android系统', 'Chrome');
+INSERT INTO `fw_echarts_data` VALUES ('858', '113', '2017-11-17 09:48:19', '3', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Windows', 'Chrome');
+INSERT INTO `fw_echarts_data` VALUES ('859', '113', '2017-11-17 09:48:23', '3', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Android系统', 'Chrome');
+INSERT INTO `fw_echarts_data` VALUES ('860', '117', '2017-11-17 09:50:23', '3', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Android系统', 'Chrome');
+INSERT INTO `fw_echarts_data` VALUES ('861', '117', '2017-11-17 10:02:35', '3', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Android系统', 'Chrome');
+INSERT INTO `fw_echarts_data` VALUES ('862', '117', '2017-11-17 10:02:37', '3', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Android系统', 'Chrome');
+INSERT INTO `fw_echarts_data` VALUES ('863', '117', '2017-11-17 10:02:51', '3', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Android系统', 'Chrome');
+INSERT INTO `fw_echarts_data` VALUES ('864', '117', '2017-11-17 10:02:52', '3', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Android系统', 'Chrome');
+INSERT INTO `fw_echarts_data` VALUES ('865', '117', '2017-11-17 10:03:05', '3', '127.0.0.1', '', '-1', '内网IP', '0', '内网IP', 'Android系统', 'Chrome');
 
 -- ----------------------------
 -- Table structure for `fw_orders`
@@ -1445,27 +1463,28 @@ INSERT INTO `fw_echarts_data` VALUES ('857', '111', '2017-11-15 16:48:03', '2', 
 DROP TABLE IF EXISTS `fw_orders`;
 CREATE TABLE `fw_orders` (
   `orderId` int(11) NOT NULL AUTO_INCREMENT,
-  `orderNo` varchar(30) NOT NULL,
-  `userId` int(11) NOT NULL,
+  `orderNo` varchar(30) NOT NULL DEFAULT '',
+  `userId` int(11) NOT NULL DEFAULT '0',
   `orderStatus` tinyint(4) NOT NULL DEFAULT '-1' COMMENT '-1待付款,1已付款',
   `vipId` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1基础会员,2高级会员,3定制会员',
   `year` tinyint(10) NOT NULL DEFAULT '1' COMMENT '有效期',
   `isNew` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1新开,0续费',
   `payType` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0支付宝,1微信,2汇款',
   `payMoney` decimal(11,2) NOT NULL DEFAULT '0.00',
-  `tradeNo` varchar(30) DEFAULT NULL,
-  `create_time` int(11) NOT NULL,
-  `pay_time` int(11) NOT NULL,
+  `tradeNo` varchar(30) NOT NULL DEFAULT '',
+  `create_time` int(11) NOT NULL DEFAULT '0',
+  `pay_time` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`orderId`),
   KEY `userId` (`userId`),
   KEY `orderStatus` (`orderStatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_orders
 -- ----------------------------
-INSERT INTO `fw_orders` VALUES ('106', '2017110715100422539639', '25', '1', '26', '1', '1', '2', '0.10', null, '1510042253', '1510042253', '1');
+INSERT INTO `fw_orders` VALUES ('14', '2017111715109056114606', '25', '1', '26', '2', '0', '2', '1000.00', '', '1510905611', '1510906561', '1');
+INSERT INTO `fw_orders` VALUES ('15', '2017111715109086619060', '25', '-1', '28', '5', '1', '0', '39003.00', '', '1510908661', '0', '1');
 
 -- ----------------------------
 -- Table structure for `fw_payments`
@@ -1507,7 +1526,7 @@ CREATE TABLE `fw_vip` (
 -- ----------------------------
 -- Records of fw_vip
 -- ----------------------------
-INSERT INTO `fw_vip` VALUES ('26', '基础版', '0', '1', '100', '0', '', '1024', '0', '[{\"desc\":\"\\u5185\\u5bb9\\u7f16\\u8f91\",\"val\":\"\\u65e0\\u9650\\u5236\\u4fee\\u6539\"},{\"desc\":\"\\u98ce\\u9669\\u9884\\u8b66\",\"val\":\"\\u65e0\\u98ce\\u9669\\u9875\\u76f4\\u63a5\\u8df3\\u8f6c\"},{\"desc\":\"\\u72ec\\u7acb\\u4e3b\\u673a\",\"val\":\"\\u4e0d\\u652f\\u6301\"},{\"desc\":\"\\u6279\\u91cf\\u4fee\\u6539\\u7f51\\u5740\",\"val\":\"\\u4e0d\\u652f\\u6301\"},{\"desc\":\"\\u7279\\u6b8a\\u7c7b\\u578b\\u5b9a\\u5236\",\"val\":\"\\u4e0d\\u652f\\u6301\"}]', '2');
+INSERT INTO `fw_vip` VALUES ('26', '基础版', '0', '1', '500', '500', '', '600', '1', '[{\"desc\":\"\\u5185\\u5bb9\\u7f16\\u8f91\",\"val\":\"\\u65e0\\u9650\\u5236\\u4fee\\u6539\"},{\"desc\":\"\\u98ce\\u9669\\u9884\\u8b66\",\"val\":\"\\u65e0\\u98ce\\u9669\\u9875\\u76f4\\u63a5\\u8df3\\u8f6c\"},{\"desc\":\"\\u72ec\\u7acb\\u4e3b\\u673a\",\"val\":\"\\u4e0d\\u652f\\u6301\"},{\"desc\":\"\\u6279\\u91cf\\u4fee\\u6539\\u7f51\\u5740\",\"val\":\"\\u4e0d\\u652f\\u6301\"},{\"desc\":\"\\u7279\\u6b8a\\u7c7b\\u578b\\u5b9a\\u5236\",\"val\":\"\\u4e0d\\u652f\\u6301\"}]', '2');
 INSERT INTO `fw_vip` VALUES ('25', '牛逼版', '0', '1', '10000', '5000000', '', '1024', '1', '[{\"desc\":\"\\u5185\\u5bb9\\u7f16\\u8f91\",\"val\":\"\\u65e0\\u9650\\u5236\\u4fee\\u6539\"},{\"desc\":\"\\u98ce\\u9669\\u9884\\u8b66\",\"val\":\"\\u65e0\\u98ce\\u9669\\u9875\\u76f4\\u63a5\\u8df3\\u8f6c\"},{\"desc\":\"\\u72ec\\u7acb\\u4e3b\\u673a\",\"val\":\"\\u652f\\u6301\"},{\"desc\":\"\\u6279\\u91cf\\u4fee\\u6539\\u7f51\\u5740\",\"val\":\"\\u652f\\u6301\"},{\"desc\":\"\\u7279\\u6b8a\\u7c7b\\u578b\\u5b9a\\u5236\",\"val\":\"\\u652f\\u6301\"}]', '5');
 INSERT INTO `fw_vip` VALUES ('28', '高级版', '0', '1', '8000', '200000', '', '9999', '1', '[{\"desc\":\"\\u5185\\u5bb9\\u7f16\\u8f91\",\"val\":\"\\u65e0\\u9650\\u5236\\u4fee\\u6539\"},{\"desc\":\"\\u98ce\\u9669\\u9884\\u8b66\",\"val\":\"\\u65e0\\u98ce\\u9669\\u9875\\u76f4\\u63a5\\u8df3\\u8f6c\"},{\"desc\":\"\\u72ec\\u7acb\\u4e3b\\u673a\",\"val\":\"\\u652f\\u6301\"},{\"desc\":\"\\u6279\\u91cf\\u4fee\\u6539\\u7f51\\u5740\",\"val\":\"\\u4e0d\\u652f\\u6301\"},{\"desc\":\"\\u7279\\u6b8a\\u7c7b\\u578b\\u5b9a\\u5236\",\"val\":\"\\u4e0d\\u652f\\u6301\"}]', '3');
 INSERT INTO `fw_vip` VALUES ('35', '超级版', '1', '1', '666', '111111111', '[\"10\",\"11\"]', '100', '1', '[{\"desc\":\"\\u5185\\u5bb9\\u7f16\\u8f91\",\"val\":\"\\u65e0\\u9650\\u5236\\u4fee\\u6539\"},{\"desc\":\"\\u98ce\\u9669\\u9884\\u8b66\",\"val\":\"\\u65e0\\u98ce\\u9669\\u9875\\u76f4\\u63a5\\u8df3\\u8f6c\"},{\"desc\":\"\\u72ec\\u7acb\\u4e3b\\u673a\",\"val\":\"\\u652f\\u6301\"},{\"desc\":\"\\u6279\\u91cf\\u4fee\\u6539\\u7f51\\u5740\",\"val\":\"\\u652f\\u6301\"},{\"desc\":\"\\u7279\\u6b8a\\u7c7b\\u578b\\u5b9a\\u5236\",\"val\":\"\\u4e0d\\u652f\\u6301\"}]', '4');
@@ -1522,7 +1541,7 @@ CREATE TABLE `fw_vip_price` (
   `year` tinyint(1) NOT NULL DEFAULT '1' COMMENT '会员年限',
   `price` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '会员价格',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=177 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fw_vip_price
@@ -1536,7 +1555,7 @@ INSERT INTO `fw_vip_price` VALUES ('74', '28', '1', '3000.00');
 INSERT INTO `fw_vip_price` VALUES ('115', '25', '4', '4000.00');
 INSERT INTO `fw_vip_price` VALUES ('73', '28', '3', '5000.00');
 INSERT INTO `fw_vip_price` VALUES ('114', '25', '2', '2000.00');
-INSERT INTO `fw_vip_price` VALUES ('140', '26', '3', '3000.00');
-INSERT INTO `fw_vip_price` VALUES ('139', '26', '2', '1000.00');
-INSERT INTO `fw_vip_price` VALUES ('138', '26', '1', '0.10');
+INSERT INTO `fw_vip_price` VALUES ('176', '26', '3', '3000.00');
+INSERT INTO `fw_vip_price` VALUES ('175', '26', '2', '1000.00');
+INSERT INTO `fw_vip_price` VALUES ('174', '26', '1', '0.10');
 INSERT INTO `fw_vip_price` VALUES ('113', '25', '1', '1000.00');
