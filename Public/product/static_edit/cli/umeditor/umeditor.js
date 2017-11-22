@@ -11183,16 +11183,7 @@ UM.registerUI('tellink',
 	        } else {
 	            $(this).find('.dropdown-menu').addClass('show1');
 	        }
-	        return false;
 		})
-	    $('body').on('click', function(){
-	        $('.navbar-right .dropdown-menu').removeClass('show1');
-	        $('.navbar-right .dropdown-menu').hide();
-	    });
-		$(document).scroll(function(){
-	        $('.dropdown-menu').removeClass('show1');
-	        $('.dropdown-menu').hide();
-	    });
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
         	$(".maskmodal").hide();
