@@ -11233,7 +11233,7 @@ UM.registerUI('contact',
 				html +='<h4>'+ input1 +'</h4>';
 				
 				if($(this).find('select option:selected').val()=='mobile' || $(this).find('select option:selected').val()=='tel'){
-					html +='<a href="tel:'+ input2 +'" target="_self" _href="tel:'+ input2 +'">'+ input2 +'</a>';
+					html +='<a href="tel:'+ input2 +'" contenteditable="true" target="_self" onchange="myFunction()" _href="tel:'+ input2 +'">'+ input2 +'</a>';
 				}else{
 					html +='<p>'+ input2 +'</p>';
 				}
