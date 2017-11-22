@@ -11545,11 +11545,11 @@ UM.registerUI('ship',
 			        return alert('上传失败');
 			      }else{
 			      	//上传成功
-			      	imagehtml = '<p><br/></p><div><video style="width:100%; max-height:480px;" controls>';
+			      	imagehtml = '<p><br/></p><p><video style="width:100%; max-height:400px;" controls>';
 					imagehtml +='<source src="/Uploads/product/file/'+ res.data +'" type="video/mp4">';
 					imagehtml +='<source src="/Uploads/product/file/'+ res.data +'" type="video/ogg">';
 					imagehtml +='您的浏览器不支持Video标签。';
-					imagehtml +='</video><div>';
+					imagehtml +='</video><p>';
 			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
 			      }
 			    }
