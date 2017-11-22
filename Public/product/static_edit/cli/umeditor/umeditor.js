@@ -11230,7 +11230,7 @@ UM.registerUI('contact',
             var lat=lnglat.split(',')[1];
             var html = '', html2 ='';
             if(address){
-        		html2 = '<div class="card_module_info"><div class="weui-address"><span class="address_icon"></span></div><div class="weui-address_info"><h4>地址</h4><p>'+address+'</p></div><div class="weui-address-btn"><a href="javascript:;" id="ditumapa" lng="'+ lng +'" lat="'+ lat +'">地图</a></div><div class="cl"></div></div>';
+        		html2 = '<div class="card_module_info"><div class="weui-address"><span class="address_icon"></span></div><div class="weui-address_info"><h4>地址</h4><p>'+address+'</p></div><div class="weui-address-btn"><a href="javascript:;" lng="'+ lng +'" lat="'+ lat +'">地图</a></div><div class="cl"></div></div>';
         	}
             $(".pos-rlt").each(function(){
             	var input1 = $(this).find('.col-md-4 input').val() || "联系方式";
