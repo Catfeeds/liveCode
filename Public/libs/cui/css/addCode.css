@@ -830,5 +830,6 @@ a:hover{
 .fileup{
     border: 1px solid #dcdcdc;
     padding: 15px;
+    min-height: 300px;
 }
 
