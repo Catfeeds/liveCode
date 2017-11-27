@@ -11233,7 +11233,7 @@ UM.registerUI('contact',
 				html +='<h4>'+ input1 +'</h4>';
 				
 				if($(this).find('select option:selected').val()=='mobile' || $(this).find('select option:selected').val()=='tel'){
-					html +='<a href="tel:'+ input2 +'" contenteditable="true" target="_self" onchange="myFunction()" _href="tel:'+ input2 +'">'+ input2 +'</a>';
+					html +='<a class="atel" href="tel:'+ input2 +'" target="_self"  _href="tel:'+ input2 +'">'+input2+'</a>';
 				}else{
 					html +='<p>'+ input2 +'</p>';
 				}
@@ -11244,8 +11244,13 @@ UM.registerUI('contact',
 			$("#modal-contact").fadeOut();
             $(".navbar-inverse").css('z-index',"1");
             if(!address && html=="") return;
-            me.execCommand("inserthtml",'<div class="card_module"><h2 class="card_module_tit">'+tit+'</h2><div class="card_module_con"><div class="card_module_vcard"><div class="weui-article"><p>'+depict+'</p></div>' +html2 + html + '<div class="cl"></div></div></div></div>',"needFilter");
+            me.execCommand("inserthtml",'<p><br/></p><div class="card_module"><h2 class="card_module_tit">'+tit+'</h2><div class="card_module_con"><div class="card_module_vcard"><div class="weui-article"><p>'+depict+'</p></div>' +html2 + html + '<div class="cl"></div></div></div></div>',"needFilter");
+        	$('.weui-address_info').on('mouseenter mouseleave','a.atel',function(e){
+	        	$(this).attr('href',"tel:"+$(this).html());
+				$(this).attr('_href',"tel:"+$(this).html());
+	        })
         });
+
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
         	$(".maskmodal").hide();
@@ -11297,7 +11302,7 @@ UM.registerUI('wechat',
             $(".maskmodal").hide();
 			$("#modal-wechat").fadeOut();
             $(".navbar-inverse").css('z-index',"1");
-            me.execCommand("inserthtml",'<div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div><input type="hidden" class="wechatPic" value="'+wechatcode+'" />',"needFilter");
+            me.execCommand("inserthtml",'<p><br/></p><div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div><input type="hidden" class="wechatPic" value="'+wechatcode+'" /><p><br/></p>',"needFilter");
         });
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
