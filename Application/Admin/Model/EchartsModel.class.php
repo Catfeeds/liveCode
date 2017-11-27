@@ -204,6 +204,7 @@ class EchartsModel extends Model {
                 ->group($group)
                 ->order($order)
                 ->select();
+        // halt($data);
 
         $info['total_count'] = $this->where(['codeId'=>$info['id'],'type'=>$info['code']])->where($where)->count();
         if ($data) {
@@ -214,23 +215,26 @@ class EchartsModel extends Model {
                     $data[$key]['percentage'] = (int)($v['visitCount']/$info['total_count']*100).'%';
                 }else{
                     //按日期统计
-                    $data[$key]['percentage'] = (int)($v['visitCount']/$info['total_count']*100).'%';
                     if ($info['time'] == 'yes') {
                         for($i=23;$i>=0;$i--){
                             $data[$i]['datetime'] = date($i).':00';
                             if ($v['visitCount'] && $v['hour'] == $i) {
-                                $data[$i]['visitCount'] = $v['visitCount'];
+                                $data[$i]['hour']         = $v['hour'];
+                                $data[$i]['visitCount']   = $v['visitCount'];
                                 $data[$i]['visitorCount'] = $v['visitorCount'];
-                                $data[$i]['percentage'] = $data[$key]['percentage'];
-                                unset($data[$key]);
+                                $data[$i]['percentage']   = (int)($v['visitCount']/$info['total_count']*100).'%';
                             }
                         }
+                        if ($data[$key]['hour'] != str_replace(':00', '', $data[$key]['datetime'])) {
+                            unset($data[$key]);
+                        }
                     }elseif ($info['time'] == 'week') {
+                        $data[$key]['percentage'] = (int)($v['visitCount']/$info['total_count']*100).'%';
                         for($i=6;$i>=0;$i--){
-                            // $data[$i]['datetime'] = date('Y-m-d',mktime(0,0,0,date('m'),date('d')-$i+1,date('Y'))-1);
                             $data[$i]['datetime'] = date("Y-m-d",strtotime("-$i day"));
                         }
                     }elseif ($info['time'] == 'month') {
+                        $data[$key]['percentage'] = (int)($v['visitCount']/$info['total_count']*100).'%';
                         for($i=29;$i>=0;$i--){
                             $data[$i]['datetime'] = date("Y-m-d",strtotime("-$i day"));
                         }
@@ -245,13 +249,16 @@ class EchartsModel extends Model {
                         } 
                     }else{
                         for($i=date('H');$i>=0;$i--){
-                            $data[$i]['datetime'] = date($i).':00';
+                            $data[$i]['datetime'] = date($i).':00';  
                             if ($v['visitCount'] && $v['hour'] == $i) {
-                                $data[$i]['visitCount'] = $v['visitCount'];
+                                $data[$i]['hour']         = $v['hour'];
+                                $data[$i]['visitCount']   = $v['visitCount'];
                                 $data[$i]['visitorCount'] = $v['visitorCount'];
-                                $data[$i]['percentage'] = $data[$key]['percentage'];
-                                unset($data[$key]);
+                                $data[$i]['percentage']   = (int)($v['visitCount']/$info['total_count']*100).'%';
                             }
+                        }
+                        if ($data[$key]['hour'] != str_replace(':00', '', $data[$key]['datetime'])) {
+                            unset($data[$key]);
                         }
                     }
                 }
@@ -454,14 +461,16 @@ class EchartsModel extends Model {
                     for($i=23;$i>=0;$i--){
                         $data[$i]['datetime'] = date("Y-m-d",strtotime("-1 day")).' '.$i.':00';
                         if ($v['visitCount'] && strtotime($v['hour']) == strtotime($data[$i]['datetime'])) {
-                            $data[$i]['visitCount'] = $v['visitCount'];
+                            $data[$i]['hour']         = $v['hour'];
+                            $data[$i]['visitCount']   = $v['visitCount'];
                             $data[$i]['visitorCount'] = $v['visitorCount'];
-                            unset($data[$key]);
                         }
+                    }
+                    if (strtotime($data[$key]['hour']) != strtotime($data[$key]['datetime'])) {
+                        unset($data[$key]);
                     }
                 }elseif ($info['time'] == 'week') {
                     for($i=6;$i>=0;$i--){
-                        // $data[$i]['datetime'] = date('Y-m-d',mktime(0,0,0,date('m'),date('d')-$i+1,date('Y'))-1);
                         $data[$i]['datetime'] = date("Y-m-d",strtotime("-$i day"));
                     }
                 }elseif ($info['time'] == 'month') {
@@ -481,10 +490,13 @@ class EchartsModel extends Model {
                     for($i=date('H');$i>=0;$i--){
                         $data[$i]['datetime'] = date('Y-m-d '.$i).':00';
                         if ($v['visitCount'] && strtotime($v['hour']) == strtotime($data[$i]['datetime'])) {
-                            $data[$i]['visitCount'] = $v['visitCount'];
+                            $data[$i]['hour']         = $v['hour'];
+                            $data[$i]['visitCount']   = $v['visitCount'];
                             $data[$i]['visitorCount'] = $v['visitorCount'];
-                            unset($data[$key]);
                         }
+                    }
+                    if (strtotime($data[$key]['hour']) != strtotime($data[$key]['datetime'])) {
+                        unset($data[$key]);
                     }
                 }
             }

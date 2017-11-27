@@ -283,10 +283,13 @@ class EchartsController extends AdminController {
                         for($i=23;$i>=0;$i--){
                             $data[$i]['datetime'] = date($i).':00';
                             if ($v['visitCount'] && $v['hour'] == $i) {
-                                $data[$i]['visitCount'] = $v['visitCount'];
+                                $data[$i]['hour']         = $v['hour'];
+                                $data[$i]['visitCount']   = $v['visitCount'];
                                 $data[$i]['visitorCount'] = $v['visitorCount'];
-                                unset($data[$key]);
                             }
+                        }
+                        if ($data[$key]['hour'] != str_replace(':00', '', $data[$key]['datetime'])) {
+                            unset($data[$key]);
                         }
                     }elseif ($info['time'] == 'week') {
                         for($i=6;$i>=0;$i--){
@@ -309,10 +312,13 @@ class EchartsController extends AdminController {
                         for($i=date('H');$i>=0;$i--){
                             $data[$i]['datetime'] = date($i).':00';
                             if ($v['visitCount'] && $v['hour'] == $i) {
-                                $data[$i]['visitCount'] = $v['visitCount'];
+                                $data[$i]['hour']         = $v['hour'];
+                                $data[$i]['visitCount']   = $v['visitCount'];
                                 $data[$i]['visitorCount'] = $v['visitorCount'];
-                                unset($data[$key]);
                             }
+                        }
+                        if ($data[$key]['hour'] != str_replace(':00', '', $data[$key]['datetime'])) {
+                            unset($data[$key]);
                         }
                     }
                 }
