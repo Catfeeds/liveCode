@@ -103,15 +103,12 @@
                         <div class="form-group item_title ">
                                 <label class="left control-label">视频名称</label>
                                 <div class="right">
-                        
                                     <input type="text" class="form-control input text" id="title" value="{$data.title}" >
-                                
                                 </div>
                             </div>
                             <div class="form-group item_title ">
-                                <label class="left control-label">视频文件路径</label>
+                                <label class="left control-label">已上传视频路径</label>
                                 <div class="right">
-                        
                                     <input type="text" class="form-control input text" id="videourl" value="{$data.videourl}" readonly="true">
                                 </div>
                             </div>
@@ -128,6 +125,7 @@
                                                     <a class="resumable-browse"><u>上传文件</u></a>
                                                 </div>  
                                                 <input type="hidden" id="fileSize" value="{$data.size}">
+                                                <input type="hidden" id="fileUrl" value="{$data.videourl}">
                                                 <ul class="resumable-list"></ul>   
                                                 <!--<div class="resumable-progress">
                                                     <table>
@@ -159,7 +157,7 @@
     </div>
     <script>
         var r = new Resumable({
-            target:"{:U('addfile')}",
+            target:"{:U('Admin/Video/addfile')}",
             chunkSize:1*1024*1024,
             simultaneousUploads:4,
             testChunks:true,
@@ -183,7 +181,6 @@
               // Add the file to the list
               $('.resumable-list').append('<li class="resumable-file-'+file.uniqueIdentifier+'">正在上传文件 <span class="resumable-file-name"></span> <span class="resumable-file-progress"></span>');
               $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-name').html(file.fileName);
-              $('#fileSize').val((file.size/(1024*1024)).toFixed(2));
               // Actually start the upload
               r.upload();
             });
@@ -199,6 +196,8 @@
           r.on('fileSuccess', function(file,message){
               // Reflect that the file upload has completed
               $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-progress').html('(上传结束)');
+              $('#fileSize').val((file.size/(1024*1024)).toFixed(2));
+              $('#fileUrl').val(message);
             });
           r.on('fileError', function(file, message){
               // Reflect that the file upload has resulted in error
@@ -215,8 +214,9 @@
             var id        = $("#id").val();
             var menuId    = $("#menuId").val();
             var title     = $("#title").val();
-            var videoName = $(".resumable-file-name:last").html();
-            var size = $("#fileSize").val();
+            // var videourl = $(".resumable-file-name:last").html();
+            var videourl  = $("#fileUrl").val();
+            var size      = $("#fileSize").val();
             var codeType  = $("#codeType").val();     //管理员审核编辑
             var postUrl   = 'admin.php?s=/admin/video/edit/id/'+id;
             if (codeType) {
@@ -225,16 +225,14 @@
             if (title == '') {
                 $.alertMessager('请输入视频名称!');return;
             }
-            if (videoName == null) {
-                videoName = $("#videourl").val();
-            }else{
-                videoName = 'Uploads/video/'+videoName;
+            if (videourl == null) {
+                videourl = $("#videourl").val();
             }
 
             $.ajax({
                 url: postUrl,
                 type: 'POST',
-                data: {id:id,menuId:menuId,title:title,videourl:videoName,size:size},
+                data: {id:id,menuId:menuId,title:title,videourl:videourl,size:size},
                 success: function (data) {  
                     if(data.status == 1){
                         $.alertMessager('更新成功!','success');

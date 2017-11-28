@@ -94,15 +94,20 @@
                                         <div class="resumable-drop" ondragenter="jQuery(this).addClass('resumable-dragover');" ondragend="jQuery(this).removeClass('resumable-dragover');" ondrop="jQuery(this).removeClass('resumable-dragover');">
                                             <a class="resumable-browse"><u>上传文件</u></a>
                                         </div>  
-                                        <input type="hidden" id="fileSize" value="0">
-                                        <ul class="resumable-list"></ul>  
-                                        <div class="resumable-progress">
+                                        <ul class="resumable-list" style="display: block;">
+                                            <li>已上传文件 &nbsp;&nbsp;
+                                                <span class="resumable-file-name">{$data['fileName']}</span>&nbsp; &nbsp;
+                                                <span class="resumable-file-size">{$data['size']}MB</span> &nbsp;&nbsp;
+                                                <span class="resumable-file-progress">(上传结束)</span>
+                                            </li>
+                                        </ul>
+                                        <div class="resumable-progress" style="display: block;">
                                             <table>
-                                            <tr>
-                                                <td width="100%"><div class="progress-container"><div class="progress-bar"></div></div></td>
+                                            <tbody><tr>
+                                                <td width="100%"><div class="progress-container"><div class="progress-bar" style="width: 100%;"></div></div></td>
                                                 <td class="progress-text" nowrap="nowrap"></td>
                                             </tr>
-                                            </table>
+                                            </tbody></table>
                                         </div>       
                                     </div>
                                 </div>            
@@ -578,7 +583,7 @@
     <script src="__PUBLIC__/libs/video/js/resumable.js"></script>
 	<script>
         var r = new Resumable({
-	        target:"{:U('addfile')}",
+	        target:"{:U('Admin/Livecode/uploadFile')}",
 	        chunkSize:1*1024*1024,
 	        simultaneousUploads:4,
 	        testChunks:true,
@@ -602,8 +607,7 @@
               // Add the file to the list
               $('.resumable-list').append('<li class="resumable-file-'+file.uniqueIdentifier+'">正在上传文件 &nbsp;&nbsp;<span class="resumable-file-name"></span> &nbsp; &nbsp;<span class="resumable-file-size"></span> &nbsp;&nbsp;<span class="resumable-file-progress"></span>');
               $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-name').html(file.fileName);
-              $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-size').html((file.size/1024).toFixed(1)+"kb");
-              $('#fileSize').val((file.size/(1024*1024)).toFixed(2));
+              $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-size').html((file.size/(1024*1024)).toFixed(2)+"MB");
               // Actually start the upload
               r.upload();
             });
@@ -619,6 +623,9 @@
           r.on('fileSuccess', function(file,message){
               // Reflect that the file upload has completed
               $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-progress').html('(上传结束)');
+              $('#uploadFileName').val(file.fileName);
+              $('#uploadFileSize').val((file.size/(1024*1024)).toFixed(2));
+              $('#uploadFileUrl').val(message);
             });
           r.on('fileError', function(file, message){
               // Reflect that the file upload has resulted in error

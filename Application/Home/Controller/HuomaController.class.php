@@ -54,7 +54,7 @@ class HuomaController extends HomeController{
         }elseif ($data['type'] == 3) {      //文件活码
             $ext             = substr(strrchr($data['title'], '.'), 1); 
             $content         = json_decode($data['content'],true);
-            $data['url']     = '/Uploads/livecode/file/'.$content['url'];
+            $data['url']     = '/'.$content['url'];
             $data['fileName']= $content['fileName'];
             $data['size']    = $content['size'];
             $data['picIcon'] = getPicType($ext);
@@ -135,9 +135,9 @@ class HuomaController extends HomeController{
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
         $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
 
-        $type = $obj -> where(array('d' => $d)) -> getField('type');
+        $type     = $obj -> where(array('d' => $d)) -> getField('type');
         $videourl = $obj -> where(array('d' => $d)) -> getField('0,id,title,videourl,huoma');
-        $url = $obj -> where(array('d' => $d)) -> getField('videourl');
+        $url      = $obj -> where(array('d' => $d)) -> getField('videourl');
         //获取访问者信息
         $info            = getIPLoc_taobao(get_client_ip());
         $info['os']      = getOS();

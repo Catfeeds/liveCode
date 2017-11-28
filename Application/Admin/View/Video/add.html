@@ -116,6 +116,7 @@
                                                 <a class="resumable-browse"><u>上传文件</u></a>
                                             </div>  
                                             <input type="hidden" id="fileSize" value="0">
+                                            <input type="hidden" id="fileUrl" value="">
                                             <ul class="resumable-list"></ul>   
                                             <!-- <div class="resumable-progress">
                                                 <table>
@@ -149,7 +150,7 @@
 
       <script>
         var r = new Resumable({
-            target:"{:U('addfile')}",
+            target:"{:U('Admin/Video/addfile')}",
             chunkSize:1*1024*1024,
             simultaneousUploads:4,
             testChunks:true,
@@ -173,7 +174,6 @@
               // Add the file to the list
               $('.resumable-list').append('<li class="resumable-file-'+file.uniqueIdentifier+'">正在上传文件 <span class="resumable-file-name"></span> <span class="resumable-file-progress"></span>');
               $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-name').html(file.fileName);
-              $('#fileSize').val((file.size/(1024*1024)).toFixed(2));
               // Actually start the upload
               r.upload();
             });
@@ -189,6 +189,8 @@
           r.on('fileSuccess', function(file,message){
               // Reflect that the file upload has completed
               $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-progress').html('(上传结束)');
+              $('#fileSize').val((file.size/(1024*1024)).toFixed(2));
+              $('#fileUrl').val(message);
             });
           r.on('fileError', function(file, message){
               // Reflect that the file upload has resulted in error
@@ -202,22 +204,21 @@
         }
 
         $(".submit").click(function(){
-            var menuId   = $("#menuId").val();
-            var title   = $("#title").val();
-            var videoName = $(".resumable-file-name:last").html();
-            var size = $("#fileSize").val();
+            var menuId      = $("#menuId").val();
+            var title       = $("#title").val();
+            // var videourl = $(".resumable-file-name:last").html();
+            var videourl    = $("#fileUrl").val();
+            var size        = $("#fileSize").val();
             if (title == '') {
                 $.alertMessager('请输入视频名称!');return;
             }
-            if (videoName == null) {
+            if (videourl == null) {
                 $.alertMessager('请上传文件!');return;
-            }else{
-                videoName = 'Uploads/video/'+videoName;
             }
             $.ajax({
                 url: 'admin.php?s=/admin/video/add',
                 type: 'POST',
-                data: {menuId:menuId,title:title,videourl:videoName,size:size},
+                data: {menuId:menuId,title:title,videourl:videourl,size:size},
                 success: function (data) {  
                     if(data.status == 1){
                         $.alertMessager('新增成功!','success');
