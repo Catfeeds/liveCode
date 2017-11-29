@@ -457,7 +457,6 @@ class ProductController extends AdminController {
                 $url  = $info['file']['savepath'].$info['file']['savename'];
                 $targetUrl  = '/Uploads/product/file/'.$url;
                 echo json_encode(['status'=>1,'info'=>'上传成功','data'=>$url,'fileName'=>$info['file']['name'],'fileSize'=>$size,'targetUrl'=>$targetUrl]);
-                //$this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
             }
         }
     }

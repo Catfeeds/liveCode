@@ -58,6 +58,14 @@ define(function(require, exports, module) {
                         }
                     }
                 });
+                $('.phone_num1').on('mouseenter mouseleave',function(e){
+		        	$(this).parents('.phonen').attr('href',"tel:"+$(this).html());
+					$(this).parents('.phonen').attr('_href',"tel:"+$(this).html());
+		        })
+				$('.phone_num').on('mouseenter mouseleave',function(e){
+		        	$(this).parents('.phonen').attr('href',"tel:"+$(this).html());
+					$(this).parents('.phonen').attr('_href',"tel:"+$(this).html());
+		        })
             });
         });
 	}

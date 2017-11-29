@@ -734,7 +734,7 @@ function getTableName($curr){
  * 获取用户已使用空间容量
  */
 function getUserZoneSize($uid){
-    $fileSize = D('Livecode')->where(['uid'=>$uid])->sum('size');
+    $fileSize  = D('Livecode')->where(['uid'=>$uid])->sum('size');
     $videoSize = D('Phone')->where(['uid'=>$uid])->sum('size');
     return $fileSize + $videoSize;
 }
@@ -753,6 +753,22 @@ function userLivecodeCountLimit(){
     //限制数量
     $user = D('User')->alias('u')->field('livecode_count')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$uid)->find();
     if ($count < $user['livecode_count'] || $user['livecode_count'] == 0) {
+        return true;
+    }else{
+        return false;
+    }
+}
+/**
+ * 判断用户当前空间容量是否已达上限
+ */
+function userUploadZoneLimit(){
+    // 用户已创建的空间容量
+    $uid = (int)session('user_auth.uid');
+    $zoneSize = getUserZoneSize($uid);
+
+    //限制容量
+    $limit = D('User')->alias('u')->field('zone_size')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$uid)->find();
+    if ($zoneSize < $limit['zone_size'] || $limit['zone_size'] == 0) {
         return true;
     }else{
         return false;

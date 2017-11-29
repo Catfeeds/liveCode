@@ -284,19 +284,18 @@ class LivecodeController extends AdminController {
                 return $this->edit();
             }
             //判断用户当前套餐活码数量是否已达上限
-            $limit = userLivecodeCountLimit();
-            if (!$limit) {
+            $countLimit = userLivecodeCountLimit();
+            if (!$countLimit) {
                 $this->error('活码创建数量已达上限，请在续费管理中升级套餐');
             }
 
             $type = I('post.type/d');
             if ($type == 1 || $type == 2 || $type == 3 || $type == 4) {    //图文活码 || 文本活码 || 文件活码 || 网址导航
                 if ($type == 3) {
-                    $zoneSize = getUserZoneSize($this->uid);
-                    $user = D('user')->getUserInfo($this->uid);
-                    $vip_zoneSize = M('vip')->where(['id'=>$user['vipId']])->getField('zone_size');
-                    if ($vip_zoneSize != 0 && $zoneSize >= $vip_zoneSize) {
-                        $this->error('活码空间容量已达上限，请在续费管理中升级套餐');
+                    //判断用户当前空间容量是否已达上限
+                    $zoneLimit = userUploadZoneLimit();
+                    if (!$zoneLimit) {
+                        $this->error('空间容量已达上限，请在续费管理中升级套餐');
                     }
                 }
                 $data = $this->obj->create();
@@ -428,11 +427,10 @@ class LivecodeController extends AdminController {
             $type = $info['type'];
             if ($type == 1 || $type == 2 || $type == 3 || $type == 4) {    //图文活码 || 文本活码 || 文件活码 || 网址导航
                 if ($type == 3) {
-                    $zoneSize = getUserZoneSize($this->uid);
-                    $user = D('user')->getUserInfo($this->uid);
-                    $vip_zoneSize = M('vip')->where(['id'=>$user['vipId']])->getField('zone_size');
-                    if ($vip_zoneSize != 0 && $zoneSize >= $vip_zoneSize) {
-                        $this->error('活码空间容量已达上限，请在续费管理中升级套餐');
+                    //判断用户当前空间容量是否已达上限
+                    $zoneLimit = userUploadZoneLimit();
+                    if (!$zoneLimit) {
+                        $this->error('空间容量已达上限，请在续费管理中升级套餐');
                     }
                 }
                 $data = $this->obj->create();
@@ -651,6 +649,63 @@ class LivecodeController extends AdminController {
                 $size = getFilesize($info['file']['size']);
                 $url  = $info['file']['savepath'].$info['file']['savename'];
                 $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
+            }
+        }
+    }
+
+    /**
+     * 文件活码上传文件
+     */
+    public function uploadFile() {
+        $REQUEST_METHOD=$_SERVER['REQUEST_METHOD'];
+        $uploads_dir="Uploads/livecode/file/".date('Y-m-d');
+        if($REQUEST_METHOD == "GET"){
+            if(count($_GET)>0){
+                $chunkNumber = $_GET['resumableChunkNumber'];
+                $chunkSize = $_GET['resumableChunkSize'];
+                $totalSize = $_GET['resumableTotalSize'];
+                $identifier = $_GET['resumableIdentifier'];
+                $filename = iconv ( 'UTF-8', 'GB2312', $_GET ['resumableFilename'] );
+                if(validateRequest($chunkNumber, $chunkSize, $totalSize, $identifier, $filename)=='valid'){
+                    $chunkFilename = getChunkFilename($chunkNumber, $identifier,$filename,$uploads_dir);
+                    if(file_exists($chunkFilename)){
+                        header("HTTP/1.0 200 Found");
+                    } else {
+                        header("HTTP/1.0 404 Not Found");
+                    }
+                }else{
+                    header("HTTP/1.0 404 Not Found");
+                }
+            }
+        }
+
+        if($REQUEST_METHOD == "POST"){
+            if(count($_POST)>0){
+                $resumableFilename = iconv ( 'UTF-8', 'GB2312', $_POST ['resumableFilename'] );
+                // $resumableFilename = md5(uniqid(rand())).substr(strrchr($_POST ['resumableFilename'], '.'), 0);
+                $resumableIdentifier=$_POST['resumableIdentifier'];
+                $resumableChunkNumber=$_POST['resumableChunkNumber'];
+                $resumableTotalSize=$_POST['resumableTotalSize'];
+                $resumableChunkSize=$_POST['resumableChunkSize'];
+                if (!empty($_FILES)) foreach ($_FILES as $file) {
+                    if ($file['error'] != 0) {
+                        _log('error '.$file['error'].' in file '.$resumableFilename);
+                        continue;
+                    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                    $temp_dir = $uploads_dir.'/'.$resumableIdentifier;
+                    $dest_file = $temp_dir.'/'.$resumableFilename.'.part'.$resumableChunkNumber;
+                    
+                    if (!is_dir($temp_dir)) {
+                        mkdir($temp_dir, 0777, true);
+                    }
+                    if (!move_uploaded_file($file['tmp_name'], $dest_file)) {
+                        _log('Error saving (move_uploaded_file) chunk '.$resumableChunkNumber.' for file '.$resumableFilename);
+                    } else {
+                        createFileFromChunks($temp_dir, $resumableFilename,$resumableChunkSize, $resumableTotalSize, $uploads_dir);
+                        echo $uploads_dir.'/'.$resumableFilename;
+                    }
+                }
             }
         }
     }

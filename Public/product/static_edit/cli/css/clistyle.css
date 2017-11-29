@@ -73,6 +73,7 @@
 	padding:25px 15px;
 	border-top:1px solid #eee;
 	overflow-y:auto;
+	background: #fff;
 }
 .clistyle-template-list li {
 	padding:10px;

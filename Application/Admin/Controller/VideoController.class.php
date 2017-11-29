@@ -323,9 +323,14 @@ class VideoController extends AdminController {
     public function add() {
         if (IS_POST) {
             //判断用户当前套餐活码数量是否已达上限
-            $limit = userLivecodeCountLimit();
-            if (!$limit) {
+            $countLimit = userLivecodeCountLimit();
+            if (!$countLimit) {
                 $this->error('活码创建数量已达上限，请在续费管理中升级套餐');
+            }
+            //判断用户当前空间容量是否已达上限
+            $zoneLimit = userUploadZoneLimit();
+            if (!$zoneLimit) {
+                $this->error('空间容量已达上限，请在续费管理中升级套餐');
             }
             $zoneSize = getUserZoneSize($this->uid);
             $user = D('user')->getUserInfo($this->uid);
@@ -368,11 +373,10 @@ class VideoController extends AdminController {
      */
     public function edit($id) {
         if (IS_POST) {
-            $zoneSize = getUserZoneSize($this->uid);
-            $user = D('user')->getUserInfo($this->uid);
-            $vip_zoneSize = M('vip')->where(['id'=>$user['vipId']])->getField('zone_size');
-            if ($vip_zoneSize != 0 && $zoneSize >= $vip_zoneSize) {
-                $this->error('活码空间容量已达上限，请在续费管理中升级套餐');
+            //判断用户当前空间容量是否已达上限
+            $zoneLimit = userUploadZoneLimit();
+            if (!$zoneLimit) {
+                $this->error('空间容量已达上限，请在续费管理中升级套餐');
             }
 
             $data = I('post.');
@@ -485,7 +489,7 @@ class VideoController extends AdminController {
      */
     public function addfile() {
         $REQUEST_METHOD=$_SERVER['REQUEST_METHOD'];
-        $uploads_dir="Uploads/video/";
+        $uploads_dir="Uploads/video/file/".date('Y-m-d');
         if($REQUEST_METHOD == "GET"){
             if(count($_GET)>0){
                 $chunkNumber = $_GET['resumableChunkNumber'];
@@ -529,6 +533,7 @@ class VideoController extends AdminController {
                         _log('Error saving (move_uploaded_file) chunk '.$resumableChunkNumber.' for file '.$resumableFilename);
                     } else {
                         createFileFromChunks($temp_dir, $resumableFilename,$resumableChunkSize, $resumableTotalSize, $uploads_dir);
+                        echo $uploads_dir.'/'.$resumableFilename;
                     }
                 }
             }

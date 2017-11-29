@@ -11183,16 +11183,7 @@ UM.registerUI('tellink',
 	        } else {
 	            $(this).find('.dropdown-menu').addClass('show1');
 	        }
-	        return false;
 		})
-	    $('body').on('click', function(){
-	        $('.navbar-right .dropdown-menu').removeClass('show1');
-	        $('.navbar-right .dropdown-menu').hide();
-	    });
-		$(document).scroll(function(){
-	        $('.dropdown-menu').removeClass('show1');
-	        $('.dropdown-menu').hide();
-	    });
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
         	$(".maskmodal").hide();
@@ -11230,7 +11221,7 @@ UM.registerUI('contact',
             var lat=lnglat.split(',')[1];
             var html = '', html2 ='';
             if(address){
-        		html2 = '<div class="card_module_info"><div class="weui-address"><span class="address_icon"></span></div><div class="weui-address_info"><h4>地址</h4><p>'+address+'</p></div><div class="weui-address-btn"><a href="javascript:;" id="ditumapa" lng="'+ lng +'" lat="'+ lat +'">地图</a></div><div class="cl"></div></div>';
+        		html2 = '<div class="card_module_info"><div class="weui-address"><span class="address_icon"></span></div><div class="weui-address_info"><h4>地址</h4><p>'+address+'</p></div><div class="weui-address-btn"><a href="javascript:;" lng="'+ lng +'" lat="'+ lat +'">地图</a></div><div class="cl"></div></div>';
         	}
             $(".pos-rlt").each(function(){
             	var input1 = $(this).find('.col-md-4 input').val() || "联系方式";
@@ -11242,7 +11233,7 @@ UM.registerUI('contact',
 				html +='<h4>'+ input1 +'</h4>';
 				
 				if($(this).find('select option:selected').val()=='mobile' || $(this).find('select option:selected').val()=='tel'){
-					html +='<a href="tel:'+ input2 +'" target="_self" _href="tel:'+ input2 +'">'+ input2 +'</a>';
+					html +='<a class="atel" href="tel:'+ input2 +'" target="_self"  _href="tel:'+ input2 +'">'+input2+'</a>';
 				}else{
 					html +='<p>'+ input2 +'</p>';
 				}
@@ -11253,8 +11244,13 @@ UM.registerUI('contact',
 			$("#modal-contact").fadeOut();
             $(".navbar-inverse").css('z-index',"1");
             if(!address && html=="") return;
-            me.execCommand("inserthtml",'<div class="card_module"><h2 class="card_module_tit">'+tit+'</h2><div class="card_module_con"><div class="card_module_vcard"><div class="weui-article"><p>'+depict+'</p></div>' +html2 + html + '<div class="cl"></div></div></div></div>',"needFilter");
+            me.execCommand("inserthtml",'<p><br/></p><div class="card_module"><h2 class="card_module_tit">'+tit+'</h2><div class="card_module_con"><div class="card_module_vcard"><div class="weui-article"><p>'+depict+'</p></div>' +html2 + html + '<div class="cl"></div></div></div></div>',"needFilter");
+        	$('.weui-address_info').on('mouseenter mouseleave','a.atel',function(e){
+	        	$(this).attr('href',"tel:"+$(this).html());
+				$(this).attr('_href',"tel:"+$(this).html());
+	        })
         });
+
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
         	$(".maskmodal").hide();
@@ -11306,7 +11302,7 @@ UM.registerUI('wechat',
             $(".maskmodal").hide();
 			$("#modal-wechat").fadeOut();
             $(".navbar-inverse").css('z-index',"1");
-            me.execCommand("inserthtml",'<div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div><input type="hidden" class="wechatPic" value="'+wechatcode+'" />',"needFilter");
+            me.execCommand("inserthtml",'<p><br/></p><div class="weui-panel" ><div class="weui-icon"></div><div class="weui-cell">'+wetit+'</div><div class="weui-btn"><input type="button" value="关注" /></div></div><input type="hidden" class="wechatPic" value="'+wechatcode+'" /><p><br/></p>',"needFilter");
         });
 	    //新添加的遮罩层隐藏
         $(".dark-white").click(function(){
@@ -11554,11 +11550,11 @@ UM.registerUI('ship',
 			        return alert('上传失败');
 			      }else{
 			      	//上传成功
-			      	imagehtml = '<p><br/></p><div><video style="width:100%; max-height:480px;" controls>';
+			      	imagehtml = '<p><br/></p><p><video style="width:100%; max-height:400px;" controls>';
 					imagehtml +='<source src="/Uploads/product/file/'+ res.data +'" type="video/mp4">';
 					imagehtml +='<source src="/Uploads/product/file/'+ res.data +'" type="video/ogg">';
 					imagehtml +='您的浏览器不支持Video标签。';
-					imagehtml +='</video><div>';
+					imagehtml +='</video><p>';
 			      	me.execCommand("inserthtml",''+ imagehtml +'',"needFilter");
 			      }
 			    }

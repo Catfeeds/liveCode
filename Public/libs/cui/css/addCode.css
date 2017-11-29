@@ -827,3 +827,9 @@ a:hover{
     margin: 0 0 10px;
     padding: 0 8px;
 }
+.fileup{
+    border: 1px solid #dcdcdc;
+    padding: 15px;
+    min-height: 300px;
+}
+

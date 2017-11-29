@@ -52,7 +52,23 @@
 			    line-height: 20px;
 			    cursor: pointer;
 			}
-			
+			/*点击下载*/
+			.downtip{
+				position: fixed;
+			    width: 100%;
+			    height: 100%;
+			    top: 0;
+			    left: 0;
+			    background: rgba(0,0,0,0.5);
+			    display: none;
+			}
+			.downtip img {
+			    position: fixed;
+			    width: 260px;
+			    height: 180px;
+			    z-index: 10001;
+			    right: -30px;
+			}
 		</style>
 	</head>
 	<body>
@@ -76,6 +92,9 @@
 			<p>长按二维码，选择识别图中二维码</p>
 			<span>X</span>
 		</div>
+		<div class="downtip">
+			<img src="/Public/images/filedown.png">
+		</div>
 		<script src="/Public/libs/cui/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			function isWeixin(){
@@ -93,6 +112,8 @@
 		            //是非微信打开
 		            $(".weui-cell").html('请在微信上查看');
 		        }
+		        
+		        //点击关注事件
 				$(".weui-btn input").click(function(){
 					if(isWeixin()){
 			    		//是微信打开显示提示信息
@@ -103,6 +124,38 @@
 			            $(".attention").hide();
 			        }
 				})
+				
+				//点击文件下载提示
+				$(".weui_wd a").click(function(event){
+	            	var This=$(this);
+	            	var _href=This.attr('href');
+	            	if(isWeixin()){
+		    			//是微信打开显示提示信息
+		    			This.attr('href','javascript:;');
+		            	$(".downtip").show();
+			        }else{
+			        	This.attr('href',_href);
+			        }
+			        $(".downtip").click(function(){
+			        	This.attr('href',_href);
+		         		$(this).hide();
+		         		
+		         	})
+	            })
+				
+				
+				//点击关注提示
+				$(".weui-btn input").click(function(){
+					if(isWeixin()){
+			    		//是微信打开显示提示信息
+			    		$(".attention img").attr('src',$('.wechatPic').val());
+			    		$(".attention").show();
+			        }else{
+			            //是非微信打开直接跳转下载地址
+			            $(".attention").hide();
+			        }
+				})
+				
 				$('.attention').on('click','span',function(){
 					$(this).parent('.attention').hide();
 				})

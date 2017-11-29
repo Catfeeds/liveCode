@@ -173,11 +173,11 @@ $(function() {
     $(".edui-icon-clistyle").html("<i class='fa fa-magic text-grey m-r-sm'></i><span>样式</span>"),
     $(".edui-icon-table").html("<i class='fa fa-table text-grey m-r-sm'></i><span>表格</span>"),
     $(".edui-icon-tellink").html("<i class='fa fa-phone text-grey m-r-sm'></i><span>名片</span>");
-    $(".edui-icon-ship").html("<i class='fa text-grey m-r-sm'></i>");
-    $(".edui-icon-audio").html("<i class='fa fa-audio text-grey m-r-sm'></i>");
-    $(".edui-icon-contact").html("<i class='fa fa-contact text-grey m-r-sm'></i>");
-    $(".edui-icon-wechat").html("<i class='fa fa-wechat text-grey m-r-sm'></i>");
-    $(".edui-icon-document").html("<i class='fa fa-document text-grey m-r-sm'></i>");
+    $(".edui-icon-ship").html("<i class='fa text-grey'></i><span class='spleft'>视频</span>");
+    $(".edui-icon-audio").html("<i class='fa fa-audio text-grey'></i><span class='spleft'>音频</span>");
+    $(".edui-icon-contact").html("<i class='fa fa-contact text-grey'></i><span class='spleft'>联系我们</span>");
+    $(".edui-icon-wechat").html("<i class='fa fa-wechat text-grey m-r-sm'></i><span>微信</span>");
+    $(".edui-icon-document").html("<i class='fa fa-document text-grey'></i><span class='spleft'>文件</span>");
     var t = getUrlName("code_type");
     if (null != t && 0 != t ? $.ajax({
         type: "GET",
