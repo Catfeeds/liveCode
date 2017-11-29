@@ -234,6 +234,11 @@ function handlerDrag(elemObj){
             if(!files || files.length == 0){
                 return;
             }
+            /*if(!/.(gif|jpg|jpeg|png|GIF|JPG|bmp)$/.test($(this).val())){
+				alert("图片类型必须是.gif,jpeg,jpg,png,bmp中的一种");
+				return;
+			}*/
+			
             addFile.call(that, files);
     }, false);
 }
@@ -285,6 +290,10 @@ MUpload.prototype.init = function(){
             $(this).val('');
             return;
         }
+		/*if(!/.(gif|jpg|jpeg|png|GIF|JPG|bmp)$/.test($(this).val())){
+			alert("图片类型必须是.gif,jpeg,jpg,png,bmp中的一种");
+			return;
+		}*/
         addFile.call(that, this.files);
         $(this).val('');
     });
