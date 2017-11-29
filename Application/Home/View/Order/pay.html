@@ -1,7 +1,7 @@
 <extend name="$_home_public_layout"/>
 
 <block name="style">
-    <link rel="stylesheet" type="text/css" href="__HOME__/user/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="__HOME__/User/css/style.css"/>
 </block>
 
 <block name="main">
@@ -26,11 +26,11 @@
 		<div class="top">
 			<div class="w1000">
 				<div class="logo left">
-					<a href="{:U('Home/Index/index')}"><img src="__HOME__/user/img/logo.png"/></a>
+					<a href="{:U('Home/Index/index')}"><img src="__HOME__/User/img/logo.png"/></a>
 					<a href="#" class="buy_txt">购买</a>
 				</div>
 				<div class="step right">
-					<img src="__HOME__/user/img/step2.png"/>
+					<img src="__HOME__/User/img/step2.png"/>
 				</div>
 			</div>
 		</div>
@@ -45,9 +45,9 @@
 			<div class="payway">
 				<p class="tit1">请选择支付方式</p>
 				<ul class="payli">
-					<li class="edit_on"><img src="__HOME__/user/img/zfb.png"/></li>
-					<li><img src="__HOME__/user/img/weixin.png"/></li>
-					<li><img src="__HOME__/user/img/line.png"/></li>
+					<li class="edit_on"><img src="__HOME__/User/img/zfb.png"/></li>
+					<li><img src="__HOME__/User/img/weixin.png"/></li>
+					<li><img src="__HOME__/User/img/line.png"/></li>
 					<div class="clear"></div>
 				</ul>
 			</div>
@@ -86,14 +86,14 @@
 					<p class="left_t">详细产品信息，请咨询我们的售前工程师</p>
 					<p class="cont_t"><span class="tel"><i></i>热线电话：{:C('KEFU_TEL')}</span><span class="email"><i></i>邮箱地址：{:C('KEFU_EMAIL')}</span></p>
 				</div>
-				<a href="tencent://message/?uin={:C('KEFU_QQ')}&Site=QQ交谈&Menu=yes" class="right_t"><img src="__HOME__/user/img/qq.png"/></a>
+				<a href="tencent://message/?uin={:C('KEFU_QQ')}&Site=QQ交谈&Menu=yes" class="right_t"><img src="__HOME__/User/img/qq.png"/></a>
 			</div>
 		</footer>
 		<div class="clear"></div>
 	</div>
 	<!--登录弹出框-->
 	<div class="theme-popover" style="display: none;">
-		<span class="close"><img src="__HOME__/user/img/close.png"/></span>
+		<span class="close"><img src="__HOME__/User/img/close.png"/></span>
 		<div class="login">
 			<h2>登录</h2>
 			<form action="{:U('Home/User/login')}" method="post" class="theme-login loginform">
@@ -148,7 +148,7 @@
 </block>
 		
 <block name="script">
-	<script src="__HOME__/user/js/login.js" type="text/javascript" charset="utf-8"></script>
-	<script src="__HOME__/user/js/tab.js" type="text/javascript" charset="utf-8"></script>
-	<script src="__HOME__/user/js/pay.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HOME__/User/js/login.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HOME__/User/js/tab.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HOME__/User/js/pay.js" type="text/javascript" charset="utf-8"></script>
 </block>
