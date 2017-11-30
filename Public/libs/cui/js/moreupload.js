@@ -10,6 +10,7 @@ $(function(){
         productPostUrl = 'admin.php?s=/admin/product/addLivecodeFile';
     }
 
+	//文件活码上传
 	layui.config({
     base:'/path/', //mupload模块所在的目录
 	}).use(['mupload'], function(){
@@ -25,8 +26,8 @@ $(function(){
 	                  console.log(res)
 	              }
 	    });
-	  })
-		
+	})
+	
 	layui.use('upload', function(){
 	  var $ = layui.jquery,upload = layui.upload;
 	  //多文件列表示例
