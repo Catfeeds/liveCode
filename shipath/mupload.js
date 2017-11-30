@@ -85,7 +85,7 @@ function change_del_btn(obj, index){
 function add_file_item(container, key, name){
     var tr=[];
         tr.push('<tr id="'+key+'">');
-        tr.push('<td>'+ name + '</td>');
+        tr.push('<td class="">'+ name + '</td>');
         tr.push('<span>'+name+'</span>');
         tr.push('<td><div class="layui-progress" lay-filter="'+key+'">');
         tr.push('<div class="layui-progress-bar" lay-percent="0%"></div>');
@@ -233,12 +233,11 @@ function handlerDrag(elemObj){
         var files = ev.dataTransfer.files;
             if(!files || files.length == 0){
                 return;
-            }
-//          if(!/.(mp4)$/.test(files)){
-//				alert("视频类型必须是mp4");
-//				return;
-//			}
-			
+            }		       
+	        if(!/.(mp4)$/.test(files[0].name)){
+				alert("视频类型必须是mp4");
+				return false;
+			}
             addFile.call(that, files);
     }, false);
 }
@@ -290,10 +289,11 @@ MUpload.prototype.init = function(){
             $(this).val('');
             return;
         }
-//		if(!/.(mp4)$/.test($(this).val())){
-//			alert("视频类型必须是mp4");
-//			return;
-//		}
+        
+		if(!/.(mp4)$/.test($(this).val())){
+			alert("视频类型必须是mp4");
+			return;
+		}
         addFile.call(that, this.files);
         $(this).val('');
     });
