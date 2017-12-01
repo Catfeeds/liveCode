@@ -12,7 +12,7 @@ $(function(){
 
 	//文件活码上传
 	layui.config({
-    base:'/path/', //mupload模块所在的目录
+    base:'Public/libs/', //mupload模块所在的目录
 	}).use(['mupload'], function(){
 	            layui.mupload({
 	              //必须，服务器路径
