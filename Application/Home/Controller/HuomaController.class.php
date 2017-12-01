@@ -40,6 +40,9 @@ class HuomaController extends HomeController{
         $info['createTime'] = date('Y-m-d H:i:s');
         $info['type']    = 1;
         M('echarts_data')->add($info);
+        
+        //将活码所有文件域名替换为管理后台设置的用户端域名
+        $domainSuffix = 'http://'.C('USER_DOMAIN');
 
         if ($data['type'] == 1 || $data['type'] == 2) {           //文本活码
             if ($data['type'] == 1) {
@@ -47,7 +50,8 @@ class HuomaController extends HomeController{
                 foreach ($content as $key => $value) {
                     $data[$key] = $value;
                 }
-                $data['picUrl'] = '/Uploads/livecode/file/'.$data['picUrl'];
+                $data['picUrl'] = $domainSuffix.'/Uploads/livecode/file/'.$data['picUrl'];
+                $data['content'] = preg_replace('/\/Uploads/', $domainSuffix . '/Uploads', $data['content']);
             }
             $this->assign('data',$data);
             $this->display('live_text');
