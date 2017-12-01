@@ -187,7 +187,7 @@ function initTable(otableid){
     var tfoot = [
         '<tfoot><tr style="background-color:#f2f2f2;color: #999999;">',
         '<td colspan="4">',
-        '<span>批量上传文件</span>',
+        '<span>上传文件</span>',
         '</td>',
         '</tr></tfoot>',
     ].join('');
