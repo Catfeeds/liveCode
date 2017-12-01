@@ -12,19 +12,19 @@ $(function(){
 
 	//文件活码上传
 	layui.config({
-    base:'Public/libs/', //mupload模块所在的目录
+    base:'Public/libs/uploadFile/', //mupload模块所在的目录
 	}).use(['mupload'], function(){
-	            layui.mupload({
-	              //必须，服务器路径
-	              url:postUrl,
-	              //必须，传递table的id,请不要传class
-	              container:'#container',
-	              //默认"file"，用于服务器获取文件名
-	              file_name:'file',
-	              //回调函数
-	              complete:function(res){
-	                  console.log(res)
-	              }
+            layui.mupload({
+              //必须，服务器路径
+              url:postUrl,
+              //必须，传递table的id,请不要传class
+              container:'#container',
+              //默认"file"，用于服务器获取文件名
+              file_name:'file',
+              //回调函数
+              complete:function(res){
+                  console.log(res)
+              }
 	    });
 	})
 	
