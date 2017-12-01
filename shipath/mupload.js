@@ -98,7 +98,7 @@ function add_file_item(container, key, name){
         tr.push('</td>');
         tr.push('<td><a id="del-item-'+key+'" class="layui-btn layui-btn-primary layui-btn-mini del-item" data-itemid="'+key+'"><i class="layui-icon" style="    margin-right: 0;">&#xe640;</i></a></td>');
         tr.push('</tr>');
-        $(container + ' tbody').append(tr.join(''));
+        $(container + ' tbody').html(tr.join(''));
 }
 
 function changeIconCss(key,item, st){
