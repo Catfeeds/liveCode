@@ -1,13 +1,12 @@
 $(function(){
-	var postUrl = 'admin.php?s=/admin/livecode/addfile';
 	var codeType= $("#codeType").val();     //管理员审核编辑
+	var postUrl = 'admin.php?s=/admin/livecode/addfile';
     if (codeType) {
         postUrl = 'admin.php?s=/admin/checkcode/addLivecodeFile';
     }
     var productPostUrl = 'admin.php?s=/admin/product/addfile';
-	var codeType= $("#codeType").val();     //管理员审核编辑
     if (codeType) {
-        productPostUrl = 'admin.php?s=/admin/product/addLivecodeFile';
+        productPostUrl = 'admin.php?s=/admin/checkcode/addLivecodeFile';
     }
 
 	//文件活码上传
@@ -23,7 +22,9 @@ $(function(){
               file_name:'file',
               //回调函数
               complete:function(res){
-                  console.log(res)
+                  	$('#uploadFileName').val(res[0].info.uploadFileName);
+	        		$('#uploadFileSize').val(res[0].info.uploadFileSize);
+	        		$('#uploadFileUrl').val(res[0].info.uploadFileUrl);
               }
 	    });
 	})
@@ -107,6 +108,7 @@ $(function(){
 	      });
 	    }
 	    ,done: function(res){
+	    	console.log(res)
 	      //如果上传失败
 	      if(res.status != 1){
 	        return layer.msg('上传失败');

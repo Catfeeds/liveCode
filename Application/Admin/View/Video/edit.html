@@ -95,9 +95,6 @@
         }
     }
 </style>
-<input type="hidden" id="menuId" value="{$menuId}">                                              
-<input type="hidden" id="codeType" value="{$data['codeType']}">
-
 	<div class="builder formbuilder-box panel-body">
         <div class="builder-container">
             <div class="row">
@@ -130,35 +127,17 @@
 										        <col>
 										    </colgroup>
 										</table>
-                                        <!--用来存放文件信息-->
-                                        <!--原系统视频上传-->
-                                        <!--<div id="_upload_list_1" class="uploader-list">
-                                            
-                                            <div class="btns col-xs-12">
-                                                
-                                                <div class="resumable-drop" ondragenter="jQuery(this).addClass('resumable-dragover');" ondragend="jQuery(this).removeClass('resumable-dragover');" ondrop="jQuery(this).removeClass('resumable-dragover');">
-                                                    <a class="resumable-browse"><u>上传文件</u></a>
-                                                </div>  
-                                                <input type="hidden" id="fileSize" value="{$data.size}">
-                                                <input type="hidden" id="fileUrl" value="{$data.videourl}">
-                                                <ul class="resumable-list"></ul>   
-                                                <div class="resumable-progress">
-                                                    <table>
-                                                    <tr>
-                                                        <td width="100%"><div class="progress-container"><div class="progress-bar"></div></div></td>
-                                                        <td class="progress-text" nowrap="nowrap"></td>
-                                                    </tr>
-                                                    </table>
-                                                </div>      
-                                            </div>
-                                        </div>            -->
                                     </div>
                                 </div>
                             </div>         
                         </div>  
+                        <input type="hidden" id="fileSize" value="{$data.size}">
+                        <input type="hidden" id="fileUrl" value="{$data.videourl}">
+                        <input type="hidden" id="menuId" value="{$menuId}">                                              
+                        <input type="hidden" id="codeType" value="{$data['codeType']}">
                         <div class="form-group"></div>
                             <div class="form-group">
-                                <!-- <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit" target-form="form-builder">确定</button> -->
+                                <button class="btn btn-primary btn-block submit ajax-post visible-xs visible-sm" type="submit">确定</button>
                                 <button class="btn btn-primary submit ajax-post visible-md-inline visible-lg-inline" type="submit">确定</button>
                                 <button class="btn btn-default return visible-md-inline visible-lg-inline" onclick="javascript:history.back(-1);return false;">返回</button>
                             </div>
@@ -171,12 +150,10 @@
         </div>
     </div>
     <script>
-
         $(".submit").click(function(){
             var id        = $("#id").val();
             var menuId    = $("#menuId").val();
             var title     = $("#title").val();
-            // var videourl = $(".resumable-file-name:last").html();
             var videourl  = $("#fileUrl").val();
             var size      = $("#fileSize").val();
             var codeType  = $("#codeType").val();     //管理员审核编辑

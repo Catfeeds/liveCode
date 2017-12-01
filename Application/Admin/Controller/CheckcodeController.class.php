@@ -442,13 +442,12 @@ class CheckcodeController extends AdminController {
             $upload->savePath  =     ''; // 设置附件上传（子）目录+
             // 上传文件 
             $info   =   $upload->upload();
-            // halt($info);
             if(!$info) {// 上传错误提示错误信息
                 $this->error('上传失败！');
             }else{// 上传成功
                 $size = getFilesize($info['file']['size']);
                 $url  = $info['file']['savepath'].$info['file']['savename'];
-                $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
+                $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$upload->rootPath.$url]);
             }
         }
     }

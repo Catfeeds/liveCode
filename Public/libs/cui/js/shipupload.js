@@ -1,15 +1,5 @@
 $(function(){
-	var postUrl = 'admin.php?s=/admin/livecode/addfile';
-	var codeType= $("#codeType").val();     //管理员审核编辑
-    if (codeType) {
-        postUrl = 'admin.php?s=/admin/checkcode/addLivecodeFile';
-    }
-    var productPostUrl = 'admin.php?s=/admin/product/addfile';
-	var codeType= $("#codeType").val();     //管理员审核编辑
-    if (codeType) {
-        productPostUrl = 'admin.php?s=/admin/product/addLivecodeFile';
-    }
-
+	var postUrl = 'admin.php?s=/admin/video/addfile';
 	//文件活码上传
 	layui.config({
     base:'Public/libs/uploadVideo/', //mupload模块所在的目录
@@ -23,7 +13,8 @@ $(function(){
           file_name:'file',
           //回调函数
           complete:function(res){
-              console.log(res)
+            $('#fileSize').val(res[0].info.uploadFileSize);
+            $('#fileUrl').val(res[0].info.uploadFileUrl);
           }
 	    });
 	})

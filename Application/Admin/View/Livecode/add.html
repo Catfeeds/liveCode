@@ -99,22 +99,6 @@
 					        <col>
 					    </colgroup>
 					</table>
-		    		<!--原上传文件案例-->
-		    		<!--<div class="layui-upload">
-					  <button type="button" class="layui-btn layui-btn-normal" id="testList">选择文件</button><input class="layui-upload-file" type="file" name="file" multiple=""> 
-					  <div class="layui-upload-list">
-					    <table class="layui-table">
-					      <thead>
-					        <tr><th>文件名</th>
-					        <th>大小</th>
-					        <th>状态</th>
-					        <th>操作</th>
-					      </tr></thead>
-					      <tbody id="demoList"></tbody>
-					    </table>
-					  </div>
-					  <button type="button" class="layui-btn" id="testListAction">开始上传</button>
-					</div>-->
 				</div>
 				<input type="hidden" id="uploadFileName" value="">
 				<input type="hidden" id="uploadFileSize" value="">
@@ -540,6 +524,9 @@
  	</div>
 </block>
 <block name="script">
+	<script type="text/javascript">
+		var postUrl = "{:U(Admin/Livecode/addfile)}";
+	</script>
 	<script type="text/javascript" src="__CUI__/js/fileinput.js"></script>
 	<script type="text/javascript" src="__CUI__/js/addcode.js"></script>
 	<script type="text/javascript" src="__CUI__/js/layui.js"></script>

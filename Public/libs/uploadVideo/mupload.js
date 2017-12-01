@@ -270,10 +270,10 @@ MUpload.prototype.action = function(){
 }
 
 MUpload.prototype.init = function(){
-    if(!$(this.options.container)[0]){
-        layer.msg('container 不存在', msgConf);
-        return;
-    }
+    // if(!$(this.options.container)[0]){
+    //     layer.msg('container 不存在', msgConf);
+    //     return;
+    // }
     var that = this, options = that.options;
     initTable(options.container);
 

@@ -340,6 +340,8 @@ class VideoController extends AdminController {
             }
 
             $data = I('post.');
+            // halt($data['videourl']);
+
             //判断文件是否存在
             if (!file_exists($data['videourl'])) {
                 $this->error('文件不存在');
@@ -488,54 +490,18 @@ class VideoController extends AdminController {
      * 上传视频
      */
     public function addfile() {
-        $REQUEST_METHOD=$_SERVER['REQUEST_METHOD'];
-        $uploads_dir="Uploads/video/file/".date('Y-m-d');
-        if($REQUEST_METHOD == "GET"){
-            if(count($_GET)>0){
-                $chunkNumber = $_GET['resumableChunkNumber'];
-                $chunkSize = $_GET['resumableChunkSize'];
-                $totalSize = $_GET['resumableTotalSize'];
-                $identifier = $_GET['resumableIdentifier'];
-                $filename = iconv ( 'UTF-8', 'GB2312', $_GET ['resumableFilename'] );
-                if(validateRequest($chunkNumber, $chunkSize, $totalSize, $identifier, $filename)=='valid'){
-                    $chunkFilename = getChunkFilename($chunkNumber, $identifier,$filename,$uploads_dir);
-                    if(file_exists($chunkFilename)){
-                        header("HTTP/1.0 200 Found");
-                    } else {
-                        header("HTTP/1.0 404 Not Found");
-                    }
-                }else{
-                    header("HTTP/1.0 404 Not Found");
-                }
-            }
-        }
-
-        if($REQUEST_METHOD == "POST"){
-            if(count($_POST)>0){
-                $resumableFilename = iconv ( 'UTF-8', 'GB2312', $_POST ['resumableFilename'] );
-                $resumableIdentifier=$_POST['resumableIdentifier'];
-                $resumableChunkNumber=$_POST['resumableChunkNumber'];
-                $resumableTotalSize=$_POST['resumableTotalSize'];
-                $resumableChunkSize=$_POST['resumableChunkSize'];
-                if (!empty($_FILES)) foreach ($_FILES as $file) {
-                    if ($file['error'] != 0) {
-                        _log('error '.$file['error'].' in file '.$resumableFilename);
-                        continue;
-                    }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-                    $temp_dir = $uploads_dir.'/'.$resumableIdentifier;
-                    $dest_file = $temp_dir.'/'.$resumableFilename.'.part'.$resumableChunkNumber;
-                    
-                    if (!is_dir($temp_dir)) {
-                        mkdir($temp_dir, 0777, true);
-                    }
-                    if (!move_uploaded_file($file['tmp_name'], $dest_file)) {
-                        _log('Error saving (move_uploaded_file) chunk '.$resumableChunkNumber.' for file '.$resumableFilename);
-                    } else {
-                        createFileFromChunks($temp_dir, $resumableFilename,$resumableChunkSize, $resumableTotalSize, $uploads_dir);
-                        echo $uploads_dir.'/'.$resumableFilename;
-                    }
-                }
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->rootPath  =     'Uploads/video/file/'; // 设置附件上传根目录
+            $upload->savePath  =     ''; // 设置附件上传（子）目录+
+            // 上传文件 
+            $info   =   $upload->upload();
+            if(!$info) {// 上传错误提示错误信息
+                $this->error('上传失败！');
+            }else{// 上传成功
+                $size = getFilesize($info['file']['size']);
+                $url  = $info['file']['savepath'].$info['file']['savename'];
+                $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$upload->rootPath.$url]);
             }
         }
     }

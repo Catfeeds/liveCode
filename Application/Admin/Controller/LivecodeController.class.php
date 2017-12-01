@@ -641,64 +641,14 @@ class LivecodeController extends AdminController {
             }else{// 上传成功
                 $size = getFilesize($info['file']['size']);
                 $url  = $info['file']['savepath'].$info['file']['savename'];
-                $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$url]);
-            }
-        }
-    }
-
-    /**
-     * 文件活码上传文件
-     */
-    public function uploadFile() {
-        $REQUEST_METHOD=$_SERVER['REQUEST_METHOD'];
-        $uploads_dir="Uploads/livecode/file/".date('Y-m-d');
-        if($REQUEST_METHOD == "GET"){
-            if(count($_GET)>0){
-                $chunkNumber = $_GET['resumableChunkNumber'];
-                $chunkSize = $_GET['resumableChunkSize'];
-                $totalSize = $_GET['resumableTotalSize'];
-                $identifier = $_GET['resumableIdentifier'];
-                $filename = iconv ( 'UTF-8', 'GB2312', $_GET ['resumableFilename'] );
-                if(validateRequest($chunkNumber, $chunkSize, $totalSize, $identifier, $filename)=='valid'){
-                    $chunkFilename = getChunkFilename($chunkNumber, $identifier,$filename,$uploads_dir);
-                    if(file_exists($chunkFilename)){
-                        header("HTTP/1.0 200 Found");
-                    } else {
-                        header("HTTP/1.0 404 Not Found");
-                    }
-                }else{
-                    header("HTTP/1.0 404 Not Found");
-                }
-            }
-        }
-
-        if($REQUEST_METHOD == "POST"){
-            if(count($_POST)>0){
-                $resumableFilename = iconv ( 'UTF-8', 'GB2312', $_POST ['resumableFilename'] );
-                // $resumableFilename = md5(uniqid(rand())).substr(strrchr($_POST ['resumableFilename'], '.'), 0);
-                $resumableIdentifier=$_POST['resumableIdentifier'];
-                $resumableChunkNumber=$_POST['resumableChunkNumber'];
-                $resumableTotalSize=$_POST['resumableTotalSize'];
-                $resumableChunkSize=$_POST['resumableChunkSize'];
-                if (!empty($_FILES)) foreach ($_FILES as $file) {
-                    if ($file['error'] != 0) {
-                        _log('error '.$file['error'].' in file '.$resumableFilename);
-                        continue;
-                    }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-                    $temp_dir = $uploads_dir.'/'.$resumableIdentifier;
-                    $dest_file = $temp_dir.'/'.$resumableFilename.'.part'.$resumableChunkNumber;
-                    
-                    if (!is_dir($temp_dir)) {
-                        mkdir($temp_dir, 0777, true);
-                    }
-                    if (!move_uploaded_file($file['tmp_name'], $dest_file)) {
-                        _log('Error saving (move_uploaded_file) chunk '.$resumableChunkNumber.' for file '.$resumableFilename);
-                    } else {
-                        createFileFromChunks($temp_dir, $resumableFilename,$resumableChunkSize, $resumableTotalSize, $uploads_dir);
-                        echo $uploads_dir.'/'.$resumableFilename;
-                    }
-                }
+                
+                $data['code']   = 0;
+                $data['msg']    = '上传成功';
+                $data['uploadFileName'] = $info['file']['name'];
+                $data['uploadFileSize'] = $size;
+                $data['uploadFileUrl']  = $upload->rootPath.$url;
+                echo  json_encode($data);
+                // $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$upload->rootPath.$url]);
             }
         }
     }
