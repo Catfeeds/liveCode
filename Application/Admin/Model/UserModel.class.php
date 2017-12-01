@@ -187,11 +187,12 @@ class UserModel extends Model {
             // 获得当前登录用户所属部门的权限列表
             if (!in_array($current_menu['id'], $menu_auth) && !in_array($current_menu['pid'], $menu_auth)) {
                 return true;
+            }else{
+                return false;
             }
         } else {
             return true;  // 无需验证
         }
-        return false;
     }
 
 }

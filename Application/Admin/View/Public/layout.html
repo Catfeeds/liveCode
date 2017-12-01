@@ -193,45 +193,34 @@
     </div>
     <script src="__PUBLIC__/libs/layer/layer.js"></script>
     <script src="__CUI__/js/menutree.js"></script>
-        <script type="text/javascript">
-           $(function(){
-    				$('.layer').click(function(){
-    				    var url=($(this).attr('href'));
-    				    var layerindex=layer.open({
-    					    type: 2,
-    					    area: ['50%', '90%'],
-    					    fix: true, //不固定
-    					    maxmin: true,
-    					    content: url
-    					});
-    				layer.full(layerindex);
-    				    return false;
-    			});
-    			$('.layer2').click(function(){
-    			    var url=($(this).attr('href'));
-    			    layer.open({
-    				    type: 2,
-    				    area: ['60%', '90%'],
-    				    fix: true, //不固定
-    				    maxmin: true,
-    				    content: url
-    				});
-    			    return false;
-    			});
-    	 });
-        </script>
-        <style>
-        	.abc{
-    		    display: inline-block;
-    		    width: 6px;
-    		    height: 6px;
-    		    background: #FF1C20;
-    		    border-radius: 50%;
-    		    position: absolute;
-    		    top: 14px;
-    		    right: 83px;
-    		}
-        </style>
+    <script type="text/javascript">
+       $(function(){
+				$('.layer').click(function(){
+				    var url=($(this).attr('href'));
+				    var layerindex=layer.open({
+					    type: 2,
+					    area: ['50%', '90%'],
+					    fix: true, //不固定
+					    maxmin: true,
+					    content: url
+					});
+				layer.full(layerindex);
+				    return false;
+			});
+			$('.layer2').click(function(){
+			    var url=($(this).attr('href'));
+			    layer.open({
+				    type: 2,
+				    area: ['60%', '90%'],
+				    fix: true, //不固定
+				    maxmin: true,
+				    content: url
+				});
+			    return false;
+			});
+	 });
+    </script>
+    {:C('WEB_SITE_STATISTICS')} <!-- 站点统计代码 -->
 </body>
 </html>
 

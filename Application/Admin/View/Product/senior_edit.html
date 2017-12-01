@@ -7,14 +7,11 @@
     <meta name="author" content="leipi.org">
     <title>爱活码编辑器</title>
     <link rel="icon" href="images/favicon.ico" mce_href="images/favicon.ico" type="image/x-icon">
-    
     <link rel="stylesheet" href="__PUBLIC__/product/senior_edit/style/main.css" />
-
     <link rel="stylesheet" href="__PUBLIC__/product/static_edit/cli/flatkit/assets/font-awesome/css/font-awesome.min.css">
-    
     <script src="__PUBLIC__/product/static_edit/cli/js/lib/jquery.js"></script>
 	<script>
-     	var STATIC_SERVICE = 'http://{$host}/public/product/senior_edit/';
+     	var STATIC_SERVICE = 'http://{$host}/Public/product/senior_edit/';
      </script>
     </head>
 <style>
@@ -109,9 +106,6 @@
     });
     //隐藏img标签  
     function formatHtml(str){
-        if (str.indexOf('<img') != -1) {
-            alert('图片黏贴功能只对收费用户开放');
-        }
         str=str.replace(/<img[^>]*>/g,'');
         str=str.replace(/<a[^>]*>/g,'');
         str=str.replace(/<\/a>/g,'');  

@@ -58,7 +58,7 @@ class HuomaController extends HomeController{
         }elseif ($data['type'] == 3) {      //文件活码
             $ext             = substr(strrchr($data['title'], '.'), 1); 
             $content         = json_decode($data['content'],true);
-            $data['url']     = '/'.$content['url'];
+            $data['url']     = $domainSuffix.'/'.$content['url'];
             $data['fileName']= $content['fileName'];
             $data['size']    = $content['size'];
             $data['picIcon'] = getPicType($ext);
@@ -109,12 +109,17 @@ class HuomaController extends HomeController{
         $info['type']    = 2;
         M('echarts_data')->add($info);
 
+        //将活码所有文件域名替换为管理后台设置的用户端域名
+        $domainSuffix = 'http://'.C('USER_DOMAIN');
+
         $content = json_decode($data["content"]);
         foreach ($content as $key => $value) {
             $data[$key] = $value;
         }
-        $data['type'] = 6;
-        $data['picUrl'] = '/Uploads/product/file/'.$data['picUrl'];
+        $data['type']    = 6;
+        $data['picUrl']  = $domainSuffix.'/Uploads/product/file/'.$data['picUrl'];
+        $data['content'] = preg_replace('/\/Uploads/', $domainSuffix . '/Uploads', $data['content']);
+
         $this->assign('data',$data);
         $this->display('live_text');
     }
@@ -150,6 +155,7 @@ class HuomaController extends HomeController{
         $info['createTime'] = date('Y-m-d H:i:s');
 
         if ($type == 2 && $videourl){
+            $domainSuffix = 'http://'.C('USER_DOMAIN');
             //视频活码跳转
             $info['type'] = 3;
             M('echarts_data')->add($info);
@@ -157,7 +163,7 @@ class HuomaController extends HomeController{
             $videoTitle = '{"mediaTitle": "'.$videourl[0]['title'].'"}';
             $this->assign('title',$videourl[0]['title']);
             $this->assign('videoTitle',$videoTitle);
-            $this->assign('vdurl',$videourl[0]['videourl']);
+            $this->assign('vdurl',$domainSuffix.'/'.$videourl[0]['videourl']);
             $this->assign('hmurl',$videourl[0]['huoma']);
             $this->display();
         }elseif ($type == 1 && $url){

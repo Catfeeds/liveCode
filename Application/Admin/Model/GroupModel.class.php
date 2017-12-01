@@ -1,11 +1,4 @@
 <?php
-// +----------------------------------------------------------------------
-// | OpenCMF [ Simple Efficient Excellent ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2014  All rights reserved.
-// +----------------------------------------------------------------------
-// | 
-// +----------------------------------------------------------------------
 namespace Admin\Model;
 use Think\Model;
 /**
@@ -45,20 +38,27 @@ class GroupModel extends Model {
      * 
      */
     public function checkMenuAuth() {
-        $current_menu = D('Admin/Module')->getCurrentMenu(); // 当前菜单
+        $menuMod = D('Admin/Module');
+        $current_menu = $menuMod->getCurrentMenu(); // 当前菜单
+        //如果找不到当前菜单也给进（产品活码高级编辑）
+        if (!$current_menu) {
+            return true;
+        }
+
         $user_group = D('Admin/Access')->getFieldByUid(session('user_auth.uid'), 'group');  // 获得当前登录用户信息
 
-        if ($user_group !== '1') {
+        if ($user_group != '1') {
             $group_info = $this->find($user_group);
 
             // 获得当前登录用户所属部门的权限列表
             $group_auth = json_decode($group_info['menu_auth'], true);
             if (in_array($current_menu['id'], $group_auth[0])) {
                 return true;
+            }else{
+                return false;
             }
         } else {
             return true;  // 超级管理员无需验证
         }
-        return false;
     }
 }

@@ -83,28 +83,6 @@
         <div class="editor-wrap" <?php if($data['type'] == 3){echo 'style="display: block;"';} ?>>
             <div class="editor_main txt_main">
                 <div class="txt_left">
-                	<!--原上传文件案例-->
-                    <!--<div class="layui-upload">
-                      <button type="button" class="layui-btn layui-btn-normal" id="testList">选择文件</button><input class="layui-upload-file" type="file" name="file" multiple=""> 
-                      <div class="layui-upload-list">
-                        <table class="layui-table">
-                          <thead>
-                            <tr><th>文件名</th>
-                            <th>大小</th>
-                            <th>状态</th>
-                            <th>操作</th>
-                          </tr></thead>
-                          <tbody id="demoList">
-                          <tr id="upload-1508222495117-0">
-                              <td>{$data['fileName']}</td>
-                              <td>{$data['size']}</td>
-                              <td><span style="color: #5FB878;">上传成功</span></td><td></td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <button type="button" class="layui-btn" id="testListAction">开始上传</button>
-                    </div>-->
                     <input type="text" class="form_inp" placeholder="请输入标题名称" id="title3" value="{$data['title']}" style="margin-bottom: 30px;" />
                 	<table id="container" class="layui-table">
 					    <colgroup>
@@ -536,8 +514,8 @@
                     <input type="file" name="file" class="uploadfile" id="upload-bg" title="上传封面图">
                     <span>本地上传</span>
                 </div>
-                <li class="imgShowBox">
-                    <div class="imgshow" style="display: none;">
+                <li class="imgShowBox" style="display: none;">
+                    <div class="imgshow">
                         <img src="__PUBLIC__/images/vcardbg4.jpg" alt="" style="display: inline;">
                     </div>
                     <span></span>

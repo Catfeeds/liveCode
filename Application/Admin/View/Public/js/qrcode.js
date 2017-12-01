@@ -4,8 +4,8 @@ $(function(){
             allowFileManager : true,
             filePostName : 'file',
             cssPath : [
-                'public/libs/cui/css/cui.min.css',
-                'public/libs/kindeditor/plugins/code/prettify.css'
+                'Public/libs/cui/css/cui.min.css',
+                'Public/libs/kindeditor/plugins/code/prettify.css'
             ],
             width : '100%',
             height : '500px',

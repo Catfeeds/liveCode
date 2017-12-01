@@ -162,3 +162,13 @@
 .bs-example-bg-classes.bg-success {
     background-color: #41a3f1;
 }
+.abc{
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #FF1C20;
+    border-radius: 50%;
+    position: absolute;
+    top: 14px;
+    right: 83px;
+}

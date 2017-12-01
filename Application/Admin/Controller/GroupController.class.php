@@ -69,10 +69,12 @@ class GroupController extends AdminController {
     public function add() {
         if (IS_POST) {
             $group_object = D('Group');
-            $_POST['menu_auth']= json_encode(I('post.menu_auth'));
+            $menu_auth = I('post.menu_auth');
+            if (!empty($menu_auth)) {
+                $_POST['menu_auth']= json_encode($menu_auth);
+            }
+
             $data = $group_object->create();
-            // h($data);
-            
             if ($data) {
                 $id = $group_object->add($data);
                 if ($id) {
@@ -89,7 +91,6 @@ class GroupController extends AdminController {
             $all_group = select_list_as_tree('Group', $map, '顶级部门');
 
             $all_module_menu_list = D('Module')->getAdminMenu(1);
-            // h($all_module_menu_list);
 
             $this->assign('all_module_menu_list', $all_module_menu_list);
             $this->assign('all_group', $all_group);
