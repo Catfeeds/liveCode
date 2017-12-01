@@ -488,7 +488,9 @@ function getFilesize($num){
       $format = 'TB';
    }
    $num /= pow(1024, $p);
-   return number_format($num, 2).' '.$format;
+   // return number_format($num, 2).' '.$format;
+   return number_format($num, 2);
+
 }
 /**
  * 返回文件图片类型
