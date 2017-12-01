@@ -98,7 +98,7 @@ function add_file_item(container, key, name){
         tr.push('</td>');
         tr.push('<td><a id="del-item-'+key+'" class="layui-btn layui-btn-primary layui-btn-mini del-item" data-itemid="'+key+'"><i class="layui-icon" style="    margin-right: 0;">&#xe640;</i></a></td>');
         tr.push('</tr>');
-        $(container + ' tbody').append(tr.join(''));
+        $(container + ' tbody').html(tr.join(''));
 }
 
 function changeIconCss(key,item, st){
@@ -187,7 +187,7 @@ function initTable(otableid){
     var tfoot = [
         '<tfoot><tr style="background-color:#f2f2f2;color: #999999;">',
         '<td colspan="4">',
-        '<span>批量上传文件</span>',
+        '<span>上传文件</span>',
         '</td>',
         '</tr></tfoot>',
     ].join('');
@@ -290,10 +290,6 @@ MUpload.prototype.init = function(){
             $(this).val('');
             return;
         }
-		/*if(!/.(gif|jpg|jpeg|png|GIF|JPG|bmp)$/.test($(this).val())){
-			alert("图片类型必须是.gif,jpeg,jpg,png,bmp中的一种");
-			return;
-		}*/
         addFile.call(that, this.files);
         $(this).val('');
     });
