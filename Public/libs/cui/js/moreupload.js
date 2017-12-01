@@ -22,79 +22,79 @@ $(function(){
               file_name:'file',
               //回调函数
               complete:function(res){
-                  	$('#uploadFileName').val(res[0].info.uploadFileName);
-	        		$('#uploadFileSize').val(res[0].info.uploadFileSize);
-	        		$('#uploadFileUrl').val(res[0].info.uploadFileUrl);
+                  	$('#uploadFileName').val(res[0].uploadFileName);
+	        		$('#uploadFileSize').val(res[0].uploadFileSize);
+	        		$('#uploadFileUrl').val(res[0].uploadFileUrl);
               }
 	    });
 	})
 	
 	layui.use('upload', function(){
 	  var $ = layui.jquery,upload = layui.upload;
-	  //多文件列表示例
-	  var demoListView = $('#demoList')
-	  uploadListIns = upload.render({
-	    elem: '#testList'
-	    ,url: postUrl
-	    ,accept: 'file'
-        ,exts: "doc|docx|pdf|xls|xlsx|ppt|pptx|wps|txt|zip|rar|gz|bz2|7z|gif|jpg|jpeg|png|bmp"
-        ,size: 10240
-	    ,multiple: true
-	    ,auto: false
-	    ,bindAction: '#testListAction'
-	    ,choose: function(obj){   
-	      var files = obj.pushFile();//将每次选择的文件追加到文件队列
+	  // //多文件列表示例
+	  // var demoListView = $('#demoList')
+	  // uploadListIns = upload.render({
+	  //   elem: '#testList'
+	  //   ,url: postUrl
+	  //   ,accept: 'file'
+   //      ,exts: "doc|docx|pdf|xls|xlsx|ppt|pptx|wps|txt|zip|rar|gz|bz2|7z|gif|jpg|jpeg|png|bmp"
+   //      ,size: 10240
+	  //   ,multiple: true
+	  //   ,auto: false
+	  //   ,bindAction: '#testListAction'
+	  //   ,choose: function(obj){   
+	  //     var files = obj.pushFile();//将每次选择的文件追加到文件队列
 	      
-	      //读取本地文件
-	      obj.preview(function(index, file, result){
-	        var tr = $(['<tr id="upload-'+ index +'">'
-	          ,'<td>'+ file.name +'</td>'
-	          ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
-	          ,'<td>等待上传</td>'
-	          ,'<td>'
-	            ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
-	            ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
-	          ,'</td>'
-	        ,'</tr>'].join(''));
+	  //     //读取本地文件
+	  //     obj.preview(function(index, file, result){
+	  //       var tr = $(['<tr id="upload-'+ index +'">'
+	  //         ,'<td>'+ file.name +'</td>'
+	  //         ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
+	  //         ,'<td>等待上传</td>'
+	  //         ,'<td>'
+	  //           ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+	  //           ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+	  //         ,'</td>'
+	  //       ,'</tr>'].join(''));
 	        
-	        //单个重传
-	        tr.find('.demo-reload').on('click', function(){
-	          obj.upload(index, file);
-	        });
+	  //       //单个重传
+	  //       tr.find('.demo-reload').on('click', function(){
+	  //         obj.upload(index, file);
+	  //       });
 	        
-	        //删除
-	        tr.find('.demo-delete').on('click', function(){
-	          delete files[index]; //删除对应的文件
-	          tr.remove();
-	        });
+	  //       //删除
+	  //       tr.find('.demo-delete').on('click', function(){
+	  //         delete files[index]; //删除对应的文件
+	  //         tr.remove();
+	  //       });
 	        
-	        demoListView.html(tr);
-	        notAllow();
-	      });
-	    }
-	    ,done: function(res, index, upload){
+	  //       demoListView.html(tr);
+	  //       notAllow();
+	  //     });
+	  //   }
+	  //   ,done: function(res, index, upload){
 	    	
-	      if(res.status == 1){ //上传成功
-	        var tr = demoListView.find('tr#upload-'+ index)
-	        ,tds = tr.children();
-	        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
-	        tds.eq(3).html(''); //清空操作
-	        $('#uploadFileName').val(res.info.uploadFileName);
-	        $('#uploadFileSize').val(res.info.uploadFileSize);
-	        $('#uploadFileUrl').val(res.info.uploadFileUrl);
-	        notAllow();
-	        return;
-	      }
+	  //     if(res.status == 1){ //上传成功
+	  //       var tr = demoListView.find('tr#upload-'+ index)
+	  //       ,tds = tr.children();
+	  //       tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+	  //       tds.eq(3).html(''); //清空操作
+	  //       $('#uploadFileName').val(res.info.uploadFileName);
+	  //       $('#uploadFileSize').val(res.info.uploadFileSize);
+	  //       $('#uploadFileUrl').val(res.info.uploadFileUrl);
+	  //       notAllow();
+	  //       return;
+	  //     }
 	      
-	      this.error(index, upload);
-	    }
-	    ,error: function(index, upload){
-	      var tr = demoListView.find('tr#upload-'+ index)
-	      ,tds = tr.children();
-	      tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
-	      tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
-	    }
-	  });
+	  //     this.error(index, upload);
+	  //   }
+	  //   ,error: function(index, upload){
+	  //     var tr = demoListView.find('tr#upload-'+ index)
+	  //     ,tds = tr.children();
+	  //     tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+	  //     tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+	  //   }
+	  // });
 	  
 	  
 	  //普通图片上传
@@ -110,11 +110,11 @@ $(function(){
 	    ,done: function(res){
 	    	console.log(res)
 	      //如果上传失败
-	      if(res.status != 1){
+	      if(res.code != 0){
 	        return layer.msg('上传失败');
 	      }else{
 	      	//上传成功
-	        $('#uploadPicUrl').val(res.info.uploadFileUrl);
+	        $('#uploadPicUrl').val(res.uploadFileUrl);
 	      }
 	      
 	    }
@@ -145,11 +145,11 @@ $(function(){
 	    }
 	    ,done: function(res){
 	      //如果上传失败
-	      if(res.status != 1){
+	      if(res.code != 0){
 	        return layer.msg('上传失败');
 	      }else{
 	      	//上传成功
-	      	$(".vcard_face").css({"background-image":"url("+'/Uploads/livecode/file/'+res.info.uploadFileUrl+")"});
+	      	$(".vcard_face").css({"background-image":"url("+'/'+res.uploadFileUrl+")"});
 	      }
 	      
 	    }
@@ -168,15 +168,15 @@ $(function(){
 	    }
 	    ,done: function(res){
 	      //如果上传失败
-	      if(res.status != 1){
+	      if(res.code != 0){
 	        return layer.msg('上传失败');
 	      }else{
 	      	//上传成功
 	      	$('#bglist li').addClass('active').siblings('li').removeClass('active');
 			// var imgSrc=$('#bglist li').find('.imgshow img').attr('src');
 			$(".imgShowBox").addClass('active');
-			$('.imgshow img').attr('src', '/Uploads/livecode/file/'+res.info.uploadFileUrl); //图片链接（base64）
-	      	$(".vcard_head").css({"background-image":"url("+'/Uploads/livecode/file/'+res.info.uploadFileUrl+")"});
+			$('.imgshow img').attr('src', res.uploadFileUrl); //图片链接（base64）
+	      	$(".vcard_head").css({"background-image":"url("+'/'+res.uploadFileUrl+")"});
 	      }
 	      
 	    }

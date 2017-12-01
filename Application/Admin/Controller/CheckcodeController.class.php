@@ -447,7 +447,14 @@ class CheckcodeController extends AdminController {
             }else{// 上传成功
                 $size = getFilesize($info['file']['size']);
                 $url  = $info['file']['savepath'].$info['file']['savename'];
-                $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$upload->rootPath.$url]);
+
+                $data['code']   = 0;
+                $data['msg']    = '上传成功';
+                $data['uploadFileName'] = $info['file']['name'];
+                $data['uploadFileSize'] = $size;
+                $data['uploadFileUrl']  = $upload->rootPath.$url;
+                echo  json_encode($data);
+                // $this->success(['uploadFileName'=>$info['file']['name'],'uploadFileSize'=>$size,'uploadFileUrl'=>$upload->rootPath.$url]);
             }
         }
     }

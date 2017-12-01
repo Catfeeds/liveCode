@@ -641,7 +641,7 @@ class LivecodeController extends AdminController {
             }else{// 上传成功
                 $size = getFilesize($info['file']['size']);
                 $url  = $info['file']['savepath'].$info['file']['savename'];
-                
+
                 $data['code']   = 0;
                 $data['msg']    = '上传成功';
                 $data['uploadFileName'] = $info['file']['name'];
