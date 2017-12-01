@@ -1,11 +1,4 @@
 <?php
-// +----------------------------------------------------------------------
-// | OpenCMF [ Simple Efficient Excellent ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2014  All rights reserved.
-// +----------------------------------------------------------------------
-// | 
-// +----------------------------------------------------------------------
 namespace Admin\Controller;
 use Common\Util\Think\Page;
 
@@ -534,9 +527,9 @@ class DuourlController extends AdminController {
             'data'       => $data,
             ]);
         if ($info['tab'] == '' || $info['tab'] == 'curr') {
-            $this->display('public/echarts_line');
+            $this->display('Public/echarts_line');
         }else{
-            $this->display('public/echarts_column');
+            $this->display('Public/echarts_column');
         }
     }
 

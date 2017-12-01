@@ -620,9 +620,9 @@ class LivecodeController extends AdminController {
             'data'       => $data,
             ]);
         if ($info['tab'] == '' || $info['tab'] == 'curr') {
-            $this->display('public/echarts_line');
+            $this->display('Public/echarts_line');
         }else{
-            $this->display('public/echarts_column');
+            $this->display('Public/echarts_column');
         }
     }
 
