@@ -151,7 +151,7 @@
             if (title == '') {
                 $.alertMessager('请输入视频名称!');return;
             }
-            if (videourl == null) {
+            if (videourl == '') {
                 $.alertMessager('请上传文件!');return;
             }
             $.ajax({

@@ -13,8 +13,13 @@ $(function(){
           file_name:'file',
           //回调函数
           complete:function(res){
-            $('#fileSize').val(res[0].info.uploadFileSize);
-            $('#fileUrl').val(res[0].info.uploadFileUrl);
+            if(res[0].code != 0){
+                return layer.msg('上传失败');
+            }else{
+                //上传成功
+                $('#fileSize').val(res[0].uploadFileSize);
+                $('#fileUrl').val(res[0].uploadFileUrl);
+            }
           }
 	    });
 	})

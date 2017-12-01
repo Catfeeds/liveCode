@@ -98,7 +98,7 @@ function add_file_item(container, key, name){
         tr.push('</td>');
         tr.push('<td><a id="del-item-'+key+'" class="layui-btn layui-btn-primary layui-btn-mini del-item" data-itemid="'+key+'"><i class="layui-icon" style="    margin-right: 0;">&#xe640;</i></a></td>');
         tr.push('</tr>');
-        $(container + ' tbody').append(tr.join(''));
+        $(container + ' tbody').html(tr.join(''));
 }
 
 function changeIconCss(key,item, st){
@@ -174,7 +174,7 @@ function initTable(otableid){
         thead.push('<tr><th class="layui-elip">');
         thead.push('<span>文件名</span>');
         thead.push('&nbsp;<div class="layui-box layui-btn layui-upload-button layui-upload-button-small layui-mupload-addfile">');
-        thead.push('<input class="layui-mupload-file" name="" value="" lay-title="批量上传" multiple="multiple" type="file">');
+        thead.push('<input class="layui-mupload-file" name="" value="" lay-title="上传" multiple="multiple" type="file">');
         thead.push('<span class="layui-upload-icon"><i class="layui-icon">&#xe608;</i>添加文件</span>');
         thead.push('</div>&nbsp;');
         thead.push('<a class="layui-btn layui-btn-disabled layui-upload-button-small layui-mupload-submit"><i class="layui-icon">&#xe62f;</i> 上传文件</a>');
@@ -184,14 +184,6 @@ function initTable(otableid){
         thead.push('<th>操作</th>');
         thead.push('</tr></thead>');
     $table.append(thead.join(''));
-    var tfoot = [
-        '<tfoot><tr style="background-color:#f2f2f2;color: #999999;">',
-        '<td colspan="4">',
-        '<span>批量上传文件</span>',
-        '</td>',
-        '</tr></tfoot>',
-    ].join('');
-    $table.append(tfoot);
     $table.append('<tbody></tbody>');
     changeNoFileBox(otableid, 0)
 }
@@ -207,7 +199,7 @@ function initTable(otableid){
 function changeNoFileBox(otableid, index){
     var nofile_tr = [
         '<tr class="layui-mupload-nofile"><td colspan="4" style="text-align:center;color:#b2b2b2;height:60px;">',
-        '<div class="" style="font-size:16px;cur"><i class="layui-icon" style="font-size:26px;vertical-align: middle;">&#xe608;</i> 添加文件（可直接多次拖拽文件到此区域）</div>',
+        '<div class="" style="font-size:16px;cur"><i class="layui-icon" style="font-size:26px;vertical-align: middle;">&#xe608;</i> 添加文件（可直接拖拽文件到此区域）</div>',
         '</td></tr>'
     ];
     if (!index && !$(otableid).hasClass('layui-mupload-nofile')) {
@@ -235,10 +227,10 @@ function handlerDrag(elemObj){
                 return;
             }
             /*if(!/.(gif|jpg|jpeg|png|GIF|JPG|bmp)$/.test($(this).val())){
-				alert("图片类型必须是.gif,jpeg,jpg,png,bmp中的一种");
-				return;
-			}*/
-			
+                alert("图片类型必须是.gif,jpeg,jpg,png,bmp中的一种");
+                return;
+            }*/
+            
             addFile.call(that, files);
     }, false);
 }
@@ -290,10 +282,6 @@ MUpload.prototype.init = function(){
             $(this).val('');
             return;
         }
-		/*if(!/.(gif|jpg|jpeg|png|GIF|JPG|bmp)$/.test($(this).val())){
-			alert("图片类型必须是.gif,jpeg,jpg,png,bmp中的一种");
-			return;
-		}*/
         addFile.call(that, this.files);
         $(this).val('');
     });
