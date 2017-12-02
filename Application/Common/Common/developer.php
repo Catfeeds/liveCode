@@ -1,12 +1,4 @@
 <?php
-// +----------------------------------------------------------------------
-// | OpenCMF [ Simple Efficient Excellent ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2014  All rights reserved.
-// +----------------------------------------------------------------------
-// | 
-// +----------------------------------------------------------------------
-
 //开发者二次开发公共函数统一写入此文件，不要修改function.php以便于系统升级。
 
 function trimall($str)//删除空格
@@ -653,6 +645,8 @@ function getIPLoc_taobao($queryIP){
     $result = file_get_contents($url);  
     $result = json_decode($result,true);  
     if($result['code']!==0 || !is_array($result['data'])) return false;  
+    $result['data']['os']      = getOS();
+    $result['data']['browser'] = getBrowser();
     return $result['data'];
 } 
 /**
@@ -668,13 +662,13 @@ function getOS()  {
         $os = 'Windows';
     }  elseif (strpos($ua, 'Linux') !== false) {  
         $os = 'Linux';
-    }   elseif (strpos($ua, 'Linux') !== false) {  
+    }   else {  
         $os = '其他';
     }   
     return $os;
 }
 /**
- * 获取系统信息
+ * 获取浏览器信息
  */
 function getBrowser()  {  
     $ua = $_SERVER['HTTP_USER_AGENT'];//这里只进行IOS和Android两个操作系统的判断，其他操作系统原理一样  
@@ -692,17 +686,17 @@ function getBrowser()  {
         $browser = '微博';
     }elseif (strpos($ua, 'Firefox') !== false) {  
         $browser = 'Firefox';
+    }elseif (strpos($ua, '360') !== false) {  
+        $browser = '360浏览器';
     }elseif (strpos($ua, 'Chrome') !== false) {  
         $browser = 'Chrome';
     }  elseif (strpos($ua, 'Safari') !== false) {  
         $browser = 'Safari';
     }elseif (strpos($ua, 'Opera') !== false) {  
         $browser = 'Opera';
-    }elseif (strpos($ua, '360') !== false) {  
-        $browser = '360浏览器';
     }elseif (strpos($ua, 'MSIE') !== false) {  
         $browser = 'Internet Explorer';
-    }elseif (strpos($ua, 'Linux') !== false) {  
+    }else {  
         $browser = '其他';
     }   
     return $browser;

@@ -1,11 +1,4 @@
 <?php
-// +----------------------------------------------------------------------
-// | OpenCMF [ Simple Efficient Excellent ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2014  All rights reserved.
-// +----------------------------------------------------------------------
-// |
-// +----------------------------------------------------------------------
 namespace Home\Controller;
 use Think\Controller;
 /**
@@ -33,12 +26,10 @@ class HuomaController extends HomeController{
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
         $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
         //获取访问者信息
-        $info            = getIPLoc_taobao(get_client_ip());
-        $info['os']      = getOS();
-        $info['browser'] = getBrowser();
-        $info['codeId']  = $data['id'];
+        $info               = getIPLoc_taobao(get_client_ip());
+        $info['codeId']     = $data['id'];
         $info['createTime'] = date('Y-m-d H:i:s');
-        $info['type']    = 1;
+        $info['type']       = 1;
         M('echarts_data')->add($info);
         
         //将活码所有文件域名替换为管理后台设置的用户端域名
@@ -69,6 +60,9 @@ class HuomaController extends HomeController{
             foreach ($content as $key => $value) {
                 $data['url'][$key] = $value;
             }
+            if (!empty($data['url'][0]['content'])) {
+                $data['content'] = preg_replace('/\/Uploads/', $domainSuffix . '/Uploads', $data['url'][0]['content']);
+            }
             $this->assign('data',$data);
             $this->display('live_url');
         }elseif ($data['type'] == 5) {      //名片活码
@@ -76,6 +70,8 @@ class HuomaController extends HomeController{
             foreach ($content as $key => $value) {
                 $data[$key] = $value;
             }
+            $data['head'] = $domainSuffix.$data['head'];
+            $data['face'] = $domainSuffix.$data['face'];
             $this->assign('data',$data);
             $this->display('live_vcard');
         } 
@@ -101,12 +97,10 @@ class HuomaController extends HomeController{
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
         $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
         //获取访问者信息
-        $info            = getIPLoc_taobao(get_client_ip());
-        $info['os']      = getOS();
-        $info['browser'] = getBrowser();
-        $info['codeId']  = $data['id'];
+        $info               = getIPLoc_taobao(get_client_ip());
+        $info['codeId']     = $data['id'];
         $info['createTime'] = date('Y-m-d H:i:s');
-        $info['type']    = 2;
+        $info['type']       = 2;
         M('echarts_data')->add($info);
 
         //将活码所有文件域名替换为管理后台设置的用户端域名
@@ -148,10 +142,8 @@ class HuomaController extends HomeController{
         $videourl = $obj -> where(array('d' => $d)) -> getField('0,id,title,videourl,huoma');
         $url      = $obj -> where(array('d' => $d)) -> getField('videourl');
         //获取访问者信息
-        $info            = getIPLoc_taobao(get_client_ip());
-        $info['os']      = getOS();
-        $info['browser'] = getBrowser();
-        $info['codeId']  = $videourl[0]['id'];
+        $info               = getIPLoc_taobao(get_client_ip());
+        $info['codeId']     = $videourl[0]['id'];
         $info['createTime'] = date('Y-m-d H:i:s');
 
         if ($type == 2 && $videourl){
@@ -213,12 +205,10 @@ class HuomaController extends HomeController{
         if ($tzurl){
             $obj->where(array('d' => $d)) ->setInc('count', 1);
             //获取访问者信息
-            $info            = getIPLoc_taobao(get_client_ip());
-            $info['os']      = getOS();
-            $info['browser'] = getBrowser();
-            $info['codeId']  = $rs['id'];
+            $info               = getIPLoc_taobao(get_client_ip());
+            $info['codeId']     = $rs['id'];
             $info['createTime'] = date('Y-m-d H:i:s');
-            $info['type']    = 5;
+            $info['type']       = 5;
             M('echarts_data')->add($info);
             redirect($tzurl);
         }else{

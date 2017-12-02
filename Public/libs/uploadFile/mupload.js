@@ -179,7 +179,7 @@ function initTable(otableid){
         thead.push('</div>&nbsp;');
         thead.push('<a class="layui-btn layui-btn-disabled layui-upload-button-small layui-mupload-submit"><i class="layui-icon">&#xe62f;</i> 上传文件</a>');
         thead.push('</th>');
-        thead.push('<th>进度条</th>');
+        thead.push('<th>上传进度</th>');
         thead.push('<th>状态</th>');
         thead.push('<th>操作</th>');
         thead.push('</tr></thead>');
