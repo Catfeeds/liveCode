@@ -672,8 +672,6 @@ function getOS()  {
  */
 function getBrowser()  {  
     $ua = $_SERVER['HTTP_USER_AGENT'];//这里只进行IOS和Android两个操作系统的判断，其他操作系统原理一样  
-    halt($ua);
-
     if (strpos($ua, 'Alipay') !== false) {//strpos()定位出第一次出现字符串的位置，这里定位为0  
         $browser = '支付宝';
     }elseif (strpos($ua, 'MicroMessenger') !== false) {  
