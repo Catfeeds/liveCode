@@ -640,10 +640,19 @@ function getIPLoc_taobao($queryIP){
     // preg_match("/(?:\()(.*)(?:\))/i",$location, $result); 
     // return json_decode($result[1],true);
 
-    if(empty($queryIP)) $ip=get_client_ip();  //get_client_ip()为tp自带函数，如没有，自己百度搜索。此处就不重复复制了  
-    $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$queryIP;  
-    $result = file_get_contents($url);  
-    $result = json_decode($result,true);  
+    // if(empty($queryIP)) $ip=get_client_ip();  //get_client_ip()为tp自带函数，如没有，自己百度搜索。此处就不重复复制了  
+    // $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$queryIP;  
+    // $result = file_get_contents($url);  
+    // $result = json_decode($result,true); 
+    $url = 'http://ip.taobao.com/service/getIpInfo.php?ip='.$queryIP; 
+    $ch = curl_init($url); 
+    curl_setopt($ch,CURLOPT_ENCODING ,'utf8'); 
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; // 获取数据返回 
+    $result = curl_exec($ch); 
+    $result = json_decode($result,true); 
+    curl_close($ch);  
+
     if($result['code']!==0 || !is_array($result['data'])) return false;  
     $result['data']['os']      = getOS();
     $result['data']['browser'] = getBrowser();
