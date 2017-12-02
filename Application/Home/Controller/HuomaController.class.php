@@ -1,11 +1,4 @@
 <?php
-// +----------------------------------------------------------------------
-// | OpenCMF [ Simple Efficient Excellent ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2014  All rights reserved.
-// +----------------------------------------------------------------------
-// |
-// +----------------------------------------------------------------------
 namespace Home\Controller;
 use Think\Controller;
 /**
@@ -69,6 +62,9 @@ class HuomaController extends HomeController{
             foreach ($content as $key => $value) {
                 $data['url'][$key] = $value;
             }
+            if (!empty($data['url'][0]['content'])) {
+                $data['content'] = preg_replace('/\/Uploads/', $domainSuffix . '/Uploads', $data['url'][0]['content']);
+            }
             $this->assign('data',$data);
             $this->display('live_url');
         }elseif ($data['type'] == 5) {      //名片活码
@@ -76,6 +72,8 @@ class HuomaController extends HomeController{
             foreach ($content as $key => $value) {
                 $data[$key] = $value;
             }
+            $data['head'] = $domainSuffix.$data['head'];
+            $data['face'] = $domainSuffix.$data['face'];
             $this->assign('data',$data);
             $this->display('live_vcard');
         } 
