@@ -135,41 +135,37 @@ class HuomaController extends HomeController{
             $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
+        $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
+        $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+
+        $type     = $obj -> where(array('d' => $d)) -> getField('type');
+        $videourl = $obj -> where(array('d' => $d)) -> getField('0,id,title,videourl,huoma');
+        $url      = $obj -> where(array('d' => $d)) -> getField('videourl');
         //获取访问者信息
-        $info = getIPLoc_taobao(get_client_ip());
-        if (!empty($info)) {
-            $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
-            $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+        $info               = getIPLoc_taobao(get_client_ip());
+        $info['codeId']     = $videourl[0]['id'];
+        $info['createTime'] = date('Y-m-d H:i:s');
 
-            $type     = $obj -> where(array('d' => $d)) -> getField('type');
-            $videourl = $obj -> where(array('d' => $d)) -> getField('0,id,title,videourl,huoma');
-            $url      = $obj -> where(array('d' => $d)) -> getField('videourl');
-            
-            $info['codeId']     = $videourl[0]['id'];
-            $info['createTime'] = date('Y-m-d H:i:s');
-
-            if ($type == 2 && $videourl){
-                $domainSuffix = 'http://'.C('USER_DOMAIN');
-                //视频活码跳转
-                $info['type'] = 3;
-                M('echarts_data')->add($info);
-                //$huoma = $obj -> where(array('d' => $d)) -> getField('huoma');
-                $videoTitle = '{"mediaTitle": "'.$videourl[0]['title'].'"}';
-                $this->assign('title',$videourl[0]['title']);
-                $this->assign('videoTitle',$videoTitle);
-                $this->assign('vdurl',$domainSuffix.'/'.$videourl[0]['videourl']);
-                $this->assign('hmurl',$videourl[0]['huoma']);
-                $this->display();
-            }elseif ($type == 1 && $url){
-                //网址活码跳转
-                $info['type'] = 4;
-                M('echarts_data')->add($info);
-                redirect($url);
-            }else{
-                $this -> error('参数错误');
-            }
+        if ($type == 2 && $videourl){
+            $domainSuffix = 'http://'.C('USER_DOMAIN');
+            //视频活码跳转
+            $info['type'] = 3;
+            M('echarts_data')->add($info);
+            //$huoma = $obj -> where(array('d' => $d)) -> getField('huoma');
+            $videoTitle = '{"mediaTitle": "'.$videourl[0]['title'].'"}';
+            $this->assign('title',$videourl[0]['title']);
+            $this->assign('videoTitle',$videoTitle);
+            $this->assign('vdurl',$domainSuffix.'/'.$videourl[0]['videourl']);
+            $this->assign('hmurl',$videourl[0]['huoma']);
+            $this->display();
+        }elseif ($type == 1 && $url){
+            //网址活码跳转
+            $info['type'] = 4;
+            M('echarts_data')->add($info);
+            redirect($url);
+        }else{
+            $this -> error('参数错误');
         }
-        
     }
     /**
      * 多网址跳转
