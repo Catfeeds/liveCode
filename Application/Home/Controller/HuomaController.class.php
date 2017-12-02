@@ -50,7 +50,7 @@ class HuomaController extends HomeController{
                 foreach ($content as $key => $value) {
                     $data[$key] = $value;
                 }
-                $data['picUrl'] = $domainSuffix.'/Uploads/livecode/file/'.$data['picUrl'];
+                $data['picUrl'] = $domainSuffix.'/'.$data['picUrl'];
                 $data['content'] = preg_replace('/\/Uploads/', $domainSuffix . '/Uploads', $data['content']);
             }
             $this->assign('data',$data);
