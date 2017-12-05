@@ -9,6 +9,11 @@ class HuomaController extends HomeController{
      * 活码生成跳转
      */
     public function live(){
+        $ifAdd = 1;
+        if (session('visitTime') > time()-10) {
+            $ifAdd = 0;
+        }
+
         $d    = I('d/s');
         $obj  = M('cms_livecode');
         $data = $obj->where(['d'=>$d,'status'=>1])->find();
@@ -23,14 +28,17 @@ class HuomaController extends HomeController{
             return $this->display('Public/unfined');
         }
 
-        $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
-        $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
-        //获取访问者信息
-        $info               = getIPLoc_taobao(get_client_ip());
-        $info['codeId']     = $data['id'];
-        $info['createTime'] = date('Y-m-d H:i:s');
-        $info['type']       = 1;
-        M('echarts_data')->add($info);
+        if ($ifAdd) {
+            $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
+            $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+            //获取访问者信息
+            $info               = getIPLoc_taobao(get_client_ip());
+            $info['codeId']     = $data['id'];
+            $info['createTime'] = date('Y-m-d H:i:s');
+            $info['type']       = 1;
+            M('echarts_data')->add($info);
+        }
+        session('visitTime',time());
         
         //将活码所有文件域名替换为管理后台设置的用户端域名
         $domainSuffix = 'http://'.C('USER_DOMAIN');
@@ -81,6 +89,11 @@ class HuomaController extends HomeController{
      * 产品活码跳转
      */
     public function product(){
+        $ifAdd = 1;
+        if (session('visitTime') > time()-10) {
+            $ifAdd = 0;
+        }
+
         $d    = I('d/s');
         $obj  = M('cms_product');
         $data = $obj->where(['d'=>$d,'status'=>1])->find();
@@ -94,14 +107,17 @@ class HuomaController extends HomeController{
             $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
-        $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
-        $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
-        //获取访问者信息
-        $info               = getIPLoc_taobao(get_client_ip());
-        $info['codeId']     = $data['id'];
-        $info['createTime'] = date('Y-m-d H:i:s');
-        $info['type']       = 2;
-        M('echarts_data')->add($info);
+        if ($ifAdd) {
+            $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
+            $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+            //获取访问者信息
+            $info               = getIPLoc_taobao(get_client_ip());
+            $info['codeId']     = $data['id'];
+            $info['createTime'] = date('Y-m-d H:i:s');
+            $info['type']       = 2;
+            M('echarts_data')->add($info);
+        }
+        session('visitTime',time());
 
         //将活码所有文件域名替换为管理后台设置的用户端域名
         $domainSuffix = 'http://'.C('USER_DOMAIN');
@@ -128,36 +144,27 @@ class HuomaController extends HomeController{
         }
         $d = I('d/s');
         $obj = M('cms_phone');
-        if ($ifAdd) {
-            $data = $obj->where(['d'=>$d,'status'=>1])->find();
-            if (!$data) {
-                $this->assign('errorMsg','页面不存在或者未通过审核╮(︶﹏︶")╭');
-                return $this->display('Public/unfined');
-            }
-            $userMod = D('User');
-            $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
-            if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
-                $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
-                return $this->display('Public/unfined');
-            }
-            $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
-            $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+        $data = $obj->where(['d'=>$d,'status'=>1])->find();
+        if (!$data) {
+            $this->assign('errorMsg','页面不存在或者未通过审核╮(︶﹏︶")╭');
+            return $this->display('Public/unfined');
         }
-        
+        $userMod = D('User');
+        $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
+        if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
+            $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
+            return $this->display('Public/unfined');
+        }
 
         $type     = $obj -> where(array('d' => $d)) -> getField('type');
         $videourl = $obj -> where(array('d' => $d)) -> getField('0,id,title,videourl,huoma');
         $url      = $obj -> where(array('d' => $d)) -> getField('videourl');
-        //获取访问者信息
-        if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){  
-            $IPaddress = $_SERVER["HTTP_X_FORWARDED_FOR"];  
-        } else if (isset($_SERVER["HTTP_CLIENT_IP"])) {  
-            $IPaddress = $_SERVER["HTTP_CLIENT_IP"];  
-        } else {  
-            $IPaddress = $_SERVER["REMOTE_ADDR"];  
-        }
+
         if ($ifAdd) {
-            $info               = getIPLoc_taobao($IPaddress);
+            $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
+            $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+            //获取访问者信息
+            $info               = getIPLoc_taobao(getIP());
             $info['codeId']     = $videourl[0]['id'];
             $info['createTime'] = date('Y-m-d H:i:s');
         }
@@ -192,6 +199,11 @@ class HuomaController extends HomeController{
      * 多网址跳转
      */
     public function duo (){
+        $ifAdd = 1;
+        if (session('visitTime') > time()-10) {
+            $ifAdd = 0;
+        }
+
         $d = I('d/s');
         $obj = M('cms_duourl');
         $rs = $obj->where(['d'=>$d,'status'=>1])->find();
@@ -205,7 +217,6 @@ class HuomaController extends HomeController{
             $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
-        $userMod->where(['id'=>$rs['uid']])->setInc('visitCount', 1);
 
         $urlarr = get_duourl_titlearr($rs['title']);
         if (!is_array($urlarr)){
@@ -223,14 +234,19 @@ class HuomaController extends HomeController{
              $tzurl = $this -> randjump($urlarr);
              break;
         }
+
+        session('visitTime',time());
         if ($tzurl){
-            $obj->where(array('d' => $d)) ->setInc('count', 1);
-            //获取访问者信息
-            $info               = getIPLoc_taobao(get_client_ip());
-            $info['codeId']     = $rs['id'];
-            $info['createTime'] = date('Y-m-d H:i:s');
-            $info['type']       = 5;
-            M('echarts_data')->add($info);
+            if ($ifAdd) {
+                $userMod->where(['id'=>$rs['uid']])->setInc('visitCount', 1);
+                $obj->where(array('d' => $d)) ->setInc('count', 1);
+                //获取访问者信息
+                $info               = getIPLoc_taobao(get_client_ip());
+                $info['codeId']     = $rs['id'];
+                $info['createTime'] = date('Y-m-d H:i:s');
+                $info['type']       = 5;
+                M('echarts_data')->add($info);
+            }
             redirect($tzurl);
         }else{
             $this -> error('参数错误');

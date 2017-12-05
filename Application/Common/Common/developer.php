@@ -625,10 +625,24 @@ function getControllerName($title){
     }
 }
 /**
+ * 获取IP
+ */
+function getIP(){ 
+    if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){  
+        $IPaddress = $_SERVER["HTTP_X_FORWARDED_FOR"];  
+    } else if (isset($_SERVER["HTTP_CLIENT_IP"])) {  
+        $IPaddress = $_SERVER["HTTP_CLIENT_IP"];  
+    } else {  
+        $IPaddress = $_SERVER["REMOTE_ADDR"];  
+    }
+    return  $IPaddress;
+}
+/**
  * 获取当前ip地址所在城市
  */
-function getIPLoc_taobao($queryIP){ 
-    // $url = 'http://chaxun.1616.net/s.php?type=ip&v='.$queryIP.'&output=json&callback=J1616.chaxun.ip.callback&_='.time(); 
+function getIPLoc_taobao($IPaddress){ 
+    // METHOD 1
+    // $url = 'http://chaxun.1616.net/s.php?type=ip&v='.$IPaddress.'&output=json&callback=J1616.chaxun.ip.callback&_='.time(); 
     // $ch = curl_init($url); 
     // // curl_setopt($ch,CURLOPT_ENCODING ,'utf8'); 
     // curl_setopt($ch, CURLOPT_TIMEOUT, 10); 
@@ -638,15 +652,16 @@ function getIPLoc_taobao($queryIP){
     // curl_close($ch); 
     // $result = array(); 
     // preg_match("/(?:\()(.*)(?:\))/i",$location, $result); 
-    // // return json_decode($result[1],true);
     // $result['data'] = json_decode($result[1],true);
-// halt($result['data']);
+    // halt($result['data']);
 
-    $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$queryIP; 
+    // METHOD 2
+    $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$IPaddress; 
     $result = file_get_contents($url);  
     $result = json_decode($result,true); 
 
-    // $url = 'http://ip.taobao.com/service/getIpInfo.php?ip='.$queryIP; 
+    // METHOD 3
+    // $url = 'http://ip.taobao.com/service/getIpInfo.php?ip='.$IPaddress; 
     // $ch = curl_init($url); 
     // curl_setopt($ch,CURLOPT_ENCODING ,'utf8'); 
     // curl_setopt($ch, CURLOPT_TIMEOUT, 10); 
@@ -654,9 +669,8 @@ function getIPLoc_taobao($queryIP){
     // $result = curl_exec($ch); 
     // $result = json_decode($result,true); 
     // curl_close($ch);  
-// halt($result);
+    // halt($result);
 
-    // if($result['code']!==0 || !is_array($result['data'])) return false;  
     $result['data']['os']      = getOS();
     $result['data']['browser'] = getBrowser();
     return $result['data'];
