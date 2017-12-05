@@ -5,14 +5,14 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 14px;
-    padding-right: 14px;
+    /*padding-left: 14px;
+    padding-right: 14px;*/
     box-sizing: border-box;
     font-size: 18px;
     text-align: center;
     text-decoration: none;
     color: #FFFFFF;
-    line-height: 2.55555556;
+    /*line-height: 2.55555556;*/
     border-radius: 5px;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     overflow: hidden;
@@ -1012,3 +1012,264 @@ img{
 	margin-bottom: 0px!important;
 }
 
+/*样式表*/
+*, :after, :before {
+    box-sizing: border-box;
+}
+/*文件开始*/
+.weui_wd {
+    width: 100%;
+    height: auto;
+    text-align: left;
+    background: #f8f8f8;
+    margin: 5px 0;
+}
+.weui_access {
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 15px 10px;
+}
+.weui_wd:after,.weui_access:after,.weui-panel:after{
+	display: block;
+	clear: both;
+	content: "";
+}
+.weui_hd {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 10px;
+}
+.weui_hd img {
+    max-width: 100%;
+}
+.overflow {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+.weui_bd{
+	width: 70%;
+	float: left;
+    line-height: 22px;
+    color: #888;
+    font-size: 13px;
+}
+.weui_bd p{
+    width: 100%;
+    margin-top: 5px!important;
+    color: #000;
+    font-size: 16px;
+}
+.weui_wd .xiazai {
+    width: 13px;
+    height: 13px;
+    transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    border-top: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+    display: inline-block;
+    float: right;
+    margin-top: 19px;
+}
+/*文件结束*/
+/*微信开始*/
+.weui-panel {
+    width: 100%;
+    padding: 10px;
+    position: relative;
+    background: #f8f8f8;
+    margin-top: 5px;
+}
+.weui-icon {
+    width: 20px;
+    height: 20px;
+    float: left;
+    background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/wechat.png) no-repeat center;
+}
+.weui-cell {
+    width: 50%;
+    font-size: 16px;
+    float: left;
+    margin: 0 5px;
+}
+.weui-btn {
+    float: right;
+    margin-top: -2px;
+}
+.weui-btn input {
+    width: 46px;
+    height: 28px;
+    line-height: 28px;
+    color: #000;
+    background-color: #f8f8f8;
+    box-shadow: inset 0 0 0 1px rgba(120,130,140,.25);
+    border: none;
+    border-radius: 5px;
+}
+/*微信结束*/
+/*名片开始*/
+.card_module {
+    background: #f8f8f8;
+    text-align: left;
+    padding: 3px 10px 10px;
+    margin: 5px 0;
+}
+.card_module_tit {
+    color: #666;
+    position: relative;
+    padding: 10px 0;
+    font-size: 18px;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin: 10px 0;
+}
+.card_module_vcard {
+    position: relative;
+}
+.card_module_vcard a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+}
+.card_module_face {
+    float: left;
+    margin-right: 20px;
+    width: 70px;
+    height: 70px;
+    position: relative;
+}
+.card_module_face img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.card_module_info1 {
+    width: 70%;
+    float: left;
+}
+.vcard_info_name {
+    font-size: 18px;
+    color: #333;
+    line-height: 30px;
+}
+.vcard_info_position, .vcard_info_tel {
+    color: #666;
+    font-size: 14px;
+    line-height: 20px;
+}
+.card_module_info1:after {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #aaa;
+    border-bottom: none;
+    border-right: none;
+    display: block;
+    content: "";
+    position: absolute;
+    top: 37%;
+    right: 0;
+    transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+}
+.cl {
+    clear: both;
+}
+/*名片结束*/
+/*联系我们开始*/
+.card_module {
+    background: #f8f8f8;
+    text-align: left;
+    padding: 3px 10px 10px;
+    margin: 5px 0;
+}
+.card_module_con {
+    margin-bottom: 10px;
+}
+.card_module_vcard {
+    position: relative;
+}
+.weui-article {
+    padding: 10px;
+    margin-bottom: 5px;
+}
+.weui-article p {
+    font-size: 14px;
+}
+.weui-address {
+    margin-right: .8em;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    float: left;
+}
+.weui-address span {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+.address_icon {
+    background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/address.png) no-repeat center;
+}
+.weui-address_info {
+    float: left;
+    width: 75%;
+}
+.weui-address_info h4 {
+    color: #888;
+    font-size: .8rem;
+    margin: 10px 0 2px 0;
+    display: inline-block;
+}
+.weui-address_info p {
+    margin-bottom: .6rem;
+    padding-right: 15px;
+    font-size: 16px;
+    color: #000;
+    margin-top:0px;
+}
+.card_module_info {
+	position: relative;
+}
+.weui-address-btn {
+    width: 10%;
+    float: right;
+    text-align: center;
+    margin-top: 15px;
+    position: absolute;
+    top:0px;
+    right: 0;
+}
+.weui-address-btn a {
+    color: #000;
+    font-size: 14px;
+    padding: 5px;
+    display: inline-block;
+    box-shadow: inset 0 0 0 1px rgba(120,130,140,.25);
+    border-radius: 5px;
+}
+.tel{
+    background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/tel.png) no-repeat center;
+}
+.mobile{
+    background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/mobile.png) no-repeat center;
+}
+.email{
+    background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/email.png) no-repeat center;
+}
+.qq{
+    background: url(/Public/product/static_edit/cli/umeditor/themes/default/images/QQ.png) no-repeat center;
+}
+/*联系我们结束*/

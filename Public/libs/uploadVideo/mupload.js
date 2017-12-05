@@ -184,6 +184,14 @@ function initTable(otableid){
         thead.push('<th>操作</th>');
         thead.push('</tr></thead>');
     $table.append(thead.join(''));
+    var tfoot = [
+        '<tfoot><tr style="background-color:#f2f2f2;color: #999999;">',
+        '<td colspan="4">',
+        '<span>上传文件</span>',
+        '</td>',
+        '</tr></tfoot>',
+    ].join('');
+    $table.append(tfoot);
     $table.append('<tbody></tbody>');
     changeNoFileBox(otableid, 0)
 }
