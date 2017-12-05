@@ -159,7 +159,11 @@ class HuomaController extends HomeController{
         $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
         $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
         //获取访问者信息
-        $info               = getIPLoc_taobao(getIP());
+        $result = file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip='.getIP());  
+        $result = json_decode($result,true); 
+        $info            = $result['data'];
+        $info['os']      = getOS();
+        $info['browser'] = getBrowser();
         $info['codeId']     = $videourl[0]['id'];
         $info['createTime'] = date('Y-m-d H:i:s');
 
@@ -188,11 +192,6 @@ class HuomaController extends HomeController{
      * 多网址跳转
      */
     public function duo (){
-        $ifAdd = 1;
-        if (session('visitTime') > time()-10) {
-            $ifAdd = 0;
-        }
-
         $d = I('d/s');
         $obj = M('cms_duourl');
         $rs = $obj->where(['d'=>$d,'status'=>1])->find();
@@ -224,18 +223,20 @@ class HuomaController extends HomeController{
              break;
         }
 
-        session('visitTime',time());
         if ($tzurl){
-            if ($ifAdd) {
-                $userMod->where(['id'=>$rs['uid']])->setInc('visitCount', 1);
-                $obj->where(array('d' => $d)) ->setInc('count', 1);
-                //获取访问者信息
-                $info               = getIPLoc_taobao(get_client_ip());
-                $info['codeId']     = $rs['id'];
-                $info['createTime'] = date('Y-m-d H:i:s');
-                $info['type']       = 5;
-                M('echarts_data')->add($info);
-            }
+            $userMod->where(['id'=>$rs['uid']])->setInc('visitCount', 1);
+            $obj->where(array('d' => $d)) ->setInc('count', 1);
+            //获取访问者信息
+            $result = file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip='.getIP());  
+            $result = json_decode($result,true); 
+            $info            = $result['data'];
+            $info['os']      = getOS();
+            $info['browser'] = getBrowser();
+            // $info               = getIPLoc_taobao(get_client_ip());
+            $info['codeId']     = $rs['id'];
+            $info['createTime'] = date('Y-m-d H:i:s');
+            $info['type']       = 5;
+            M('echarts_data')->add($info);
             redirect($tzurl);
         }else{
             $this -> error('参数错误');
