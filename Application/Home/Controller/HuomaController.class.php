@@ -122,36 +122,55 @@ class HuomaController extends HomeController{
      * 默认活码跳转（视频活码、网址活码）
      */
     public function index(){
+        $ifAdd = 1;
+        if (session('visitTime') > time()-10) {
+            $ifAdd = 0;
+        }
         $d = I('d/s');
         $obj = M('cms_phone');
-        $data = $obj->where(['d'=>$d,'status'=>1])->find();
-        if (!$data) {
-            $this->assign('errorMsg','页面不存在或者未通过审核╮(︶﹏︶")╭');
-            return $this->display('Public/unfined');
+        if ($ifAdd) {
+            $data = $obj->where(['d'=>$d,'status'=>1])->find();
+            if (!$data) {
+                $this->assign('errorMsg','页面不存在或者未通过审核╮(︶﹏︶")╭');
+                return $this->display('Public/unfined');
+            }
+            $userMod = D('User');
+            $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
+            if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
+                $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
+                return $this->display('Public/unfined');
+            }
+            $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
+            $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
         }
-        $userMod = D('User');
-        $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
-        if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
-            $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
-            return $this->display('Public/unfined');
-        }
-        $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
-        $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+        
 
         $type     = $obj -> where(array('d' => $d)) -> getField('type');
         $videourl = $obj -> where(array('d' => $d)) -> getField('0,id,title,videourl,huoma');
         $url      = $obj -> where(array('d' => $d)) -> getField('videourl');
         //获取访问者信息
-        $info               = getIPLoc_taobao(get_client_ip());
-        $info['codeId']     = $videourl[0]['id'];
-        $info['createTime'] = date('Y-m-d H:i:s');
+        if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){  
+            $IPaddress = $_SERVER["HTTP_X_FORWARDED_FOR"];  
+        } else if (isset($_SERVER["HTTP_CLIENT_IP"])) {  
+            $IPaddress = $_SERVER["HTTP_CLIENT_IP"];  
+        } else {  
+            $IPaddress = $_SERVER["REMOTE_ADDR"];  
+        }
+        if ($ifAdd) {
+            $info               = getIPLoc_taobao($IPaddress);
+            $info['codeId']     = $videourl[0]['id'];
+            $info['createTime'] = date('Y-m-d H:i:s');
+        }
+
+        session('visitTime',time());
 
         if ($type == 2 && $videourl){
             $domainSuffix = 'http://'.C('USER_DOMAIN');
             //视频活码跳转
-            $info['type'] = 3;
-            M('echarts_data')->add($info);
-            //$huoma = $obj -> where(array('d' => $d)) -> getField('huoma');
+            if ($ifAdd) {
+                $info['type'] = 3;
+                M('echarts_data')->add($info);
+            }
             $videoTitle = '{"mediaTitle": "'.$videourl[0]['title'].'"}';
             $this->assign('title',$videourl[0]['title']);
             $this->assign('videoTitle',$videoTitle);
@@ -160,8 +179,10 @@ class HuomaController extends HomeController{
             $this->display();
         }elseif ($type == 1 && $url){
             //网址活码跳转
-            $info['type'] = 4;
-            M('echarts_data')->add($info);
+            if ($ifAdd) {
+                $info['type'] = 4;
+                M('echarts_data')->add($info);
+            }
             redirect($url);
         }else{
             $this -> error('参数错误');

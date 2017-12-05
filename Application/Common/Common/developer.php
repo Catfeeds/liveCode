@@ -638,10 +638,11 @@ function getIPLoc_taobao($queryIP){
     // curl_close($ch); 
     // $result = array(); 
     // preg_match("/(?:\()(.*)(?:\))/i",$location, $result); 
-    // return json_decode($result[1],true);
-// halt(json_decode($result[1],true));
+    // // return json_decode($result[1],true);
+    // $result['data'] = json_decode($result[1],true);
+// halt($result['data']);
 
-    $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$queryIP;  
+    $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$queryIP; 
     $result = file_get_contents($url);  
     $result = json_decode($result,true); 
 
@@ -655,7 +656,7 @@ function getIPLoc_taobao($queryIP){
     // curl_close($ch);  
 // halt($result);
 
-    if($result['code']!==0 || !is_array($result['data'])) return false;  
+    // if($result['code']!==0 || !is_array($result['data'])) return false;  
     $result['data']['os']      = getOS();
     $result['data']['browser'] = getBrowser();
     return $result['data'];
