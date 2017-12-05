@@ -138,10 +138,6 @@ class HuomaController extends HomeController{
      * 默认活码跳转（视频活码、网址活码）
      */
     public function index(){
-        $ifAdd = 1;
-        if (session('visitTime') > time()-10) {
-            $ifAdd = 0;
-        }
         $d = I('d/s');
         $obj = M('cms_phone');
         $data = $obj->where(['d'=>$d,'status'=>1])->find();
@@ -160,24 +156,19 @@ class HuomaController extends HomeController{
         $videourl = $obj -> where(array('d' => $d)) -> getField('0,id,title,videourl,huoma');
         $url      = $obj -> where(array('d' => $d)) -> getField('videourl');
 
-        if ($ifAdd) {
-            $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
-            $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
-            //获取访问者信息
-            $info               = getIPLoc_taobao(getIP());
-            $info['codeId']     = $videourl[0]['id'];
-            $info['createTime'] = date('Y-m-d H:i:s');
-        }
+        $userMod->where(['id'=>$data['uid']])->setInc('visitCount', 1);
+        $obj->where(['d'=>$d,'status'=>1])->setInc('count', 1);
+        //获取访问者信息
+        $info               = getIPLoc_taobao(getIP());
+        $info['codeId']     = $videourl[0]['id'];
+        $info['createTime'] = date('Y-m-d H:i:s');
 
-        session('visitTime',time());
 
         if ($type == 2 && $videourl){
             $domainSuffix = 'http://'.C('USER_DOMAIN');
             //视频活码跳转
-            if ($ifAdd) {
-                $info['type'] = 3;
-                M('echarts_data')->add($info);
-            }
+            $info['type'] = 3;
+            M('echarts_data')->add($info);
             $videoTitle = '{"mediaTitle": "'.$videourl[0]['title'].'"}';
             $this->assign('title',$videourl[0]['title']);
             $this->assign('videoTitle',$videoTitle);
@@ -186,10 +177,8 @@ class HuomaController extends HomeController{
             $this->display();
         }elseif ($type == 1 && $url){
             //网址活码跳转
-            if ($ifAdd) {
-                $info['type'] = 4;
-                M('echarts_data')->add($info);
-            }
+            $info['type'] = 4;
+            M('echarts_data')->add($info);
             redirect($url);
         }else{
             $this -> error('参数错误');
