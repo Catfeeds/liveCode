@@ -69,7 +69,7 @@ class HuomaController extends HomeController{
                 $data['url'][$key] = $value;
             }
             if (!empty($data['url'][0]['content'])) {
-                $data['content'] = preg_replace('/\/Uploads/', $domainSuffix . '/Uploads', $data['url'][0]['content']);
+                $data['url'][0]['content'] = preg_replace('/\/Uploads/', $domainSuffix . '/Uploads', $data['url'][0]['content']);
             }
             $this->assign('data',$data);
             $this->display('live_url');
