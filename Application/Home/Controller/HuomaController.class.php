@@ -22,8 +22,11 @@ class HuomaController extends HomeController{
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
-        $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
-        if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
+        $user = $userMod->alias('u')->field('v.limit_count,u.visitCount,u.expire_time')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
+        if (!$user || $user['expire_time'] < time()) {
+            $this->assign('errorMsg','对不起，活码到期已限制访问╮(︶﹏︶")╭<br>请稍后重新扫描');
+            return $this->display('Public/unfined');
+        }elseif ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
             $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
@@ -102,8 +105,11 @@ class HuomaController extends HomeController{
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
-        $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
-        if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
+        $user = $userMod->alias('u')->field('v.limit_count,u.visitCount,u.expire_time')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
+        if (!$user || $user['expire_time'] < time()) {
+            $this->assign('errorMsg','对不起，活码到期已限制访问╮(︶﹏︶")╭<br>请稍后重新扫描');
+            return $this->display('Public/unfined');
+        }elseif ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
             $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
@@ -150,8 +156,11 @@ class HuomaController extends HomeController{
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
-        $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
-        if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
+        $user = $userMod->alias('u')->field('v.limit_count,u.visitCount,u.expire_time')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$data['uid'])->find();
+        if (!$user || $user['expire_time'] < time()) {
+            $this->assign('errorMsg','对不起，活码到期已限制访问╮(︶﹏︶")╭<br>请稍后重新扫描');
+            return $this->display('Public/unfined');
+        }elseif ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
             $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
@@ -212,8 +221,11 @@ class HuomaController extends HomeController{
             return $this->display('Public/unfined');
         }
         $userMod = D('User');
-        $user = $userMod->alias('u')->field('limit_count,visitCount')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$rs['uid'])->find();
-        if ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
+        $user = $userMod->alias('u')->field('v.limit_count,u.visitCount,u.expire_time')->join('__VIP__ v on u.vipId=v.id')->where('u.id='.$rs['uid'])->find();
+        if (!$user || $user['expire_time'] < time()) {
+            $this->assign('errorMsg','对不起，活码到期已限制访问╮(︶﹏︶")╭<br>请稍后重新扫描');
+            return $this->display('Public/unfined');
+        }elseif ($user['limit_count'] != 0 && $user['visitCount'] >= $user['limit_count']) {
             $this->assign('errorMsg','对不起，活码扫描次数已达上限╮(︶﹏︶")╭<br>请稍后重新扫描');
             return $this->display('Public/unfined');
         }
