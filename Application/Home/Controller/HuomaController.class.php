@@ -10,7 +10,7 @@ class HuomaController extends HomeController{
      */
     public function live(){
         $ifAdd = 1;
-        if (session('visitTime') > time()-10) {
+        if (session('visitTime') > time()-15) {
             $ifAdd = 0;
         }
 
@@ -93,7 +93,7 @@ class HuomaController extends HomeController{
      */
     public function product(){
         $ifAdd = 1;
-        if (session('visitTime') > time()-10) {
+        if (session('visitTime') > time()-15) {
             $ifAdd = 0;
         }
 
@@ -145,7 +145,7 @@ class HuomaController extends HomeController{
      */
     public function index(){
         $ifAdd = 1;
-        if (session('visitTime') > time()-10) {
+        if (session('visitTime') > time()-15) {
             $ifAdd = 0;
         }
         $d = I('d/s');
@@ -209,7 +209,7 @@ class HuomaController extends HomeController{
      */
     public function duo (){
         $ifAdd = 1;
-        if (session('visitTime') > time()-10) {
+        if (session('visitTime') > time()-15) {
             $ifAdd = 0;
         }
 
